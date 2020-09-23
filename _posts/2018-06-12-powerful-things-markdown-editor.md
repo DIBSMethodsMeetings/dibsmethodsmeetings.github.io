@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Powerful things you can do with the Markdown editor"
+title:  "How to make a free academic website"
 author: sal
 categories: [ Jekyll, tutorial ]
 image: assets/images/16.jpg
