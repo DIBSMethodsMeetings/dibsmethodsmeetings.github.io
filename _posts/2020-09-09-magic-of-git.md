@@ -50,30 +50,22 @@ This is where [GitHub](https://github.com) comes in. It's a place where you can 
 Before we get into the details of using git, let's set up some standard terminology:
 
 
-| Jargon | Definition |
-| :---: | --- |
-| Repository | the folder that holds all of your files, as well as a `.git` sub-folder |
-| Commit (noun) | a "save-point" that freezes on version of your repository |
-| Commit (verb) | to create a new commit local to your computer |
-| Branch (noun) | a sequential chain of commits that has a name (e.g., "master") |
-| Branch (verb) | to create a new branch |
-| Clone | to download a repository from the internet (e.g., GitHub) to your computer |
-| Checkout | to switch to a commit (or, open a save-point) |
-| Fetch  | to update your `.git` folder with changes made online  |
-| Pull  | to apply new commits to your old repository- like "Fetch" but also applies new changes |
-| Push  | to update the online repository with your new commits  |
-| Merge | to mix together two sets of changes from two different branches |
+- **Repository**: the folder that holds all of your files, as well as a `.git` sub-folder
+- **Commit (noun)**: a "save-point" that freezes on version of your repository
+- **Commit (verb)**: to create a new commit local to your computer
+- **Branch (noun)**: a sequential chain of commits that has a name (e.g., "master")
+- **Branch (verb)**: to create a new branch
+- **Clone**: to download a repository from the internet (e.g., GitHub) to your computer
+- **Checkout**: to switch to a commit (or, open a save-point)
+- **Fetch**: to update your `.git` folder with changes made online
+- **Pull**: to apply new commits to your old repository- like "Fetch" but also applies new changes
+- **Push**: to update the online repository with your new commits
+- **Merge**: to mix together two sets of changes from two different branches
 
 ---
 
 # Setup
 ## Installation
-
-
-<!-- | Windows | Mac OSX | Linux (Ubuntu) |
-| --- | --- | --- |
-| 1. [Follow these instructions!](https://gitforwindows.org/) | 1. Install [HomeBrew](https://brew.sh/) <br> 2. Open a terminal <br> 3. Type in `brew install git` and press `Enter` | 1. Open a terminal <br> 2. Type in `sudo apt-get install git` and press `Enter` |
-<br> -->
 
 ### Windows
 1. [Follow these instructions!](https://gitforwindows.org/)
@@ -266,14 +258,13 @@ Sometimes, if the set of changes made in the two branches you're merging are inc
 > 1. Open up a terminal and navigate to your local repository
 > 2. Enter the command `git status`- it should tell you that both branches modified the file `README.md`
 > 3. Open the `README.md` file in a text editor of your choice and scroll to where you added your name
-> 4. You should see some funky text that looks like this:
->    ```
->    <<<<<<< HEAD
->    - <your name>
->    =======
->    - <someone else's name>
->    >>>>>>> <some funky commit number>
->    ```
+> 4. You should see some funky text that looks like this:<br>
+>    \<\<\<\<\<\<\< HEAD<br>
+>    \- \<your name\><br>
+>    =======<br>
+>    \- \<someone else's name\><br>
+>    \>\>\>\>\>\>\> <some funky commit number>
+>
 > 5. The signs `<<<<<<<`, `=======`, and `>>>>>>>` are markers that tell you where the merge conflict happened, which changes are yours, and which changes are someone else's. To keep both changes and resolve the conflict, simply delete the lines containing these markers
 > 6. To continue the merging process, you can either use `git merge --continue` or `git commit`.
 
