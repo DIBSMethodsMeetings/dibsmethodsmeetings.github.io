@@ -1,7 +1,7 @@
 # Site
 name: "Duke Neuroscience Methods Club"
 title: "Duke Neuroscience Methods Club"
-description: "Website for workshops and tutorials on various neuroscience methods."
+description: "Workshops and tutorials on various neuroscience methods."
 logo: 'assets/images/logo.png'
 favicon: 'assets/images/logo.png'
 baseurl: 
@@ -16,7 +16,7 @@ authors:
     avatar: assets/images/kevin.jpg
     gravatar: 
     email: kevin.oneill@duke.edu
-    web: kevingoneill.github.io
+    web: https://kevingoneill.github.io
     twitter: https://twitter.com/kevingoneill
     description: "Graduate student at Duke University working with Felipe De Brigard and John Pearson on causal reasoning."
 
@@ -26,7 +26,7 @@ authors:
     avatar: 
     gravatar: 
     email: amw73@duke.edu
-    web: draelos.github.io
+    web: https://draelos.github.io
     twitter: https://twitter.com/annedraelos
     description: "This is the author box. Write a short description of the author here."
 
