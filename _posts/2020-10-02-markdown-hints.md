@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "How to make a free academic website"
+title:  "Markdown hints"
 author: anne
-categories: [ Jekyll, tutorial ]
+categories: [ Jekyll ]
 image: assets/images/academic_website.png
 hidden: true
 ---
@@ -86,8 +86,6 @@ puts markdown.to_html
 ```c
 printf("Hello World");
 ```
-
-
 
 
 ![walking]({{ site.baseurl }}/assets/images/8.jpg)

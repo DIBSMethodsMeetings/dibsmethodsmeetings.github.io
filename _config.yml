@@ -23,12 +23,12 @@ authors:
   anne:
     name: Anne
     display_name: Anne
-    avatar: 
+    avatar: assets/images/anne.jpg
     gravatar: 
     email: amw73@duke.edu
     web: https://draelos.github.io
     twitter: https://twitter.com/annedraelos
-    description: "This is the author box. Write a short description of the author here."
+    description: "Postdoc in biostats & neuroscience at Duke University working on real-time adaptive experimental methods."
 
 # Plugins
 plugins:
