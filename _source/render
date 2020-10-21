@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ "$#" -ne 1 ]; then
+    echo echo -e "usage: render <file>.Rmd\n"
+    exit
+fi
+
+if [ ! -f "$1" ]; then
+    echo "$1 does not exist."
+    exit
+fi
+
+if [[ $1 != *.Rmd ]]; then
+    echo "$1 is not an R markdown (Rmd) file."
+    exit
+fi
+
+R -e "library(rmarkdown); render('$1', 'md_document', output_dir='../_posts')"
