@@ -4,7 +4,7 @@ title:  "The Magical Wonders of Git"
 author: kevin
 categories: [ tutorial ]
 image: assets/images/magic_git.png
-featured: true
+featured: false
 hidden: false
 ---
 ## Why git?

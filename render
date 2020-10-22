@@ -15,4 +15,12 @@ if [[ $1 != *.Rmd ]]; then
     exit
 fi
 
-R -e "library(rmarkdown); render('$1', 'md_document', output_dir='../_posts')"
+## Remove existing output file
+F=${1%.*}
+F="_posts/${F##*/}.md"
+if [[ -f "$F" ]]; then
+    rm "$F"
+fi
+
+## Render Rmd to md
+R -e "library(rmarkdown); render('$1', 'md_document', output_dir='_posts')"

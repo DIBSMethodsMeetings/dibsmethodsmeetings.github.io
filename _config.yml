@@ -10,15 +10,15 @@ permalink: /:title/
 
 # Authors
 authors:
-  kevin:
-    name: Kevin
-    display_name: Kevin O'Neill
-    avatar: assets/images/kevin.jpg
+  allie:
+    name: Allie
+    display_name: Allie Sinclair
+    avatar:
     gravatar:
-    email: kevin.oneill@duke.edu
-    web: https://kevingoneill.github.io
-    twitter: https://twitter.com/kevingoneill
-    description: "Graduate student at Duke University working with Felipe De Brigard and John Pearson on causal reasoning."
+    email: allie.sinclair@duke.edu
+    web:
+    twitter:
+    description:
 
   anne:
     name: Anne
@@ -30,14 +30,24 @@ authors:
     twitter: https://twitter.com/annedraelos
     description: "Postdoc in biostats & neuroscience at Duke University working on real-time adaptive experimental methods."
 
-  allie:
-    name: Allie
-    display_name: Allie Sinclair
-    avatar:
+  kevin:
+    name: Kevin
+    display_name: Kevin O'Neill
+    avatar: assets/images/kevin.jpg
     gravatar:
-    email: allie.sinclair@duke.edu
-    web:
-    twitter:
+    email: kevin.oneill@duke.edu
+    web: https://kevingoneill.github.io
+    twitter: https://twitter.com/kevingoneill
+    description: "Graduate student at Duke University working with Felipe De Brigard and John Pearson on causal reasoning."
+
+  maria:
+    name: Maria
+    display_name: Maria Khoudary
+    avatar: 
+    gravatar:
+    email: maria.khoudary@duke.edu
+    web: 
+    twitter: 
     description: 
 
 # Plugins
