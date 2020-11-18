@@ -22,14 +22,14 @@ authors:
 
   anne:
     name: Anne
-    display_name: Anne
+    display_name: Anne Draelos
     avatar: assets/images/anne.jpg
     gravatar:
     email: amw73@duke.edu
     web: https://draelos.github.io
     twitter: https://twitter.com/annedraelos
     description: "Postdoc in biostats & neuroscience at Duke University working on real-time adaptive experimental methods."
-
+    
   kevin:
     name: Kevin
     display_name: Kevin O'Neill
@@ -48,7 +48,17 @@ authors:
     email: maria.khoudary@duke.edu
     web: 
     twitter: 
-    description: 
+    description:
+
+  raphael&candice:
+    name: Raphael & Candice
+    display_name: Raphael Geddert & Candice Wang
+    avatar:
+    gravatar:
+    email: "raphael.geddert@duke.edu,yuxi.wang@duke.edu"
+    web:
+    twitter:
+    description:
 
 # Plugins
 plugins:
