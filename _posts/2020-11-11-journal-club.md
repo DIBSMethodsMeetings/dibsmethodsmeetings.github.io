@@ -1,5 +1,13 @@
-# Methods Meeting Journal Club: Gomila (2020)
-## *Logistic or Linear? Estimating Causal Effects of Experimental Treatments on Binary Outcomes Using Regression Analysis*
+---
+layout: post
+title:  "Journal Club: Gomila (2020)"
+author: maria
+categories: [ journal club ]
+image: assets/images/2020-11-11-journal-club/paper_title.jpg
+featured: false
+hidden: false
+---
+A summary and some questions for group discussion.
 
 <br>
 

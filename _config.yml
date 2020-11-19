@@ -29,7 +29,7 @@ authors:
     web: https://draelos.github.io
     twitter: https://twitter.com/annedraelos
     description: "Postdoc in biostats & neuroscience at Duke University working on real-time adaptive experimental methods."
-    
+
   kevin:
     name: Kevin
     display_name: Kevin O'Neill
@@ -43,12 +43,12 @@ authors:
   maria:
     name: Maria
     display_name: Maria Khoudary
-    avatar: 
+    avatar: assets/images/maria.jpg
     gravatar:
     email: maria.khoudary@duke.edu
-    web: 
-    twitter: 
-    description:
+    web: https://imclab.org/people
+    twitter: https://twitter.com/maria_khoudary
+    description: "Lab manager & research assistant working with Felipe De Brigard on memory, perception, and metacognition."
 
   raphael&candice:
     name: Raphael & Candice
