@@ -3,7 +3,7 @@ title: "Intro to Mixed Effects Regression in R"
 author: allie
 categories: [ tutorial ]
 image: assets/images/2020-10-21-lmer-intro/dragon.png
-featured: true
+featured: false
 hidden: false
 output:
   html_document: default
