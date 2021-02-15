@@ -13,11 +13,11 @@ authors:
   allie:
     name: Allie
     display_name: Allie Sinclair
-    avatar:
+    avatar: assets/images/Sinclair.jpeg
     gravatar:
     email: allie.sinclair@duke.edu
-    web:
-    twitter:
+    web: https://alyssasinclair.com
+    twitter: https://twitter.com/sinclair_allie
     description:
 
   anne:
@@ -46,7 +46,7 @@ authors:
     avatar: assets/images/maria.jpg
     gravatar:
     email: maria.khoudary@duke.edu
-    web: https://twitter.com/maria_khoudary
+    web: https://mariakhoudary.com
     twitter: https://twitter.com/maria_khoudary
     description: "Lab manager & research assistant working with Felipe De Brigard on memory, perception, and metacognition."
 
