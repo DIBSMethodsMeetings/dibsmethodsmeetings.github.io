@@ -2,7 +2,7 @@
 title: "Intro to Bayesian Regression in R"
 author: kevin
 categories: [ tutorial ]
-image: assets/images/2020-10-21-lmer-intro/dragon.png
+image: assets/images/2021-02-17-brms-intro/bayes_dragon.png
 featured: true
 hidden: false
 output:
@@ -26,9 +26,10 @@ Acknowledgments: To make our analyses directly comparable to analyses
 we’ve already covered, this workshop is directly copied from Allie’s
 awesome [workshop on Frequentist mixed-effect
 regression](dukeneuromethods.github.io). That workshop was adapted from
-code provided by Gabriela K Hajduk (gkhajduk.github.io), who in turn
+code provided by [Gabriela K Hajduk](gkhajduk.github.io), who in turn
 referenced a workshop developed by Liam Bailey. Parts of the tutorial
-are also adapted from a lesson on partial pooling by Tristan Mahr.
+are also adapted from a lesson on partial pooling by [Tristan
+Mahr](https://www.tjmahr.com/).
 
 For further reading, please check out their tutorials and blogs here:
 <br> <https://gkhajduk.github.io/2017-03-09-mixed-models/> <br>
@@ -43,7 +44,8 @@ settings, load packages, and read our data.
 
 ``` r
 #change some settings
-options(contrasts = c("contr.sum","contr.poly")) #this tweaks the sum-of-squares settings to make sure the output of Anova(model) and summary(model) are consistent and appropriate when a model has interaction terms
+options(contrasts = c("contr.sum","contr.poly")) 
+#this tweaks makes sure that contrasts are interpretable as main effects
 
 #time to load some packages!
 library(lme4) #fit the models
@@ -65,7 +67,11 @@ library(bayestestR) # for testing over posteriors
 dragons <- read.csv("2020-10-21-dragon-data.csv")
 ```
 
-<br><br><br><br><br>
+<br>
+
+------------------------------------------------------------------------
+
+<br>
 
 ## Data
 
@@ -78,12 +84,12 @@ research question is whether the length of the dragon is related to its
 intelligence.
 
 We also have some other information about each dragon: We know about the
-mountain range where it lives, color, diet, and whether or not it
-breathes fire.
+mountain range where it lives, its color, its diet, and whether or not
+it breathes fire.
 
-<br><br><br>
+<br>
 
-Take a look at the data and check the counts of our variables.
+Let’s take a look at the data and check the counts of our variables:
 
 ``` r
 # take a peek at the header
@@ -116,10 +122,10 @@ table(dragons$breathesFire)
     ##   0   1 
     ## 229 251
 
-<br><br><br>
+<br>
 
-Let’s check distributions. Do test scores and body length measurements
-look approximately normal?
+Now let’s check distributions. Do test scores and body length
+measurements look approximately normal?
 
 ``` r
 #check assumptions: do our continuous variables have approximately normal distributions?
@@ -134,7 +140,11 @@ hist(dragons$bodyLength)
 
 <img src="/assets/images/2021-02-17-brms-intro/Distributions-2.png" style="display: block; margin: auto;" />
 
-<br><br><br>
+<br>
+
+------------------------------------------------------------------------
+
+<br>
 
 ## Bayesian Linear Regression
 
@@ -336,9 +346,16 @@ this range are the 95% most probable values). We also get some
 convergence information for each parameter (`Rhat`, `Bulk_ESS`, and
 `Tail_ESS`), which we’ll talk about later.
 
+You also might be wondering what the heck is the deal with all those
+`chain` outputs. Those are just updates on the algorithm `brms` uses to
+compute the posterior. It’s called Markov-Chain Monte Carlo (MCMC)
+sampling and you can learn more about it
+[here](https://towardsdatascience.com/bayesian-inference-problem-mcmc-and-variational-inference-25a8aa9bce29)
+if you’re interested.
+
 To perform significance testing on our Bayesian regression model, we can
 use the nifty `describe_posterior` function from the `bayestestR`
-package, which can compute a bunch of different tests for us:
+package, which computes a bunch of different tests for us:
 
 ``` r
 describe_posterior(model.bayes, ci=.95, rope_ci=.95,
@@ -354,23 +371,23 @@ describe_posterior(model.bayes, ci=.95, rope_ci=.95,
 
 Like before, this gives us summaries of our posterior (in this case the
 median and 95% CI). But this time we also see two measures of effect
-existence, analogous to *p*-value. `p_MAP` is the posterior density at 0
-divided by the posterior density at the mode, and is on the same scale
-as a *p*-value. `pd` is the probability of direction, which is the
-percentage of the posterior that all has the same sign (whichever is
-greater). We also get two measures of effect significance: the
-`% in ROPE` tells us how much of the posterior is inside a null region
-(in this case a standardized effect size of &lt; .1), and `BF` is a
-Bayes Factor, where BF &gt; 1 indicates support for the alternative
-hypothesis and BF &lt; 1 indicates support for the null hypothesis.
-There is a whole lot of discussion about which of these metrics are best
-to use, and we could take a whole meeting talking about this. But for
-now, we can take solace that all of the measures agree- just like we saw
-before, it looks like the effect of body length is significant!
-<br><br><br>
+existence, analogous to *p*-values on Frequentist approaches. `p_MAP` is
+the posterior density at 0 divided by the posterior density at the mode,
+and is on the same scale as a *p*-value. `pd` is the probability of
+direction, which is the percentage of the posterior that all has the
+same sign (whichever is greater). We also get two measures of effect
+significance: the `% in ROPE` tells us how much of the posterior is
+inside a null region (in this case a standardized effect size of &lt;
+.1), and `BF` is a Bayes Factor, where BF &gt; 1 indicates support for
+the alternative hypothesis and BF &lt; 1 indicates support for the null
+hypothesis. There is a whole lot of discussion about which of these
+metrics are best to use, and we could take a whole meeting talking about
+this. But for now, we can take solace that all of the measures agree-
+just like we saw before, it looks like the effect of body length is
+significant! <br><br><br>
 
 We saw that the estimates and inferences from both models look similar,
-but let’s plot the data with ggplot2 to see how much they actually
+but let’s plot the data with `ggplot2` to see how much they actually
 overlap.
 
 ``` r
@@ -428,13 +445,13 @@ do here), then our model has converged. Otherwise, `brms` will give us
 some warnings that things went awry, and will give us advice for how to
 solve the problem.
 
-Another benefit of `brms` is that since our model is generative, we can
-use it to simulate test scores and see how well it covers the actual
-distribution of test scores. This is called a “posterior predictive
-check.” Here the dark line is the actual distribution of test scores,
-and each light lines is the distribution of test scores predicted by a
-single sample of the posterior. Since the light lines mostly cover the
-solid line, it looks like our model fits the data fairly well:
+Another benefit of `brms` is that we can use it to simulate test scores
+and see how well it covers the actual distribution of test scores. This
+is called a “posterior predictive check.” Here the dark line is the
+actual distribution of test scores, and each light line is the
+distribution of test scores predicted by a single sample of the
+posterior. Since the light lines mostly cover the solid line, it looks
+like our model fits the data fairly well:
 
 ``` r
 pp_check(model.bayes)
@@ -444,10 +461,11 @@ pp_check(model.bayes)
 
 <br><br><br>
 
-But wait, we need to check assumptions! We can use `plot` for the
-Frequentist `lm` model. To check the assumptions of the Bayesian model,
-we can use `add_residual_draws` from the `tidybayes` package to get the
-residual posterior for each data point.
+But before we make any grand conclusions, we need to check that we met
+assumptions! We can use `plot` for the Frequentist `lm` model. To check
+the assumptions of the Bayesian model, we can use `add_residual_draws`
+from the `tidybayes` package to get the residual posterior for each data
+point.
 
 ``` r
 draws <- full_join(add_fitted_draws(dragons, model.bayes),
@@ -482,7 +500,8 @@ plot(model, which = 2)  # a bit off at the extremes, but that's often the case; 
 ``` r
 ggplot(draws, aes(sample=.residual)) +
     geom_qq() +
-    geom_qq_line()
+    geom_qq_line() +
+    theme_classic()
 ```
 
 <img src="/assets/images/2021-02-17-brms-intro/Assumptions-4.png" style="display: block; margin: auto;" />
@@ -512,7 +531,11 @@ in the dragon body length and in their test scores. This confirms that
 our observations from within each of the ranges aren’t independent. We
 can’t ignore that.
 
-<br><br><br><br><br>
+<br><br>
+
+------------------------------------------------------------------------
+
+<br><br>
 
 ## Bayesian Multilevel Linear Regression
 
@@ -521,7 +544,7 @@ in our data. We need to control for that variation if we want to
 understand whether body length really predicts test scores.
 
 Multilevel regression is a compromise: Partial pooling! We can let each
-mountain range have it’s own regression line, but make an informed guess
+mountain range have its own regression line, but make an informed guess
 about that line based on the group-level estimates. This is especially
 useful when some groups/participants have incomplete data.
 
@@ -537,13 +560,13 @@ effects (akin to “random” effects).
 
 <br><br>
 
-Should Mountain Range be a Population-level or Group-level effect?
+##### Should Mountain Range be a Population-level or Group-level effect?
 
 Since we want to estimate the mean effect of body-length over all
 mountain ranges, we want a population-level effect of body length. But
 since we also think that mountain ranges could have different mean test
 scores and different effects of body length, we also want separate
-group-level effects grouping over mountain ranges.
+group-level effects over mountain ranges.
 
 Here’s how we did this with `lmer`:
 
@@ -664,7 +687,7 @@ deviations look fairly similar to the `lmer` values, but the correlation
 looks much more reasonable than the `lmer` value (i.e., it’s no longer a
 perfect negative correlation).
 
-<br><br><br>
+<br>
 
 Overall, it looks like when we account for the effect of mountain range,
 there is no relationship between body length and test scores. This is
@@ -746,12 +769,8 @@ pp_check(model.diet)
 
 <img src="/assets/images/2021-02-17-brms-intro/Diet-1.png" style="display: block; margin: auto;" />
 
-What did we find?
-
-<br><br><br>
-
-Let’s visualize the effect of diet on test scores predicted by our
-model:
+Visualizing the effect of diet on test scores predicted by our model
+will help us better understand what we just found:
 
 ``` r
 #Plot average test score by diet type
@@ -759,7 +778,7 @@ dragons %>%
     data_grid(diet) %>%
     add_fitted_draws(model.diet, re_formula=NA) %>%
     ggplot(aes(x=diet, y=.value)) +
-    stat_halfeye() + ylim(0, NA) +
+    stat_halfeye(point_interval=median_hdi) + ylim(0, NA) +
     xlab("Diet") + ylab("Test Score") +
     theme_minimal()
 ```
@@ -772,7 +791,7 @@ dragons %>%
     data_grid(diet, mountainRange) %>%
     add_fitted_draws(model.diet) %>%
     ggplot(aes(x=diet, y=.value)) +
-    stat_halfeye() + ylim(0, NA) +
+    stat_halfeye(point_interval=median_hdi) + ylim(0, NA) +
     facet_wrap( ~ mountainRange) +
     xlab("Diet") + ylab("Test Score") +
     theme_minimal()
@@ -780,14 +799,22 @@ dragons %>%
 
 <img src="/assets/images/2021-02-17-brms-intro/Diet_Plots-2.png" style="display: block; margin: auto;" />
 
-Looks pretty consistent, but there’s obviously still variability between
-mountains. A nice thing about using a Bayesian model is that instead of
-being stuck with ugly bars and errorbars, we can directly plot how
-likely each mean is
+What are we looking at here? The black points represent the mode of the
+posterior, the thick black lines represent the 66% credible intervals,
+and the thinner black lines represnt the 95% credible intervals (also
+called highest density intervals). The curves in gray represent the full
+posterior distribution. A nice thing about using a Bayesian model is
+that instead of being stuck with ugly & often misleading bar charts, we
+can directly plot how likely each mean is along with the full posterior
+distribution.
+
+In sum, these results look pretty consistent, but there’s clearly still
+variability among different mountains.
 
 <br><br><br>
 
-What if we want to test multiple variables at the same time?
+So far, so good. But what if we’re interested in testing multiple
+variables at the same time? We build a model with an interaction term!
 
 ``` r
 model.diet.length <- brm(testScore ~ diet*scale(bodyLength) + (1 + diet*scale(bodyLength)|mountainRange),
@@ -926,9 +953,10 @@ pp_check(model.diet.length)
 
 <img src="/assets/images/2021-02-17-brms-intro/Multiple Regression-1.png" style="display: block; margin: auto;" />
 
-Looks like the effect of diet is still significant after we control for
-body length. We can also see that there’s no significant interaction
-between diet and body length.
+Since the BFs for diet are &gt; 10, it looks like the effect of diet is
+still significant after we control for body length. We can also see that
+there seems to be no main effect of body length or interactions between
+diet and body length, since their corresponding BFs are &lt; .14.
 
 Let’s plot the output again:
 
@@ -947,11 +975,14 @@ dragons %>%
 
 <img src="/assets/images/2021-02-17-brms-intro/Multiple_Pred-1.png" style="display: block; margin: auto;" />
 
+Here we can see that indeed, the effect of body length seems to be close
+to zero for all three diet types.
+
 <br><br><br>
 
-Does adding body length to our model make it any better? Since we’re
-Bayesians, we can compare *distributions* of adjusted R^2 values for
-each model:
+Hmm…. did adding body length to our model make it better? Since we’re
+Bayesian statisticians, we can compare *distributions* of adjusted
+R<sup>2</sup> values for each model to answer this question:
 
 ``` r
 R2 <- data.frame(model.diet=loo_R2(model.diet, summary=FALSE)[,1],
@@ -960,14 +991,17 @@ R2 <- data.frame(model.diet=loo_R2(model.diet, summary=FALSE)[,1],
     pivot_longer(model.diet:diff) %>%
     mutate(name=factor(name, levels=c('model.diet', 'model.diet.length', 'diff')))
 
-ggplot(R2, aes(x=name, y=value)) + stat_halfeye() + theme_minimal()
+ggplot(R2, aes(x=name, y=value)) +
+    stat_halfeye(point_interval=median_hdi) +
+    theme_minimal()
 ```
 
 <img src="/assets/images/2021-02-17-brms-intro/R2, -1.png" style="display: block; margin: auto;" />
 
-As we can see, both models have an R^2 of about 0.75, so adding body
-length doesn’t seem to help. We can also test their difference using
-LOO-IC:
+As we can see, both models have an R<sup>2</sup> of about 0.75, so
+adding body length doesn’t seem to help. We can also test their
+difference using
+[LOO-IC](http://mc-stan.org/rstanarm/reference/loo.stanreg.html):
 
 ``` r
 loo(model.diet, model.diet.length)
@@ -1019,7 +1053,11 @@ loo(model.diet, model.diet.length)
 Again we see that the model without diet does just as well, if not
 slightly better than, the model with both diet and body length.
 
-<br><br><br>
+<br>
+
+------------------------------------------------------------------------
+
+<br>
 
 Your turn! Try modifying the model above to test whether color is
 related to testScore, and whether color interacts with diet or
@@ -1036,16 +1074,21 @@ bodyLength.
 #Plot your results below:
 ```
 
-<br><br><br><br><br>
+<br>
+
+------------------------------------------------------------------------
+
+<br>
 
 ## Bayesian Multilevel Logistic Regression
 
-Okay, let’s test a new question. Test scores are lame. I actually want
+Okay, let’s test a new question. Test scores are boring. I actually want
 to know about which dragons breathe fire. This has way more important
 practical implications, and is more likely to get me grant funding.
 
-Good news: we have data on fire breathing! Bad news: It’s a binary
-variable, so we need to change our model.
+Good news: we have data on fire breathing!
+
+Bad news: It’s a binary variable, so we need to change our model.
 
 With `lmer`, you need to switch over to the `glmer` function to gain
 access to bernoulli models. But in `brms`, you just need to specify the
@@ -1099,15 +1142,15 @@ summary(logit_model, prior=TRUE)
     ## and Tail_ESS are effective sample size measures, and Rhat is the potential
     ## scale reduction factor on split chains (at convergence, Rhat = 1).
 
-<br><br><br>
+<br>
 
-Let’s plot the proportion of dragons that breathe fire by color.
+Now let’s plot the proportion of dragons that breathe fire by color:
 
 ``` r
 dragons %>% data_grid(color) %>%
     add_fitted_draws(logit_model, re_formula=NA, scale='response') %>%
     ggplot(aes(x=color, y=.value, fill=color)) +
-    stat_halfeye(show.legend=FALSE) +
+    stat_halfeye(point_interval=median_hdi, show.legend=FALSE) +
     scale_fill_manual(values=c('blue', 'red', 'yellow')) +
     xlab("Color") +
     ylab("Proportion that Breathes Fire") +
@@ -1116,7 +1159,11 @@ dragons %>% data_grid(color) %>%
 
 <img src="/assets/images/2021-02-17-brms-intro/Fire_Plot-1.png" style="display: block; margin: auto;" />
 
-<br><br><br>
+Looks like most blue dragons breathe fire, red dragons are only slightly
+more likely to breathe fire than not, and few yellow dragons breathe
+fire.
+
+<br>
 
 Your turn! Test whether other variables predict breathesFire.
 
@@ -1169,9 +1216,9 @@ summary(multi_model, prior=TRUE)
     ## and Tail_ESS are effective sample size measures, and Rhat is the potential
     ## scale reduction factor on split chains (at convergence, Rhat = 1).
 
-<br><br><br>
+<br>
 
-Let’s plot the proportion of dragons of each color by body length.
+Let’s plot the proportion of dragons of each color by body length:
 
 ``` r
 dragons %>% data_grid(bodyLength=seq_range(bodyLength, 100)) %>%
@@ -1188,10 +1235,13 @@ dragons %>% data_grid(bodyLength=seq_range(bodyLength, 100)) %>%
 
 <img src="/assets/images/2021-02-17-brms-intro/Color_Plot-1.png" style="display: block; margin: auto;" />
 
+We can see that while short dragons are likely to be red, long dragons
+are likely to be yellow, and mid-length dragons are likely to be blue.
+
 ## Bayesian Multilevel Unequal Variances Regression
 
 Another extremely useful example of a model that integrates seamlessly
-in `brms` but is unequal variance regression. In our model using diet to
+in `brms` is unequal variance regression. In our model using diet to
 predict test scores, we never checked that the variances in test scores
 between dragons with different diets was equal. Since this is an
 assumption of that model, it could be bad if that assumption doesn’t
@@ -1275,7 +1325,7 @@ draws <- dragons %>%
 
 draws %>%
     ggplot(aes(x=diet, y=.value)) +
-    stat_halfeye() + ylim(0, NA) +
+    stat_halfeye(point_interval=median_hdi) + ylim(0, NA) +
     xlab("Diet") + ylab("Test Score") +
     theme_minimal()
 ```
@@ -1285,7 +1335,7 @@ draws %>%
 ``` r
 draws %>%
     ggplot(aes(x=diet, y=sigma)) +
-    stat_halfeye() + ylim(0, NA) +
+    stat_halfeye(point_interval=median_hdi) + ylim(0, NA) +
     xlab("Diet") + ylab("Std Deviation Test Score") +
     theme_minimal()
 ```
@@ -1349,11 +1399,32 @@ assume equal variances without any problems. But this isn’t always the
 case, and many research programs are dedicated to explaining why
 different groups have different variances!
 
-<br><br><br><br><br>
+<br>
+
+------------------------------------------------------------------------
+
+<br>
+
+## Conclusions
+
+In this tutorial we demonstrated the basics of using `brms` to run
+Bayesian regressions that directly parallel what you’re likely used to
+running with `lm` and `lmer`. We also demonstrated how to run Bayesian
+significant tests with `bayestestR` and how to plot results from these
+models using `tidybayes`. Though there are many more details to
+specifying, running, and interpreting Bayesian models, hopefully this
+tutorial convinced you that making the first step is easier than you
+imagined!
+
+<br>
+
+------------------------------------------------------------------------
+
+<br>
 
 ## Convergence
 
-<br> Some parting tips and tricks:
+Some parting tips and tricks:
 
 Like with Frequentist multilevel models, one of the biggest concerns
 with convergence is whether you have enough data for your model

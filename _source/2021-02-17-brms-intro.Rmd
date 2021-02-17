@@ -2,7 +2,7 @@
 title: "Intro to Bayesian Regression in R"
 author: kevin
 categories: [ tutorial ]
-image: assets/images/2021-02-17-brms-intro/bayes_dragon_2.png
+image: assets/images/2021-02-17-brms-intro/bayes_dragon.png
 featured: true
 hidden: false
 output:
@@ -57,7 +57,7 @@ First, we'll just get everything set up. We need to tweak some settings, load pa
 ```{r echo=T, results='hide', error=FALSE, warning=FALSE, message=FALSE}
 #change some settings
 options(contrasts = c("contr.sum","contr.poly")) 
-#this tweaks the sum-of-squares settings to make sure the output of Anova(model) and summary(model) are consistent and appropriate when a model has interaction terms
+#this tweaks makes sure that contrasts are interpretable as main effects
 
 #time to load some packages!
 library(lme4) #fit the models
@@ -272,14 +272,13 @@ caterpillars (like they do here), then our model has
 converged. Otherwise, `brms` will give us some warnings that things
 went awry, and will give us advice for how to solve the problem.
 
-Another benefit of `brms` is that since our model is generative (i.e., <explain what you mean when you say this please>), we
-can use it to simulate test scores and see how well it covers the
-actual distribution of test scores. This is called a "posterior
-predictive check." Here the dark line is the actual distribution of
-test scores, and each light line is the distribution of test scores
-predicted by a single sample of the posterior. Since the light lines
-mostly cover the solid line, it looks like our model fits the data
-fairly well:
+Another benefit of `brms` is that we can use it to simulate test
+scores and see how well it covers the actual distribution of test
+scores. This is called a "posterior predictive check." Here the dark
+line is the actual distribution of test scores, and each light line is
+the distribution of test scores predicted by a single sample of the
+posterior. Since the light lines mostly cover the solid line, it looks
+like our model fits the data fairly well:
 
 ```{r PPC}
 pp_check(model.bayes)
@@ -436,7 +435,8 @@ describe_posterior(model.diet, ci=.95, rope_ci=.95,
 pp_check(model.diet)
 ```
 
-Visualizing the effect of diet on test scores predicted by our model will help us better understand what we just found:
+Visualizing the effect of diet on test scores predicted by our model
+will help us better understand what we just found:
 
 ```{r Diet_Plots}
 #Plot average test score by diet type
@@ -444,7 +444,7 @@ dragons %>%
     data_grid(diet) %>%
     add_fitted_draws(model.diet, re_formula=NA) %>%
     ggplot(aes(x=diet, y=.value)) +
-    stat_halfeye() + ylim(0, NA) +
+    stat_halfeye(point_interval=median_hdi) + ylim(0, NA) +
     xlab("Diet") + ylab("Test Score") +
     theme_minimal()
 
@@ -453,21 +453,28 @@ dragons %>%
     data_grid(diet, mountainRange) %>%
     add_fitted_draws(model.diet) %>%
     ggplot(aes(x=diet, y=.value)) +
-    stat_halfeye() + ylim(0, NA) +
+    stat_halfeye(point_interval=median_hdi) + ylim(0, NA) +
     facet_wrap( ~ mountainRange) +
     xlab("Diet") + ylab("Test Score") +
     theme_minimal()
 ```
 
-What are we looking at here? The black points represent the mode of the posterior, the thick black lines represent the X% credible intervals, and the thinner black lines represnt the 95% credible intervals (but maybe one of those is HDIs, which I don't think you've explained yet?). The curves in gray represent the full posterior distribution. A nice thing about using a Bayesian model is that
-instead of being stuck with ugly & often misleading bar charts, we can directly plot
-how likely each mean is along with the full posterior distribution.
+What are we looking at here? The black points represent the mode of
+the posterior, the thick black lines represent the 66% credible
+intervals, and the thinner black lines represnt the 95% credible
+intervals (also called highest density intervals). The curves in gray
+represent the full posterior distribution. A nice thing about using a
+Bayesian model is that instead of being stuck with ugly & often
+misleading bar charts, we can directly plot how likely each mean is
+along with the full posterior distribution.
 
-In sum, these results look pretty consistent, but there's clearly still variability among different mountains.
+In sum, these results look pretty consistent, but there's clearly
+still variability among different mountains.
 
 <br><br><br>
 
-So far, so good. But what if we're interested in testing multiple variables at the same time? We build a model with an interaction term! 
+So far, so good. But what if we're interested in testing multiple
+variables at the same time? We build a model with an interaction term!
 
 ```{r Multiple Regression}
 model.diet.length <- brm(testScore ~ diet*scale(bodyLength) + (1 + diet*scale(bodyLength)|mountainRange),
@@ -482,7 +489,10 @@ describe_posterior(model.diet.length, ci=.95, rope_ci=.95,
 pp_check(model.diet.length)
 ```
 
-<insert interpretation of output that leads to the following conclusion> Looks like the effect of diet is still significant after we control for body length. We can also see that there's no significant interaction between diet and body length.
+Since the BFs for diet are > 10, it looks like the effect of diet is
+still significant after we control for body length. We can also see
+that there seems to be no main effect of body length or interactions
+between diet and body length, since their corresponding BFs are < .14.
 
 Let's plot the output again:
 ```{r Multiple_Pred}
@@ -498,11 +508,12 @@ dragons %>%
     theme_minimal()
 ```
 
-Here we can see that <insert interp i'm too tired to do it lol>.
+Here we can see that indeed, the effect of body length seems to be
+close to zero for all three diet types.
 
 <br><br><br>
 
-Hmm.... might adding body length to our model make it better? Since we're Bayesian statisticians, we can compare *distributions* of adjusted R^^2 values for each model to answer this question:
+Hmm.... did adding body length to our model make it better? Since we're Bayesian statisticians, we can compare *distributions* of adjusted R<sup>2</sup> values for each model to answer this question:
 ```{r R2, , results='hold', warning=FALSE}
 R2 <- data.frame(model.diet=loo_R2(model.diet, summary=FALSE)[,1],
                  model.diet.length=loo_R2(model.diet.length, summary=FALSE)[,1]) %>%
@@ -510,10 +521,12 @@ R2 <- data.frame(model.diet=loo_R2(model.diet, summary=FALSE)[,1],
     pivot_longer(model.diet:diff) %>%
     mutate(name=factor(name, levels=c('model.diet', 'model.diet.length', 'diff')))
 
-ggplot(R2, aes(x=name, y=value)) + stat_halfeye() + theme_minimal()
+ggplot(R2, aes(x=name, y=value)) +
+    stat_halfeye(point_interval=median_hdi) +
+    theme_minimal()
 ```
 
-As we can see, both models have an R^^2 of about 0.75, so adding body length doesn't seem to help. We can also test their difference using [LOO-IC](http://mc-stan.org/rstanarm/reference/loo.stanreg.html):
+As we can see, both models have an R<sup>2</sup> of about 0.75, so adding body length doesn't seem to help. We can also test their difference using [LOO-IC](http://mc-stan.org/rstanarm/reference/loo.stanreg.html):
 
 ```{r LOOIC, warning=FALSE}
 loo(model.diet, model.diet.length)
@@ -527,7 +540,9 @@ Again we see that the model without diet does just as well, if not slightly bett
 
 <br>
 
-Your turn! Try modifying the model above to test whether color is related to testScore, and whether color interacts with diet or bodyLength.
+Your turn! Try modifying the model above to test whether color is
+related to testScore, and whether color interacts with diet or
+bodyLength.
 
 ```{r LMER_Practice}
 #Build your model here
@@ -551,8 +566,10 @@ Your turn! Try modifying the model above to test whether color is related to tes
 
 
 ## Bayesian Multilevel Logistic Regression
-Okay, let's test a new question. Test scores are boring. [lame is ableist :)] I actually want to know about which dragons breathe fire. This has way more important
-practical implications, and is more likely to get me grant funding.
+Okay, let's test a new question. Test scores are boring. I actually
+want to know about which dragons breathe fire. This has way more
+important practical implications, and is more likely to get me grant
+funding.
 
 Good news: we have data on fire breathing!
 
@@ -578,14 +595,16 @@ Now let's plot the proportion of dragons that breathe fire by color:
 dragons %>% data_grid(color) %>%
     add_fitted_draws(logit_model, re_formula=NA, scale='response') %>%
     ggplot(aes(x=color, y=.value, fill=color)) +
-    stat_halfeye(show.legend=FALSE) +
+    stat_halfeye(point_interval=median_hdi, show.legend=FALSE) +
     scale_fill_manual(values=c('blue', 'red', 'yellow')) +
     xlab("Color") +
     ylab("Proportion that Breathes Fire") +
     theme_minimal()
 ```
 
-Looks like <blah blah blah, INTERPRET YOUR RESULTS PLEASE>
+Looks like most blue dragons breathe fire, red dragons are only
+slightly more likely to breathe fire than not, and few yellow dragons
+breathe fire.
 
 <br>
 
@@ -636,7 +655,9 @@ dragons %>% data_grid(bodyLength=seq_range(bodyLength, 100)) %>%
     theme_minimal()
 ```
 
-<seriously bro u gotta interpret this lol>
+We can see that while short dragons are likely to be red, long dragons
+are likely to be yellow, and mid-length dragons are likely to be blue.
+
 
 ## Bayesian Multilevel Unequal Variances Regression
 Another extremely useful example of a model that integrates seamlessly
@@ -665,13 +686,13 @@ draws <- dragons %>%
 
 draws %>%
     ggplot(aes(x=diet, y=.value)) +
-    stat_halfeye() + ylim(0, NA) +
+    stat_halfeye(point_interval=median_hdi) + ylim(0, NA) +
     xlab("Diet") + ylab("Test Score") +
     theme_minimal()
 
 draws %>%
     ggplot(aes(x=diet, y=sigma)) +
-    stat_halfeye() + ylim(0, NA) +
+    stat_halfeye(point_interval=median_hdi) + ylim(0, NA) +
     xlab("Diet") + ylab("Std Deviation Test Score") +
     theme_minimal()
 
@@ -691,6 +712,24 @@ about as well as the model with unequal variances. That means we can
 probably assume equal variances without any problems. But this isn't
 always the case, and many research programs are dedicated to
 explaining why different groups have different variances!
+
+
+<br>
+
+---
+
+<br>
+
+## Conclusions
+
+In this tutorial we demonstrated the basics of using `brms` to run
+Bayesian regressions that directly parallel what you're likely used to
+running with `lm` and `lmer`. We also demonstrated how to run Bayesian
+significant tests with `bayestestR` and how to plot results from these
+models using `tidybayes`. Though there are many more details to
+specifying, running, and interpreting Bayesian models, hopefully this
+tutorial convinced you that making the first step is easier than you
+imagined!
 
 
 <br>
