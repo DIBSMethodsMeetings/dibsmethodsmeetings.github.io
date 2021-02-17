@@ -25,11 +25,11 @@ Frequentist linear regression (using e.g. `lm` and `lmer` in R).
 Acknowledgments: To make our analyses directly comparable to analyses
 we’ve already covered, this workshop is directly copied from Allie’s
 awesome [workshop on Frequentist mixed-effect
-regression](dukeneuromethods.github.io). That workshop was adapted from
-code provided by [Gabriela K Hajduk](gkhajduk.github.io), who in turn
-referenced a workshop developed by Liam Bailey. Parts of the tutorial
-are also adapted from a lesson on partial pooling by [Tristan
-Mahr](https://www.tjmahr.com/).
+regression](https://dukeneuromethods.github.io). That workshop was
+adapted from code provided by [Gabriela K
+Hajduk](https://gkhajduk.github.io), who in turn referenced a workshop
+developed by Liam Bailey. Parts of the tutorial are also adapted from a
+lesson on partial pooling by [Tristan Mahr](https://www.tjmahr.com/).
 
 For further reading, please check out their tutorials and blogs here:
 <br> <https://gkhajduk.github.io/2017-03-09-mixed-models/> <br>
