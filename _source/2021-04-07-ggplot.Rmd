@@ -1,476 +1,601 @@
 ---
-title: "ggplot workshop"
+title: "ggplot2 workshop"
 author: allie
 categories: [ tutorial ]
-image: assets/images/2021-04-07-ggplot/ggplot.jpg
-featured: false
-hidden: false
+image: assets/images/2021-04-07-ggplot/ggplot.jpeg
 output:
-  html_document: default
-  pdf_document: default
   md_document:
     variant: gfm
     preserve_yaml: TRUE
+
 ---
+
 
 ```{r setup, include=FALSE, cache=FALSE}
 knitr::opts_knit$set(base.dir="../", base.url="/")
-knitr::opts_chunk$set(fig.path="assets/images/2020-10-21-lmer-intro/",
-                      cache.path = '../cache/',
+knitr::opts_chunk$set(fig.path="assets/images/YYYY-MM-DD-post-name/",
+                      cache.path = 'cache/',
                       message=FALSE, warning=FALSE,
                       cache=TRUE, echo=TRUE)
 ```
+<br> 
 
-Welcome! This is an intermediate-level workshop about the R package `ggplot2`. We'll cover custom aesthetics, plotting model estimates, multi-layered plots, and advanced geoms. 
-
-<br><br>
-
-Acknowledgments: Adapted from code provided by Gabriela K Hajduk (gkhajduk.github.io), who in turn referenced a workshop developed by Liam Bailey. Parts of the tutorial are also adapted from a lesson on partial pooling by Tristan Mahr. 
-
-For further reading, please check out their tutorials and blogs here:
-<br>
-https://gkhajduk.github.io/2017-03-09-mixed-models/
-<br>
-https://www.tjmahr.com/plotting-partial-pooling-in-mixed-effects-models/
-
-
-<br><br><br>
-
-## Setup
+Welcome! This is an intermediate-level workshop about the R package [`ggplot2`](https://ggplot2.tidyverse.org/). It's co-authored by [Allie](https://alyssasinclair.com//) and [Maria](https://mariakhoudary.com). We'll cover custom aesthetics, plotting model estimates, multi-layered plots, and advanced geoms (spaghetti and rainbow plots!). 
 
 <br>
-First, we'll just get everything set up. We need to tweak some settings, load packages, and read our data.
+
+## Table of Contents 
+- [multi-layer plots](#multilayered-plots) (Allie)
+- [plotting model estimates](#plotting-model-estimates) (Maria)
+- [customizing plots](#customizing-your-plots) (Maria)
+- [how to make a spaghetti plot](#spaghetti-plots) (Allie)
+- [how to make a raincloud plot](#raincloud-plots) (Allie)
+
+<br>
+
+---
+
+
+
+## Tidy data
+
+<br>
+
+Like other packages in the [tidyverse](https://www.tidyverse.org/), `ggplot2` works best when your data are "tidy": each column is a variable, and each row is an observation. How exactly you define an "observation" is going to be dependent on your question and desired visualization, and it's not uncommon to use a couple different versions of your dataframe when playing around with visualizations.
+
+Today we'll be working with the dragons dataset that we've all come to know and love. This is a fictional dataset about dragons. Each dragon has one row. We have information about each dragon's body length and cognitive test score. We also have some other information about each dragon: We know about the mountain range where it lives, color, diet, and whether or not it breathes fire. 
+
+Let's load it in, along with some other packages. If you're following along in real-time, make sure your working directory is set to the same folder that contains "dragons_data.csv", or change the file path below. 
 
 ```{r echo=T, results='hide', error=FALSE, warning=FALSE, message=FALSE}
+# skip this line if you already have the dragons dataset in your working directory
+setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+
 #change some settings
 options(scipen=999) #turn off scientific notation
 options(contrasts = c("contr.sum","contr.poly")) #this tweaks the sum-of-squares settings to make sure the output of Anova(model) and summary(model) are consistent and appropriate when a model has interaction terms
 
-#time to load some packages!
+# load in packages
+library(dplyr) #for data wrangling
 library(lme4) #fit the models
 library(lmerTest) #gives p-values and more info
-library(car) #more settings for regression output
-library(dplyr) #for data wrangling
-library(tibble) #for data wrangling
-library(sjPlot) #plotting model-predicted values
-library(ggplot2) #plotting raw data
-library(data.table) #for pretty HTML tables of model parameters
+library(Rmisc) #summary stats
+library(emmeans) #for extracting model estimates
+library(ggplot2) #for plotting, duh! 
 
-#load the data
+# load the data
 dragons <- read.csv("2020-10-21-dragon-data.csv")
 ```
 
-
-<br><br><br><br><br>
-
-
-## Data
 <br>
-Let's get familiar with our dataset. This is a fictional dataset about dragons. Each dragon has one row. We have information about each dragon's body length and cognitive test score. Let's say our first research question is whether the length of the dragon is related to its intelligence. 
 
-We also have some other information about each dragon: We know about the mountain range where it lives, color, diet, and whether or not it breathes fire.
-
-<br><br><br>
-
-Take a look at the data and check the counts of our variables.
+Just as a reminder, let's take a peak at our dataframe:
 
 ```{r Explore}
 #take a peek at the header
 head(dragons)
 
 #view the full dataset
-#View(dragons)
-
-#check out counts for all our categorical variables
-table(dragons$mountainRange)
-table(dragons$diet)
-table(dragons$color)
-table(dragons$breathesFire)
+View(dragons)
 ```
+We have 2 continuous variables: `testScore` and `bodyLength`. The rest of the variables are categorical. This gives us lots of options for creatively visualizing relationships between different variables of interest! 
 
-<br><br><br>
-
-Let's check distributions. Do test scores and body length measurements look approximately normal?
-
-```{r Distributions}
-#check assumptions: do our continuous variables have approximately normal distributions?
-hist(dragons$testScore)
-
-hist(dragons$bodyLength)
-```
-
-<br><br><br>
-
-We should mean-center our continuous measure of body length before using it in a model.
-
-```{r Standardization}
-#It is good practice to  standardise your explanatory variables before proceeding - you can use scale() to do that:
-dragons$bodyLength_s <- scale(dragons$bodyLength)
-
-#Let's look at the histogram again. The scale has changed, so the distribution is now centered around zero.
-hist(dragons$bodyLength_s)  # seems close to normal distribution - good!
-```
-
-Why do we standardize/mean-center variables? 
-Should we also standardize testScore? Why or why not?
-
-
-<br><br><br><br><br>
-
-
-## Linear Regression
-<br>
-Okay, let's start fitting some lines!
-Key Question: Does body length predict test score? 
-
-One way to analyse this data would be to try fitting a linear model to all our data, ignoring all the other variables for now.
-
-This is a "complete pooling" approach, where we "pool" together all the data and ignore the fact that some observations came from specific mountain ranges.
-
-```{r LM}
-model <- lm(testScore ~ bodyLength_s, data = dragons)
-summary(model)
-```
-
-Incredible! It's super significant! We're gonna publish in Nature Dragonology!
-
-<br><br><br>
-
-Let's plot the data with ggplot2 to see the correlation.
-
-```{r LM_Plot}
-ggplot(dragons, aes(x = bodyLength, y = testScore)) +
-  geom_point()+
-  geom_smooth(method = "lm") +
-  xlab("Body Length")+
-  ylab("Test Score")
-```
-
-<br><br><br>
-
-Wait, but we need to check assumptions!
-
-```{r Assumptions}
-#Let's plot the residuals from this model. Ideally, the red line should be flat.
-plot(model, which = 1)  # not perfect, but looks alright
-
-#Have a quick look at the  qqplot too - point should ideally fall onto the diagonal dashed line
-plot(model, which = 2)  # a bit off at the extremes, but that's often the case; again doesn't look too bad
-```
-
-<br><br><br>
-
-But linear models also assume that observations are INDEPENDENT. Uh oh.
-
-We collected multiple samples from eight mountain ranges. It's perfectly plausible that the data from within each mountain range are more similar to each other than the data from different mountain ranges - they are correlated. This could be a problem.
-
-```{r Boxplot}
-#Have a look at the data to see if above is true
-boxplot(testScore ~ mountainRange, data = dragons)  # certainly looks like something is going on here
-
-#We could also plot it colouring points by mountain range
-ggplot(dragons, aes(x = bodyLength, y = testScore, colour = mountainRange))+
-  geom_point(size = 2)+
-  theme_classic()+
-  theme(legend.position = "none")
-```
-
-Clearly, there is structured variance in our data that has something to do with the mountain range where we found the dragons.
-
-<br><br><br>
-
-How do we deal with this variance? We could run many separate analyses and fit a regression for each of the mountain ranges.
-Let's check what it would look like if we fit a separate regression line for each mountain range.
-
-```{r Mountains}
-#Lets have a quick look at the data split by mountain range
-#We use the facet_wrap to do that
-ggplot(data = dragons, aes(x = bodyLength_s, y = testScore)) +
-  stat_smooth(method = "lm", se = FALSE, size = 1.5) +
-  geom_point() +
-  facet_wrap(.~mountainRange) +
-  xlab("length") + ylab("test score")
-```
-
-From the above plots it looks like our mountain ranges vary both in the dragon body length and in their test scores. This confirms that our observations from within each of the ranges aren't independent. We can't ignore that.
-
-<br><br><br>
-
-So, what if we estimate the effect of bodyLength on testScore for each range independently?
-
-This would be a no-pooling approach: fitting a separate line for each mountain range, and ignoring our group-level information.
-This approach treats each group of observations (in this case, mountainRange, but could be participants in other datasets) totally independently.
-
-```{r No_Pooling}
-df_no_pooling <- lmList(testScore ~ bodyLength_s | mountainRange, data = dragons) %>% 
-  coef() %>% 
-  # Mountain Range IDs are stored as row-names above. Let's also add a column to label them.
-  rownames_to_column("mountainRange") %>% 
-  rename(Intercept = `(Intercept)`, Slope_length = bodyLength_s) %>% 
-  add_column(Model = "No pooling")
-
-head(df_no_pooling)
-```
-
-Check out the variation in the intercepts and slopes when we fit a separate model for each mountain range.
-
-<br><br><br>
-
-How do our estimates compare for the complete pooling vs. no pooling methods?
-
-```{r No_vs_Complete}
-#First, let's grab the coefficients from the first model we fit (the simple linear regression that ignores mountain range information)
-df_pooled <- tibble(
-  Model = "Complete pooling",
-  mountainRange = unique(dragons$mountainRange),
-  Intercept = coef(model)[1], 
-  Slope_length = coef(model)[2])
-
-#You can see that this just copies the same group-level line estimate for every mountain range
-head(df_pooled)
-
-#Let's combine this with the estimates from the no-pooling approach
-df_models <- bind_rows(df_pooled, df_no_pooling) %>%
-  left_join(dragons, by = "mountainRange")
-head(df_models)
-
-#Let's plot the two linear estimates for each mountain range
-ggplot(data = df_models, aes (x = bodyLength_s, y = testScore)) + 
-  geom_point() +
-  geom_abline(aes(intercept = Intercept, slope = Slope_length, color = Model), size = 1)+
-  facet_wrap(.~mountainRange)
-```
-
-We got very different estimates from the two different approaches. Is there a happy medium?
-
-
-
-<br><br><br><br><br>
-
-## Linear Mixed Effects Regression
-<br>
-Mountain range clearly introduces a structured source of variance in our data. We need to control for that variation if we want to understand whether body length really predicts test scores.
-
-But it doesn't really make sense to estimate the effect for each mountain range separately. Shouldn't we use the full power of our whole dataset?
-
-Mixed effects regression is a compromise: Partial pooling!
-We can let each mountain range have it's own regression line, but make an informed guess about that line based on the group-level estimates
-This is especially useful when some groups/participants have incomplete data.
 <br><br>
 
-Should Mountain Range be a FIXED or RANDOM effect?
+## Multi-Layered Plots
+I'm going to assume that you have some prior knowledge of R and ggplot2, but not much. Let's start with a basic plot.
 
-We could consider it a FIXED EFFECT if we were interested in testing the hypothesis that location of residence influences test scores-- but that's not our research question! This is just annoying noise that limits our ability to test the relationship between body length and test scores.
-So, we need to account for structured variance among mountain ranges by modelling it as a RANDOM EFFECT.
-
-```{r LMER, warning=FALSE, message=FALSE}
-#let's fit our first mixed model!
-mixed_model <- lmer(testScore ~ bodyLength_s + (1+bodyLength_s|mountainRange), data = dragons)
-
-#note that you might get a "singular fit" warning --> In this case, it's because the data are made-up and we've got some weird correlations in our random effects structure. If you get this with real data, it's not necessarily terrible, but it indicates that you should check for either very high or very low covariance, and try modifying your random effects structure.
-
-#what's the verdict?
-summary(mixed_model)
+```{r Blank}
+ggplot(data = dragons)
 ```
 
-<br><br><br>
+If we call ggplot() without specifying any variables, it just generates a blank square! This is actually the bottom layer of every plot. It's a blank slate, waiting for us to layer data on top.
 
-Now, let's see how these lines compare to the no-pooling method.
+Let's say our first research question is whether the color of the dragon is related to its intelligence. What happens when we specify those variables, but don't add any geoms? We initialize a grid and axes, but don't actually plot any data.
 
-```{r Partial_Pooling}
-#save the coefficients from our mixed model
-df_partial_pooling <- coef(mixed_model)[["mountainRange"]] %>% 
-  rownames_to_column("mountainRange") %>% 
-  as_tibble() %>% 
-  rename(Intercept = `(Intercept)`, Slope_length = bodyLength_s) %>% 
-  add_column(Model = "Partial pooling")
-
-#take a peek
-head(df_partial_pooling)
-
-#add these estimates to our dataframe
-df_models <- bind_rows(df_pooled, df_no_pooling, df_partial_pooling) %>% 
-  left_join(dragons, by = "mountainRange")
-
-#Let's plot the three linear estimates for each mountain range
-ggplot(data = df_models, aes (x = bodyLength_s, y = testScore)) + 
-  geom_point() +
-  geom_abline(aes(intercept = Intercept, slope = Slope_length, color = Model), size = 1)+
-  facet_wrap(.~mountainRange)
+```{r Layer1}
+ggplot(data = dragons, aes(x = color, y = breathesFire))
 ```
 
-You can see that we get different estimates from all three approaches. Partial pooling yields lines that are tailored to each participant, but still influenced by the pooled group data.
-
-<br><br><br>
-
-Overall, it looks like when we account for the effect of mountain range, there is no relationship between body length and test scores.
-Well, so much for our Nature Dragonology paper!
-
-Unless... What about our other variables? Let's test whether diet is related to test scores instead.
-
-```{r Diet, warning=FALSE, message=FALSE}
-mixed_model <- lmer(testScore ~ diet + (1+diet|mountainRange), data = dragons)
-
-#view output
-Anova(mixed_model, type=3)
-summary(mixed_model)
-```
-
-What did we find?
-
-<br><br><br>
-
-Let's visualize the effect of diet on test scores.
-
-```{r Diet_Plots}
-#Plot average test score by diet type
-ggplot(dragons, aes(x = diet, y = testScore)) +
-  geom_bar(stat = "summary")+
-  xlab("Body Length")+
-  ylab("Test Score")
-
-#Let's also look at the effect across mountain ranges.
-ggplot(dragons, aes(x = diet, y = testScore)) +
-  geom_bar(stat = "summary")+
-  xlab("Body Length")+
-  ylab("Test Score") +
-  facet_wrap(.~mountainRange)
-```
-
-Looks pretty consistent, but there's obviously still variability between mountains.
-
-<br><br><br>
-
-Let's also plot the predicted values from our mixed effects model, so we can control for the effect of mountain range.
-
-```{r Diet_Pred}
-plot_model(mixed_model, type = "pred", terms = "diet")
-```
-
-<br><br><br>
-
-Awesome, we will want to put this finding in our Nature Dragonology paper! Let's clean up the output.
-
-```{r Diet_Table}
-#Generate an HTML table with parameter estimates
-tab_model(mixed_model, p.val = "satterthwaite", show.df = TRUE, p.style="numeric_stars", show.fstat = TRUE, output='html')
-```
-
-<br><br><br>
-
-What if we want to test multiple variables at the same time?
-
-```{r Multiple Regression}
-mixed_model <- lmer(testScore ~ diet * bodyLength_s + (1+diet*bodyLength_s|mountainRange), data = dragons)
-Anova(mixed_model, type=3)
-summary(mixed_model)
-```
-
-Looks like the effect of diet is still significant after we control for body length. We can also see that there's no significant interaction between diet and body length.
-
-<br><br><br>
-
-Let's plot the output again.
-We can also add multiple terms to our plot of model-predicted values. This is especially helpful when you DO have a significant interaction, and you need to understand why!
-
-```{r Multiple_Pred}
-plot_model(mixed_model, type = "pred", terms = c("diet", "bodyLength_s"))
-#What are the -1, 0, and +1 levels?
-
-#What happens if we swap the order of the terms?
-plot_model(mixed_model, type = "pred", terms = c("bodyLength_s", "diet"))
-```
-
-Which version of the plot makes more sense to you?
-
-<br><br><br>
-
-Your turn! Try modifying the model above to test whether color is related to testScore, and whether color interacts with diet or bodyLength.
-
-```{r LMER Practice}
-#Build your model here
-
-
-#View the output of the model here
-
-
-
-#Plot your results below:
-
-
-```
-
-
-<br><br><br><br><br>
-
-
-## Mixed Effects Logistic Regression
 <br>
 
-Okay, let's test a new question.
-Test scores are lame. I actually want to know about which dragons breathe fire. This has way more important practical implications, and is more likely to get me grant funding. 
+Let's add a basic bar plot layer. We can also color the bars using the fill argument.
 
-Good news: we have data on fire breathing!
-Bad news: It's a binary variable, so we need to change our model.
-
-```{r GLMER, warning=FALSE, message=FALSE}
-logit_model <- glmer(breathesFire ~ color + (1+color|mountainRange), data = dragons, family = binomial)
-summary(logit_model)
+```{r Layer2}
+ggplot(data = dragons, aes(x = color, y = testScore, fill = color)) +
+  geom_bar(stat = "summary")
 ```
 
-<br><br><br>
-
-Let's plot the proportion of dragons that breathe fire by color.
-
-```{r Fire_Plot}
-ggplot(dragons, aes(x = color, y = breathesFire)) +
-  geom_bar(stat = "summary")+
-  xlab("Color") +
-  ylab("Proportion that Breathes Fire")
-```
-
-<br><br><br>
-
-Let's also get the predicted values from our mixed effects model, so we can control for the effect of mountain range.
-
-```{r Fire_Pred}
-plot_model(logit_model, type = "pred", terms = "color")
-
-#generate an HTML table with parameter estimates
-tab_model(logit_model, show.df = TRUE, p.style="numeric_stars", show.fstat = TRUE)
-```
-
-<br><br><br>
-
-Your turn! Test whether other variables predict breathesFire.
-
-```{r GLMER Practice}
-#Build your model here:
-
-
-
-#Plot your results:
-
-```
-
-
-
-<br><br><br><br><br>
-
-## Convergence
 <br>
-Some parting tips and tricks:
 
-If you ever encounter an error message about "convergence failure," you cannot trust the results of your model! What can you do to fix this error?
+Yikes, we've generated a Stroop effect plot. Let's specify a custom color palette and add that palette as a layer to our plot.
 
-First, check that your continuous predictor variables are all scaled/mean-centered.
+```{r Layer3}
+scale_fill_dragon <- function(...){
+      library(scales)
+      discrete_scale("fill","dragon",manual_pal(values = c("#3574AC","#AD343C","#FBD774")), ...)
+}
 
-Make sure your random effects structure is correct. Are you accidentally specifying random effects that don't make sense for the data? For example, you can never use a between-subs variable as a random slope when you have a random intercept term for subjects. That wouldn't make sense, because you only have one observation per subject. 
+ggplot(data = dragons, aes(x = color, y = testScore, fill = color)) +
+  scale_fill_dragon() +
+  geom_bar(stat = "summary")
+```
 
-You can also try simplifying your random effects structure. You can start with a maximal model (all possible random slopes and intercepts), and then incrementally prune away random effects terms (starting with interactions in random slopes, etc.) until you achieve convergence. You can also formally compare model fits to determine the optimal random effects structure that is justified by the data.
+<br>
 
-Lastly, you may need to change the settings of your model and increase the maximum number of iterations. Adding the following code within your lmer() call may help: control=lmerControl(optimizer="bobyqa", optCtrl=list(maxfun=10e4))
+Great! That makes more sense. Now, let's add some error bars for 95% confidence intervals. To do this, we'll first calculate a small summary dataframe that will give us CIs. If you open this dataframe, you'll see that you also get SE and SD measures.
 
-Check that your random effects variables have at least 5 levels each (e.g., 5+ subjects, 5+ observation sites, etc.)
+```{r Layer4}
+dragons_sum <- summarySE(dragons, measurevar = "testScore", groupvars = c("color"))
 
-If these tricks still doesn't help, it may be that you just don't have enough data to fit the model appropriately! You must have enough observations for every combination of fixed and random effect in order to estimate the variance. You may need to get more data, or prune your model to remove interaction terms that may be causing the problem. For example, a 2x2 interaction term between factor variables assumes that you have data for all 4 possible combinations. If you add more and more interactions, you're creating a lot of cells that you need to fill.
+ggplot(data = dragons, aes(x = color, y = testScore, fill = color)) +
+  scale_fill_dragon() +
+  geom_bar(stat = "summary") +
+  geom_errorbar(data = dragons_sum, aes(ymin=testScore-ci, ymax=testScore+ci), width = 0.4)
+```
+
+<br>
+
+But, this bar plot doesn't tell us much about the distribution of the data, does it? Let's add some points on top of the bars. We'll also apply some horizontal jitter and adjust the opacity to make the points visible. We can also make the error bars thicker so they stand out.
+
+```{r Layer5}
+ggplot(data = dragons, aes(x = color, y = testScore, fill = color)) +
+  scale_fill_dragon() +
+  geom_bar(stat = "summary") +
+  geom_errorbar(data = dragons_sum, aes(ymin=testScore-ci, ymax=testScore+ci), width = 0.4, size = 1) +
+  geom_jitter(width = 0.1, height = 0, alpha = 0.2)
+```
+
+<br>
+
+Now, let's add layers for axis labels and a title.
+
+```{r Layer6}
+ggplot(data = dragons, aes(x = color, y = testScore, fill = color)) +
+  scale_fill_dragon() +
+  geom_bar(stat = "summary") +
+  geom_errorbar(data = dragons_sum, aes(ymin=testScore-ci, ymax=testScore+ci), width = 0.4, size = 1) +
+  geom_jitter(width = 0.1, height = 0, alpha = 0.2) +
+  xlab("Dragon Color") +
+  ylab("Cognitive Test Score") +
+  ggtitle("Test Score by Color")
+```
+
+<br>
+
+Finally, just to make it pretty, let's apply a custom theme that I use for my plots. For the sake of time, we won't be covering the details of custom themes today, but you can find great tutorials online. These functions allow you to specify all your favorite aesthetic choices, and then easily apply those tweaks to future plots with just one line of code.
+
+```{r Layer7}
+#if you want to access extra fonts, you can run the following lines of code.
+#if you don't care during the tutorial, disable them. Loading the fonts (only the first time) can take several minutes if they are not already installed into R Studio.
+library(extrafont)
+#font_import() #first time only
+#loadfonts(device= "win")
+
+#here's my custom plotting theme. It's a function that specifies background colors, text font/size/position, and spacing.
+theme_allie <- function(base_size = 14, base_family = "Gill Sans MT"){
+  theme_gray(base_size = base_size, base_family = base_family) %+replace%
+    theme(
+      plot.margin=grid::unit(c(1,1,1,1), "cm"),
+      plot.title = element_text(face = "bold", size = rel(1.15), hjust = 0.5, vjust = 5),
+      panel.border = element_blank(),
+      panel.background = element_rect(fill = "#EAEAF2", colour = "#EAEAF2"), 
+      strip.background = element_rect(fill = NA),
+      panel.grid.major.y = element_line(size = 1, colour = "white"),
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.x = element_blank(),
+      panel.grid.minor.x = element_blank()
+      )
+}
+
+ggplot(data = dragons, aes(x = color, y = testScore, fill = color)) +
+  scale_fill_dragon("Dragon Color") +
+  geom_bar(stat = "summary") +
+  geom_errorbar(data = dragons_sum, aes(ymin=testScore-ci, ymax=testScore+ci), width = 0.4, size = 1) +
+  geom_jitter(width = 0.1, height = 0, alpha = 0.2) +
+  xlab("Dragon Color") +
+  ylab("Cognitive Test Score") +
+  ggtitle("Test Score by Color") +
+  theme_allie()
+
+# if we wanted to save the plot in our current working directory, we could run the line below.
+#ggsave("dragon_color.png", dpi = 300, width = 4, height = 4, units = "in")
+```
+
+<br>
+
+---
+
+<br>
+
+
+## Plotting model estimates
+<br>
+Now that we know how to create beautiful multi-layered plots, let's learn how to plot the results of our mixed models! The `emmeans` package is the star of the show here. Short for "estimated marginal means", it extracts the beta values, CIs, and more from a fitted `lmer` object. Let's start with the same question as we started with above -- how is color related to intelligence? 
+
+First we have to fit our `lmer` model. If you're still new to `emmeans`, it's best to save the fitted model as an object so that you can play around with different calls. At the end of the section I'll show you the fastest way to go from model -> plot. 
+
+```{r fit model}
+model <- lmer(testScore ~ color + (1|mountainRange), data=dragons)
+summary(model)
+```
+<br>
+
+The results are not too exciting, but let's make a dataframe with the marginal means anyway. 
+```{r make emmeans df}
+model_df <- emmeans(model, ~ color) %>% as.data.frame()
+head(model_df)
+```
+<br>
+
+Sweet! After converting the emGrid object to a dataframe, we now have estimates of test score as a function of color (the column "emmean"), as well as standard error, degrees of freedom, and upper/lower CIs. Let's plot these using Allie's custom theme:
+
+```{r plot model estimates}
+ggplot(model_df, aes(x = color, y = emmean, fill = color)) +
+  scale_fill_dragon("Dragon Color") +
+  geom_col() +
+  geom_errorbar(aes(ymin=lower.CL, ymax=upper.CL), width = 0.4, size = 1) +
+  xlab("Dragon Color") +
+  ylab("Cognitive Test Score") +
+  ggtitle("Test Score by Color") +
+  theme_allie()
+```
+
+The biggest difference between plotting in the `emmeans`-verse and in the way Allie showed above is that your y variable will almost always be "emmean" and you don't have to compute confidence intervals yourself. 
+
+But if you want to add information about the raw data (like the jitter above), then you'll need to add a layer that takes data from the source dataframe. Note that you only need to specify the dimension on which your variable is different from the one in the main ggplot call -- i.e., I only had to specify y=testScore in the `geom_jitter()` call.
+
+```{r model estimates with jitter}
+ggplot(model_df, aes(x = color, y = emmean, fill = color)) +
+  scale_fill_dragon("Dragon Color") +
+  geom_col() +
+  geom_errorbar(aes(ymin=lower.CL, ymax=upper.CL), width = 0.4, size = 1) +
+  geom_jitter(data=dragons, aes(y=testScore), width = 0.1, height = 0, alpha = 0.2) +
+  xlab("Dragon Color") +
+  ylab("Cognitive Test Score") +
+  ggtitle("Test Score by Color") +
+  theme_allie()
+```
+<br>
+
+Another way to convey this information is with a violin plot, where the estimate is plotted with `geom_pointrange()` and raw data as violin widths:
+```{r violin plot}
+ggplot(model_df, aes(x = color, y = emmean, fill = color)) +
+  scale_fill_dragon("Dragon Color") +
+  geom_violin(data=dragons, aes(y=testScore)) +
+  geom_pointrange(aes(ymin=lower.CL, ymax=upper.CL), size = 0.85) +
+  xlab("Dragon Color") +
+  ylab("Cognitive Test Score") +
+  ggtitle("Test Score by Color") +
+  theme_allie()
+```
+<br>
+
+If you want to adjust the amount of smoothing in the violin (i.e., how lumpy it is), you do that with the `bw` argument. Because `bw` sets the standard deviation of the smoothing kernel for the distributions, the magnitude of the `bw` value needed to achieve your desired results will vary as a function of your data. 
+```{r violin plot smaller bw}
+ggplot(model_df, aes(x = color, y = emmean, fill = color)) +
+  scale_fill_dragon("Dragon Color") +
+  geom_violin(data=dragons, aes(y=testScore), bw=4.5) +
+  geom_pointrange(aes(ymin=lower.CL, ymax=upper.CL), size = 0.85) +
+  xlab("Dragon Color") +
+  ylab("Cognitive Test Score") +
+  ggtitle("Test Score by Color") +
+  theme_allie()
+```
+<br> 
+
+So far, so good. But what if we have a model with an interaction term? Let's fit one and find out!
+```{r interaction model}
+model2 <- lmer(testScore ~ color*diet + (1|mountainRange), data=dragons)
+summary(model2)
+```
+<br>
+
+Whoa! Major effects of diet on test scores. Converting the model estimates to a dataframe is as simple as the following command: 
+```{r emmeans df interaction model}
+model2_df <- emmeans(model2, ~ color | diet) %>% as.data.frame()
+
+ggplot(model2_df, aes(x=diet, y=emmean, fill=color, color=color)) +
+  scale_fill_dragon("Dragon Color") +
+  geom_pointrange(aes(ymin=lower.CL, ymax=upper.CL), position=position_dodge(0.5)) +
+  labs(x="Diet", y="Cognitive Test Score", color="Dragon color", fill="Dragon color") +
+  theme_allie()
+```
+
+Why did the legend show up twice, once in color and once with just black points? Unfortunately, this shows the limits of custom color palettes -- since they're hard-coded, they need to have enough colors to cover all the different combinations of your discrete variables. We'll say more on this and other palette-related things in the section [`Color palettes`](#color-palettes)! 
+
+<br>
+
+What if you want to plot the results of a generalized linear model? And what if you have a continuous predictor variable? Let's investigate the relationship between color, bodyLength, and breathesFire to find out:
+
+```{r glmer example}
+model3 <- glmer(breathesFire ~ color*bodyLength + (1|mountainRange), data=dragons, family=binomial(link = "logit"))
+model3_df <- emmeans(model3, ~ color*bodyLength, type='response') %>% as.data.frame()
+head(model3_df)
+```
+
+First thing to note: I added the argument `type='response'` to the `emmeans` call. This ensures that our estimates are back-transformed to the same scale s the original variable, instead of being on the log-odds scale. If you're using only categorical predictors, then this is the only `emmeans` modification you have to worry about.  
+
+Second thing to note: the names of our variables in the dataframe are different from those in the `lmer()` dataframe! Instead of emmeans, we have prob; degrees of freedom are now infinite; and the CIs are now values of the asymptote (asymp.LCL, asymp.UCL) instead of the fixed upper and lower bounds (lower.CL, upper.CL). These differences all have to do with the logit link, but all you need to know in terms of plotting is that you'll have to adjust your variable names accordingly. 
+
+Finally, because we have a continuous predicor, there is a third thing to note: we only got point estimates for the effect of color at the mean value of bodyLength. But that's not how we think about or want to plot the effect of a continuous predictor! Thus, we need to specify the range of bodyLength values that we want `emmeans` to return estimates from. There are a number of ways to do this, and the "best" way is contingent on your research question and/or desired visualization. And fortunately, this method remains the same regardless of your model type (i.e., if it's `lmer()` or `glmer()`).
+
+One approach is to get estimates from the lowest and highest values (i.e., the range) of bodyLength. Here's how you do that:
+
+```{r glmer emmeans range}
+# extracting estimates at the extremes and mean values of bodyLength
+model3_df <- emmeans(model3, ~ color*bodyLength, type='response', cov.reduce=range) %>% as.data.frame()
+head(model3_df)
+
+# plot those estimates
+ggplot(model3_df, aes(x=bodyLength, y=prob,fill=color)) +
+  geom_ribbon(aes(ymin=asymp.LCL, ymax=asymp.UCL), alpha=0.3) + 
+  geom_line(aes(color=color)) +
+  scale_fill_dragon("Dragon Color") +
+  scale_color_manual(values=c("#3574AC","#AD343C","#FBD774")) +
+  labs(y='Probability of breathing fire', x='Body Length', color='Dragon Color', title='Effects of color and body length on fire-breathing') +
+  theme_allie()
+```
+<br>
+
+But if you want a more detailed representation of the effect, you can write a quick function that tells `emmeans()` to extract estimates along the whole range of bodyLength values in X-sized increments:
+
+```{r glmer emmeans custom function}
+# write a function to extract values of bodyLength in "precision"-sized increments
+bodyLength_range <- function(bodyLength, precision=5) {
+  return(seq(min(dragons[,bodyLength], na.rm=TRUE),
+             max(dragons[,bodyLength], na.rm=TRUE),
+             precision))
+}
+
+# tell emmeans to extract estimates at values of bodyLength specified by the function bodyLength_range
+model3_df <- emmeans(model3, ~ color*bodyLength, type='response', at=list(bodyLength=bodyLength_range('bodyLength'))) %>% as.data.frame()
+
+head(model3_df)
+
+# let's see the difference this makes in the plot! 
+ggplot(model3_df, aes(x=bodyLength, y=prob,fill=color)) +
+  geom_ribbon(aes(ymin=asymp.LCL, ymax=asymp.UCL), alpha=0.3) + 
+  geom_line(aes(color=color)) +
+  scale_fill_dragon("Dragon Color") +
+  scale_color_manual(values=c("#3574AC","#AD343C","#FBD774")) +
+  labs(y='Probability of breathing fire', x='Body Length', color='Dragon Color',title='Effects of color and body length on fire-breathing') +
+  theme_allie()
+```
+
+Cool! The trends are still there, but now we have a more detailed depiction of how the probability of fire-breathing changes as a function of body length. 
+
+[`emmeans`](https://cran.r-project.org/web/packages/emmeans/index.html) is an immensely useful companion package for `lme4` and `lmerTest`. The vignettes on the page linked here are very helpful, and can be quite illuminating about all the things you can do with fitted mixed models. I highly recommend playing around with it to build up your knowledge about mixed models! 
+
+<br><br>
+
+---
+
+<br><br>
+
+## Customizing your plots
+
+<br>
+
+Perhaps my favorite thing about `ggplot2` is how much flexibility and control you have over your plots. Since I don't know what you don't know, this section is going to be a compilation of aesthetic tweaks that I've had to make in my very short research career. If there's a specific thing you want to know how to do, let me know and I'll update the post! 
+
+<br>
+
+#### Creating a custom color palette
+<br>
+Like all things programming, there are multiple ways to do this. Allie demonstrated one method above that I'll reproduce here:
+```{r allie color palette}
+scale_fill_dragon <- function(...){
+      library(scales)
+      discrete_scale("fill","dragon",manual_pal(values = c("#3574AC","#AD343C","#FBD774")), ...)
+}
+```
+<br>
+
+I had no idea you could make a custom palette like this! I've always used the [`paletti`](https://github.com/EdwinTh/paletti) package to do this. All you do is specify a vector of HEX codes and pass it to some nested arguments from the packge:
+
+```{r paletti}
+# load the package
+library(paletti)
+# specify the colors
+dragon_colors <- c("#3574AC","#AD343C","#FBD774")
+# preview the palette
+viz_palette(dragon_colors)
+# create the palette
+dragon_fill <- get_scale_fill(get_pal(dragon_colors))
+dragon_color <- get_scale_color(get_pal(dragon_colors))
+```
+<br>
+
+Custom palettes are great for a lot of reasons, but they can take a lot of work to hone. Sourcing colors for palettes is one of my favoite forms of procrastination, but if you just want to get things done, [here](https://github.com/EmilHvitfeldt/r-color-palettes) is an excellent resource canvassing color palettes available to R users. I don't know if it's *completely* comprehensive, but it's pretty darn close. It also has some great resources for generating HEX codes if you are interested in making a plotting theme but have no idea where to start. 
+
+#### Modifying axes
+<br>
+
+Let's take a look at one of our `glmer()` plots:
+```{r glmer plot}
+p <- ggplot(model3_df, aes(x=bodyLength, y=prob,fill=color)) +
+  geom_ribbon(aes(ymin=asymp.LCL, ymax=asymp.UCL), alpha=0.3) + 
+  geom_line(aes(color=color)) +
+  scale_fill_dragon("Dragon Color") +
+  scale_color_manual(values=c("#3574AC","#AD343C","#FBD774")) +
+  labs(y='Probability of breathing fire', x='Body Length', color='Dragon Color', title='Effects of color and body length on fire-breathing') +
+  theme_allie()
+
+p
+```
+<br>
+
+It's beautiful, right? But what if you don't want that extra gray space around the edges of the x-axis? That's where the `expand` argument of `scale_x_continuous` comes in. This allows you to set the "range expansion constants" the ggplot uses to add padding around the axes. For continuous variables, like we have, the default is to expand the scale by 5% on each side. For discrete variables (`scale_x_discrete`), the default is 0.6 units. 
+
+Based on my tinkering, it seems like small increases in the first or third value of `expand` will result in big changes at the leftmost and rightmost points on the x-axis, respectively. Small increases to the second or fourth values will results in small changes at the leftmost and rightmost points on the x-axis. There is definitely a better explanation for this (probably having to do with y-values), but I'll leave that for you to discover! For now, I'll set all the values except the last to 0 so you can get an idea of how this shifts the plotting space:
+```{r scale x continuous}
+ggplot(model3_df, aes(x=bodyLength, y=prob,fill=color)) +
+  geom_ribbon(aes(ymin=asymp.LCL, ymax=asymp.UCL), alpha=0.3) + 
+  geom_line(aes(color=color)) +
+  dragon_fill() +
+  dragon_color() +
+  scale_x_continuous(expand = c(0, 0, 0, 0.5)) +
+  labs(y='Probability of breathing fire', x='Body Length', color='Dragon Color', fill='Dragon Color', title='Effects of color and body length on fire-breathing') +
+  theme_allie()
+```
+<br>
+
+If you wanted to change the breaks on your x-axis, change the labels of the breaks, or adjust the limits, you can do that all with different arguments inside the `scale_x_continuous` call.
+
+<br>
+
+Have you ever wondered how people get their x-axes on a slant? Here's how: 
+```{r slanted x labels}
+p + theme(axis.text.x = element_text(angle = 45, vjust = 0, hjust=0))
+```
+
+`angle` adjusts the angle (setting it to 90 would make the labels perpendicular to the plot), and `vjust` and `hjust` move the labels along the vertical and horizontal dimensions. 
+
+<br>
+
+#### Themes
+One of the most powerful ways to customize your plots beyond the ggplot defaults is to play with different themes. Allie built her own (which is next-level), but there are many really nice and elegant themes that can really take your plot to the next level. Some are built into ggplot (like `theme_minimal()` or `theme_classic`), but others come from devoted packages. One of my favorites is `theme_pubr()`. Let's see how it changes our `glmer()` plot:
+
+```{r pubr}
+library(ggpubr)
+p + theme_pubr()
+```
+
+If you don't like the legend on top, you can adjust that very simply:
+``` {r pubr legend}
+p + theme_pubr(legend='right')
+```
+
+To adjust the position of your legend, or really anything about the plotting space that doesn't have to do with geoms (so things like axes, backgrounds, text size, etc.), you'll pass a command to the `theme()` function of ggplot. Something I can't recommend highly enough is taking time to learn about and play around with all the different arguments that can be passed to `theme()`. That's where the vast majority of customization comes in! 
+
+#### Writing a plotting function
+<br>
+Let's say you have a plot style that you want to retain for a number of different plots. Instead of copying and pasting the same lines of code, you can simply write a function that defines all your plot parameters and use that to generate a bunch of plots. Let's step out of the `emmeans()`-verse for a minute and look at how testScore and bodyLength are related to color:
+
+```{r plotting functions}
+dragon_plot <- function(yvar, title) {
+  ggplot(dragons, aes_(x=~color, y=yvar, fill=~color)) +
+  geom_bar(stat = "summary") +
+  geom_jitter(width = 0.1, height = 0, alpha = 0.2) +
+  ggtitle(title) +
+  scale_fill_dragon() +
+  theme_allie()
+}
+
+plot_bodyLength <- dragon_plot(~bodyLength, 'Body length by color') 
+plot_testScore <- dragon_plot(~testScore, 'Test score by color') 
+
+```
+
+The important thing to note here is that you use `aes_` instead of the regular `aes` call, that the variables that you want to stay constant across plots are preceded by a `~` when you define the function, and that the variables you want to sub in are preceded by a `~` when you call the function.
+
+During the workshop, Kevin noted that you can use `aes_string()` instead of `aes_` and then substitute all the `~`s for character strings. 
+
+<br>
+
+#### Patchwork! 
+<br>
+
+Let's make these two plots into one figure using the awesome package [`patchwork`](https://patchwork.data-imaginist.com/). This is another package I can't recommend enough. It uses the syntax of `ggplot2` to allow you to combine multiple plots into one figure. I won't go into details here, but you should definitely check out the (beautiful and easy to use) website to learn more.
+
+```{r patchwork}
+library(patchwork)
+plot_bodyLength + plot_testScore + plot_layout(guides='collect')
+
+# and if we wanted to export this figure as one single image, we would run:
+#ggsave('filepath', dpi='retina')
+```
+<br><br>
+
+---
+
+<br><br>
+
+## Spaghetti Plots
+<br>
+Next, let's learn how to create spaghetti plots that connect the dots for within-subjects measures. Unfortunately, we only measured our dragons once (after all, they are hard to catch). So we'll quickly load one of Allie's real datasets to look at some repeated measures.
+<br>
+```{r}
+PE_recon <- read.csv("PE_recon.csv", fileEncoding="UTF-8-BOM")
+PE_recon_sum <- summarySE(PE_recon, measurevar = "Errors_mean", groupvars = c("Group", "Type"))
+
+ggplot(PE_recon, aes(x = Type, y = Errors_mean)) +
+  theme_allie() +
+  geom_point(aes(group=ID), color="#2b2e33", alpha = 0.25, size = 1.5) +
+  geom_line(aes(group=ID), color="#2b2e33", alpha = 0.25) +
+  xlab("Reactivation Type") +
+  ylab("Average False Memories per Video") +
+  ggtitle("False Memories")
+```
+<br>
+The "group=ID" argument is doing the magic here. Try removing it from the geom_point and geom_line layers, and see what happens. Not pretty.
+<br>
+But wait! We actually have another grouping variable in this dataset. This was a 2x2 design, where we had a between-subjects contrast and a within-subjects contrast. Let's create separate panels for our between-subjects variable, Group.
+<br>
+
+```{r}
+ggplot(PE_recon, aes(x = Type, y = Errors_mean)) +
+  theme_allie() +
+  geom_point(aes(group=ID), color="#2b2e33", alpha = 0.25, size = 1.5) +
+  geom_line(aes(group=ID), color="#2b2e33", alpha = 0.25) +
+  xlab("Reactivation Type") +
+  ylab("Average False Memories per Video") +
+  ggtitle("False Memories") +
+  facet_wrap(.~Group)
+```
+<br>
+Much more informative, but this plot is still very bland. Let's add some bars to display the average for each condition, and give those bars some color. We can add errorbars while we're at it.
+<br>
+Note that we are putting the geoms for the new bars BEFORE the geoms for the points and lines. What happens if we move these geoms around? Try changing the order to see how it affects the plot.
+<br>
+```{r}
+ggplot(PE_recon, aes(x = Type, y = Errors_mean, fill = Type)) +
+  theme_allie() +
+  scale_fill_dragon(name = "Reactivation Type") +
+  scale_x_discrete(name = "Reactivation Type") +
+  geom_bar(stat = "summary", fun.y = "mean", na.action=na.omit) +
+  geom_errorbar(data = PE_recon_sum, aes(ymin = Errors_mean - ci, ymax = Errors_mean + ci), width=.2, size = 0.75, position=position_dodge(.9)) +
+    xlab("Reactivation Type") +
+  geom_point(aes(group=ID), color="#2b2e33", alpha = 0.25, size = 1.5) +
+  geom_line(aes(group=ID), color="#2b2e33", alpha = 0.25) +
+  ylab("Average False Memories per Video") +
+  ggtitle("False Memories") +
+  facet_wrap(. ~ Group)
+```
+
+<br> <br> <br>
+
+## Raincloud Plots
+<br>
+In the final section, we'll use our new layering skills to create a raincloud plot! These are pretty plots that display the distribution of your data, as well as the summary metrics for comparison.
+<br>
+
+```{r}
+#we'll borrow this function that allows us to plot half violin plots
+source("https://raw.githubusercontent.com/datavizpyr/data/master/half_flat_violinplot.R", local = knitr::knit_global())
+
+#this is the same as the palette we generated earlier, but we need to specify it for COLOR instead of FILL (allowing us to apply it to dots in addition to bars)
+scale_color_dragon <- function(...){
+      library(scales)
+      discrete_scale("color","dragon",manual_pal(values = c("#3574AC","#AD343C","#FBD774")), ...)
+}
+
+#think through what each of these layers adds to the plot. try turning them off and on!
+#try enabling or disabling coord_flip() to change the orientation.
+
+ggplot(data = PE_recon, aes(x = Group, y = Errors_mean, fill = Group, color = Group)) +
+theme_allie() +
+geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .8, width = 0.7) +
+geom_jitter(width = 0.1, height = 0, size = 2, alpha = 0.5) +
+geom_boxplot(width = .1, alpha = 0.75, position = position_nudge(x = -.2, y = 0), outlier.shape = NA) +
+scale_fill_dragon() +
+scale_color_dragon() +
+guides(fill = FALSE) +
+guides(color = FALSE) +
+#coord_flip() +
+xlab("False Memories") +
+ylab("Group") +
+ggtitle("It's Raining Data!")
+
+```
