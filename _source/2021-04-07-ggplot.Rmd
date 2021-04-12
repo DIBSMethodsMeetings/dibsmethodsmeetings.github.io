@@ -1,6 +1,6 @@
 ---
 title: "ggplot2 workshop"
-author: allie
+author: maria
 categories: [ tutorial ]
 image: assets/images/2021-04-07-ggplot/ggplot.jpeg
 output:
@@ -45,8 +45,7 @@ Like other packages in the [tidyverse](https://www.tidyverse.org/), `ggplot2` wo
 
 Today we'll be working with the dragons dataset that we've all come to know and love. This is a fictional dataset about dragons. Each dragon has one row. We have information about each dragon's body length and cognitive test score. We also have some other information about each dragon: We know about the mountain range where it lives, color, diet, and whether or not it breathes fire. 
 
-Let's load it in, along with some other packages. If you're following along in real-time, make sure your working directory is set to the same folder that contains "dragons_data.csv", or change the file path below. 
-
+Let's load it in, along with some other packages. 
 ```{r echo=T, results='hide', error=FALSE, warning=FALSE, message=FALSE}
 #change some settings
 options(scipen=999) #turn off scientific notation
@@ -77,7 +76,11 @@ View(dragons)
 ```
 We have 2 continuous variables: `testScore` and `bodyLength`. The rest of the variables are categorical. This gives us lots of options for creatively visualizing relationships between different variables of interest! 
 
-<br><br>
+<br>
+
+--- 
+
+<br>
 
 ## Multi-Layered Plots
 I'm going to assume that you have some prior knowledge of R and ggplot2, but not much. Let's start with a basic plot.
@@ -209,7 +212,7 @@ ggplot(data = dragons, aes(x = color, y = testScore, fill = color)) +
 ## Plotting model estimates
 <br>
 Now that we know how to create beautiful multi-layered plots, let's learn how to plot the results of our mixed models! The `emmeans` package is the star of the show here. Short for "estimated marginal means", it extracts the beta values, CIs, and more from a fitted `lmer` object. Let's start with the same question as we started with above -- how is color related to intelligence? 
-
+### Linear mixed model with a categorical predictor
 First we have to fit our `lmer` model. If you're still new to `emmeans`, it's best to save the fitted model as an object so that you can play around with different calls. At the end of the section I'll show you the fastest way to go from model -> plot. 
 
 ```{r fit model}
@@ -281,6 +284,7 @@ ggplot(model_df, aes(x = color, y = emmean, fill = color)) +
 ```
 <br> 
 
+#### Linear mixed model with an interaction between categorical predictors
 So far, so good. But what if we have a model with an interaction term? Let's fit one and find out!
 ```{r interaction model}
 model2 <- lmer(testScore ~ color*diet + (1|mountainRange), data=dragons)
@@ -299,10 +303,15 @@ ggplot(model2_df, aes(x=diet, y=emmean, fill=color, color=color)) +
   theme_allie()
 ```
 
-Why did the legend show up twice, once in color and once with just black points? Unfortunately, this shows the limits of custom color palettes -- since they're hard-coded, they need to have enough colors to cover all the different combinations of your discrete variables. We'll say more on this and other palette-related things in the section [`Color palettes`](#color-palettes)! 
+Three things to note: first, we indicate that we want to extract marginal means for the main terms and interactions with the `|` operator (did you know it's called a 'pipe'??? TIL!). The `*` operator will do exactly the same thing, and it has the added benefit of being more similar to `lmer` syntax.
+
+Second, we made another Stroop plot! The colors of the geoms don't match the color names, and we no longer have Allie's beautiful colors. Unfortunately, this shows the limits of custom color palettes -- since they're hard-coded, they need to have enough colors to cover all the different combinations of your discrete variables. So if you wanted to make an interaction plot like this with the same colors as Allie's, you'd need to make another palette that has 9 values instead of 3. 
+
+Third, we have two legends! One where the geoms are colored and another where they are black. This highlights the difference between the `color` and `fill` arguments. `Color` is used to set the color of line-based objects, like the outline of a bar, violin, ribbon, etc. It's also used to set the color of points. Given that our geom is a combination of point & line, it's only going to be modifiable by `color` arguments. `Fill` is used to "fill in" empty spaces, like the inside of a column, ribbon, or violin. Since we don't have any geoms that take the `fill` argument in this plot, then it just shows up as black. Getting rid of `fill=color` and `scale_fill_dragon()` will get rid of the superfluous legend.
 
 <br>
 
+#### Generalized linear mixed model & continuous predictor variables
 What if you want to plot the results of a generalized linear model? And what if you have a continuous predictor variable? Let's investigate the relationship between color, bodyLength, and breathesFire to find out:
 
 ```{r glmer example}
@@ -315,7 +324,7 @@ First thing to note: I added the argument `type='response'` to the `emmeans` cal
 
 Second thing to note: the names of our variables in the dataframe are different from those in the `lmer()` dataframe! Instead of emmeans, we have prob; degrees of freedom are now infinite; and the CIs are now values of the asymptote (asymp.LCL, asymp.UCL) instead of the fixed upper and lower bounds (lower.CL, upper.CL). These differences all have to do with the logit link, but all you need to know in terms of plotting is that you'll have to adjust your variable names accordingly. 
 
-Finally, because we have a continuous predicor, there is a third thing to note: we only got point estimates for the effect of color at the mean value of bodyLength. But that's not how we think about or want to plot the effect of a continuous predictor! Thus, we need to specify the range of bodyLength values that we want `emmeans` to return estimates from. There are a number of ways to do this, and the "best" way is contingent on your research question and/or desired visualization. And fortunately, this method remains the same regardless of your model type (i.e., if it's `lmer()` or `glmer()`).
+Finally, because we have a continuous predictor, there is a third thing to note: we only got point estimates for the effect of color at the mean value of bodyLength. But that's not how we think about or want to plot the effect of a continuous predictor! Thus, we need to specify the range of bodyLength values that we want `emmeans` to return estimates from. There are a number of ways to do this, and the "best" way is contingent on your research question and/or desired visualization. And fortunately, this method remains the same regardless of your model type (i.e., if it's `lmer()` or `glmer()`).
 
 One approach is to get estimates from the lowest and highest values (i.e., the range) of bodyLength. Here's how you do that:
 
@@ -364,11 +373,27 @@ Cool! The trends are still there, but now we have a more detailed depiction of h
 
 [`emmeans`](https://cran.r-project.org/web/packages/emmeans/index.html) is an immensely useful companion package for `lme4` and `lmerTest`. The vignettes on the page linked here are very helpful, and can be quite illuminating about all the things you can do with fitted mixed models. I highly recommend playing around with it to build up your knowledge about mixed models! 
 
-<br><br>
+And once you get familiar with `emmeans` & `lmer`, you can take the fast-track to plotting model estimates:
+```{r speedy plot}
+
+glmer(breathesFire ~ color*bodyLength + (1|mountainRange), data=dragons, family=binomial(link = "logit")) %>%
+  emmeans(., ~ color*bodyLength, type='response', at=list(bodyLength=bodyLength_range('bodyLength'))) %>%
+  as.data.frame() %>%
+  ggplot(., aes(x=bodyLength, y=prob,fill=color)) +
+  geom_ribbon(aes(ymin=asymp.LCL, ymax=asymp.UCL), alpha=0.3) + 
+  geom_line(aes(color=color)) +
+  scale_fill_dragon("Dragon Color") +
+  scale_color_manual(values=c("#3574AC","#AD343C","#FBD774")) +
+  labs(y='Probability of breathing fire', x='Body Length', color='Dragon Color',title='Effects of color and body length on fire-breathing') +
+  theme_allie()
+
+```
+
+<br>
 
 ---
 
-<br><br>
+<br>
 
 ## Customizing your plots
 
@@ -409,7 +434,7 @@ Custom palettes are great for a lot of reasons, but they can take a lot of work 
 #### Modifying axes
 <br>
 
-Let's take a look at one of our `glmer()` plots:
+Let's take a look at one of our `glmer()` plots. You'll notice that I'm saving this ggplot call to the variable `p`. I'm doing this to take advantage of the syntax and demonstrate that you can modify plots even after they've been saved. That's one of the many beautiful things about ggplots: you can just keep adding layers until you get the plot of your dreams. [am i the only one who dreams about beautiful plots?]
 ```{r glmer plot}
 p <- ggplot(model3_df, aes(x=bodyLength, y=prob,fill=color)) +
   geom_ribbon(aes(ymin=asymp.LCL, ymax=asymp.UCL), alpha=0.3) + 
@@ -442,7 +467,7 @@ If you wanted to change the breaks on your x-axis, change the labels of the brea
 
 <br>
 
-Have you ever wondered how people get their x-axes on a slant? Here's how: 
+##### Have you ever wondered how people get their x-axis labels on a slant? Here's how: 
 ```{r slanted x labels}
 p + theme(axis.text.x = element_text(angle = 45, vjust = 0, hjust=0))
 ```
@@ -465,6 +490,8 @@ p + theme_pubr(legend='right')
 ```
 
 To adjust the position of your legend, or really anything about the plotting space that doesn't have to do with geoms (so things like axes, backgrounds, text size, etc.), you'll pass a command to the `theme()` function of ggplot. Something I can't recommend highly enough is taking time to learn about and play around with all the different arguments that can be passed to `theme()`. That's where the vast majority of customization comes in! 
+
+An important note: the layering of arguments within a ggplot object does indeed matter. Geoms get stacked on top of each other based on the order they're listed. So if you want to overlay a jitter on top of a bar plot, you need to make sure `geom_jitter` comes after `geom_col`. Likewise with `theme` arguments that aren't included in the base `ggplot2` package. If you specify, for example, `theme_pubr(legend='right')`, but then add `legend.position='center'` in your `theme()` call that comes after the `theme_pubr()` call, then your legend is going to be placed in the location of the most recent call; in this example, it would be centered. I've run into this with things like font styles before, and endured a fair share of head-bashing before realizing what I was doing. Please learn from my mistakes! 
 
 #### Writing a plotting function
 <br>
@@ -503,11 +530,11 @@ plot_bodyLength + plot_testScore + plot_layout(guides='collect')
 # and if we wanted to export this figure as one single image, we would run:
 #ggsave('filepath', dpi='retina')
 ```
-<br><br>
+<br>
 
 ---
 
-<br><br>
+<br>
 
 ## Spaghetti Plots
 <br>
@@ -561,7 +588,11 @@ ggplot(PE_recon, aes(x = Type, y = Errors_mean, fill = Type)) +
   facet_wrap(. ~ Group)
 ```
 
-<br> <br> <br>
+<br> 
+
+---
+
+<br>
 
 ## Raincloud Plots
 <br>
