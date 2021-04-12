@@ -48,9 +48,6 @@ Today we'll be working with the dragons dataset that we've all come to know and 
 Let's load it in, along with some other packages. If you're following along in real-time, make sure your working directory is set to the same folder that contains "dragons_data.csv", or change the file path below. 
 
 ```{r echo=T, results='hide', error=FALSE, warning=FALSE, message=FALSE}
-# skip this line if you already have the dragons dataset in your working directory
-setwd(dirname(rstudioapi::getSourceEditorContext()$path))
-
 #change some settings
 options(scipen=999) #turn off scientific notation
 options(contrasts = c("contr.sum","contr.poly")) #this tweaks the sum-of-squares settings to make sure the output of Anova(model) and summary(model) are consistent and appropriate when a model has interaction terms
