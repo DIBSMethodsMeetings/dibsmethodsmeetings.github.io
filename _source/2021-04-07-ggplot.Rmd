@@ -212,6 +212,7 @@ ggplot(data = dragons, aes(x = color, y = testScore, fill = color)) +
 ## Plotting model estimates
 <br>
 Now that we know how to create beautiful multi-layered plots, let's learn how to plot the results of our mixed models! The `emmeans` package is the star of the show here. Short for "estimated marginal means", it extracts the beta values, CIs, and more from a fitted `lmer` object. Let's start with the same question as we started with above -- how is color related to intelligence? 
+
 ### Linear mixed model with a categorical predictor
 First we have to fit our `lmer` model. If you're still new to `emmeans`, it's best to save the fitted model as an object so that you can play around with different calls. At the end of the section I'll show you the fastest way to go from model -> plot. 
 
@@ -318,9 +319,11 @@ What if you want to plot the results of a generalized linear model? And what if 
 model3 <- glmer(breathesFire ~ color*bodyLength + (1|mountainRange), data=dragons, family=binomial(link = "logit"))
 model3_df <- emmeans(model3, ~ color*bodyLength, type='response') %>% as.data.frame()
 head(model3_df)
+# to confirm that we only get point estimates for each categorical predictor
+length(model3_df)
 ```
 
-First thing to note: I added the argument `type='response'` to the `emmeans` call. This ensures that our estimates are back-transformed to the same scale s the original variable, instead of being on the log-odds scale. If you're using only categorical predictors, then this is the only `emmeans` modification you have to worry about.  
+First thing to note: I added the argument `type='response'` to the `emmeans` call. This ensures that our estimates are back-transformed to the same scale as the original variable, instead of being on the log-odds scale. If you're using only categorical predictors, then this is the only `emmeans` modification you have to worry about.  
 
 Second thing to note: the names of our variables in the dataframe are different from those in the `lmer()` dataframe! Instead of emmeans, we have prob; degrees of freedom are now infinite; and the CIs are now values of the asymptote (asymp.LCL, asymp.UCL) instead of the fixed upper and lower bounds (lower.CL, upper.CL). These differences all have to do with the logit link, but all you need to know in terms of plotting is that you'll have to adjust your variable names accordingly. 
 
