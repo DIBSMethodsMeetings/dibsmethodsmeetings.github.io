@@ -13,7 +13,7 @@ output:
 
 ```{r setup, include=FALSE, cache=FALSE}
 knitr::opts_knit$set(base.dir="../", base.url="/")
-knitr::opts_chunk$set(fig.path="assets/images/YYYY-MM-DD-post-name/",
+knitr::opts_chunk$set(fig.path="assets/images/2021-04-07-ggplot/",
                       cache.path = 'cache/',
                       message=FALSE, warning=FALSE,
                       cache=TRUE, echo=TRUE)
