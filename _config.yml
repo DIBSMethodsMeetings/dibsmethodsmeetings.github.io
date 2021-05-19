@@ -50,6 +50,16 @@ authors:
     twitter: https://twitter.com/maria_khoudary
     description: "Lab manager & research assistant working with Felipe De Brigard on memory, perception, and metacognition."
 
+  miles:
+    name: Miles
+    display_name: Miles Martinez
+    avatar: 
+    gravatar:
+    email: miles.martinez@duke.edu
+    web:
+    twitter:
+    description:
+
   raphael&candice:
     name: Raphael & Candice
     display_name: Raphael Geddert & Candice Wang
@@ -59,6 +69,7 @@ authors:
     web:
     twitter:
     description:
+
 
 # Plugins
 plugins:
