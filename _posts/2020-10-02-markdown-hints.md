@@ -2,7 +2,7 @@
 layout: post
 title:  "Markdown hints"
 author: anne
-categories: [ Jekyll ]
+categories: [ Jekyll, programming ]
 image: assets/images/academic_website.png
 hidden: true
 ---
