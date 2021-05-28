@@ -4,7 +4,7 @@ title: "Duke Neuroscience Methods Club"
 description: "Workshops and tutorials on various neuroscience methods."
 logo: 'assets/images/logo.png'
 favicon: 'assets/images/logo.png'
-baseurl:
+baseurl: 
 include: ["_pages"]
 permalink: /:title/
 
