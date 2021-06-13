@@ -40,6 +40,16 @@ authors:
     twitter: https://twitter.com/kevingoneill
     description: "Graduate student at Duke University working with Felipe De Brigard and John Pearson on causal reasoning."
 
+  nathan:
+    name: Nathan
+    display_name: Nathan Liang
+    avatar: assets/images/nathan.jpg
+    gravatar:
+    email: nathan.liang@duke.edu
+    web: https://1nathanliang.github.io
+    twitter: https://twitter.com/1nathan_liang
+    description: "Lab manager at Princeton University working with Diana Tamir. Previously, a research assistant studying moral psychology with Felipe De Brigard, Walter Sinnott-Armstrong, and Paul Seli at Duke University."
+
   maria:
     name: Maria
     display_name: Maria Khoudary
