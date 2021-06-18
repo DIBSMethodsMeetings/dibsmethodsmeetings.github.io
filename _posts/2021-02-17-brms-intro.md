@@ -3,7 +3,6 @@ title: "Intro to Bayesian Regression in R"
 author: kevin
 categories: [ tutorial, bayes ]
 image: assets/images/2021-02-17-brms-intro/bayes_dragon.png
-featured: true
 hidden: false
 output:
   html_document: default

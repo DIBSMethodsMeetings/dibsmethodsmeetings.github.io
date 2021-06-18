@@ -1,7 +1,8 @@
 ---
 title: "Data Wrangling with Python + Pandas"
 author: nathan
-categories: [ tutorial ]
+image: https://pandas.pydata.org/static/img/pandas_secondary.svg
+categories: [ tutorial, programming ]
 hidden: false
 featured: true
 ---
@@ -38,10 +39,10 @@ At least anecdotally, it can certainly be tempting to use them for data preproce
 
 My point, then, is to prove to you here that `pandas` is just as effective as industry standard GUIs (and R!) in getting the same types of tasks done.
 
-|  | Pros | Cons |
-| :- | :- | :- |
-| Microsoft Excel | <li>GUI: easy to click and drag selections</li><li>Customizable full visual display of dataset</li> | <li>Increased chance for human error</li><li>Cannot handle large datasets</li><li>Slower performance</li> |
-| `pandas` | <li>Can assemble a reproducible pipeline for data analysis</li><li>Can automate vectorized operations on a massive scale</li><li>Reduced chance for human error</li> | <li>Takes time to learn and apply full functionality</li> |
+|      | Pros | Cons |
+| :--- | :--- | :--- |
+| Microsoft Excel | {::nomarkdown}<ul><li>GUI: easy to click and drag selections</li><li>Customizable full visual display of dataset</li></ul>{:/} | {::nomarkdown}<ul><li>Increased chance for human error</li><li>Cannot handle large datasets</li><li>Slower performance</li></ul>{:/} |
+| `pandas` | {::nomarkdown}<ul><li>Can assemble a reproducible pipeline for data analysis</li><li>Can automate vectorized operations on a massive scale</li><li>Reduced chance for human error</li></ul>{:/} | {::nomarkdown}<ul><li>Takes time to learn and apply full functionality</li></ul>{:/} |
 
 # **2.   How to Be a Power User**
 
