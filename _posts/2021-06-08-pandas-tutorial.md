@@ -4,7 +4,7 @@ author: nathan
 image: https://pandas.pydata.org/static/img/pandas_secondary.svg
 categories: [ tutorial, programming ]
 hidden: false
-featured: true
+featured: false
 ---
 
 # **1.   Introduction**

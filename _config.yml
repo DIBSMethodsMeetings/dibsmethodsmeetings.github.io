@@ -63,17 +63,28 @@ authors:
   miles:
     name: Miles
     display_name: Miles Martinez
-    avatar: 
+    avatar: assets/images/miles.jpg
     gravatar:
     email: miles.martinez@duke.edu
     web:
     twitter:
     description:
 
+  pranjal:
+    name: Pranjal
+    display_name: Pranjal Gupta
+    avatar: assets/images/pranjal.jpg
+    gravatar:
+    email: pranjal.gupta@duke.edu
+    web:
+    twitter:
+    description:
+
+
   raphael&candice:
     name: Raphael & Candice
     display_name: Raphael Geddert & Candice Wang
-    avatar:
+    avatar: assets/images/raphael.jpg
     gravatar:
     email: "raphael.geddert@duke.edu,yuxi.wang@duke.edu"
     web:
