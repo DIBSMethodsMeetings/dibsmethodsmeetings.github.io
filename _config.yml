@@ -1,9 +1,9 @@
 # Site
-name: "Duke Neuroscience Methods Club"
-title: "Duke Neuroscience Methods Club"
-description: "Workshops and tutorials on various neuroscience methods."
-logo: 'assets/images/logo.png'
-favicon: 'assets/images/logo.png'
+name: "Duke Institute for Brain Sciences Methods Meetings"
+title: "Duke Institute for Brain Sciences Methods Meetings"
+description: "Workshops and tutorials on  methods, statistics, and models in neuroscience."
+logo: 'assets/images/logo_dibs.jpg'
+favicon: 'assets/images/logo_dibs.jpg'
 baseurl: 
 include: ["_pages"]
 permalink: /:title/

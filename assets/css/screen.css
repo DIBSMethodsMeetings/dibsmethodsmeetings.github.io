@@ -27,35 +27,34 @@ License: https://www.wowthemes.net/freebies-license/
 }
 
 a {
-    color: #00ab6b;
+    color: rgb(249, 218, 116);
     transition: all 0.2s;
 }
 
 a:hover {
-    color: #038252;
+    color: rgb(188, 164, 87);
     text-decoration: none;
 }
 
 pre {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    border: #E3EDF3 1px solid;
     width: 100%;
     padding: 7px;
     font-family: monospace, sans-serif;
     font-size: .9rem;
     white-space: pre;
     overflow: auto;
-    background: #fff;
+    background: rgb(9, 33, 101);
     border-radius: 0px;
     line-height: 1.6;
-    color: #333;
+    color: rgba(256, 256, 256, .8);
     margin-bottom: -rem;
 }
 
 .mediumnavigation {
-    background: rgba(255, 255, 255, .97);
-    box-shadow: 0 2px 2px -2px rgba(0, 0, 0, .15);
+    background: rgb(25, 67, 126, .75);
+    box-shadow: 0 2px 2px -2px rgba(255, 255, 255, .15);
     transition: top 0.2s ease-in-out;
 }
 
@@ -64,6 +63,8 @@ pre {
 }
 
 .site-content {
+    color: #fff;
+    background: rgb(25, 67, 126);
     min-height: 60vh;
     padding-top: 1.5rem;
     margin-top: 57px;
@@ -79,7 +80,7 @@ section.recent-posts {
 }
 
 .section-title h2 {
-    border-bottom: 1px solid rgba(0, 0, 0, .125);
+    border-bottom: 1px solid rgba(255, 255, 255, .125);
     margin-bottom: 25px;
     font-weight: 700;
     font-size: 1.4rem;
@@ -87,7 +88,7 @@ section.recent-posts {
 }
 
 .section-title span {
-    border-bottom: 1px solid rgba(0, 0, 0, .44);
+    border-bottom: 1px solid rgba(255, 255, 255, .44);
     display: inline-block;
     padding-bottom: 20px;
     margin-bottom: -1px;
@@ -120,7 +121,8 @@ section.recent-posts {
 }
 
 .listfeaturedtag {
-    border: 1px solid rgba(0, 0, 0, .125);
+    border: 1px solid rgba(255, 255, 255, .125);
+    background: #fff;
     border-radius: .25rem;
     transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
 }
@@ -213,7 +215,7 @@ section.recent-posts {
 
 .post-top-meta span {
     font-size: 0.9rem;
-    color: rgba(0, 0, 0, .44);
+    color: rgba(256, 256, 256, .8);
     display: inline-block;
 }
 
@@ -272,7 +274,7 @@ span.post-read-more a:hover {
     font-size: 0.8rem;
     border-radius: 30px;
     overflow: hidden;
-    border: 1px solid rgba(0, 0, 0, 0.09);
+    border: 1px solid rgba(255, 255, 255, 0.09);
     min-width: 180px;
 }
 
@@ -298,7 +300,7 @@ span.post-read-more a:hover {
 }
 
 .mediumnavigation .dropdown-menu {
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     margin: .5rem 0 0;
 }
 
@@ -329,26 +331,26 @@ span.post-read-more a:hover {
 }
 
 .footer {
-    border-top: 1px solid rgba(0, 0, 0, .05) !important;
+    border-top: 1px solid rgba(255, 255, 255, .05) !important;
     padding-top: 15px;
     padding-bottom: 12px;
     font-size: 0.8rem;
-    color: rgba(0, 0, 0, .44);
+    color: rgba(255, 255, 255, .44);
     margin-top: 50px;
     margin-bottom: 62px;
     position: relative;
-    background: #fff;
+    background: rgb(25, 67, 126);
 }
 
 .link-dark {
-    color: rgba(0, 0, 0, .8);
+    color: rgba(255, 255, 255, .8);
 }
 
 .article-post {
     font-family: Merriweather;
     font-size: 1.1rem;
     line-height: 1.84;
-    color: rgba(0, 0, 0, .8);
+    color: rgba(255, 255, 255, .8);
 }
 
 blockquote {
@@ -489,8 +491,8 @@ blockquote {
 
 .share,
 .share a {
-    color: rgba(0, 0, 0, .44);
-    fill: rgba(0, 0, 0, .44);
+    color: rgba(255, 255, 255, .44);
+    fill: rgba(255, 255, 255, .44);
 }
 
 .graybg {
@@ -500,7 +502,7 @@ blockquote {
 }
 
 .listrelated .card {
-    box-shadow: 0 1px 7px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 7px rgba(255, 255, 255, .05);
     border: 0;
 }
 
@@ -516,14 +518,14 @@ ul.tags li {
 }
 
 ul.tags li a {
-    background: rgba(0, 0, 0, .05);
-    color: rgba(0, 0, 0, .6);
+    background: rgba(255, 255, 255, .05);
+    color: rgba(255, 255, 255, .6);
     border-radius: 3px;
     padding: 5px 10px;
 }
 
 ul.tags li a:hover {
-    background: rgba(0, 0, 0, .07);
+    background: rgba(255, 255, 255, .07);
     text-decoration: none;
 }
 
@@ -540,8 +542,8 @@ ul.tags li a:hover {
 }
 
 .btn.follow {
-    border-color: #02B875;
-    color: #1C9963;
+    border-color: rgba(255, 255, 255, .44);
+    color: rgba(255, 255, 255, .44);
     padding: 3px 10px;
     text-align: center;
     border-radius: 999em;
@@ -550,10 +552,8 @@ ul.tags li a:hover {
 }
 
 .btn.subscribe {
-    background-color: #1C9963;
-    border-color: #1C9963;
-    color: rgba(255, 255, 255, 1);
-    fill: rgba(255, 255, 255, 1);
+    background-color: rgba(255, 255, 255, .44);
+    border-color: rgba(255, 255, 255, .44);
     border-radius: 30px;
     font-size: 0.85rem;
     margin-left: 10px;
@@ -567,7 +567,7 @@ ul.tags li a:hover {
 }
 
 .alertbar {
-    box-shadow: 0 -3px 10px 0 rgba(0, 0, 0, .0785);
+    box-shadow: 0 -3px 10px 0 rgba(255, 255, 255, .0785);
     position: fixed;
     bottom: 0;
     left: 0;
@@ -642,7 +642,7 @@ ul.tags li a:hover {
 
 .authorpage .author-description {
     font-size: 1rem;
-    color: rgba(0, 0, 0, .6);
+    color: rgba(256, 256, 256, .6);
 }
 
 .post-top-meta.authorpage .btn.follow {
@@ -778,7 +778,7 @@ iframe {
 }
 
 .transpdark {
-    background: rgba(0, 0, 0, 0.75);
+    background: rgb(48, 113, 160);
     color: #fff;
 }
 
@@ -789,12 +789,12 @@ iframe {
         padding: 0;
         height: 350px;
         border-radius: 0;
-        background-image: url(../images/jumbotron.jpg);
+        background: rgba(255, 255, 255, 1)`;
         background-size: cover;
     }
 
     .jumbotron.fortags .col-md-4 {
-        background: rgba(0, 0, 0, 0.75);
+        background: rgb(25, 67, 126);
         color: #fff;
     }
 
@@ -807,15 +807,15 @@ iframe {
     margin-top: 3rem;
     padding: 0;
     border-radius: 0;
-    background-image: url(../images/jumbotron.jpg);
+    background: rgb(25, 67, 126);
     background-size: cover;
 }
 
 .jumbotron.fortags a {
     padding: 5px 10px 7px;
-    background: #222;
+    background: #fff;
     border-radius: 30px;
-    color: #fff;
+    color: rgb(25, 67, 126);
     font-weight: 500;
     text-transform: lowercase;
     font-size: 0.8rem;
