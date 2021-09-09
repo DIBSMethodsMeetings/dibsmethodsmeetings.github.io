@@ -2,8 +2,8 @@
 name: "Duke Institute for Brain Sciences Methods Meetings"
 title: "Duke Institute for Brain Sciences Methods Meetings"
 description: "Workshops and tutorials on  methods, statistics, and models in neuroscience."
-logo: 'assets/images/logo_dibs.jpg'
-favicon: 'assets/images/logo_dibs.jpg'
+logo: 'assets/images/logo.jpg'
+favicon: 'assets/images/logo.jpg'
 baseurl: 
 include: ["_pages"]
 permalink: /:title/
