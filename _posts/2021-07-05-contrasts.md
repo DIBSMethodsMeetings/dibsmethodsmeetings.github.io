@@ -2,7 +2,7 @@
 author: kevin
 categories:
 - tutorial
-featured: true
+featured: false
 hidden: false
 image: assets/images/2021-07-05-contrasts/RawData-1.png
 output:
