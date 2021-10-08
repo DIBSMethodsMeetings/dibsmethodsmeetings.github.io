@@ -1,0 +1,53 @@
+---
+layout: default
+title: People
+permalink: /people
+---
+
+<section class="recent-posts">
+  <div class="row listrecent">
+    {% for a in site.authors %}
+    {% assign author = a | last %}
+    <div class="col-lg-4 col-md-6 mb-30px card-group">
+      <div class="card h-100">
+
+	<div style="maxthumb">
+	  {% if author.avatar %}
+	  <img class="author-img" src="{{site.baseurl}}/{{author.avatar}}" alt="{{author.display_name}}">
+	  {% else %}
+	  <img class="author-img" src="https://www.gravatar.com/avatar/{{ author.gravatar }}?s=250&d=mm&r=x" alt="{{ author.display_name }}">
+	  {% endif %}
+	</div>
+
+	<div class="card-body">
+	  <h2 class="card-title">	    
+	    {% if author.web %}
+	    <a class="text-light" href="{{ author.web }}"> {{ author.display_name }} </a>
+	    {% else %}
+	    {{ author.display_name }}
+	    {% endif %}
+	  </h2>
+
+	  <h4 class="card-text"> {{ author.description }} </h4>
+	</div>
+
+	<div class="card-footer" style="height: 80px; display: block;">
+
+	  {% if author.web %}
+	  <a class="btn" href="{{author.web}}"><img class='author-thumb' style="display: block; margin: auto;" src="{{site.baseurl}}/assets/images/globe.png"></a>
+	  {% endif %}
+
+	  {% if author.twitter %}
+	  <a class="btn" href="{{author.twitter}}"><img class='author-thumb' style="display: block; margin: auto;" src="{{site.baseurl}}/assets/images/twitter.png"></a>
+	  {% endif %}
+
+	  
+	  <div class="clearfix"></div>
+	</div>
+	
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+    

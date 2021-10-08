@@ -14,13 +14,9 @@ title: Home
     <div class="row">
 
     {% for post in site.posts %}
-
-        {% if post.featured == true %}
-
-            {% include featuredbox.html %}
-
-        {% endif %}
-
+    {% if post.featured == true %}
+    {% include featuredbox.html %}
+    {% endif %}
     {% endfor %}
 
     </div>
@@ -34,17 +30,15 @@ title: Home
 
     <div class="section-title">
 
-        <h2><span>All Stories</span></h2>
+        <h2><span>All</span></h2>
 
     </div>
 
     <div class="row listrecent">
 
         {% for post in paginator.posts %}
-
-        {% include postbox.html %}
-
-        {% endfor %}
+	{% include postbox.html %}
+	{% endfor %}
 
     </div>
 

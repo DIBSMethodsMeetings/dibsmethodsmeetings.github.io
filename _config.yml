@@ -18,7 +18,7 @@ authors:
     email: allie.sinclair@duke.edu
     web: https://alyssasinclair.com
     twitter: https://twitter.com/sinclair_allie
-    description:
+    description: "PhD candidate in cognitive neuroscience at Duke University co-advised by Dr. Alison Adcock and Dr. Gregory Samanez-Larkin studying how people learn from error."
 
   anne:
     name: Anne
@@ -28,7 +28,7 @@ authors:
     email: amw73@duke.edu
     web: https://draelos.github.io
     twitter: https://twitter.com/annedraelos
-    description: "Postdoc in biostats & neuroscience at Duke University working on real-time adaptive experimental methods."
+    description: "Postdoc in biostats & neuroscience with Dr. John Pearson at Duke University working on real-time adaptive experimental methods."
 
   kevin:
     name: Kevin
@@ -38,7 +38,7 @@ authors:
     email: kevin.oneill@duke.edu
     web: https://kevingoneill.github.io
     twitter: https://twitter.com/kevingoneill
-    description: "Graduate student at Duke University working with Felipe De Brigard and John Pearson on causal reasoning."
+    description: "PhD candidate in cognitive neuroscience at Duke University working with Dr. Felipe De Brigard and Dr. John Pearson on causal reasoning."
 
   nathan:
     name: Nathan
@@ -58,7 +58,7 @@ authors:
     email: maria.khoudary@duke.edu
     web: https://mariakhoudary.com
     twitter: https://twitter.com/maria_khoudary
-    description: "Lab manager & research assistant working with Felipe De Brigard on memory, perception, and metacognition."
+    description: "Graduate student at UC Irvine working with Megan Peters and Dr. Aaron Bornstein on memory, perception, and metacognition."
 
   miles:
     name: Miles
@@ -68,7 +68,7 @@ authors:
     email: miles.martinez@duke.edu
     web:
     twitter:
-    description:
+    description: "Graduate student in the cognitive neuroscience admitting program at Duke University working with Dr. John Pearson on variational inference."
 
   pranjal:
     name: Pranjal
@@ -78,18 +78,18 @@ authors:
     email: pranjal.gupta@duke.edu
     web:
     twitter:
-    description:
+    description: "Graduate student in cognitive neuroscience at Duke University working with Dr. John Pearson on online dimensionality reduction."
 
 
-  raphael&candice:
-    name: Raphael & Candice
-    display_name: Raphael Geddert & Candice Wang
+  raphael:
+    name: Raphael
+    display_name: Raphael Geddert
     avatar: assets/images/raphael.jpg
     gravatar:
-    email: "raphael.geddert@duke.edu,yuxi.wang@duke.edu"
+    email: "raphael.geddert@duke.edu"
     web:
     twitter:
-    description:
+    description: "Graduate student in cognitive neuroscience at Duke University working with Dr. Tobias Egner on cognitive control."
 
 
 google_site_verification : google5d59576ff62047c3.html
