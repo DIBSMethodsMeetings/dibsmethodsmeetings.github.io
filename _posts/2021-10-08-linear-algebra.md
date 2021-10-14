@@ -2,7 +2,7 @@
 title: "A brief intro to the most useful kind of algebra (linear)"
 author: pranjal
 categories: [ tutorial ]
-image: assets/images/2021-10-08-linear-algebra/2021-10-08-linear-algebra_7_1.png
+image: https://upload.wikimedia.org/wikipedia/commons/e/ed/Residuals_for_Linear_Regression_Fit.png
 featured: true
 output:
   html_document: default
@@ -10,9 +10,6 @@ output:
   md_document:
     variant: gfm
     preserve_yaml: TRUE
----
-
-
 ---
 
 If you've ever wondered how R or python gives you regression coefficients, the answer is linear algebra! Linear algebra operations are essential to almost all modern methods for analyzing or modeling data. In this post I will first go through through some linear algebra basics, then build up to finding the ordinary least squares estimate for multiple linear regression. To try and make this self-contained, I will start from the basics. For the linear regression part, I will just assume knowledge of basic derivative rules, e.g., finding the derivative of \\((a - bx)^2\\) with respect to \\(x\\). 
@@ -217,8 +214,7 @@ Both perspectives will be useful for the rest of this post. Either way, if we ha
 $$\begin{align*}
   \mathbf{A} = 
   \begin{bmatrix}
-    \color{SteelBlue}{a_{1,1}} & \color{DarkGoldenrod}{a_{1,2}} & \color{green}{a_{1,3}} \\
-    \color{DeepSkyBlue}{a_{2,1}} & \color{orange}{a_{2,2}} & \color{SpringGreen}{a_{2,3}} \\
+    {\color{SteelBlue} a_{1,1}} & {\color{DarkGoldenrod} a_{1,2}} & {\color{green} a_{1,3}} \\    {\color{DeepSkyBlue} a_{2,1}} & {\color{orange} a_{2,2}} & {\color{LimeGreen} a_{2,3}} \\
   \end{bmatrix}, 
   \quad \quad 
   \mathbf{b} = \begin{bmatrix} b_1 \\ b_2 \\ b_3 \end{bmatrix}
@@ -229,8 +225,8 @@ The different colors (blue, orange, green) are different columns, and darker/lig
 $$\begin{equation}
   \mathbf{c} = 
   \begin{bmatrix}
-    \color{SteelBlue}{a_{1,1}} & \color{DarkGoldenrod}{a_{1,2}} & \color{green}{a_{1,3}} \\
-    \color{DeepSkyBlue}{a_{2,1}} & \color{orange}{a_{2,2}} & \color{SpringGreen}{a_{2,3}} \\
+    {\color{SteelBlue} a_{1,1}} & {\color{DarkGoldenrod} a_{1,2}} & {\color{green} a_{1,3}} \\
+    {\color{DeepSkyBlue} a_{2,1}} & {\color{orange} a_{2,2}} & {\color{LimeGreen} a_{2,3}} \\
   \end{bmatrix} \begin{bmatrix} b_1 \\ b_2 \\ b_3 \end{bmatrix}
 \end{equation}$$
 
@@ -239,9 +235,9 @@ How do we actually multiply these things together? Let's see the first way of fr
 $$\begin{equation*}
   \mathbf{c} = 
   \begin{bmatrix} c_{1} \\ c_{2} \end{bmatrix} = 
-  b_1 \color{SteelBlue}{\begin{bmatrix} a_{1,1} \\ \color{DeepSkyBlue}{a_{2,1}} \end{bmatrix}} + 
-  b_2 \color{DarkGoldenrod}{\begin{bmatrix} a_{1,2} \\ \color{orange}{a_{2,2}} \end{bmatrix}} + 
-  b_3 \color{green}{\begin{bmatrix} a_{1,3} \\ \color{SpringGreen}{a_{2,3}} \end{bmatrix}} = 
+  b_1 \begin{bmatrix} \color{SteelBlue}{a_{1,1}} \\ \color{DeepSkyBlue}{a_{2,1}} \end{bmatrix} + 
+  b_2 \begin{bmatrix} \color{DarkGoldenrod}{a_{1,2}} \\ \color{orange}{a_{2,2}} \end{bmatrix} + 
+  b_3 \begin{bmatrix} \color{green}{a_{1,3}} \\ \color{LimeGreen}{a_{2,3}} \end{bmatrix} = 
   \mathbf{Ab}
 \end{equation*}$$
 
@@ -252,8 +248,8 @@ If we do a little rearranging of the above definition, we can get the other way 
 $$\begin{equation}
   \begin{bmatrix} c_1 \\ c_2 \end{bmatrix} =
   \begin{bmatrix} 
-    b_1 \color{SteelBlue}{a_{1,1}} + b_2 \color{DarkGoldenrod}{a_{1,2}} + b_3 \color{green}{a_{1,3}} \\ 
-    b_1 \color{DeepSkyBlue}{a_{2,1}} + b_2 \color{orange}{a_{2,2}} + b_3 \color{SpringGreen}{a_{2,3}}
+    b_1 {\color{SteelBlue} a_{1,1}} + b_2 {\color{DarkGoldenrod}a_{1,2}} + b_3 {\color{green}a_{1,3}} \\ 
+    b_1 {\color{DeepSkyBlue}a_{2,1}} + b_2 {\color{orange}a_{2,2}} + b_3 {\color{LimeGreen}a_{2,3}}
   \end{bmatrix}
 \end{equation}$$
 
@@ -261,10 +257,10 @@ Where
 
 $$\begin{align}
   c_1 &=
-  b_1 \color{SteelBlue}{a_{1,1}} + b_2 \color{DarkGoldenrod}{a_{1,2}} + b_3 \color{green}{a_{1,3}} = 
-   \begin{bmatrix} \color{SteelBlue}{a_{1,1}} \\ \color{DarkGoldenrod}{a_{1,2}} \\ \color{green}{a_{1,3}} \end{bmatrix} \cdot \begin{bmatrix} b_1 \\ b_2 \\ b_3 \end{bmatrix} \\ \\
-  c_2 &= b_1 \color{DeepSkyBlue}{a_{2,1}} + b_2 \color{orange}{a_{2,2}} + b_3 \color{SpringGreen}{a_{2,3}} = 
-  \begin{bmatrix} \color{DeepSkyBlue}{a_{2,1}} \\ \color{orange}{a_{2,2}} \\ \color{SpringGreen}{a_{2,3}} \end{bmatrix} \cdot \begin{bmatrix} b_1 \\ b_2 \\ b_3 \end{bmatrix} 
+  b_1 {\color{SteelBlue} a_{1,1}} + b_2 {\color{DarkGoldenrod} a_{1,2}} + b_3 {\color{green} a_{1,3}} = 
+   \begin{bmatrix} {\color{SteelBlue} a_{1,1}} \\ {\color{DarkGoldenrod} a_{1,2}} \\ {\color{green} a_{1,3}} \end{bmatrix} \cdot \begin{bmatrix} b_1 \\ b_2 \\ b_3 \end{bmatrix} \\ \\
+  c_2 &= b_1 {\color{DeepSkyBlue} a_{2,1}} + b_2 {\color{orange} a_{2,2}} + b_3 {\color{LimeGreen} a_{2,3}} = 
+  \begin{bmatrix} {\color{DeepSkyBlue} a_{2,1}} \\ {\color{orange} a_{2,2}} \\ {\color{LimeGreen} a_{2,3}} \end{bmatrix} \cdot \begin{bmatrix} b_1 \\ b_2 \\ b_3 \end{bmatrix} 
 \end{align}$$
 
 That is, the elements of \\(\mathbf{c}\\) are the dot products of the row vectors of \\(\mathbf{A}\\) with \\(\mathbf{b}\\). For this case, imagine taking the vector \\(\mathbf{b}\\) and putting it sideways on top of the matrix \\(\mathbf{A}\\). Then, the first element of \\(\mathbf{c}\\) is the dot product of \\(\mathbf{b}\\) with the first row of \\(\mathbf{A}\\), the second element of \\(\mathbf{c}\\) is the dot product of \\(\mathbf{b}\\) with the second row of \\(\mathbf{A}\\), and so on.
@@ -477,7 +473,7 @@ $$\begin{equation*}
 \hat{y}_i = b_0 + b_1 x_{1,i} + b_2 x_{2,i} + \cdots + b_p x_{p, i}
 \end{equation*}$$
 
-There's a lot of indices in that equation! We can simplify the notation using vectors, as this model is defined as the dot product of the regressors and the weights. We can also include the intercept \\(b_0\\) in the vector of weights \\(\mathbf{b}\\), so that it is of shape \\((n, p+1)\\):
+There's a lot of indices in that equation! We can simplify the notation using vectors, as this model is defined as the dot product of the regressors and the weights. We can also include the intercept \\(b_0\\) in the vector of weights \\(\mathbf{b}\\) by adding a single \\(1\\) to the front of \\(\mathbf{x}_i\\), so that both vectors are of size \\((p+1)\\):
 
 $$\begin{align}
 \hat{y}_i &= \mathbf{b} \cdot  \mathbf{x}_i = \mathbf{b}^\top \mathbf{x}_i
@@ -561,12 +557,12 @@ $$\begin{align}
 {\epsilon}^\top \boldsymbol{\epsilon} &= (\mathbf{y} - \mathbf{X} \mathbf{b})^\top (\mathbf{y} - \mathbf{X} \mathbf{b}) \\
   &= (\mathbf{y}^\top - (\mathbf{X}\mathbf{b})^\top)(\mathbf{y} - \mathbf{X} \mathbf{b}) &\quad \textrm{ distribute transpose} \\
   &= (\mathbf{y}^\top - \mathbf{b}^\top \mathbf{X}^\top)(\mathbf{y} - \mathbf{X} \mathbf{b}) &\quad \textrm{transpose again}  \\
-  &= \mathbf{y}^\top\mathbf{y} - \mathbf{y}^\top \mathbf{X} \mathbf{b} - \mathbf{b}^\top \mathbf{X}^\top \mathbf{y} - \mathbf{b}^\top \mathbf{X}^\top \mathbf{X} \mathbf{b} &\quad \text{multiply out} \\
-  &= \mathbf{y}^\top\mathbf{y} - 2 \mathbf{b}^\top \mathbf{X}^\top \mathbf{y} - \mathbf{b}^\top \mathbf{X}^\top \mathbf{X} \mathbf{b} &\quad \text{middle terms are sneakily the same} \\
+  &= \mathbf{y}^\top\mathbf{y} - \mathbf{y}^\top\mathbf{X}\mathbf{b} - \mathbf{b}^\top\mathbf{X}^\top \mathbf{y} + \mathbf{b}^\top\mathbf{X}^\top\mathbf{X}\mathbf{b} &\quad \text{multiply out} \\
+  &= \mathbf{y}^\top\mathbf{y} - 2 \mathbf{b}^\top \mathbf{X}^\top \mathbf{y} + \mathbf{b}^\top\mathbf{X}^\top\mathbf{X}\mathbf{b} &\quad \text{middle terms are sneakily the same} \\
   \frac{\partial}{\partial\mathbf{b}} \boldsymbol{\epsilon}^\top\boldsymbol{\epsilon} 
   &= \frac{\partial}{\partial\mathbf{b}} 
-      \left( \mathbf{y}^\top\mathbf{y} \right) - \frac{\partial}{\partial\mathbf{b}} \left( 2\mathbf{b}^\top\mathbf{X}^\top\mathbf{y} \right) - \frac{\partial}{\partial\mathbf{b}} \left( \mathbf{b}^\top\mathbf{X}^\top\mathbf{X}\mathbf{b} \right) &\quad \textrm{distribute derivative} \\
-  &= 0 -2\mathbf{X}^\top\mathbf{y} - 2 \mathbf{X}^\top\mathbf{X}\mathbf{b} &\quad \textrm{derivative rules}
+      \left( \mathbf{y}^\top\mathbf{y} \right) - \frac{\partial}{\partial\mathbf{b}} \left( 2\mathbf{b}^\top\mathbf{X}^\top\mathbf{y} \right) + \frac{\partial}{\partial\mathbf{b}} \left( \mathbf{b}^\top\mathbf{X}^\top\mathbf{X}\mathbf{b} \right) &\quad \textrm{distribute derivative} \\
+  &= 0 -2\mathbf{X}^\top\mathbf{y} + 2 \mathbf{X}^\top\mathbf{X}\mathbf{b} &\quad \textrm{derivative rules}
 \end{align}$$
 
 We're almost there! Now we just set the derivative equal to 0 and solve for the values of \\(\mathbf{b}\\):
