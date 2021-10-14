@@ -14,6 +14,8 @@ output:
 
 If you've ever wondered how R or python gives you regression coefficients, the answer is linear algebra! Linear algebra operations are essential to almost all modern methods for analyzing or modeling data. In this post I will first go through through some linear algebra basics, then build up to finding the ordinary least squares estimate for multiple linear regression. To try and make this self-contained, I will start from the basics. For the linear regression part, I will just assume knowledge of basic derivative rules, e.g., finding the derivative of \\((a - bx)^2\\) with respect to \\(x\\). 
 
+This post is about how to get linear regression coefficients. If you want to know what to do with them or how to interpret them afterwards, check out [Kevin's great tutorial](https://dibsmethodsmeetings.github.io/contrasts/)!
+
 # Building up to matrices
 We begin with the building block of *scalars*, which here will refer to any real number. A variable referring to a scalar will be a lower-case letter such as \\(x\\). For example, \\(x\\) can refer to the recording of a neuroimaging sensor at a particular time, or in general the value of a sample's measurement.
 
