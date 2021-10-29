@@ -28,7 +28,7 @@ blockquote {
    color: black !important;
 }
 blockquote > * {
-  margin: 0 auto;
+  margin: 0 auto !important;
 }
 </style>
 
