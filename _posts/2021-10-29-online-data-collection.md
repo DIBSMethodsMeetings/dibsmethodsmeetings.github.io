@@ -24,9 +24,11 @@ img{
 }
 blockquote {
    border-style: solid solid solid solid !important;
-   padding: 5px 5px 5px 5px !important;
    background-color: white !important;
    color: black !important;
+}
+blockquote > * {
+  margin: 0 auto;
 }
 </style>
 
