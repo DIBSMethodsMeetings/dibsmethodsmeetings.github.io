@@ -3,7 +3,7 @@ title: "Data wrangling in the tidyverse"
 author: kevin
 categories: [ tutorial ]
 image: https://www.tidyverse.org/images/hex-tidyverse.png
-featured: true
+featured: false
 output:
   html_document: default
   pdf_document: default
