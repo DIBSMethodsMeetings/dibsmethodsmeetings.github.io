@@ -22,11 +22,17 @@ img{
   text-align:center;
   margin: 0 auto;
 }
+blockquote {
+   border-style: solid solid solid solid !important;
+   padding: 5px 5px 5px 5px !important;
+   background-color: white !important;
+   color: black !important;
+}
 </style>
 
-Online data collection lies at the heart of modern psychological research, particularly during a pandemic. Online data collection is easy, fast, and (mostly) hassle free. It allows for the collection of massive data sets in very little time. The most well-known tools for online data collection are [Qualtrics](qualtrics.com) and [Amazon Mechanical Turk](mturk.com) (MTurk), both of which we will explore in this tutorial, but of course there are numerous other options and tools available, including writing your own experiments using JavaScript! We will also take a look at [Duke SONA Systems](https://psychandneuro.duke.edu/undergraduate/psychology/current-students/subject-pool), which is Duke's site for undergraduate, for-credit research participation.
+Online data collection lies at the heart of modern psychology research, particularly during a pandemic. Online data collection is easy, fast, and (mostly) hassle free. It allows for the collection of massive data sets in very little time. The most well-known tools for online data collection are [Qualtrics](https://www.qualtrics.com/) and [Amazon Mechanical Turk](https://www.mturk.com) (MTurk), both of which we will explore in this tutorial, but of course there are numerous other options and tools available, including writing your own experiments using JavaScript! We will also take a look at [Duke SONA Systems](https://psychandneuro.duke.edu/undergraduate/psychology/current-students/subject-pool), which is Duke's site for undergraduate, for-credit research participation.
 
-In this tutorial, we will go step by step through the process of designing an experiment (using Qualtrics) and then examining how to use MTurk (paid participants) and SONA (undergraduates for course credit) to share this experiment with participants. Finally, we will briefly discuss using JavaScript to design more complicated, and how these too can be given to participants via online websites.
+In this tutorial, we will go step by step through the process of designing an experiment (using Qualtrics) and then examining how to use MTurk (paid participants) and SONA (undergraduates for course credit) to share this experiment with participants. Finally, we will briefly discuss using JavaScript to design more complicated, customized experiments, and how these too can be given to participants via online websites.
 
 If you have any questions about these or other methods of online data collection, please contact me at raphael.geddert@duke.edu!
 
@@ -34,24 +40,25 @@ If you have any questions about these or other methods of online data collection
 <a id='intro'></a>
 # Experiment Design with Qualtrics
 
-To begin, you will need a qualtrics account. Head to this Duke [Qualtrics page](https://oit.duke.edu/what-we-do/applications/qualtrics) to access your free account, and from then on simply head to [duke.qualtrics.com](duke.qualtrics.com). This free account comes with all of the tools and features we need to design your own tasks and questionnaires.
+To begin, you will need a Qualtrics account. Head to this Duke [Qualtrics page](https://oit.duke.edu/what-we-do/applications/qualtrics) to access your free account, and from then on simply head to [duke.qualtrics.com](duke.qualtrics.com). This free account comes with all of the tools and features we need to design your own tasks and questionnaires.
+
+For non-Duke users, Qualtrics is freely available, although with limited functionality. Most universities also offer accounts, so check with your department or organization!
 
 > <span style="color:orange; font-weight:bold;">To Do:</span> Create your own Qualtrics account and log in.
 
 ### Experiment
 
-Before we begin in Qualtrics, let us describe a simple experiment. A simple experiment might consist of a consent form, a demographics form, a task, and finally a debrief form. We will create each below. In this experiment, we will be asking the following question:
+Before we begin in Qualtrics, let us describe a simple experiment. What does it consist of? A simple experiment might consist of a consent form, a demographics form, a task, and finally a debrief form. We will create each below. In this experiment, we will be asking the following question:
 
 <div><b style="text-align:center;">Do people have different color perceptions about <span style="color:lightgrey">grey</span> versus <span style="color:grey">gray</span>?</b></div>
-<br>
 
 ![greys.png](/assets/images/2021-10-29-qualtrics/greys.png)
 
-A simple experiment, sure, but somewhat interesting! And it will let us see the full power of qualtrics in just a few simple steps.
+A simple experiment, sure, but somewhat interesting! And it will let us see the full power of Qualtrics in just a few simple steps.
 
 ### 1. Create a new project
 
-Click on `Create project`. This opens up a window of many various templates and sample projects that can be super useful if you are developing a particular kind of experiment, but for today we will be creating an experiment from scratch. Click on `Survey` under the `From scratch` header, and then on `Get started`.
+In Qualtrics, click on `Create project`. This opens up a window of many various templates and sample projects that can be super useful if you are developing a particular kind of experiment, but for today we will be creating an experiment from scratch. Click on `Survey` under the `From scratch` header, and then on `Get started`.
 
 The first thing we will want to do is name our project, so we'll name it `DIBS Methods Journal Club Experiment`, and then click `Create Project`.
 
@@ -61,7 +68,7 @@ The first thing we will want to do is name our project, so we'll name it `DIBS M
 
 ### 2. Qualtrics Layout
 
-Let's take a second to orient ourselves to the contents of the website. In the middle of the webpage you should already see the beginnings of a survey: a blank Q1 with some multiple choice, and then some useful buttons like `+ Add new question` and `Add Block`. We will use those in a second. On the left hand side are several menus, including `Builder`, `Survey Flow`, `Look and feel`, and `Survey options`. The `Builder` should be open now with Q1 selected, and you already see how we can use this tool to format and change the characteristics of Q1.
+Let's take a second to orient ourselves to the layout of Qualtrics. In the middle of the webpage you should already see the beginnings of an experiment or survey: a blank Q1 with some multiple choice options, and then some useful buttons like `+ Add new question` and `Add Block`. We will use those in a second. On the left hand side are several menus, including `Builder`, `Survey Flow`, `Look and feel`, and `Survey options`. The `Builder` should be open now with Q1 selected, and you should already see how we can use this tool to format and change the characteristics of Q1.
 
 Finally, along the top, we have menu items like `Survey`, `Distributions`, `Data & Analysis`, and `Reports`. On the right hand side there is also a `Preview` and a `Publish` button, which we will need as well!
 
@@ -78,7 +85,7 @@ We'll start by creating some new blocks. First, we will rename the block that is
  ---
 
 #### Consent Block
-Click on Q1 in the `Consent` block. Using the builder on the right, the first thing we can do is change the Question type, which currently says `Multiple Choice`. That is no good for a consent, so click on the drop down and select `Text / Graphic`. You'll already notice a variety of other useful question types, like `text entry`, `slider`, and others.
+Click on Q1 in the `Consent` block. Notice that the Question type, visible in the Builder on the left, currently says `Multiple Choice`. That is no good for a consent form, so click on the drop down and select `Text / Graphic`. You'll already notice a variety of other useful question types, like `text entry`, `slider`, and others.
 
 <img src="/assets/images/2021-10-29-qualtrics/questiontype.png" alt="questiontype.png" width="200"/>
 
@@ -132,7 +139,6 @@ For the second question we will ask `What is your age?`. Now, we only want certa
 Our experiment block will consist of a single multiple choice question, that will ask the participant which of the following 5 colors (like below) corresponds to the color **grey** or **gray**.
 
 <center><b>Which of the following most corresponds to the color _____?</b></center>
-<br>
 
 ![greys.png](/assets/images/2021-10-29-qualtrics/greys.png)
 
@@ -180,7 +186,7 @@ Thank you for your participation. In this study we were interested in seeing if 
 
 > <span style="color:orange; font-weight:bold;">To Do:</span> Create a debrief item.
 
-Now, in order for participants to be identified, it is useful for us to give them a confirmation code to tie their participation to their data.
+Now, in order for participants to be identified, it is useful for us to give them a confirmation code to tie their participation to their data. This is especially important for MTurk workers, who are used to providing confirmation codes from external websites.
 
 On the far left hand side, click on `Survey Flow` via its little icon. This will bring up a page that displays the various blocks within our experiment. We want to create a new *hidden* element that corresponds to a numeric code for our participant.
 
@@ -227,6 +233,8 @@ Data will appear under `Data & Analysis`. From here it is trivial to download a 
 
 # MTurk
 
+<img src="/assets/images/2021-10-29-qualtrics/mturk.jpeg" alt="mturk.jpeg" width="600"/>
+
 Amazon Mechanical Turk is crowdsourcing website where people from all over the world can complete "HITs" in exchange for money. Now that we have created our qualtrics experiment, posting it to MTurk is as easy as creating an account, providing the link, and posting it to participants.
 
 In order to create an assignment on MTurk for people to do, you would need to head over to [requester.mturk.com](https://requester.mturk.com), which would create a task for people on [mturk.com](https://www.mturk.com) to complete. Since this is just a demo, however, there is another solution!
@@ -242,7 +250,6 @@ Amazon has created a [sandbox version](https://requestersandbox.mturk.com) of MT
 Below you can see a screenshot of my login in the an MTurk requester sandbox page. The two main pages are `Create`, which allows you to create new and modify existing HITs. You can also `Publish a Batch`, which means that you make your assignment ready for X number of people to participate. Secondly, `Manage` allows you to see existing batches that you have posted, review who has participated in each, and confirm them so they get paid for their participation.
 
 <img src="/assets/images/2021-10-29-qualtrics/mturk_main.png" alt="mturk_main.png" width="600"/>
-<br>
 
 Head over to the `Create` page and select `New Project`. MTurk will give you a variety of prebuild options. We are using an external Qualtrics link here, so we will use the `Survey Link` default, by far the most common option. Click `Create Project` to proceed.
 
@@ -280,7 +287,7 @@ Finally, replace the survey link with the Qualtrics link we made earlier.
 **NOTE:** The Survey Instructions is often a place to include a consent form, if you desire, instead of including it in your actual task, although it is often more convenient to tie the consent to the actual experiment in case you use it elsewhere (i.e., SONA). You can also click on `Source` to directly edit the HTML code for the instructions, which allows you to include JavaScript and CSS code to vastly increase the power and flexibility of these instructions.
 
 #### Preview and Finish
- Review the code and test it out to confirm that it is working. When you are happy with it, click `Finish`! You will be redirected to the `Create` tab again. From here, go ahead and post a batch for workers to complete (well, sandbox workers).
+Review the code and test it out to confirm that it is working. When you are happy with it, click `Finish`! You will be redirected to the `Create` tab again. From here, go ahead and post a batch for workers to complete (well, sandbox workers).
 
  > <span style="color:orange; font-weight:bold;">To Do:</span> Finish reviewing the HIT, then post a batch of HITs for workers to complete.
 
@@ -292,4 +299,28 @@ Head over to worker sandbox and search for your `requester name`. It may take a 
 
 # SONA Systems
 
-This is TBD.
+<img src="/assets/images/2021-10-29-qualtrics/duke_research.jpeg" alt="duke_research.jpeg" width="600"/>
+
+In addition to Amazon MTurk, another frequent source of online data collection is Duke's SONA Systems. Although primarily used for **in-person** data collection during a non-pandemic, SONA Systems is increasingly being used for online data collection, and I expect this practice to continue even after the pandemic.
+
+In order to access [Duke SONA Systems](https://duke-psy-credit.sona-systems.com/), you first need to contact Robin Dunn (robin.dunn@duke.edu) to request a user account.
+
+Once logged in, the website gives you options to `Create a new study`, `View and edit your studies`, `Add timeslots`, and other relatively straightforward and intuitive options.
+
+<img src="/assets/images/2021-10-29-qualtrics/sona.png" alt="sona.png" width="600"/>
+
+For this demo, we will `Add a new study` and select `Online External Study`, so that we can provide a link to our Qualtrics experiment to Duke undergraduates.
+
+SONA Systems works on a credit system. For every half hour of experimentation, undergraduates receive `0.5` credits towards their credit requirement for their courses.
+
+We won't cover all the details of SONA here, but they are all very straightforward and manageable.
+
+ > <span style="color:orange; font-weight:bold;">To Do:</span> Learn about the various options available when creating a SONA experiment.
+
+ ---
+
+# Experimental Design with JavaScript, HTML, and CSS
+
+<img src="/assets/images/2021-10-29-qualtrics/javascript.jpeg" alt="javascript.jpeg" width="600"/>
+
+Although outside the scope of this tutorial, another option to all of the above, particularly Qualtrics, is to program and host your own experiment code on a website. Stay tuned, this will be covered in another tutorial at a future date!
