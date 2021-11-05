@@ -1,3 +1,11 @@
+---
+title: "Machine Learning Basics"
+author: miles
+categories: [tutorial]
+image: /assets/images/2021-11-05-machine-learning-basic/alan-math-the-hangover.jpg
+hidden: false
+---
+
 # General Machine Learning
 
 Here's another lil machine learning tutorial thing - this time instead of neural networks, we'll be taking a step back to look at machine learning in general! For more specific background on things like linear algebra, please go back and look at Pranjal's linear algebra presentation, it was a banger and I highly recommend it. 
