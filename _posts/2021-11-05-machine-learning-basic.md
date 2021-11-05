@@ -64,7 +64,7 @@ plt.show()
 
 
     
-<img src="/assets/images/2021-11-05-machine_learning_basic/output_2_0.png">
+<img src="/assets/images/2021-11-05-machine-learning-basic/output_2_0.png">
     
 
 
@@ -96,7 +96,7 @@ plt.show()
 ```
 
 
-<img src="/assets/images/2021-11-05-machine_learning_basic/output_4_0.png">    
+<img src="/assets/images/2021-11-05-machine-learning-basic/output_4_0.png">    
     
 
 
@@ -151,7 +151,7 @@ plt.show()
 ```
 
 
-<img src="/assets/images/2021-11-05-machine_learning_basic/output_6_0.png">
+<img src="/assets/images/2021-11-05-machine-learning-basic/output_6_0.png">
     
 
 
@@ -203,7 +203,7 @@ plt.show()
 ```
 
 
-<img src="/assets/images/2021-11-05-machine_learning_basic/output_8_0.png">    
+<img src="/assets/images/2021-11-05-machine-learningbasic/output_8_0.png">    
 
 
 In this case, we get a bad split of our data, and are missing about half of our distribution! Our train set is in red, our test set is in blue. Let's see how our models do on this:
@@ -265,7 +265,7 @@ plt.show()
     
 
 
-<img src="/assets/images/2021-11-05-machine_learning_basic/output_10_1.png">    
+<img src="/assets/images/2021-11-05-machine-learning-basic/output_10_1.png">    
 
 
 As we can see, both of our models do pretty well on the train set. However, on our test data, our complex model does way worse than our simple model! This is because our complex model was allowed to fit more fully to the noise in the data, resulting in overall worse model performance on the data distribution as a whole. We can help our models out with this by splitting our data into training and test sets always, and using the performance on the test set to see how well our model is doing. That way we can be sure we don't overfit to our data specifically!
@@ -305,7 +305,7 @@ plt.show()
 ```
 
 
-<img src="/assets/images/2021-11-05-machine_learning_basic/output_12_0.png">
+<img src="/assets/images/2021-11-05-machine-learning-basic/output_12_0.png">
   
 
 
@@ -349,7 +349,7 @@ plt.show()
 ```
 
 
-<img src="/assets/images/2021-11-05-machine_learning_basic/output_14_0.png">    
+<img src="/assets/images/2021-11-05-machine-learning-basic/output_14_0.png">    
 
 
 Why yes it does! that's why I'm telling you about it. I wish I'd chosen a better dataset for this, but oh well. Regardless, the clusters depend on the data and we get different outcomes based on how we scale our data.
@@ -402,13 +402,13 @@ print('Lasso coefficients: ',fish_model_l.coef_)
 ```
 
 
-<img src="/assets/images/2021-11-05-machine_learning_basic/output_17_0.png">
+<img src="/assets/images/2021-11-05-machine-learning-basic/output_17_0.png">
 
     
 
 
 
-<img src="/assets/images/2021-11-05-machine_learning_basic/output_17_1.png">
+<img src="/assets/images/2021-11-05-machine-learning-basic/output_17_1.png">
     
 
 
