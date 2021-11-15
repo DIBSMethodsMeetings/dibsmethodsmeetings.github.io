@@ -8,7 +8,7 @@ hidden: false
 
 # General Machine Learning
 
-Here's another lil machine learning tutorial thing - this time instead of neural networks, we'll be taking a step back to look at machine learning in general! For more specific background on things like linear algebra, please go back and look at Pranjal's linear algebra presentation, it was a banger and I highly recommend it. 
+Here's another lil machine learning tutorial thing - this time instead of neural networks, we'll be taking a step back to look at machine learning in general! For more specific background on things like linear algebra, please go back and look at Pranjal's linear algebra presentation, it was a banger and I highly recommend it.
 
 Before we dive in, here's a quick overview of what we'll be talking about today.
 
@@ -36,11 +36,11 @@ When thinking about ML, we can pretty cleanly split it into two types: **supervi
 ### Supervised learning
 
 One of the most common types of ML is supervised learning. The name comes from the fact that we as researchers are telling the model exactly what to learn, *supervising* its *learning*. In this type of ML, we give our models *data* **(x)** and *labels* **(y)**. The model learns the relationship between the data and the labels and can be used to predict labels from new data new data. One type of supervised learning, which we [have tutorials](https://dibsmethodsmeetings.github.io/lmer-intro/) [on](https://dibsmethodsmeetings.github.io/contrasts/
-), is linear regression. In linear regression, we're generally trying to take a set of features of a dataset and predict outcomes from those features. As a quick little example, let's use the [FISH dataset](https://www.kaggle.com/aungpyaeap/fish-market/version/2)! This has: fish. Our quick little example will be predicting the height of the fish from the weight. This method will fit a line to our data, here our y is 'height' and our x is 'weight'. The formula we are fitting is 
-$$
+), is linear regression. In linear regression, we're generally trying to take a set of features of a dataset and predict outcomes from those features. As a quick little example, let's use the [FISH dataset](https://www.kaggle.com/aungpyaeap/fish-market/version/2)! This has: fish. Our quick little example will be predicting the height of the fish from the weight. This method will fit a line to our data, here our y is 'height' and our x is 'weight'. The formula we are fitting is
+$$$
 height = w * weight + b
-$$
-where $w$ is a slope indicating the relationship between weight and height, and b is a baseline offset.
+$$$
+where $$w$$ is a slope indicating the relationship between weight and height, and $$b$$ is a baseline offset.
 
 
 
@@ -71,9 +71,9 @@ plt.show()
 ```
 
 
-    
+
 <img src="/assets/images/2021-11-05-machine-learning-basic/output_2_0.png">
-    
+
 
 
 as a ~ sneak peek ~ for future sections, we can also make our model more complicated to fit our data better
@@ -105,7 +105,7 @@ plt.show()
 
 
 <img src="/assets/images/2021-11-05-machine-learning-basic/output_4_0.png">    
-    
+
 
 
 Yay! that does fine I guess. Time to move onto unsupervised learning!!
@@ -160,7 +160,7 @@ plt.show()
 
 
 <img src="/assets/images/2021-11-05-machine-learning-basic/output_6_0.png">
-    
+
 
 
 Wow! Look at that! They don't do well! However, they both do slightly different things. Also, cluster identity changes based on how we initialize our machine learning algorithm. If you run this code multiple times, you'll get different results! Anyway, this is just a quick overview of different types of ML so we're not going to go too much more in-depth about this! If you want to know more about clustering, peer pressure me into doing another one of these methods meetings.
@@ -168,10 +168,10 @@ Wow! Look at that! They don't do well! However, they both do slightly different 
 
 ## ML Subtypes typically used in science
 
-While the supervised/unsupervised dichotomy is kind of nice when thinking about things in a strictly machine-learning sense, it can also be important to split up ML in other ways! In Science, I've typically seen things split into classification/prediction and generative modeling as the two main subtypes. (note: the real name that classification/prediction models fall under is *discriminative* models, but since we mainly use them for classification/prediction in Science that's what I'm calling them here) 
+While the supervised/unsupervised dichotomy is kind of nice when thinking about things in a strictly machine-learning sense, it can also be important to split up ML in other ways! In Science, I've typically seen things split into classification/prediction and generative modeling as the two main subtypes. (note: the real name that classification/prediction models fall under is *discriminative* models, but since we mainly use them for classification/prediction in Science that's what I'm calling them here)
 
-### Classification/prediction 
-contains everything that we saw previously, both supervised and unsupervised, as well as fun things like logistic regression, which we should have a tutorial on if we have not already (but which is also briefly mentioned [here](https://dibsmethodsmeetings.github.io/nn-tutorial-dnm/)). 
+### Classification/prediction
+contains everything that we saw previously, both supervised and unsupervised, as well as fun things like logistic regression, which we should have a tutorial on if we have not already (but which is also briefly mentioned [here](https://dibsmethodsmeetings.github.io/nn-tutorial-dnm/)).
 
 On the other hand, we have
 ### Generative modeling
@@ -183,10 +183,10 @@ This is done typically through a few types of models, I use VARIATIONAL AUTOENCO
 
 Finally, we have arrived at the last stop on our magical machine learning (m)adventure. Good practices in machine learning. Although we can get some really powerful and very cool models with machine learning that can do a GREAT job of predicting our outcomes of interest - we have to be careful to make sure that they learn something that is actually useful. We want our model to be powerful enough to fit our data, but too weak to fit to noise in our data. Our data do not follow a strict one-to-one relationship with our outcomes ever; they always follow a general, average relationship plus some added noise. Therefore we can consider our data to be distributed according do some overall universal data distribution:
 
-$$
+$$$
 x \sim P(\mathcal{D})
-$$
-Where $\mathcal{D}$ is every single possible data point, $P(\mathcal{D})$ is the probability distribution over those data points, and $x$ is our actual realization of our data. Under this framework, we want our model to learn based on the full population of data, not just our realization of it. The ability of our model to learn the full data structure is known as **generalization**. If our model overfits to our noisy realization of the data, that's known as **overfitting**. To make sure we don't overfit to our data, we generally split our data into a *train* set and a *test* set. When learning, the model only sees our train set and then we test it on the test set. This way we kind of simulate all that extra mystery population that we don't have access to, by witholding part of the actual data that we do have.
+$$$
+Where $$\mathcal{D}$$ is every single possible data point, $$P(\mathcal{D})$$ is the probability distribution over those data points, and $$x$$ is our actual realization of our data. Under this framework, we want our model to learn based on the full population of data, not just our realization of it. The ability of our model to learn the full data structure is known as **generalization**. If our model overfits to our noisy realization of the data, that's known as **overfitting**. To make sure we don't overfit to our data, we generally split our data into a *train* set and a *test* set. When learning, the model only sees our train set and then we test it on the test set. This way we kind of simulate all that extra mystery population that we don't have access to, by witholding part of the actual data that we do have.
 
 Let's consider the case where we have our fish and want to make a linear model, and let's consider our complex fish and our simple fish. We might get really unlucky and just get a bad split of data, in which case we might see something like the following:
 
@@ -270,7 +270,7 @@ plt.show()
 
     Train Error Simple: 3.828587659678313, Train Error Complex: 4.075698918694715
     Test Error Simple: 39.83401397133755, Test Error Complex: 163084.93536380908
-    
+
 
 
 <img src="/assets/images/2021-11-05-machine-learning-basic/output_10_1.png">    
@@ -314,7 +314,7 @@ plt.show()
 
 
 <img src="/assets/images/2021-11-05-machine-learning-basic/output_12_0.png">
-  
+
 
 
 So as you can see from the above, with normalization the overall TRENDS in the data stay the same, but the numbers lay in a much tighter range (except in the centering case), making it (potentially) easier for our models to understand these trends. Does this do anything in practice?
@@ -324,7 +324,7 @@ So as you can see from the above, with normalization the overall TRENDS in the d
 xy_labs_cs = AC_fish.fit_predict(np.stack([x_centered_scaled,y],axis=1))
 xy_labs_c = AC_fish.fit_predict(np.stack([x_centered,y],axis=1))
 xy_labs_s = AC_fish.fit_predict(np.stack([x_scaled,y],axis=1))
-                                 
+
 
 fig, (ax1,ax2,ax3) = plt.subplots(1,3)
 
@@ -412,18 +412,18 @@ print('Lasso coefficients: ',fish_model_l.coef_)
 
 <img src="/assets/images/2021-11-05-machine-learning-basic/output_17_0.png">
 
-    
+
 
 
 
 <img src="/assets/images/2021-11-05-machine-learning-basic/output_17_1.png">
-    
+
 
 
     Ridge coefficients:  [ 0.01168738 -4.90564603 -4.18956067 -3.44761545]
     Lasso coefficients:  [ 0.00865715 -0.         -0.         -0.        ]
-    
 
-As we can see, these do different things! The weights learned by lasso are mainly zero, while those learned by Ridge are (relatively) small-ish. The $\alpha$ parameter changes how much weight there is on this regularization term - larger alpha means that the size of the weights will be more heavily penalized. There are more methods of regularization, but these are the main ones I've run into in Science!
+
+As we can see, these do different things! The weights learned by lasso are mainly zero, while those learned by Ridge are (relatively) small-ish. The $$\alpha$$ parameter changes how much weight there is on this regularization term - larger alpha means that the size of the weights will be more heavily penalized. There are more methods of regularization, but these are the main ones I've run into in Science!
 
 Anyway hope you enjoyed send me questions if you want
