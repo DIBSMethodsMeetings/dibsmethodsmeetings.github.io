@@ -37,10 +37,10 @@ When thinking about ML, we can pretty cleanly split it into two types: **supervi
 
 One of the most common types of ML is supervised learning. The name comes from the fact that we as researchers are telling the model exactly what to learn, *supervising* its *learning*. In this type of ML, we give our models *data* **(x)** and *labels* **(y)**. The model learns the relationship between the data and the labels and can be used to predict labels from new data new data. One type of supervised learning, which we [have tutorials](https://dibsmethodsmeetings.github.io/lmer-intro/) [on](https://dibsmethodsmeetings.github.io/contrasts/
 ), is linear regression. In linear regression, we're generally trying to take a set of features of a dataset and predict outcomes from those features. As a quick little example, let's use the [FISH dataset](https://www.kaggle.com/aungpyaeap/fish-market/version/2)! This has: fish. Our quick little example will be predicting the height of the fish from the weight. This method will fit a line to our data, here our y is 'height' and our x is 'weight'. The formula we are fitting is
-$$$
+\[
 height = w * weight + b
-$$$
-where $$w$$ is a slope indicating the relationship between weight and height, and $$b$$ is a baseline offset.
+\]
+where $$ w $$ is a slope indicating the relationship between weight and height, and $$ b $$ is a baseline offset.
 
 
 
@@ -183,10 +183,10 @@ This is done typically through a few types of models, I use VARIATIONAL AUTOENCO
 
 Finally, we have arrived at the last stop on our magical machine learning (m)adventure. Good practices in machine learning. Although we can get some really powerful and very cool models with machine learning that can do a GREAT job of predicting our outcomes of interest - we have to be careful to make sure that they learn something that is actually useful. We want our model to be powerful enough to fit our data, but too weak to fit to noise in our data. Our data do not follow a strict one-to-one relationship with our outcomes ever; they always follow a general, average relationship plus some added noise. Therefore we can consider our data to be distributed according do some overall universal data distribution:
 
-$$$
+\[
 x \sim P(\mathcal{D})
-$$$
-Where $$\mathcal{D}$$ is every single possible data point, $$P(\mathcal{D})$$ is the probability distribution over those data points, and $$x$$ is our actual realization of our data. Under this framework, we want our model to learn based on the full population of data, not just our realization of it. The ability of our model to learn the full data structure is known as **generalization**. If our model overfits to our noisy realization of the data, that's known as **overfitting**. To make sure we don't overfit to our data, we generally split our data into a *train* set and a *test* set. When learning, the model only sees our train set and then we test it on the test set. This way we kind of simulate all that extra mystery population that we don't have access to, by witholding part of the actual data that we do have.
+\]
+Where $$ \mathcal{D} $$ is every single possible data point, $$ P(\mathcal{D}) $$ is the probability distribution over those data points, and $$ x $$ is our actual realization of our data. Under this framework, we want our model to learn based on the full population of data, not just our realization of it. The ability of our model to learn the full data structure is known as **generalization**. If our model overfits to our noisy realization of the data, that's known as **overfitting**. To make sure we don't overfit to our data, we generally split our data into a *train* set and a *test* set. When learning, the model only sees our train set and then we test it on the test set. This way we kind of simulate all that extra mystery population that we don't have access to, by witholding part of the actual data that we do have.
 
 Let's consider the case where we have our fish and want to make a linear model, and let's consider our complex fish and our simple fish. We might get really unlucky and just get a bad split of data, in which case we might see something like the following:
 
@@ -424,6 +424,6 @@ print('Lasso coefficients: ',fish_model_l.coef_)
     Lasso coefficients:  [ 0.00865715 -0.         -0.         -0.        ]
 
 
-As we can see, these do different things! The weights learned by lasso are mainly zero, while those learned by Ridge are (relatively) small-ish. The $$\alpha$$ parameter changes how much weight there is on this regularization term - larger alpha means that the size of the weights will be more heavily penalized. There are more methods of regularization, but these are the main ones I've run into in Science!
+As we can see, these do different things! The weights learned by lasso are mainly zero, while those learned by Ridge are (relatively) small-ish. The $$ \alpha $$ parameter changes how much weight there is on this regularization term - larger alpha means that the size of the weights will be more heavily penalized. There are more methods of regularization, but these are the main ones I've run into in Science!
 
 Anyway hope you enjoyed send me questions if you want
