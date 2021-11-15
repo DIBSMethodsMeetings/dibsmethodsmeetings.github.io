@@ -183,7 +183,7 @@ This is done typically through a few types of models, I use VARIATIONAL AUTOENCO
 
 Finally, we have arrived at the last stop on our magical machine learning (m)adventure. Good practices in machine learning. Although we can get some really powerful and very cool models with machine learning that can do a GREAT job of predicting our outcomes of interest - we have to be careful to make sure that they learn something that is actually useful. We want our model to be powerful enough to fit our data, but too weak to fit to noise in our data. Our data do not follow a strict one-to-one relationship with our outcomes ever; they always follow a general, average relationship plus some added noise. Therefore we can consider our data to be distributed according do some overall universal data distribution:
 
-$$\begin{equations*}
+$$\begin{equation*}
 x \sim P(\mathcal{D})
 \end{equation*}$$
 Where \\( \mathcal{D} \\) is every single possible data point, \\( P(\mathcal{D}) \\) is the probability distribution over those data points, and \\(x\\) is our actual realization of our data. Under this framework, we want our model to learn based on the full population of data, not just our realization of it. The ability of our model to learn the full data structure is known as **generalization**. If our model overfits to our noisy realization of the data, that's known as **overfitting**. To make sure we don't overfit to our data, we generally split our data into a *train* set and a *test* set. When learning, the model only sees our train set and then we test it on the test set. This way we kind of simulate all that extra mystery population that we don't have access to, by witholding part of the actual data that we do have.
