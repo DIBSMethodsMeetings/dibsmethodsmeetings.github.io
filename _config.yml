@@ -80,7 +80,6 @@ authors:
     twitter:
     description: "Graduate student in cognitive neuroscience at Duke University working with Dr. John Pearson on online dimensionality reduction."
 
-
   raphael:
     name: Raphael
     display_name: Raphael Geddert
@@ -90,6 +89,16 @@ authors:
     web:
     twitter:
     description: "Graduate student in cognitive neuroscience at Duke University working with Dr. Tobias Egner on cognitive control."
+
+  shenyang:
+    name: Shenyang
+    display_name: Shenyang Huang
+    avatar: assets/images/shenyang.jpg
+    gravatar:
+    email: "shenyang.huang@duke.edu"
+    web:
+    twitter: https://twitter.com/SelfShenyang
+    description: "Graduate student in cognitive neuroscience at Duke University working with Dr. Roberto Cabeza and Dr. Felipe De Brigard."
 
 
 google_site_verification : google5d59576ff62047c3.html
