@@ -46,7 +46,7 @@ Because of the data aquisition style of fMRI, brains are parcelated into voxels-
 
 
 
-```
+```text:Output
 100,000 (voxels) x 2 (categories) x 60 (items) entries of β estimates. 
 ```
 
@@ -61,7 +61,7 @@ Assuming that each ROI is homogeneous (i.e., engagement is uniform throughout), 
 
 
 
-```
+```text:Output
 2 (categories) x 60 (items) entries of averaged β estimates.
 ```
 
