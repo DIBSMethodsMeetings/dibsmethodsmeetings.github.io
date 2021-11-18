@@ -46,7 +46,7 @@ Because of the data aquisition style of fMRI, brains are parcelated into voxels-
 
 
 
-```matlab:Code(Display)
+```
 100,000 (voxels) x 2 (categories) x 60 (items) entries of β estimates. 
 ```
 
@@ -61,7 +61,7 @@ Assuming that each ROI is homogeneous (i.e., engagement is uniform throughout), 
 
 
 
-```matlab:Code(Display)
+```
 2 (categories) x 60 (items) entries of averaged β estimates.
 ```
 
@@ -71,7 +71,7 @@ Now we can perform a two-sample t-test to compare which category--animals or veh
 
 
 
-```matlab:Code
+```matlab
 % obviously fake data
 beta_animals = 0.5 + randn(1, 60);
 beta_vehicles = 0.0 + randn(1, 60);
@@ -116,7 +116,7 @@ Let's say we, the aspiring neuroscientist, take on a slightly less exciting side
 
 
 
-```matlab:Code
+```matlab
 % even more fake data
 beta_pattern_A = repmat([1; 2; 3; 4], 25, 60) + randn(100, 60) * 0.1;
 beta_pattern_B = repmat([3; 1; 4; 2], 25, 60) + randn(100, 60) * 0.1;
@@ -176,7 +176,7 @@ Because we know the conditions which each experimental trial/block/participant i
 
 
 
-```matlab:Code
+```matlab
 % sklearn toolbox for MATLAB
 % URL: https://www.mathworks.com/matlabcentral/fileexchange/59453-sklearn-matlab
 % Note that sklearn is much better developed for Python users, but this MATLAB implementation is sufficient for our purposes.
@@ -208,7 +208,7 @@ Accuracy: 85.00%
 ```
 
 
-```matlab:Code
+```matlab
 % make plot on training set
 sv = clf.model.SupportVectors;
 figure; hold all
@@ -231,7 +231,7 @@ In this case, plotting classifier performance on the training set fails to indic
 
 
 
-```matlab:Code
+```matlab
 clf = SVC(struct('kernel', 'linear')); % define classifer type
 clf.fit(X_train(:, 1:2), y_train); % training
 y_pred = clf.predict(X_test(:, 1:2)); % testing
@@ -250,7 +250,7 @@ Beyond discrete classification results ("animal" or "vehicle"), we can also get 
 
 
 
-```matlab:Code(Display)
+```matlab
 y_pred_proba = clf.predict_prob(X_test)
 ```
 
@@ -339,7 +339,7 @@ Unsurprisingly, the model RDM and the neural RDM will be in exactly the same for
 
 
 
-```matlab:Code
+```matlab
 % and yet some more fake data
 % this time round we have four types of stimuli, and each appeared times 
 beta_pattern_A  = repmat([1; 8; 3], 30, 50) + randn(90,50) * 0.1;
@@ -378,7 +378,7 @@ imagesc(neuralRDM); colorbar; title('neural RDM'); axis('square')
 <img src="/assets/images/2021-11-19-multivariate-pattern-analysis/figure_1.png">
 
 
-```matlab:Code
+```matlab
 % quantify second-order isomorphism with second-order correlation between
 % model RDM and neural RDM
 
