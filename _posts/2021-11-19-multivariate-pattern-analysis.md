@@ -14,7 +14,7 @@ output:
 ---
 
 
-# Why are we even here?
+## Why are we even here?
 
 
 We, crazy neuroscientists, study the brain with the hope of ultimately being able to read one's every single thought and manipulate them. With the power of neuroimaging techiniques and money, we get to experiment on willing participants and measure some type of physiological changes which are associated with the brain's (ab)normal functioning. 
@@ -34,7 +34,7 @@ Assuming we want to save the world by understanding how the brain differentiates
 
 
 
-![image_0.png](methods_meeting_11_19_2021_images/image_0.png)
+<img src="/assets/images/2021-11-19-multivariate-pattern-analysis/image_0.png">
 
 
 > source: [http://gureckislab.org/courses/fall19/labincp/labs/lab1mri-pt1.html](http://gureckislab.org/courses/fall19/labincp/labs/lab1mri-pt1.html) 
@@ -99,12 +99,12 @@ The analysis we just went through is commonly referred to as **univariate**, bec
 
 
 
-![image_1.png](methods_meeting_11_19_2021_images/image_1.png)
+<img src="/assets/images/2021-11-19-multivariate-pattern-analysis/image_1.png">
 
 
 
 
-![image_2.png](methods_meeting_11_19_2021_images/image_2.png)
+<img src="/assets/images/2021-11-19-multivariate-pattern-analysis/image_2.png">
 
 
 > source: [https://www.researchgate.net/figure/Retinotopic-organization-of-the-primary-visual-cortex-Up-to-50-of-the-primary-visual_fig4_325718113](https://www.researchgate.net/figure/Retinotopic-organization-of-the-primary-visual-cortex-Up-to-50-of-the-primary-visual_fig4_325718113) 
@@ -147,7 +147,7 @@ Presumably half of the V1 voxels will correspond a white square and the other ha
 
 
   
-# Enter Multivariate Pattern Analysis
+## Enter Multivariate Pattern Analysis
 
 
 Multivariate pattern analysis (MVPA), also referred to as multi**voxel **pattern analysis in the context of fMRI, takes advantage of the high spatial resolution of fMRI; instead of assuming just one signal being represented in all voxels within an ROI, MVPA treats the many voxels as a **pattern** and assumes that information is stored in that pattern. 
@@ -159,7 +159,7 @@ But then we are faced with another problem: how do we go about analyzing the pat
 
 
   
-## Decoding analyis
+### Decoding analyis
 
 
 Because it is hard to simultaneously test on the multivariate neural patterns, decoding analysis (classification or regression) simply reverses the direction of inference: instead of comparing neural patterns between conditions (e.g., animals vs. vehicles), we can try to decode the conditions from the neural patterns. This reversal can potentially make things easier because the number of conditons is most often way smaller than the number of variables--voxels in the context of fMRI. In order to do that, some computer science-minded people might just say, "machine learning is all you need!" 
@@ -223,7 +223,7 @@ set(gca, 'Units','normalized','Position', [.1 .4 .8 .5]);
 ```
 
 
-![figure_0.png](methods_meeting_11_19_2021_images/figure_0.png)
+<img src="/assets/images/2021-11-19-multivariate-pattern-analysis/figure_0.png">
 
 
 
@@ -266,7 +266,7 @@ We can also use nearest neighbor (left figure) or distance-to-centroid (right) a
 
 
 
-![image_3.png](methods_meeting_11_19_2021_images/image_3.png)
+<img src="/assets/images/2021-11-19-multivariate-pattern-analysis/image_3.png">
 
 
 > source: Weaverdyck et al. (2020)
@@ -278,7 +278,7 @@ But, there are several issues with decoding anlaysis, for many of which I'll sim
 
 
   
-## Representational similarity analyisis
+### Representational similarity analyisis
 
 
 Instead of directly looking at the neural patterns in response to different conditions or stimuli, representational similarity analysis, or RSA, takes a rather indirect route by looking at, well, representational similarity, or second-order isomorphism. Put simply, an isomorphism is a mapping that preserves the structure of the mapped entities. The four graphs below are isomorphic to each other because the relationship beween nodes (all connected except cyan-orange) is preserved in each of them. 
@@ -286,7 +286,7 @@ Instead of directly looking at the neural patterns in response to different cond
 
 
 
-![image_4.png](methods_meeting_11_19_2021_images/image_4.png)
+<img src="/assets/images/2021-11-19-multivariate-pattern-analysis/image_4.png">
 
 
 > source: [https://www.gatevidyalay.com/graph-isomorphism/](https://www.gatevidyalay.com/graph-isomorphism/) 
@@ -309,7 +309,7 @@ To that end, we will create two representational dissimilarity matrices (RDMs), 
 
 
 
-![image_5.png](methods_meeting_11_19_2021_images/image_5.png)
+<img src="/assets/images/2021-11-19-multivariate-pattern-analysis/image_5.png">
 
 
 > source: [http://algonauts.csail.mit.edu/img/figure_rdm_v3.png](http://algonauts.csail.mit.edu/img/figure_rdm_v3.png) 
@@ -375,7 +375,7 @@ imagesc(neuralRDM); colorbar; title('neural RDM'); axis('square')
 ```
 
 
-![figure_1.png](methods_meeting_11_19_2021_images/figure_1.png)
+<img src="/assets/images/2021-11-19-multivariate-pattern-analysis/figure_1.png">
 
 
 ```matlab:Code
@@ -400,8 +400,8 @@ There you have it--the second-order isomorphism between a set of external stimul
 
 
   
-## Aside (if there's time)
-### Classifier- or similarity-hacking
+### Aside (if there's time)
+#### Classifier- or similarity-hacking
 
 
 The choice of classifier for decoding analysis and similarity metric for RSA rely on what you hypothesize the underlying data structure would be. Linear and nonlinear classfiers (e.g., SVM with a linear or a RBF kernal) will clearly perform differently for the two problems in the figure. Unfortunately, given the high dimension of fMRI data, we cannot simply plot the data and tell which classifier will perform better. 
@@ -409,7 +409,7 @@ The choice of classifier for decoding analysis and similarity metric for RSA rel
 
 
 
-![image_6.png](methods_meeting_11_19_2021_images/image_6.png)
+<img src="/assets/images/2021-11-19-multivariate-pattern-analysis/image_6.png">
 
 
 
@@ -419,10 +419,10 @@ There is also a ton of metrics for the seemingly simple notion of "similarity". 
 
 
 
-![image_7.png](methods_meeting_11_19_2021_images/image_7.png)
+<img src="/assets/images/2021-11-19-multivariate-pattern-analysis/image_7.png">
 
 
-### What is everyone's favorite brain region?
+#### What is everyone's favorite brain region?
 
 
 This issue is by no means MVPA-specific but essential to almost all fMRI analyses. Searchlight is more exploratory in nature because we usually allow a small cube or sphere to roam around the entire brain, while ROI is more constrained by the anatomy/function of each region based on previous literature. You just gotta pick one.
@@ -433,7 +433,7 @@ This issue is by no means MVPA-specific but essential to almost all fMRI analyse
 Or you don't. Here's a totally feasible but perhaps worthless idea: we could choose one parcellation of the brain to get, say 400 ROIs, for each subject, and then compute the ROI-level average activation as one would for a univariate activation analysis. Then, instead of using voxels as features as in traditional decoding analysis or RSA, we could first compute the average as one would for a univariate activation analysis, and then conduct decoding analysis or RSA with each ROI as a feature. For what it's worth, let's name it multi-region pattern analysis, or MRPA. 
 
 
-### To smooth or not to smooth... or to smooth just a little
+#### To smooth or not to smooth... or to smooth just a little
 
 
 Spatial smoothing is a preprocessing step that is commonly applied to reduce the noise level in fMRI data. The rationale is that because noise is normally distributed with a mean of 0, by averaging the activation levels of nearby voxels, we will cancel out a fair amount of noise. Univariate activation analysis typically uses (and the default in SPM12 is) full-width at half-maximum (FWHM) at 8 mm. 
@@ -441,8 +441,7 @@ Spatial smoothing is a preprocessing step that is commonly applied to reduce the
 
 
 
-![image_8.png](methods_meeting_11_19_2021_images/image_8.png)
-
+<img src="/assets/images/2021-11-19-multivariate-pattern-analysis/image_8.png">
 
 
 
@@ -450,7 +449,7 @@ The downside, though, is that we loose the effective spatial resolution in the d
 
 
   
-# Why MATLAB?
+## Why MATLAB?
 
 
 (This one is for you, Kevin ;)
@@ -462,7 +461,7 @@ MATLAB, or MATrix LABoratory, handles matrices quite efficiently, as its name su
 
 
   
-# Resources 
+## Resources 
 
    -  Weaverdyck, M. E., Lieberman, M. D., \& Parkinson, C. (2020). Tools of the Trade Multivoxel pattern analysis in fMRI: A practical introduction for social and affective neuroscientists. *Social Cognitive and Affective Neuroscience*, *15*(4), 487–509. [https://doi.org/10.1093/scan/nsaa057](https://doi.org/10.1093/scan/nsaa057) 
    -  Coutanche, M. N., \& Thompson-Schill, S. L. (2013). Informational connectivity: Identifying synchronized discriminability of multi-voxel patterns across the brain. *Frontiers in Human Neuroscience*, *7*. [https://doi.org/10.3389/fnhum.2013.00015](https://doi.org/10.3389/fnhum.2013.00015) 
