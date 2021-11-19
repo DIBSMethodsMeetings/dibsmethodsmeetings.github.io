@@ -42,7 +42,7 @@ Assuming we want to save the world by understanding how the brain differentiates
 
 
 
-Because of the data aquisition style of fMRI, brains are parcelated into voxels--the smallest unit of (meaningful) data, around \textasciitilde{}3mm x 3mm x 3mm in size. Assuming all went well, we get people's brain activity **pattern **for their viewing of each picture. The data structure for each subject can be thought of a giant matrix with 
+Because of the data aquisition style of fMRI, brains are parcelated into voxels--the smallest unit of (meaningful) data, commonly 3mm x 3mm x 3mm in size. Assuming all went well, we get people's brain activity **pattern **for their viewing of each picture. The data structure for each subject can be thought of a giant matrix with 
 
 
 
@@ -112,7 +112,7 @@ The analysis we just went through is commonly referred to as **univariate**, bec
 
 
 
-Let's say we, the aspiring neuroscientist, take on a slightly less exciting side project on checkerboards, and we have two checkerboard patterns which have the exact opposite... pattern. We may want to see if V1 has different activation levels in response to the two patterns by conducting a univariate analysis.
+Let's say we, aspiring neuroscientists, take on a slightly less exciting side project on checkerboards, and we have two checkerboard patterns which have the exact opposite... pattern. We may want to see if V1 has different activation levels in response to the two patterns by conducting a univariate analysis.
 
 
 
@@ -150,7 +150,7 @@ Presumably half of the V1 voxels will correspond a white square and the other ha
 ## Enter Multivariate Pattern Analysis
 
 
-Multivariate pattern analysis (MVPA), also referred to as multi**voxel **pattern analysis in the context of fMRI, takes advantage of the high spatial resolution of fMRI; instead of assuming just one signal being represented in all voxels within an ROI, MVPA treats the many voxels as a **pattern** and assumes that information is stored in that pattern. 
+Multivariate pattern analysis (MVPA), also referred to as multi**voxel** pattern analysis in the context of fMRI, takes advantage of the high spatial resolution of fMRI; instead of assuming just one signal being represented in all voxels within an ROI, MVPA treats the many voxels as a **pattern** and assumes that information is stored in that pattern. 
 
 
 
@@ -256,7 +256,7 @@ y_pred_proba = clf.predict_prob(X_test)
 
 
 
-Despite all the machine learning hype, we actually do not have to use any machine learning algorithms for decoding analysis. If you remember, the original goal of decoding analysis is to go from (high dimensional) data to (low dimensional) condition, and machine learning is just a tool that sometimes finishes the job neatly. But there are alternatives. Correlation-based MVPA decoding just uses the simple criterion that same-class items should be more correlated (in terms of behavioral ratings, beta estimates, etc.) than different-class items. So we could take the activation pattern of one trial, correlate it with that of both animals and vehicles, and determine the class label of the trial based on whichever correlation coefficient is higher. (This is quite nicely explained in the Coutanche \& Thompson-Schill 2013 paper linked at the end.)
+Despite all the machine learning hype, we actually do not have to use any machine learning algorithms for decoding analysis. If you remember, the original goal of decoding analysis is to go from (high dimensional) data to (low dimensional) condition, and machine learning is just a tool that sometimes finishes the job neatly. But there are alternatives. Correlation-based MVPA decoding just uses the simple criterion that same-class items should be more correlated (in terms of behavioral ratings, beta estimates, etc.) than different-class items. So we could take the activation pattern of one trial, correlate it with that of both animals and vehicles, and determine the class label of the trial based on whichever correlation coefficient is higher. (This is quite nicely explained in the Coutanche & Thompson-Schill 2013 paper linked at the end.)
 
 
 
@@ -321,12 +321,30 @@ The RDM for items is referred to as the model RDM, because this is our model or 
 
 
 
-<img src="https://latex.codecogs.com/gif.latex?\;\;\;\;\;\;\left\lbrack&space;\begin{array}{cccc}&space;0&space;&&space;1&space;&&space;1&space;&&space;1\\&space;0&space;&&space;0&space;&&space;1&space;&&space;1\\&space;1&space;&&space;1&space;&&space;0&space;&&space;0\\&space;1&space;&&space;1&space;&&space;0&space;&&space;0&space;\end{array}\right\rbrack&space;\;\;\;\;\;\;"/>$$\;\;\;\;\;\;\left\lbrack \begin{array}{cccc}
+$$\;\;\;\;\;\;\left\lbrack \begin{array}{cccc}
+0 & 0 & 1 & 1\\
+0 & 0 & 1 & 1\\
+1 & 1 & 0 & 0\\
+1 & 1 & 0 & 0
+\end{array}\right\rbrack \;\;\;\;\;\;$$
+
+
+$$\;\;\;\;\;\;\left\lbrack \begin{array}{cccc}
 0 & 0 & 1 & 1\\
 0 & 0 & 1 & 1\\
 1 & 1 & 0 & 1\\
 1 & 1 & 1 & 0
-\end{array}\right\rbrack \;\;\;\;\;\;$$<img src="https://latex.codecogs.com/gif.latex?\;\;\;\;\;\;\left\lbrack&space;\begin{array}{cccc}&space;\;\;0&space;&&space;\ldotp&space;2&space;&&space;\ldotp&space;9&space;&&space;\ldotp&space;7\\&space;\ldotp&space;2&space;&&space;\;\;0&space;&&space;\ldotp&space;3&space;&&space;\ldotp&space;8\\&space;\ldotp&space;9&space;&&space;\ldotp&space;3&space;&&space;\;\;0&space;&&space;\ldotp&space;3\\&space;\ldotp&space;7&space;&&space;\ldotp&space;8&space;&&space;\ldotp&space;3&space;&&space;\;\;0&space;\end{array}\right\rbrack&space;\;\;\;\;\;\;"/>
+\end{array}\right\rbrack \;\;\;\;\;\;$$
+
+
+$$\;\;\;\;\;\;\left\lbrack \begin{array}{cccc}
+0 & .2 & .9 & .7\\
+.2 & 0 & .3 & .8\\
+.9 & .3 & 0 & .3\\
+.7 & .8 & .3 & 0
+\end{array}\right\rbrack \;\;\;\;\;\;$$
+
+
 
 
 
@@ -463,8 +481,8 @@ MATLAB, or MATrix LABoratory, handles matrices quite efficiently, as its name su
   
 ## Resources 
 
-   -  Weaverdyck, M. E., Lieberman, M. D., \& Parkinson, C. (2020). Tools of the Trade Multivoxel pattern analysis in fMRI: A practical introduction for social and affective neuroscientists. *Social Cognitive and Affective Neuroscience*, *15*(4), 487–509. [https://doi.org/10.1093/scan/nsaa057](https://doi.org/10.1093/scan/nsaa057) 
-   -  Coutanche, M. N., \& Thompson-Schill, S. L. (2013). Informational connectivity: Identifying synchronized discriminability of multi-voxel patterns across the brain. *Frontiers in Human Neuroscience*, *7*. [https://doi.org/10.3389/fnhum.2013.00015](https://doi.org/10.3389/fnhum.2013.00015) 
-   -  Gessell, B., Geib, B., \& De Brigard, F. (2021). Multivariate pattern analysis and the search for neural representations. *Synthese*. [https://doi.org/10.1007/s11229-021-03358-3](https://doi.org/10.1007/s11229-021-03358-3) 
-   -  Davis, S. W., Geib, B. R., Wing, E. A., Wang, W.-C., Hovhannisyan, M., Monge, Z. A., \& Cabeza, R. (2020). Visual and Semantic Representations Predict Subsequent Memory in Perceptual and Conceptual Memory Tests. *Cerebral Cortex*. [https://doi.org/10.1093/cercor/bhaa269](https://doi.org/10.1093/cercor/bhaa269) 
+   -  Weaverdyck, M. E., Lieberman, M. D., & Parkinson, C. (2020). Tools of the Trade Multivoxel pattern analysis in fMRI: A practical introduction for social and affective neuroscientists. *Social Cognitive and Affective Neuroscience*, *15*(4), 487–509. [https://doi.org/10.1093/scan/nsaa057](https://doi.org/10.1093/scan/nsaa057) 
+   -  Coutanche, M. N., & Thompson-Schill, S. L. (2013). Informational connectivity: Identifying synchronized discriminability of multi-voxel patterns across the brain. *Frontiers in Human Neuroscience*, *7*. [https://doi.org/10.3389/fnhum.2013.00015](https://doi.org/10.3389/fnhum.2013.00015) 
+   -  Gessell, B., Geib, B., & De Brigard, F. (2021). Multivariate pattern analysis and the search for neural representations. *Synthese*. [https://doi.org/10.1007/s11229-021-03358-3](https://doi.org/10.1007/s11229-021-03358-3) 
+   -  Davis, S. W., Geib, B. R., Wing, E. A., Wang, W.-C., Hovhannisyan, M., Monge, Z. A., & Cabeza, R. (2020). Visual and Semantic Representations Predict Subsequent Memory in Perceptual and Conceptual Memory Tests. *Cerebral Cortex*. [https://doi.org/10.1093/cercor/bhaa269](https://doi.org/10.1093/cercor/bhaa269) 
 
