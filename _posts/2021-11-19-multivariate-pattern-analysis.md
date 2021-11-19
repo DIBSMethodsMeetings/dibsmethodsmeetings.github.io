@@ -42,7 +42,7 @@ Assuming we want to save the world by understanding how the brain differentiates
 
 
 
-Because of the data aquisition style of fMRI, brains are parcelated into voxels--the smallest unit of (meaningful) data, commonly 3mm x 3mm x 3mm in size. Assuming all went well, we get people's brain activity **pattern **for their viewing of each picture. The data structure for each subject can be thought of a giant matrix with 
+Because of the data aquisition style of fMRI, brains are parcelated into voxels--the smallest unit of (meaningful) data, commonly 3mm x 3mm x 3mm in size. Assuming all went well, we get people's brain activity **pattern** for their viewing of each picture. The data structure for each subject can be thought of a giant matrix with 
 
 
 
