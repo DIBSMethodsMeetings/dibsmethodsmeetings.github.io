@@ -2,7 +2,7 @@
 title: "Multivariate Pattern Analysis"
 author: shenyang
 categories: [ tutorial ]
-image: /assets/images/2021-11-19-multivariate-pattern-analysis/colorful_brain.png
+image: https://neurosciencenews.com/files/2021/01/brain-hyperactivity-alzheimers-neurosicnes.png
 featured: true
 hidden: false
 output:
