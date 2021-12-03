@@ -1,0 +1,152 @@
+---
+title: "Intro to Probabilistic Programming with Stan"
+author: kevin
+categories: [ tutorial ]
+image: https://mc-stan.org/images/stan_logo.png
+featured: true
+hidden: false
+output:
+  html_document: default
+  pdf_document: default
+  md_document:
+    variant: gfm
+    preserve_yaml: TRUE
+---
+
+```{r setup, include=FALSE, cache=FALSE}
+knitr::opts_knit$set(base.dir="../", base.url="/")
+knitr::opts_chunk$set(fig.path="assets/images/2021-12-10-stan-intro/",
+                      fig.align = 'center',
+                      message=FALSE, warning=FALSE,
+                      cache=FALSE, echo=TRUE)
+```
+
+In this tutorial we're going to talk about what probabilistic
+programming is and how we can use it for statistical modeling. If you
+aren't familiar at all with Bayesian stats, check out my [previous
+post on the topic](https://dibsmethodsmeetings.github.io/bayes/). If
+you're used to probabilistic programming but just want to learn the
+Stan language, you can go straight to the fantastic [Stan User's
+Guide](https://mc-stan.org/docs/2_28/stan-users-guide/index.html),
+which explains how to program a wide variety of models.
+
+
+## What is probabilistic programming?
+
+Probabilistic programming is a relatively new and exciting approach to
+statistical modeling that lets you create models in a standardized
+language without having to implement any of the nitty-gritty details
+or work out too much math. Although not all probabilistic programs are
+Bayesian, probabalistic programming makes Bayesian modeling easy, and
+so it's a great way to learn what Bayesian models are, how they're fit
+to data, and what you can do with them. To explain what probabilistic
+programming is, I'm going to use just a little bit of math. Bear with me,
+because this is important!
+
+In Bayesian statistics, we start with a model and some data. As a
+simple example, we might model some ratings on a scale using a normal
+distribution with a particular mean $$\mu$$ and variance
+$$\sigma^2$$. Our goal is to identify the most likely parameter values
+given our data (that is, the values of $$mu$$ and $$sigma$$ that best
+explain our data). To determine which which parameter values are best,
+we make use of Bayes' formula:
+
+$$P(\theta | \mathcal{D}) \propto P(\theta)P(\mathcal{D} | \theta)$$
+
+This formula says that the probability of a parameter value $$\theta$$
+given our data $$\mathcal{D}$$ is proportional to our prior
+probability of that parameter value multiplied by the likelihood that
+the data could have been generated from that parameter value. How do
+we determine the likelihood? Well, sometimes we can derive the
+likelihood by hand. But in most cases, this approach is too difficult
+or time-consuming. In probabilistic programming, we write a program
+that simulates our model given some parameter values. This is actually
+useful in its own right: we can use this program to see how the model
+behaves under different settings of the parameters. But in statistical
+inference, the important part is that we run that program to
+(approximately) calculate the likelihood, which in turn lets us
+calculate the posterior probability of the parameter values given our
+data.
+
+## Why Stan?
+There are a good number of probabilistic programming languages out
+there. Today we're going to focus on [Stan](https://mc-stan.org),
+which is one of the fastest, most reliable, and most widely used
+probabilistic programming languages out there. One of the cool things
+about Stan is that there are a number of different interfactes to
+Stan: you can use Stan through R, through Python, through Matlab,
+through Julia, and even directly through the command-line! If you've
+read [my tutorial on Bayesian regression with
+brms](https://dibsmethodsmeetings.github.io/brms-intro/), then you've
+actually already used one of the easiest interfaces to Stan, which
+writes Stan programs for you based on `lmer`-like formulas. Lastly,
+Stan has one of the [largest
+communities](https://mc-stan.org/community/) that makes getting coding
+help and statistical advice easy.
+
+## The components of a Stan program
+
+
+## Sampling from a prior distribution
+
+
+## Fitting a model to data
+
+
+```{r results='hide', error=FALSE}
+library(tidyverse)  # for data wrangling
+library(lubridate)  # for dates
+library(rvest)      # for scraping spotify charts
+library(spotifyr)   # for spotify audio features
+library(tidybayes)  # for accessing model posteriors 
+
+
+## gather spotify chart data (modified from https://rpubs.com/argdata/web_scraping)
+scrape_spotify <- function(url) {
+    page <- url %>% read_html() # read the HTML page
+    
+    rank <- page %>%
+        html_elements('.chart-table-position') %>%
+        html_text() %>%
+        as.integer
+    track <- page %>% 
+        html_elements('strong') %>% 
+        html_text()
+    artist <- page %>% 
+        html_elements('.chart-table-track span') %>% 
+        html_text() %>%
+        str_remove('by ')
+    streams <- page %>% 
+        html_elements('td.chart-table-streams') %>% 
+        html_text() %>%
+        str_remove_all(',') %>%
+        as.integer
+    URI <- page %>%
+        html_elements('a') %>%
+        html_attr('href') %>%
+        str_subset('https://open.spotify.com/track/') %>%
+        str_remove('https://open.spotify.com/track/')
+    
+    ## combine, name, and make it a tibble
+    chart <- tibble(rank=rank, track=track, artist=artist, streams=streams, URI=URI)
+    return(chart)
+}
+```
+
+```{r}
+## load the top 200 songs in the US per week in 2021
+spotify2021 <- tibble(week=seq(ymd('2021-01-01'), ymd('2021-11-19'), by = 'weeks')) %>%
+    mutate(url=paste0('https://spotifycharts.com/regional/us/weekly/', week, '--', week+days(7)),
+           data=map(url, scrape_spotify)) %>%
+    unnest(data)
+
+## extract spotify's audio features for each song
+features <- tibble(URI=unique(spotify2021$URI)) %>%
+    mutate(features=map(URI, get_track_audio_features)) %>%
+    unnest(features)
+
+## make one tidy data frame
+spotify2021 <- spotify2021 %>% left_join(features, by='URI') %>%
+    select(-URI, -analysis_url, -track_href, -id, -type)
+```
+
