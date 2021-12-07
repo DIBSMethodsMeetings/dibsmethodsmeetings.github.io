@@ -3,7 +3,7 @@ title: "Online Data Collection with Qualtrics, MTurk, and SONA"
 author: raphael
 categories: [ tutorial ]
 image: assets/images/2021-10-29-qualtrics/qualtrics-logo.jpeg
-featured: true
+featured: false
 output:
   html_document: default
   pdf_document: default
