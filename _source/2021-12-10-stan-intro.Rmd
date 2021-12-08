@@ -29,7 +29,25 @@ Guide](https://mc-stan.org/docs/2_28/stan-users-guide/index.html),
 which explains how to program a wide variety of models.
 
 
-# What is probabilistic programming?
+1. [What is probabilistic programming?](#what-is-prob-programming)
+  - [Why Stan?](#why-stan)
+  - [The components of a Stan program](#stan-components)
+2. [Probabilistic programming with Stan](#programming-stan)
+  - [Getting some data](#getting-data)
+  - [Simulating fake data: number of streams](#simulating-data)
+  - [Sampling from a prior distribution](#simulating-data)
+  - [Fitting a model to data](#fitting-model)
+3. [Assessing model convergence](#assessing-convergence)
+  - [The fuzzy caterpillar check](#fuzzy-caterpillar)
+  - [R-hat](#rhat)
+  - [Effective Sample Size (ESS)](#ESS)
+4. [Assessing model fit](#assessing-fit)
+5. [Linear Regression in Stan](#linear-regression)
+  - [Entering the matrix](#entering-matrix)
+  - [Design matrices and you](#design-matrix)
+6. [Summary](#summary)
+
+# <a name="what-is-prob-programming">What is probabilistic programming?</a>
 
 Probabilistic programming is a relatively new and exciting approach to
 statistical modeling that lets you create models in a standardized
@@ -66,7 +84,7 @@ that we run that program to (approximately) calculate the likelihood,
 which in turn lets us calculate the posterior probability of the
 parameter values given our data.
 
-## Why Stan?
+## <a name="why-stan">Why Stan?</a>
 There are a good number of probabilistic programming languages out
 there. Today we're going to focus on [Stan](https://mc-stan.org),
 which is one of the fastest, most reliable, and most widely used
@@ -82,7 +100,7 @@ Stan has one of the [largest
 communities](https://mc-stan.org/community/) that makes getting coding
 help and statistical advice easy.
 
-## The components of a Stan program
+## <a name="stan-components">The components of a Stan program</a>
 
 Unsurprisingly, Stan programs are written in Stan files, which use the
 extension `.stan`. The Stan language has similar syntax to `C++`, in
@@ -111,27 +129,28 @@ following order (*required):
 
 
 In the remainder of the workshop, we're going to focus on the `data`,
-`parameters`, `model`, and `generated_quantities` blocks. Let's start
-with the simplest use case for Stan: simulating fake data.
+`parameters`, `model`, and `generated_quantities` blocks, but we'll
+also use the `transformed parameters` block.
 
 
-# Simulating fake data with Stan
-To demonstrate how to simulate data using Stan, let's first get a nice
-dataset to work with. Here I'm going to load some packages, and then
-run some code to gather data from the Spotify top 200 songs per week
+# <a name="programming-stan">Probabilistic programming with Stan</a>
+To demonstrate the power of Stan, let's first get a nice dataset to
+work with. Here I'm going to load some packages, and then run some
+code to gather data from the Spotify top 200 songs per week
 in 2021. Don't worry about how this code actually works (we can save
 that for a future meeting...), but know that it will take some time
-(~15mins) if you run this on your computer.
+(~5mins) if you run this on your computer.
 
 
-## Getting some data
+## <a name="getting-data">Getting some data</a>
 ```{r spotify_data, eval=FALSE}
 library(cmdstanr)   # for stan
 library(tidyverse)  # for data wrangling
 library(lubridate)  # for dates
 library(rvest)      # for scraping spotify charts
 library(spotifyr)   # for spotify audio features
-library(tidybayes)  # for accessing model posteriors 
+library(tidybayes)  # for accessing model posteriors
+library(viridis)    # for pretty plots
 options(mc.cores=parallel::detectCores())
 
 ## gather spotify chart data (modified from https://rpubs.com/argdata/web_scraping)
@@ -197,6 +216,7 @@ library(lubridate)  # for dates
 library(rvest)      # for scraping spotify charts
 library(spotifyr)   # for spotify audio features
 library(tidybayes)  # for accessing model posteriors
+library(viridis)    # for pretty plots
 options(mc.cores=parallel::detectCores())
 spotify2021 <- read_csv('2021-12-10-spotify-data.csv')
 ```
@@ -229,16 +249,19 @@ tracks, along with the following information:
   - `uri`: the Spotify unique identifier for the track
   - `url`: a link to the track
 
-## Simulating fake data: number of streams
+## <a name="simulating-data">Simulating fake data: number of streams</a>
 Let's say we want to know how many times, on average, the top 200
 tracks are streamed every week. Of course, we could just use
 `mean(spotify2021$streams)` to get this number, but to get more
 information we will need to specify a model. As a start, we can assume
 a normal distribution with mean $$\mu$$ and standard deviation
-$$\sigma$$. In simulation, we assume that we know what the values of
-$$\mu$$ and $$\sigma$$ are to check what the distribution of streams
-would look like if those values were true. To do that, let's write a
-Stan program, which I'll save in the file `2021-12-10-streams-sim.stan`:
+$$\sigma$$. Before fitting this model, we might just want to know what
+data simulated from this model looks like under different parameter
+values. This is the main goal of simulation: we assume that we know
+what the values of $$\mu$$ and $$\sigma$$ are to check what the
+distribution of streams would look like if those values were true. To
+do that, let's write a Stan program, which I'll save in the file
+`2021-12-10-streams-sim.stan`:
 
 ```{r echo=FALSE, comment=''}
 writeLines(readLines('2021-12-10-streams-sim.stan'))
@@ -304,7 +327,7 @@ Again, this tells us what we already expected: our simulated top 200
 songs have somewhere around one million streams per week, and the
 number of streams are normally distributed around that.
 
-# Sampling from a prior distribution
+## <a name="sampling-prior">Sampling from a prior distribution</a>
 It's nice to simulate data, but of course our main goal is to infer
 what the *actual* mean and standard deviation of stream counts for the
 top 200 tracks. To do so, we first need to define a prior
@@ -353,7 +376,7 @@ was the noise in the sampling process. But now that we have included
 `mu` and `sigma` as parameters in the model, we also have uncertainty
 in `mu` and `sigma` that creates some more noise in `y_hat`.
 
-## Fitting a model to data
+## <a name="fitting-model">Fitting a model to data</a>
 You might have noticed that that was a whole lot of work to go through
 to sample from some normal distributions. Up until now, we could have
 just as well used `rnorm` a few times to do the trick. So what's the
@@ -402,7 +425,7 @@ week to be anywhere from -500,000 to 5.5 million. Before we talk about
 these results any further, though, let's make sure that we can trust
 them.
 
-# Assessing model convergence
+# <a name="assessing-convergence">Assessing model convergence</a>
 Since we don't have direct access to the posterior distribution, Stan
 uses Markov Chain Monte Carlo (MCMC) to sample values of `mu` and
 `sigma`. We won't go into the details here, but the gist is that MCMC
@@ -413,7 +436,7 @@ posterior distribution, we say the model has *converged*. If not, we
 cannot use the sampled values for inference, because they don't
 reflect our posterior.
 
-## The fuzzy caterpillar check
+## <a name="fuzzy-caterpillar">The fuzzy caterpillar check</a>
 There are few different metrics for assessing convergence of MCMC
 chains. Honestly, the best one is visual: the "fuzzy caterpillar"
 check. The idea is you plot the MCMC chains for each parameter as a
@@ -455,7 +478,7 @@ the parameters have all ended up around the values of our posterior
 distribution.
 
 
-## R-hat
+## <a name="rhat">R-hat</a>
 If the qualitative visual check isn't working for you, you might want
 something a bit more quantitative. One option is R-hat, which is the
 ratio of the between-chain variance and the within-chain variance of
@@ -474,7 +497,7 @@ streams$summary() %>% select(variable, rhat)
 
 Since our R-hat values are all 1.00, our model looks pretty good.
 
-## ESS
+## <a name="ESS">Effective Sample Size (ESS)</a>
 Related to R-hat, we can also look at the effective sample size (ESS)
 of the model. Recall that we sampled 1000 draws from four MCMC chains,
 resulting in 4000 total samples from the posterior. In an ideal
@@ -503,7 +526,7 @@ streams$summary() %>% select(variable, ess_bulk, ess_tail)
 Our bulk ESS looks very good- all of the values are close
 to 4000. Though the tail ESS is lower, it is still acceptable.
 
-# Assessing model fit
+# <a name="assessing-fit">Assessing model fit</a>
 Now that we know that our model converged, let's try to figure out how
 well it fit. In other words, how well does our model describe the
 data? Just as the fuzzy-caterpillar check provides a quick & easy way
@@ -570,7 +593,7 @@ other purposes. So it is up to you, the modeler, to determine when
 your model is good enough to inspect.
 
 
-# Linear Regression in Stan
+# <a name="linear-regression">Linear Regression in Stan</a>
 Modeling the mean and standard deviation of just one datapoint is good
 and well, but as scientists we're usually more interested in
 *effects*. To do that, we're going to need to add some predictor
@@ -641,7 +664,7 @@ summary(lm(energy ~ loudness, spotify2021))
 ```
 
 Let's plot our regression line on top of the data:
-```{r energy_plot}
+```{r energy_plot_glm}
 energy_draws <- energy %>%
     spread_draws(mu[.row]) %>%
     mutate(x=spotify2021$loudness[.row])
@@ -677,7 +700,7 @@ ggplot(energy_R2, aes(x=R2)) +
 This plot shows us that our model is pretty darn good: it explains
 about 45% of the variance in energy!
 
-# Generalizing regression in Stan
+## <a name="entering-matrix">Entering the matrix</a>
 To round off this tutorial, let's try to make our regression model a
 little more general. Right now, we only have one predictor variable
 coded into our model. What if we wanted to allow for more than one
@@ -687,8 +710,6 @@ algebra](https://dibsmethodsmeetings.github.io/linear-algebra/), the
 way to achieve this is to use matrices. This might sound scary, but
 really the core idea is still the same.
 
-
-## Entering the matrix
 Let's go back to stream counts: presume that we want to know what
 makes the top 200 songs so successful. Is it their energy, their
 danceability, duration, or some combination of variables? To find out,
@@ -812,7 +833,7 @@ of a track is associated with an increase in `.001` * one million =
 of one beat per minute of the tempo is associated with an increase of
 `3000` streams.
 
-## Design matrices and you
+## <a name="design-matrix">Design matrices and you</a>
 It looks for sure like there are some effects of duration and tempo on
 stream counts in the top 200. Could it be that these effects interact
 with each other? In other words, could the effect of duration depend
@@ -847,7 +868,7 @@ head(model.matrix(streams ~ 0 + duration_s + tempo, data=spotify2021))
 
 Finally, let's add in an interaction term:
 
-```{r design_matrix2}
+```{r design_matrix3}
 X <- model.matrix(streams ~ 0 + duration_s * tempo, data=spotify2021)
 head(X)
 ```
@@ -868,17 +889,113 @@ Ah, the model has *yet again* failed to converge. Looking at the above
 design matrix, it looks like a similar thing could be going on: the
 interaction variable seems to be much larger than the two other
 variables. This makes sense, because interactions are just
-multiplications of other variables. So what can we do? Well, rather
-than scaling the interaction variable itself, we can actually scale
-all of the variables at once in Stan by *centering* the design matrix
-like so:
+multiplications of other variables (the data for `duration_s:tempo` is
+just `duration_s * tempo`). So what can we do? Well, we have a couple
+options. As we mentioned before, we could z-score our variables. But
+as we mentioned before, that removes all of the information about the
+scales, which makes it hard to tell the size of the effects. So we're
+going to scale down both `duration` (to minutes) and `tempo` (to beats
+per second) individually to make sure that the interaction doesn't
+blow out of proportion.
 
-```{r include=FALSE, comment=''}
-writeLines(readLines('2021-12-10-streams-glm-centered.stan'))
+```{r streams_glm_sample4}
+spotify2021$duration_m <- spotify2021$duration_s / 60
+spotify2021$tempo_bps <- spotify2021$tempo / 60
+
+X <- model.matrix(streams ~ 0 + duration_m * tempo_bps, data=spotify2021)
+head(X)
+
+streams_data <- list(N=nrow(spotify2021), K=ncol(X),
+                     X=X, y=spotify2021$streams)
+streams <- streams_model$sample(data=streams_data)
+streams
 ```
 
-This last model has a few minor changes, but most of the model is the
-same as before. We added a `transformed data` block, which computes
-two different variables. `X_means` is a vector of the means of each
-column of `X`, and `X_centered` is just `X` with the `X_means`
-subtracted from each column so that each column has a mean of `0`.
+It's not perfect, but for our purposes it'll do just fine. Let's plot
+our parameters:
+
+```{r streams_glm_params2}
+streams$draws(c('alpha', 'beta', 'sigma'), format='draws_df') %>%
+    pivot_longer(alpha:sigma, names_to='.variable', values_to='.value') %>%
+    ggplot(aes(x=.value)) +
+    stat_halfeye(point_interval=median_hdi, normalize='panels') +
+    xlab('Value') + ylab('Parameter') +
+    facet_wrap(~ .variable, scales='free') +
+    theme_tidybayes()
+```
+
+From our model's results, it looks like we do indeed have a negative
+interaction: even though stream counts go up by about 450,000 with
+each additional minute (`beta[1]`), and even though they go up by
+about 850,000 for each beat-per-second increase in tempo (`beta[2]`),
+these relationships reverse if a song is either too long or too
+fast. To visualize how this relationships change, we can add to our
+Stan program to calculate model predictions for any arbitrary `X`:
+
+```{r include=FALSE, comment=''}
+writeLines(readLines('2021-12-10-streams-glm-pred.stan'))
+```
+
+Now in addition to `X`, we're also giving Stan a different dataset
+called `X_pred`, which contains some values of the predictors we want
+model predictions for. Since this data isn't involved in training, we
+don't need a corresponding `y_pred`. In the generated quantities, I've
+added two new variables. `mu_pred` is the model prediction for the
+mean of `y` at `X_pred`, and `y_pred_hat` are the simulated data at
+`X_pred`. Let's try it out:
+
+```{r streams_glm_sample5}
+X_pred <- expand_grid(duration_m=seq(0, 10, 1),
+                      tempo_bps=seq(0.5, 3, 0.5)) %>%
+    model.matrix( ~ 0 + duration_m * tempo_bps, .)
+head(X_pred)
+
+streams_data <- list(N=nrow(spotify2021), K=ncol(X),
+                     X=X, y=spotify2021$streams,
+                     N_pred=nrow(X_pred), X_pred=X_pred)
+streams_model <- cmdstan_model('2021-12-10-streams-glm-pred.stan')
+streams <- streams_model$sample(data=streams_data)
+streams
+```
+
+Thankfully, the results are pretty much the same. Let's see what those
+predictions look like!
+
+```{r streams_glm_pred}
+streams %>%
+    spread_draws(mu_pred[.row]) %>%
+    mutate(duration_m=X_pred[.row, 'duration_m'],
+           tempo_bps=X_pred[.row, 'tempo_bps']) %>%
+    group_by(duration_m, tempo_bps) %>%
+    median_hdi %>%
+    ggplot(aes(x=duration_m, y=mu_pred, group=tempo_bps, fill=tempo_bps)) +
+    geom_point(aes(y=streams, color=tempo_bps), alpha=.25, size=.25, data=spotify2021) +
+    geom_ribbon(aes(ymin=.lower, ymax=.upper), alpha=.25) +
+    geom_line(aes(color=tempo_bps)) +
+    xlab('Duration (minutes)') + ylab('Streams (millions)') +
+    scale_color_viridis(name='Tempo\n(beats/second)') +
+    scale_fill_viridis(name='Tempo\n(beats/second)') +
+    coord_cartesian(xlim=c(1, 6), ylim=c(0, 5)) +
+    theme_tidybayes()
+```
+
+We can see the overall trends we found earlier: for slower songs,
+there is a positive relationship between duration and stream count,
+but for faster songs this trend is reversed (with the switch from
+positive to negative happening around 2 beats/second). Most
+importantly, though, our model doesn't seem to be describing the data
+super well. If our goal is just to describe some overall patterns in
+the data, our current model is probably fine. But if we are interested
+in capturing the data-generating process of stream counts, then we
+would probably want to refine this model some more until the
+model-generated data looks reasonably like the actual data.
+
+
+# <a name="summary">Summary</a>
+In this tutorial, we learned what probabilistic programming is, and we
+walked through some of the many ways in which you can use the
+probabilistic programming language Stan. We simulated fake data from a
+model, simulated fake data from a prior distribution, fit a few
+different linear models to some data, and visualized linear trends in
+the data! Although this is a lot, there's so much more that you can do
+with Stan, so expect to see it in more tutorials to come. Until next time!
