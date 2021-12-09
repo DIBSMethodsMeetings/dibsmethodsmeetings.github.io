@@ -1,0 +1,20 @@
+<section class="recent-posts">
+
+    <div class="section-title">
+
+      <h2><span>{{ title }}</span></h2>
+
+    </div>
+
+    {{ page }}
+    
+    <div class="row listrecent">
+
+      {% assign posts = paginator.posts | where: "name", name %}
+      {% for post in posts %}
+      {% include postbox.html %}
+      {% endfor %}
+
+    </div>
+
+</section>

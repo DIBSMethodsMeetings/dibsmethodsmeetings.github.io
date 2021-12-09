@@ -1,0 +1,73 @@
+---
+layout: default
+---
+
+{% assign name = page.name | capitalize %}
+{% assign author = site.authors | where: "name", name | first %}
+
+
+<div class="row listrecent">
+  <div class="col-lg-4 col-md-6 mb-30px card-group" style="display: block; margin: auto;">
+    <div class="card h-100">
+      
+      <div style="maxthumb">
+	{% if author.avatar %}
+	<img class="author-img" src="{{site.baseurl}}/{{author.avatar}}" alt="{{author.display_name}}">
+	{% else %}
+	<img class="author-img" src="https://www.gravatar.com/avatar/{{ author.gravatar }}?s=250&d=mm&r=x" alt="{{ author.display_name }}">
+	{% endif %}
+      </div>
+      
+      <div class="card-body">
+	<h2 class="card-title">	    
+	  {% if author.web %}
+	  <a class="text-light" href="{{ author.web }}"> {{ author.display_name }} </a>
+	  {% else %}
+	  {{ author.display_name }}
+	  {% endif %}
+	</h2>
+	
+	<h4 class="card-text"> {{ author.description }} </h4>
+      </div>
+      
+      <div class="card-footer" style="height: 80px; display: block;">
+	
+	{% if author.web %}
+	<a class="btn" href="{{author.web}}"><img class='author-thumb' style="display: block; margin: auto; border-radius: 0;"
+						  src="{{site.baseurl}}/assets/images/globe.png"></a>
+	{% endif %}
+	
+	{% if author.twitter %}
+	<a class="btn" href="{{author.twitter}}"><img class='author-thumb' style="display: block; margin: auto; border-radius: 0;"
+						      src="{{site.baseurl}}/assets/images/twitter.png"></a>
+	{% endif %}
+	
+	{% if author.email %}
+	<a class="btn" href="mailto:{{author.email}}"><img class='author-thumb' style="display: block; margin: auto; border-radius: 0;"
+							 src="{{site.baseurl}}/assets/images/email.png"></a>
+	{% endif %}
+	
+	<div class="clearfix"></div>
+      </div>
+  </div>
+  </div>
+</div>
+
+<section class="recent-posts">
+
+    <div class="section-title">
+
+      <h2><span>Posts by {{ name }}</span></h2>
+
+    </div>
+
+    <div class="row listrecent">
+
+      {% assign posts = site.posts | where: "author", page.name %}
+      {% for post in posts %}
+      {% include postbox.html %}
+      {% endfor %}
+
+    </div>
+
+</section>

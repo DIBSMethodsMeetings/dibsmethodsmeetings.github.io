@@ -102,6 +102,18 @@ authors:
     description: "Graduate student in cognitive neuroscience at Duke University working with Dr. Roberto Cabeza and Dr. Felipe De Brigard."
 
 
+collections:
+  personal_page:
+    output: true
+
+defaults:
+  - scope:
+      path: ""
+      type: personal_page
+    values:
+      layout: personal_page
+      permalink: people/:name
+
 google_site_verification : google5d59576ff62047c3.html
 
 # Plugins

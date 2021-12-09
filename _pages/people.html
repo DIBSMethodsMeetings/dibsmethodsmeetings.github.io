@@ -16,16 +16,16 @@ permalink: /people
 	
 	<div style="maxthumb">
 	  {% if author.avatar %}
-	  <img class="author-img" src="{{site.baseurl}}/{{author.avatar}}" alt="{{author.display_name}}">
+	  <a href="{{site.baseurl}}/people/{{a.name}}"><img class="author-img" src="{{site.baseurl}}/{{author.avatar}}" alt="{{author.display_name}}"></a>
 	  {% else %}
-	  <img class="author-img" src="https://www.gravatar.com/avatar/{{ author.gravatar }}?s=250&d=mm&r=x" alt="{{ author.display_name }}">
+	  <a href="{{site.baseurl}}/people/{{a.name}}"><img class="author-img" src="https://www.gravatar.com/avatar/{{ author.gravatar }}?s=250&d=mm&r=x" alt="{{ author.display_name }}"></a>
 	  {% endif %}
 	</div>
 	
 	<div class="card-body">
 	  <h2 class="card-title">	    
 	    {% if author.web %}
-	    <a class="text-light" href="{{ author.web }}"> {{ author.display_name }} </a>
+	    <a class="text-light" href="{{site.baseurl}}/people/{{a.name}}"> {{ author.display_name }} </a>
 	    {% else %}
 	    {{ author.display_name }}
 	    {% endif %}
