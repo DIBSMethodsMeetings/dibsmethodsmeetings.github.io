@@ -86,9 +86,9 @@ authors:
     display_name: Raphael Geddert
     avatar: assets/images/raphael.jpg
     gravatar:
-    email: "raphael.geddert@duke.edu"
+    email: raphael.geddert@duke.edu
     web:
-    twitter:
+    twitter: https://twitter.com/raphaelgeddert
     description: "Graduate student in cognitive neuroscience at Duke University working with Dr. Tobias Egner on cognitive control."
 
   shenyang:
@@ -96,7 +96,7 @@ authors:
     display_name: Shenyang Huang
     avatar: assets/images/shenyang.jpg
     gravatar:
-    email: "shenyang.huang@duke.edu"
+    email: shenyang.huang@duke.edu
     web:
     twitter: https://twitter.com/SelfShenyang
     description: "Graduate student in cognitive neuroscience at Duke University working with Dr. Roberto Cabeza and Dr. Felipe De Brigard."
