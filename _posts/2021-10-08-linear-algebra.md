@@ -22,7 +22,7 @@ We begin with the building block of *scalars*, which here will refer to any real
 We can arrange a list of scalars into a *vector*. We can enumerate the entries of a vector through a subscript, e.g., \\(x_1\\) refers to the first entry of a vector. Vectors will be denoted with a bold-faced lower-case letter, \\(\mathbf{x}\\), and can be visualized in the following way:
 
 $$\begin{equation*}
-    \mathbf{x} = \begin{bmatrix} x_{1} \\x_{2} \\ \vdots \\ x_{n} \end{bmatrix}
+    \mathbf{x} = \begin{bmatrix} x_{1} \\ x_{2} \\ \vdots \\ x_{n} \end{bmatrix}
 \end{equation*}$$
 
 Where we have a list of \\(n\\) scalars. The number of scalars in a vector \\(n\\) is referred to as the *dimensionality* of the vector. A more mathematically formal way of stating this is that \\(\mathbf{x} \in \mathbb{R}^n\\), which states that the vector \\(\mathbf{x}\\) belongs to a set of all (real) vectors with dimension \\(n\\). 
