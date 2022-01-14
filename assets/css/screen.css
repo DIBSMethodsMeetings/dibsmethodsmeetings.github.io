@@ -357,7 +357,7 @@ blockquote {
     border-left: 4px solid #00ab6b;
     padding: 0 20px;
     font-style: italic;
-    color: rgba(0, 0, 0, .5);
+    color: #00ab6b;
 }
 
 .article-post p,
@@ -368,6 +368,8 @@ blockquote {
 .featured-image {
     display: block;
     margin-bottom: 1.5rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .share {
