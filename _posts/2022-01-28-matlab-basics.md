@@ -34,6 +34,11 @@ output:
 }
 </style>
 
+
+This workshop is written in MATLAB live script: `2022-01-28-matlab-basics.mlx`
+
+
+
 1. [Why are we even here?](#why)
 2. [Getting licensed](#license)
 3. [Working environment](#workenv)
@@ -640,7 +645,7 @@ x is exactly 5
 
 
 ```matlab
-% logical operators, & and |
+% Three logical operators, &, |, ~
 1==1 & 1==2
 ```
 ```text:Output
@@ -655,6 +660,15 @@ ans =
 ```text:Output
 ans = 
    1
+```
+
+
+```matlab
+~(1==1)
+```
+```text:Output
+ans = 
+   0
 ```
 
 
