@@ -36,6 +36,9 @@ output:
 
 
 
+This workshop is written in MATLAB live script: [2022-01-28-matlab-basics.mlx](#https://github.com/DIBSMethodsMeetings/dibsmethodsmeetings.github.io/blob/master/_source/2022-01-28-matlab-basics.mlx)
+
+
 1. [Why are we even here?](#why)
 2. [Getting licensed](#license)
 3. [Working environment](#workenv)
@@ -44,9 +47,6 @@ output:
 6. [Functions](#func)
 7. [How to understand/debug existing code](#debug)
 8. [Local functions must be decalred in the last code section, so here it is](#localfun) 
-
-
-This workshop is written in MATLAB live script: `2022-01-28-matlab-basics.mlx`
 
 
 # 1. Why are we even here? {#why}
