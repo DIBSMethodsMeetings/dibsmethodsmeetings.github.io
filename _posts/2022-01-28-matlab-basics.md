@@ -36,7 +36,7 @@ output:
 
 
 
-This workshop is written in MATLAB live script: [2022-01-28-matlab-basics.mlx](#https://github.com/DIBSMethodsMeetings/dibsmethodsmeetings.github.io/blob/master/_source/2022-01-28-matlab-basics.mlx)
+This workshop is written in MATLAB live script: [2022-01-28-matlab-basics.mlx](https://github.com/DIBSMethodsMeetings/dibsmethodsmeetings.github.io/blob/master/_source/2022-01-28-matlab-basics.mlx)
 
 
 1. [Why are we even here?](#why)
