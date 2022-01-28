@@ -1,6 +1,51 @@
-# MATLAB basics
-\matlabheading{![image_0.png](2022-01-28-matlab-basics_images/image_0.png)}
-# 0. Why are we even here?
+---
+title: "MATLAB basics"
+author: shenyang
+categories: [ tutorial ]
+image: assets/images/2022-01-28-matlab-basics_images/image_0.png
+featured: true
+hidden: false
+output:
+  html_document: default
+  pdf_document: default
+  md_document:
+    variant: gfm
+    preserve_yaml: TRUE
+---
+
+<style>
+.bordered-table {
+    border: 1px white solid;
+    background-color: #00539B;
+}
+
+.bordered-table td {
+    border: 1px white solid;
+    padding: 10px;
+}
+
+.bordered-table th {
+    border: 1px white solid;
+    padding: 10px;
+}
+
+.bordered-table tbody tr:nth-child(odd) {
+    background-color: #012169;
+}
+</style>
+
+1. [Why are we even here?](#why)
+2. [Getting licensed](#license)
+3. [Working environment](#workenv)
+4. [Data types and operations](#datatype)
+5. [Conditional Statements and Loops](#condst)
+6. [Functions](#func)
+7. [How to understand/debug existing code](#debug)
+8. [Local functions must be decalred in the last code section, so here it is](#localfun) 
+
+
+
+# 1. Why are we even here? {#why}
 
 
 MATLAB is good in several aspects: it has a useful working environment, operates fast on matrices, has abundant toolboxes and legacy code, and can run on different operation systems (Windows, macOS, Linux). The last point is relevant to the choice of fMRI analysis packages (e.g., SPM vs. FSL, AFNI).
@@ -11,7 +56,7 @@ MATLAB is good in several aspects: it has a useful working environment, operates
 But, MATLAB is also bad and ugly in several ways. It's not free. It's giant in size. It's has some weird features;
 
 
-# 1. Getting licensed
+# 2. Getting licensed {#license}
 
 
 Like driving a car or buying a gun, you need a license to use MATLAB, which is NOT free, but Duke does have an institution license that allows you to activate MATLAB (and a bunch of other stuff) with your Duke email here. Check [https://software.duke.edu/node/130](https://software.duke.edu/node/130) or [https://oit.duke.edu/help/articles/kb0023255](https://oit.duke.edu/help/articles/kb0023255). 
@@ -22,10 +67,10 @@ Like driving a car or buying a gun, you need a license to use MATLAB, which is N
 In case you want to try out MATLAB without installing it yet, you can use MATLAB Online: [https://matlab.mathworks.com/.](https://matlab.mathworks.com) Note that the online version also requires an active license. 
 
 
-# 2. Working environment
+# 3. Working environment {#workenv}
 
 
-![image_1.png](2022-01-28-matlab-basics_images/image_1.png)
+<img src="/assets/images/2022-01-28-matlab-basics_images/image_1.png">
 
 
 
@@ -50,10 +95,10 @@ In case you want to try out MATLAB without installing it yet, you can use MATLAB
 
 
 
-+ all sorts of buttons up top 
+And, all sorts of buttons up top 
 
 
-# 3. Data types and operations
+# 4. Data types and operations {#datatype}
 
 
 Let's start with the basic data types in MATLAB. This is not a comprehensive list, but you can learn more data types here: [https://www.mathworks.com/help/matlab/data-types.html](https://www.mathworks.com/help/matlab/data-types.html). 
@@ -61,10 +106,10 @@ Let's start with the basic data types in MATLAB. This is not a comprehensive lis
 
 ### Numeric types
 
-\hfill \break
 
 
-```matlab:Code
+
+```matlab
 % double	Double-precision arrays (64-bit) <-- MATLAB default
 % single	Single-precision arrays (32-bit)
 % int8	    8-bit signed integer arrays
@@ -73,22 +118,18 @@ Let's start with the basic data types in MATLAB. This is not a comprehensive lis
 % for example:
 class(1) % use the function class to check data types
 ```
-
-
 ```text:Output
 ans = 'double'
 ```
 
 
-```matlab:Code
+```matlab
 % use space or comma to separate columns
 % use semicolon to separate rows
 % use square brackets [ ] to put things together
 a = [1    2,    3;
     .5    inf   nan] % this is a 2 x 3 double array
 ```
-
-
 ```text:Output
 a = 2x3    
     1.0000    2.0000    3.0000
@@ -97,22 +138,20 @@ a = 2x3
 ```
 
 
-```matlab:Code
+```matlab
 % note the two special numbers: Inf and NaN (not a number)
 class(a) % the data type is still 'double'
 ```
-
-
 ```text:Output
 ans = 'double'
 ```
 
 ### Characters and Strings
 
-\hfill \break
 
 
-```matlab:Code
+
+```matlab
 % use single quotes for characters
 char1 = 'a';
 char2 = 'abc';
@@ -125,49 +164,39 @@ class(string1);
 % difference
 length(char2)
 ```
-
-
 ```text:Output
 ans = 3
 ```
 
 
-```matlab:Code
+```matlab
 length(string2)
 ```
-
-
 ```text:Output
 ans = 1
 ```
 
 
-```matlab:Code
+```matlab
 % if we want to concatnate different things
 [char1 char2] % correctly concatenated character array
 ```
-
-
 ```text:Output
 ans = 'aabc'
 ```
 
 
-```matlab:Code
+```matlab
 string1 + string2 % correctly concatenated strings
 ```
-
-
 ```text:Output
 ans = "aabc"
 ```
 
 
-```matlab:Code
+```matlab
 char1 + char2 % data type converted to numeric for addition
 ```
-
-
 ```text:Output
 ans = 1x3    
    194   195   196
@@ -175,11 +204,9 @@ ans = 1x3
 ```
 
 
-```matlab:Code
+```matlab
 [char1 string2] % character coerced to string
 ```
-
-
 ```text:Output
 ans = 1x2 string    
 "a"          "abc"        
@@ -188,10 +215,10 @@ ans = 1x2 string
 
 ### Tables
 
-\hfill \break
 
 
-```matlab:Code
+
+```matlab
 % values in one column need to be of the same type
 % columns can be created with dot indexing names
 T = table;
@@ -199,8 +226,6 @@ T.col1 = [1; 2];
 T.col2 = ["hello"; "world"];
 try; T.col3 = 1; catch err; disp(err); end
 ```
-
-
 ```text:Output
   MException with properties:
 
@@ -212,7 +237,7 @@ try; T.col3 = 1; catch err; disp(err); end
 ```
 
 
-```matlab:Code
+```matlab
 T
 ```
 
@@ -223,10 +248,10 @@ T
 
 ### Cell Arrays
 
-\hfill \break
 
 
-```matlab:Code
+
+```matlab
 % use curly brackets to put together things of different sizes and types
 C = {42, "abcd"; 'efg', [1 2 3]}
 ```
@@ -237,33 +262,28 @@ C = {42, "abcd"; 'efg', [1 2 3]}
 |2|'efg'|[1,2,3]|
 
 
-```matlab:Code
+```matlab
 C(1) % retrieves the cell 
 ```
-
-
 ```text:Output
 ans = 
     {[42]}
-
 ```
 
 
-```matlab:Code
+```matlab
 C{1} % retrieves content within the cell
 ```
-
-
 ```text:Output
 ans = 42
 ```
 
 ### Structures
 
-\hfill \break
 
 
-```matlab:Code
+
+```matlab
 % group data using fields
 % each field can be of any data type, including structures
 S = struct;
@@ -273,8 +293,6 @@ S.field3_table = T;
 S.field4_char = char1;
 S
 ```
-
-
 ```text:Output
 S = 
     field1_struct: [1x1 struct]
@@ -286,10 +304,10 @@ S =
 
 ### Indexing
 
-\hfill \break
 
 
-```matlab:Code
+
+```matlab
 % Arrays are efficient, but make sure you access the data in the array in
 % the correct fashion
 
@@ -297,54 +315,42 @@ S =
 a = [1 2 3; 4 5 6]; % 2 x 3 double array
 a(1, 2) % row 1, column 2
 ```
-
-
 ```text:Output
 ans = 2
 ```
 
 
-```matlab:Code
+```matlab
 a(1:end, 2) % all rows, column 2, equivalent to [2;5]
 ```
-
-
 ```text:Output
 ans = 2x1    
      2
      5
-
 ```
 
 
-```matlab:Code
+```matlab
 a(2, :) % row 2, all columns, equivalent to [4 5 6]
 ```
-
-
 ```text:Output
 ans = 1x3    
      4     5     6
-
 ```
 
 
-```matlab:Code
+```matlab
 % here's something that may seem odd
 a(4) % 4th entry in the (straightened) array
 ```
-
-
 ```text:Output
 ans = 5
 ```
 
 
-```matlab:Code
+```matlab
 a(:) % full straightened array
 ```
-
-
 ```text:Output
 ans = 6x1    
      1
@@ -353,7 +359,6 @@ ans = 6x1
      5
      3
      6
-
 ```
 
 
@@ -367,7 +372,7 @@ This feature of MATLAB influences code efficiency depending on the order in whic
 
 
 
-```matlab:Code
+```matlab
 % update each entry of the matrix in different orders
 % use the functions tic toc to time the operation
 tic; m1 = nan(1000);
@@ -375,59 +380,51 @@ for i=1:1000; for j=1:1000
         m1(i,j) = 1;
 end; end; fprintf('Update in rows: \n   '); toc
 ```
-
-
 ```text:Output
 Update in rows: 
    Elapsed time is 0.012881 seconds.
 ```
 
 
-```matlab:Code
+```matlab
 tic; m2 = nan(1000);
 for j=1:1000; for i=1:1000
         m2(i,j) = 1;
 end; end; fprintf('Update in columns: \n   '); toc
 ```
-
-
 ```text:Output
 Update in columns: 
    Elapsed time is 0.011935 seconds.
 ```
 
 
-```matlab:Code
+```matlab
 tic; m3 = [];
 for i=1:1000
     m3 = [m3; ones(1000,1)];
 end
 fprintf('Assign values row-wise: \n   '); toc
 ```
-
-
 ```text:Output
 Assign values row-wise: 
    Elapsed time is 1.385312 seconds.
 ```
 
 
-```matlab:Code
+```matlab
 tic; m4 = [];
 for i=1:1000
     m4 = [m4, ones(1000,1)];
 end
 fprintf('Assign values column-wise: \n   '); toc
 ```
-
-
 ```text:Output
 Assign values column-wise: 
    Elapsed time is 2.278768 seconds.
 ```
 
 
-```matlab:Code
+```matlab
 b = nan(1000);
 c = nan(1000);
 tic
@@ -436,34 +433,28 @@ for i=1:1000
 end
 fprintf('Assign values row-wise, with preallocation: \n   '); toc
 ```
-
-
 ```text:Output
 Assign values row-wise, with preallocation: 
    Elapsed time is 0.015013 seconds.
 ```
 
 
-```matlab:Code
+```matlab
 tic
 for i=1:1000
     c(:,i) = ones(1000,1);
 end
 fprintf('Assign values column-wise, with preallocation: \n   '); toc
 ```
-
-
 ```text:Output
 Assign values column-wise, with preallocation: 
    Elapsed time is 0.011517 seconds.
 ```
 
 
-```matlab:Code
+```matlab
 tic; f = ones(1000); fprintf('Assign values use the native function: \n   '); toc
 ```
-
-
 ```text:Output
 Assign values use the native function: 
    Elapsed time is 0.002986 seconds.
@@ -476,27 +467,22 @@ Take home message: try to index arrays as explicitly as possible and try to pre-
 
 ### Matrix operations
 
-\hfill \break
 
 
-```matlab:Code
+
+```matlab
 % addition and subraction (+ -)
 [1 2 3] + [4 5 6]
 ```
-
-
 ```text:Output
 ans = 1x3    
      5     7     9
-
 ```
 
 
-```matlab:Code
+```matlab
 try; [1 2 3] + [4 5]; catch err; disp(err); end
 ```
-
-
 ```text:Output
   MException with properties:
 
@@ -508,171 +494,134 @@ try; [1 2 3] + [4 5]; catch err; disp(err); end
 ```
 
 
-```matlab:Code
+```matlab
 [1,2,3] + [4;5] % Note the difference between , and ;
 ```
-
-
 ```text:Output
 ans = 2x3    
      5     6     7
      6     7     8
-
 ```
 
 
-```matlab:Code
+```matlab
 % in this case MATLAB automatically populates the missing entries
 % and the output is equivalent to that of the following:
 [1,2,3; 1,2,3] + [4 4 4; 5 5 5]
 ```
-
-
 ```text:Output
 ans = 2x3    
      5     6     7
      6     7     8
-
 ```
 
 
-```matlab:Code
+```matlab
 
 % multiplication
 %%% matrix multiplication (*)
 rng(2022)
 A = randi(9,2,3)
 ```
-
-
 ```text:Output
 A = 2x3    
      1     2     7
      5     1     5
-
 ```
 
 
-```matlab:Code
+```matlab
 B = randi(9,2,2)
 ```
-
-
 ```text:Output
 B = 2x2    
      9     9
      6     7
-
 ```
 
 
-```matlab:Code
+```matlab
 C = randi(9,2,2)
 ```
-
-
 ```text:Output
 C = 2x2    
      8     8
      8     9
-
 ```
 
 
-```matlab:Code
+```matlab
 % A*B is not allowed due to dimension mismatch, while B*A and B*B are.
 B*A
 ```
-
-
 ```text:Output
 ans = 2x3    
     54    27   108
     41    19    77
-
 ```
 
 
-```matlab:Code
+```matlab
 B*B
 ```
-
-
 ```text:Output
 ans = 2x2    
    135   144
     96   103
-
 ```
 
 
-```matlab:Code
+```matlab
 
 %%% element-wise multiplication (.*)
 %%% this is perhaps more common in everyday use
 B.*C % every entry in B is multiplied by every corresponding entry in C
 ```
-
-
 ```text:Output
 ans = 2x2    
     72    72
     48    63
-
 ```
 
 
-```matlab:Code
+```matlab
 [1,2].*B % same as in addition, MATLAB automatically populates multiplier here
 ```
-
-
 ```text:Output
 ans = 2x2    
      9    18
      6    14
-
 ```
 
 
-```matlab:Code
+```matlab
 [1;2].*B % output is different from that of the previous line
 ```
-
-
 ```text:Output
 ans = 2x2    
      9     9
     12    14
-
 ```
 
 
-```matlab:Code
+```matlab
 2.*B % this can be abbreviated as 2*B, but it's still an element-wise multiplication
 ```
-
-
 ```text:Output
 ans = 2x2    
     18    18
     12    14
-
 ```
 
 
-```matlab:Code
-
-```
-
-# 4. Conditional Statements and Loops
+# 5. Conditional Statements and Loops {#condst}
 
 
 **Conditional statements** are designed to execute code based on certain criteria; for example, we may want to print out values that are >2 SD away from the mean to check for outliers. 
 
 
 
-```matlab:Code
+```matlab
 % There are two ways to write conditional statements
 x = 5;
 if x > 10
@@ -685,39 +634,31 @@ else
     fprintf('x is smaller than 5 \n')
 end
 ```
-
-
 ```text:Output
 x is exactly 5 
 ```
 
 
-```matlab:Code
+```matlab
 % logical operators, & and |
 1==1 & 1==2
 ```
-
-
 ```text:Output
 ans = 
    0
-
 ```
 
 
-```matlab:Code
+```matlab
 1==1 | 1==2
 ```
-
-
 ```text:Output
 ans = 
    1
-
 ```
 
 
-```matlab:Code
+```matlab
 % if there are specific values with which you wish to compare with the variable,
 % instead of using x==5, you can use the switch-case syntax
 switch x
@@ -729,8 +670,6 @@ switch x
         fprintf("x is a character array '1' \n")
 end
 ```
-
-
 ```text:Output
 x is exactly 5 
 ```
@@ -741,14 +680,12 @@ x is exactly 5
 
 
 
-```matlab:Code
+```matlab
 % definite loop
 for i = 1:5
     disp(i)
 end
 ```
-
-
 ```text:Output
      1
 
@@ -762,7 +699,7 @@ end
 ```
 
 
-```matlab:Code
+```matlab
 % indefinite loop
 i = 1;
 while i < 6 % note that this is a condition
@@ -770,8 +707,6 @@ while i < 6 % note that this is a condition
     i = i+1;
 end
 ```
-
-
 ```text:Output
      1
 
@@ -785,7 +720,7 @@ end
 ```
 
 
-```matlab:Code
+```matlab
 % you can also combine conditional statements with loops
 % this does the exact same thing as above
 i = 1;
@@ -795,8 +730,6 @@ while true
     i = i+1;
 end
 ```
-
-
 ```text:Output
      1
 
@@ -810,7 +743,7 @@ end
 ```
 
 
-```matlab:Code
+```matlab
 for i = 1:10
     if mod(i, 2) == 0 % if i is even
         continue % skip to the next iteration
@@ -821,8 +754,6 @@ for i = 1:10
     disp(i)
 end
 ```
-
-
 ```text:Output
      1
 
@@ -835,15 +766,15 @@ end
      9
 ```
 
-# 5. Functions
+# 6. Functions {#func}
 
 
 In mathematics, a function is a mapping from an input to an output, 
 
 
 
-```matlab:Code
-% f(x) = sin(x)
+```
+f(x) = sin(x)
 ```
 
 
@@ -851,14 +782,14 @@ In mathematics, a function is a mapping from an input to an output,
 , where the output is fixed given the input. In MATLAB (and programming languages in general), a function is a self-contained set of operations that accomplishs a specific task by taking your input, filling out the unspecified parameters with default values, and generating some output. 
 
 
-## Builtin functions
+## Built-in functions
 
 
 These are the most basic functions that comes with MATLAB. We've come across some of them in the examples above.
 
 
 
-```matlab:Code
+```matlab
 % clear % removes variables from Workspace
 % clc % cleans Command Window (but not command history)
 % ls % shows content in current directory
@@ -876,81 +807,65 @@ For all functions in MATLAB, you can call them in two ways: command syntax or fu
 
 
 
-```matlab:Code
+```matlab
 % char is a function that generates a character array from the input array
 % compare the following ways to use the same function on seemingly same inputs
 char duke
 ```
-
-
 ```text:Output
 ans = 'duke'
 ```
 
 
-```matlab:Code
+```matlab
 char 'duke'
 ```
-
-
 ```text:Output
 ans = 'duke'
 ```
 
 
-```matlab:Code
+```matlab
 char "duke" 
 ```
-
-
 ```text:Output
 ans = '"duke"'
 ```
 
 
-```matlab:Code
+```matlab
 char("duke")
 ```
-
-
 ```text:Output
 ans = 'duke'
 ```
 
 
-```matlab:Code
+```matlab
 char('duke')
 ```
-
-
 ```text:Output
 ans = 'duke'
 ```
 
 
-```matlab:Code
+```matlab
 try; char(duke); catch err; disp(err); end
 duke = [100 117; 107 101]; char(duke)
 ```
-
-
 ```text:Output
 ans = 
     'du'
     'ke'
-
 ```
 
 
-```matlab:Code
+```matlab
 double duke
 ```
-
-
 ```text:Output
 ans = 1x4    
    100   117   107   101
-
 ```
 
 
@@ -959,9 +874,9 @@ As you may notice, there are two equivalent ways to call a function on the same 
 
 
 
-```matlab:Code
-% function input        <-- Command Syntax
-% function('input')     <-- Function Syntax
+```matlab
+function input        % <-- Command Syntax
+function('input')     % <-- Function Syntax
 ```
 
 
@@ -970,7 +885,7 @@ Some built-in functions are basic enough (e.g., clear, clc, save, load) that you
 
 
 
-```matlab:Code
+```matlab
 % 1. You can use long/repeated input values as variables for convenience
 char('a very long character array'); char('a very long character array'); char('a very long character array');
 % vs
@@ -986,8 +901,6 @@ sqrt(100);
 B = char('duke');
 B
 ```
-
-
 ```text:Output
 B = 'duke'
 ```
@@ -1001,11 +914,11 @@ In addition to built-in functions from MATLAB, you can also use user-decalred fu
 ### Local functions
 
 
-Unlike in most other programming languages like Python and R where functions need to be defined **before **they are called, functions in MATLAB must be defined at the **end **of the script, probably because MATLAB tries to optimize all the code before execution for speed.
+Unlike in most other programming languages like Python and R where functions need to be defined **before** they are called, functions in MATLAB must be defined at the **end** of the script, probably because MATLAB tries to optimize all the code before execution for speed.
 
 
 
-```matlab:Code
+```matlab
 % Suppose we want to switch the order of the first two inputs and take the
 % square of the third, and repeat the exact same set of procedures many times,
 % it may be convenient if we can "set of procedures"
@@ -1020,8 +933,6 @@ Unlike in most other programming languages like Python and R where functions nee
 % end
 [a, b, c] = func("d", 'hahaha', 5)
 ```
-
-
 ```text:Output
 a = 'hahaha'
 b = "d"
@@ -1031,22 +942,20 @@ c = 25
 ### Function files
 
 
-If the function declaration is fairly complicated or is going to be used multiple times in different scripts, it may be convenient to create a function **file **separate from the script. 
+If the function declaration is fairly complicated or is going to be used multiple times in different scripts, it may be convenient to create a function **file** separate from the script. 
 
 
 
 
-![image_2.png](2022-01-28-matlab-basics_images/image_2.png)
+<img src="/assets/images/2022-01-28-matlab-basics_images/image_2.png">
 
 
 
-```matlab:Code
+```matlab
 % in the current directory, there is a MATLAB script named func2.m which
 % contains the exact same function declaration as func
 [a, b, c] = func2("d", 'haha', 5)
 ```
-
-
 ```text:Output
 a = 'haha'
 b = "d"
@@ -1061,7 +970,7 @@ MATLAB toolboxes are (mostly) collections of user-declared functions. Let's take
 
 
 
-![image_3.png](2022-01-28-matlab-basics_images/image_3.png)
+<img src="/assets/images/2022-01-28-matlab-basics_images/image_3.png">
 
 
 
@@ -1070,12 +979,10 @@ Let's try calling the spm function.
 
 
 
-```matlab:Code
+```matlab
 rmpath('E:\OneDrive - Duke University\Duke\Research\Resources\spm12'); % let me make sure spm is NOT on path
 try; spm; catch err; disp(err); end
 ```
-
-
 ```text:Output
   MException with properties:
 
@@ -1099,31 +1006,30 @@ That did not work. Why? Because MATLAB does not know where this function is. To 
 
 
 
-![image_4.png](2022-01-28-matlab-basics_images/image_4.png)
+<img src="/assets/images/2022-01-28-matlab-basics_images/image_4.png">
 
 
 
-```matlab:Code
+```matlab
 addpath('E:\OneDrive - Duke University\Duke\Research\Resources\spm12');
 % check where the spm.m function script is, using a built-in function which 
 which spm
 ```
-
-
 ```text:Output
 E:\OneDrive - Duke University\Duke\Research\Resources\spm12\spm.m
 ```
 
 
-```matlab:Code
+```matlab
 % then try calling spm again
 spm
 ```
 
 
-![figure_0.png](2022-01-28-matlab-basics_images/figure_0.png)
+<img src="/assets/images/2022-01-28-matlab-basics_images/figure_0.png">
 
-# 6. How to understand/debug existing code
+
+# 7. How to understand/debug existing code {#debug}
 
 
 MATLAB is an interpreted programming language--like R and Python, meaning that its code runs line by line, except for local functions. This means we can pause code execution at any point to look at intermediate processes. 
@@ -1137,7 +1043,7 @@ When your code execution encounters an error, it will be printed in red in the C
 
 
 
-![image_5.png](2022-01-28-matlab-basics_images/image_5.png)
+<img src="/assets/images/2022-01-28-matlab-basics_images/image_5.png">
 
 
 
@@ -1147,7 +1053,7 @@ Sometimes the error involves an operation or a function, and you will see that *
 
 
 
-![image_6.png](2022-01-28-matlab-basics_images/image_6.png)
+<img src="/assets/images/2022-01-28-matlab-basics_images/image_6.png">
 
 
 ## Using breakpoints
@@ -1157,7 +1063,7 @@ Breakpoints are a useful way to pause the code at the exact place you want (usua
 
 
 
-```matlab:Code
+```matlab
 a=1;
 b="test";
 % c=func2(a, b); % missing one input argument
@@ -1165,7 +1071,7 @@ b="test";
 
 
 
-![image_7.png](2022-01-28-matlab-basics_images/image_7.png)
+<img src="/assets/images/2022-01-28-matlab-basics_images/image_7.png">
 
 
 
@@ -1185,7 +1091,7 @@ Sometimes it may be impractical to fully--we may have to use the same script for
 
 
 
-```matlab:Code
+```matlab
 for i={1 2 "3" 0}
     i = i{1};
     try
@@ -1195,8 +1101,6 @@ for i={1 2 "3" 0}
     end
 end
 ```
-
-
 ```text:Output
 ans = 5
 ans = 2.5000
@@ -1206,19 +1110,21 @@ ans = Inf
 
 ## Finally, some common errors
 
-   -  Incorrect data types. 
-   -  - SPM only accepts character arrays (and sometimes cells containing character arrays), but not strings. 
-   \item{ - Indexing cell arrays with [ ] or { }. }
-   -  Special numbers: 0, inf, nan 
-   -  - They may not cause explicit MATLAB errors at the level of code execution; however, you will get erroneous results  
-   -  - e.g., mean([1 2 3 nan]) or mean([1 2 3 inf]) when you should ignore those entries since they indicate missing data. 
-   -  Path 
-   -  - MATLAB cannot find the required function before it's added to path, or if the function name is incorrect.  
-   -  - The path to data or function is spelled incorrectly, e.g., missing a slash '/'.  
+   Incorrect data types. 
+   - SPM only accepts character arrays (and sometimes cells containing character arrays), but not strings. 
+   - Indexing cell arrays with [ ] or { }. }
+   
+   Special numbers: 0, inf, nan 
+   - They may not cause explicit MATLAB errors at the level of code execution; however, you will get erroneous results  
+   - e.g., mean([1 2 3 nan]) or mean([1 2 3 inf]) when you should ignore those entries since they indicate missing data. 
+   
+   Path 
+   - MATLAB cannot find the required function before it's added to path, or if the function name is incorrect.  
+   - The path to data or function is spelled incorrectly, e.g., missing a slash '/'.  
 
-# 7. Local functions must be decalred in the last code section, so here it is
+# 8. Local functions must be decalred in the last code section, so here it is {#localfun}
 
-```matlab:Code
+```matlab
 function [output1, output2, output3] = func(input1, input2, input3)
 output1 = input2;
 output2 = input1;

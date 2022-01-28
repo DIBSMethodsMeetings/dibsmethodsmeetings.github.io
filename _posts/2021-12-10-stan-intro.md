@@ -2,7 +2,7 @@
 author: kevin
 categories:
 - tutorial
-featured: true
+featured: false
 image: "https://mc-stan.org/images/stan_logo.png"
 output:
   html_document: default
