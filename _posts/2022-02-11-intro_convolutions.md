@@ -4,7 +4,7 @@ categories:
 - tutorial
 featured: true
 image: https://upload.wikimedia.org/wikipedia/commons/6/6a/Convolution_of_box_signal_with_itself2.gif
-title: Unconvoluting convolutions (an introduction and applications to neuroscience)
+title: Unconvoluting convolutions - an introduction and applications to neuroscience
 ---
 
 
@@ -16,7 +16,7 @@ Convolutions are pretty important operations for dealing with many kinds of data
 
 ![](https://upload.wikimedia.org/wikipedia/commons/6/6a/Convolution_of_box_signal_with_itself2.gif "an example convolution")
 
-*(from https://en.wikipedia.org/wiki/Convolution)*
+*from <a href="https://en.wikipedia.org/wiki/Convolution" target="_blank">Wikipedia</a>*
 
 The sliding red box corresponds to the convolution and the convolution operation (also called the filter). The black line is the result of the convolution. You can visualize this particular convolution as "spreading out" or "smoothing" your original data: instead of being strictly on and off, the convolved data ramps up to the maximum value and then ramps down, where the ramping up begins before the original data activation and the ramping down ends after the activation.
 
@@ -60,10 +60,10 @@ The discrete convolution equation tells us the things we need to know in order t
 > ---------------
 > Aside: 
 > The summation notation in this case is a bit confusing. Since the sum tells us to start at \\(\tau = -T\\), and since the form of the convolution operation is \\(f(t-\tau)g(\tau)\\) you can think of doing the summation from the back of the window to the front. To be explicit:
-> \\)\\) \begin{align*}
+> $$ \begin{align*}
 >   (f*g)(t) &= \sum_{\tau=-T}^T f(t-\tau)g(\tau) \\
 >   &= {\color{orange} f(t+T)g(-T)} + {\color{yellow} f(t+T-1)g(T-1)} + \ldots + f(t)g(0) + \ldots + {\color{green} f(t-T+1)g(T+1)} + {\color{Orchid} f(t-T)g(T)}
-> \end{align*} \\)\\)
+> \end{align*} $$
 > 
 > At first glance, this doesn't quite seem to make sense: why would you weight the value of your data at \\(f(t+T)\\) by the value of the filter at \\(g(-T)\\)? One way to think about this is that the function \\(g\\) is backwards relative to the sliding window visualization. This doesn't matter for filters that are symmetric around the center of the window, where \\(g(-\tau) = g(\tau)\\) for all \\(\tau\\). 
 > 
@@ -182,12 +182,13 @@ for i, currsig in enumerate(sigs):
 ### Convolving over multiple dimensions
 We've looked convolving over 1-dimensional signals thus far. What if you have a 2-dimensional signal, like an image? Imagine doing the same exact thing of sliding the filter across the data, except now the filter has two dimensions. The same way of thinking about boundary settings also applies here: we could "pad" the original data (usually with \\(0\\)) all around the whole data:
 
-![](https://miro.medium.com/max/1070/1*Zx-ZMLKab7VOCQTxdZ1OAw.gif "2d convolution")        ![](https://miro.medium.com/max/790/1*1okwhewf5KCtIPaFib4XaA.gif "2d padding")
+![](https://miro.medium.com/max/1070/1*Zx-ZMLKab7VOCQTxdZ1OAw.gif "2d convolution")
+![](https://miro.medium.com/max/790/1*1okwhewf5KCtIPaFib4XaA.gif "2d padding")
 
-*(from https://towardsdatascience.com/intuitively-understanding-convolutions-for-deep-learning-1f6f42faee1)*
+*from <a href="https://towardsdatascience.com/intuitively-understanding-convolutions-for-deep-learning-1f6f42faee1" target="_blank">this blog post on CNNs</a>*
 
 #### The Gaussian blur
-Instead of sliding a 1-dimensional Gaussian across a 1-dimensional signal, we can convolve a 2-dimensional gaussian across a 2-dimensional signal! A common preprocessing step for fMRI signals is to apply a 3-dimensional Gaussian blur to the BOLD activation values, which we can think of as smoothing the activations of the voxels relative to the neighboring voxels. [This useful resource](http://jpeelle.net/mri/image_processing/smoothing.html) gives some reasons of why we might want to smooth fMRI signals this way; note, however, that smoothing may actually hurt the performance of multi-voxel pattern analysis (MVPA).
+Instead of sliding a 1-dimensional Gaussian across a 1-dimensional signal, we can convolve a 2-dimensional gaussian across a 2-dimensional signal! A common preprocessing step for fMRI signals is to apply a 3-dimensional Gaussian blur to the BOLD activation values, which we can think of as smoothing the activations of the voxels relative to the neighboring voxels. [This pretty useful resource](http://jpeelle.net/mri/image_processing/smoothing.html) gives some reasons of why we might want to smooth fMRI signals this way; note, however, that smoothing may actually hurt the performance of multi-voxel pattern analysis (MVPA).
 
 To get an intuition for what a Gaussian blur does, let's apply it to some images in python. 
 
@@ -229,8 +230,8 @@ Remember that \\(-T\\) and \\(T\\) tell us the length of the window, \\({\color{
 Let's say the data we collected is a 1-d timeseries called \\({\color{grey} x(t)}\\). We can think about putting \\({\color{grey} x(t)}\\) into the above equation at least two ways, both of which mean different things:
 
 $$ \begin{align*}
-    {\color{Orchid} h(t)} &= \sum_{\tau=-T}^{T} {\color{grey} x(t-\tau)} {\color{OrangeRed} g(\tau)} \quad \textrm{``the output }{\color{Orchid} h}\textrm{ is the result of a convolution of our data }{\color{grey} x}\textrm{ with some filter }{\color{OrangeRed} g}\textrm{''}  \\
-    {\color{grey} x(t)} &= \sum_{\tau=-T}^{T} {\color{SteelBlue} f(t-\tau)} {\color{OrangeRed} g(\tau)} \quad \textrm{``our data }{\color{grey} x}\textrm{ is the result of a convolution of some underlying signal }{\color{SteelBlue} f}\textrm{ with some filter or process }{\color{OrangeRed} g}\textrm{''} \\
+    {\color{Orchid} h(t)} &= \sum_{\tau=-T}^{T} {\color{grey} x(t-\tau)} {\color{OrangeRed} g(\tau)} \quad \substack{\text{the output }{\color{Orchid} h}\text{ is the result of a convolution} \\ \text{of our data }{\color{grey} x}\textrm{ with some filter or process }{\color{OrangeRed} g}}  \\
+    {\color{grey} x(t)} &= \sum_{\tau=-T}^{T} {\color{SteelBlue} f(t-\tau)} {\color{OrangeRed} g(\tau)} \quad \substack{\textrm{our data }{\color{grey} x}\textrm{ is the result of a convolution of some} \\ \text{underlying signal }{\color{SteelBlue} f}\textrm{ with some filter or process }{\color{OrangeRed} g}} \\
 \end{align*} $$
 
 Often, we can think of this former situation as smoothing our data -- we're applying a convolution to it. We end up doing all our analyses on \\({\color{Orchid} h}\\); it is now the object of interest.
@@ -261,12 +262,12 @@ In any case, we'd like to deconvolve to get from the BOLD signal to information 
 
 <img src="https://andysbrainbook.readthedocs.io/en/latest/_images/HRF_Demo.gif" alt="drawing" width="700"/>
 
-*(from https://andysbrainbook.readthedocs.io/en/latest/fMRI_Short_Course/Statistics/03_Stats_HRF_Overview.html)*
+*from <a href="https://andysbrainbook.readthedocs.io/en/latest/fMRI_Short_Course/Statistics/03_Stats_HRF_Overview.html" target="_blank">this useful introduction to fMRI</a>*
 
 ## Convolutional Neural Networks (CNNs)
 Deep neural networks are a class of models which can do some pretty cool things. If you want an intro to neural networks, [Miles had a great post - check it out!](https://dibsmethodsmeetings.github.io/nn-tutorial-dnm/) In short, a deep neural network looks something like this:
 
-![](http://neuralnetworksanddeeplearning.com/images/tikz41.png "Fully connected")
+![dnn](../assets/images/2022-02-11-convolutions/dnn.png)
 
 Imagine you want to use a network like the one above to classify an image. How would you input the image into the network? One standard approach would be to "unfold" the image as a really long vector, and enter that vector into the network. This, among other things, prevents us from using some intuitive and important spatial relationships between pixels, such as translation invariance. That is, if a feature is present in the image, it could be present anywhere in the image and it would be the same feature; regular fully connected neural networks would have much trouble with this, while CNNs are basically built to find features that are invariant to such translations. 
 
@@ -275,20 +276,19 @@ A convolutional neural network (CNN) is a kind of neural network which gained a 
 Here's what the convolution looks like:
 
 ----
-![](http://neuralnetworksanddeeplearning.com/images/tikz44.png "CNN step one")
-
-![](http://neuralnetworksanddeeplearning.com/images/tikz45.png "CNN step 2")
+![cnn1](../assets/images/2022-02-11-convolutions/cnn1.png)
 
 ----
 We do that for one filter, and get one matrix back. If we want to apply multiple filters (say, 3), we get 3 matrices back:
 
-![](http://neuralnetworksanddeeplearning.com/images/tikz46.png "CNN step 2")
+![cnn2](../assets/images/2022-02-11-convolutions/cnn2.png)
 
-CNNs are so useful because we can automatically learn the filters that best describe the data in some way, using deep learning (a.k.a. neural network + stochastic gradient descent). An entire CNN looks something like this:
+*the above are from <a href="http://neuralnetworksanddeeplearning.com/chap6.html" target="_blank">this great intro to neural networks textbook</a>*
+
+CNNs are so useful because we can automatically learn really complicated filters that best describe the data in some way, using deep learning (a.k.a. neural network + stochastic gradient descent). An entire CNN looks something like this:
 
 ![](https://upload.wikimedia.org/wikipedia/commons/6/63/Typical_cnn.png "typical CNN")
-
-*(all convolution images from http://neuralnetworksanddeeplearning.com/chap6.html)*
+*from <a href="https://en.wikipedia.org/wiki/Convolutional_neural_network" target="_blank">Wikipedia</a>*
 
 ### CNNs in neuroscience
 As with many other fields across STEM and elsewhere, various forms of CNNs are and will continue to be important for making sense of high-dimensional data. As neural data, stimulus data, and behavioral data grow more complex, we can use CNNs to more or less automate the problem of finding a good convolution filter. The implication is that any place where convolutions are used to understand signals, CNNs could potentially be used to learn useful convolution filters from the data without (too much) human supervision. 
@@ -303,14 +303,15 @@ I could do a whole workshop on these ideas, but I'll just leave you with those r
 *(From here [^3])*
 
 
-[^0]: https://www.nature.com/articles/nature14539
-[^1]: https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006897
-[^2]: https://proceedings.neurips.cc/paper/2016/hash/a1d33d0dfec820b41b54430b50e96b5c-Abstract.html
-[^3]: https://arxiv.org/abs/2001.07092
-[^4]: https://www.annualreviews.org/doi/abs/10.1146/annurev-vision-091718-014951
-[^5]: https://www.sciencedirect.com/science/article/pii/S0896627318302502
-[^6]: https://www.nature.com/articles/nn.4244
-[^7]: https://www.nature.com/articles/s42256-020-00286-8
-[^8]: https://www.sciencedirect.com/science/article/pii/S2095809920300357
+[^0]: <a href="https://www.nature.com/articles/nature14539" target="_blank">Deep learning review</a>
+[^1]: <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006897" target="_blank">Deep convolutional models improve predictions of macaque V1 responses to natural images</a>
+[^2]: <a href="https://proceedings.neurips.cc/paper/2016/hash/a1d33d0dfec820b41b54430b50e96b5c-Abstract.html" target="_blank">Deep Learning Models of the Retinal Response to Natural Scenes</a>
+[^3]: <a href="https://arxiv.org/abs/2001.07092" target="_blank">Convolutional Neural Networks as a Model of the Visual System: Past, Present, and Future</a>
+[^4]: <a href="https://pubmed.ncbi.nlm.nih.gov/31394043/" target="_blank">
+Deep Learning: The Good, the Bad, and the Ugly</a>
+[^5]: <a href="https://www.sciencedirect.com/science/article/pii/S0896627318302502" target="_blank">A Task-Optimized Neural Network Replicates Human Auditory Behavior, Predicts Brain Responses, and Reveals a Cortical Processing Hierarchy</a>
+[^6]: <a href="https://www.nature.com/articles/nn.4244" target="_blank">Using goal-driven deep learning models to understand sensory cortex</a>
+[^7]: <a href="https://www.nature.com/articles/s42256-020-00286-8" target="_blank">A convolutional neural-network model of human cochlear mechanics and filter tuning for real-time applications</a>
+[^8]: <a href="https://www.sciencedirect.com/science/article/pii/S2095809920300357" target="_blank">Toward the Next Generation of Retinal Neuroprosthesis: Visual Computation with Spikes</a>
 
 
