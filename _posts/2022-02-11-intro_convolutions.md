@@ -61,8 +61,9 @@ The discrete convolution equation tells us the things we need to know in order t
 > Aside: 
 > The summation notation in this case is a bit confusing. Since the sum tells us to start at \\(\tau = -T\\), and since the form of the convolution operation is \\(f(t-\tau)g(\tau)\\) you can think of doing the summation from the back of the window to the front. To be explicit:
 > $$ \begin{align*}
->   (f*g)(t) &= \sum_{\tau=-T}^T f(t-\tau)g(\tau) \\
->   &= {\color{orange} f(t+T)g(-T)} + {\color{yellow} f(t+T-1)g(T-1)} + \ldots + f(t)g(0) + \ldots + {\color{green} f(t-T+1)g(T+1)} + {\color{Orchid} f(t-T)g(T)}
+>    (f*g)(t) &= \sum_{\tau=-T}^T f(t-\tau)g(\tau) \\
+>    &= {\color{orange} f(t+T)g(-T)} + {\color{yellow} f(t+T-1)g(T-1)} + \ldots + f(t)g(0) \\
+>    & \qquad +\ldots+ {\color{green} f(t-T+1)g(T+1)} + {\color{Orchid} f(t-T)g(T)} \\
 > \end{align*} $$
 > 
 > At first glance, this doesn't quite seem to make sense: why would you weight the value of your data at \\(f(t+T)\\) by the value of the filter at \\(g(-T)\\)? One way to think about this is that the function \\(g\\) is backwards relative to the sliding window visualization. This doesn't matter for filters that are symmetric around the center of the window, where \\(g(-\tau) = g(\tau)\\) for all \\(\tau\\). 
