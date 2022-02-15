@@ -307,8 +307,7 @@ I could do a whole workshop on these ideas, but I'll just leave you with those r
 [^1]: <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006897" target="_blank">Deep convolutional models improve predictions of macaque V1 responses to natural images</a>
 [^2]: <a href="https://proceedings.neurips.cc/paper/2016/hash/a1d33d0dfec820b41b54430b50e96b5c-Abstract.html" target="_blank">Deep Learning Models of the Retinal Response to Natural Scenes</a>
 [^3]: <a href="https://arxiv.org/abs/2001.07092" target="_blank">Convolutional Neural Networks as a Model of the Visual System: Past, Present, and Future</a>
-[^4]: <a href="https://pubmed.ncbi.nlm.nih.gov/31394043/" target="_blank">
-Deep Learning: The Good, the Bad, and the Ugly</a>
+[^4]: <a href="https://pubmed.ncbi.nlm.nih.gov/31394043/" target="_blank">Deep Learning: The Good, the Bad, and the Ugly</a>
 [^5]: <a href="https://www.sciencedirect.com/science/article/pii/S0896627318302502" target="_blank">A Task-Optimized Neural Network Replicates Human Auditory Behavior, Predicts Brain Responses, and Reveals a Cortical Processing Hierarchy</a>
 [^6]: <a href="https://www.nature.com/articles/nn.4244" target="_blank">Using goal-driven deep learning models to understand sensory cortex</a>
 [^7]: <a href="https://www.nature.com/articles/s42256-020-00286-8" target="_blank">A convolutional neural-network model of human cochlear mechanics and filter tuning for real-time applications</a>
