@@ -1,3 +1,21 @@
+functions {
+  // get the log-likelihood of y given z, mu, sigma, and y_max
+  real lognormal_mix_lpdf(real y, int z, real mu, real sigma, real y_max) {
+    if (z == 1)
+      return lognormal_lpdf(y | mu, sigma);
+    else
+      return uniform_lpdf(y | 0, y_max);
+  }
+
+  // simulate y given z, mu, sigma, and y_max
+  real lognormal_mix_rng(int z, real mu, real sigma, real y_max) {
+    if (z == 1)
+      return lognormal_rng(mu, sigma);
+    else
+      return uniform_rng(0, y_max);
+  }
+}
+
 data {
   int<lower=0> N;                         // number of data points
   array[N] int<lower=1, upper=2> z;       // hidden data points
@@ -41,18 +59,14 @@ model {
   mu ~ std_normal();
   sigma ~ std_normal();
 
-  // likelihood for hidden variables
+  // likelihood for starting time
   z[1] ~ categorical(pi);
+  y[1] ~ lognormal_mix(z[1], mu, sigma, y_max);
+
+  // likelihood for subsequent times
   for (n in 2:N) {
     z[n] ~ categorical(theta[z[n-1]]);
-  }
-
-  // likelihood for observations
-  for (n in 1:N) {
-    if (z[n] == 1)
-      y[n] ~ lognormal(mu, sigma);
-    else
-      y[n] ~ uniform(0, y_max); 
+    y[n] ~ lognormal_mix(z[n], mu, sigma, y_max);
   }
 }
 
@@ -62,18 +76,11 @@ generated quantities {
 
   // simulate starting state
   z_rep[1] = categorical_rng(pi);
-  if (z[1] == 1)
-      y_rep[1] = lognormal_rng(mu, sigma);
-    else
-      y_rep[1] = uniform_rng(0, y_max);
+  y_rep[1] = lognormal_mix_rng(z[1], mu, sigma, y_max);
 
   // simulate forward
   for (n in 2:N) {
     z_rep[n] = categorical_rng(theta[z_rep[n-1]]);
-    
-    if (z[n] == 1)
-      y_rep[n] = lognormal_rng(mu, sigma);
-    else
-      y_rep[n] = uniform_rng(0, y_max);    
+    y_rep[n] = lognormal_mix_rng(z[n], mu, sigma, y_max);
   }
 }

@@ -41,6 +41,49 @@ functions {
     
     return alpha;
   }
+
+  // viterbi algorithm for finding most likely sequence of latent states given y
+  array[] int viterbi(vector y, array[] vector theta, vector pi, real mu, real sigma, real y_max) {
+    int N = size(y);
+    int K = size(pi);
+    
+    array[N] int z_rep;   // simulated latent variables
+    
+    // the log probability of the best sequence to state k at time n
+    array[N, K] real best_lp = rep_array(negative_infinity(), N, K);   
+    
+    // the state preceding the current state in the best path
+    array[N, K] int back_ptr;
+    
+    // first observation
+    for (k in 1:K)
+      best_lp[1, k] = log(pi[k]) + lognormal_mix_lpdf(y[1] | k, mu, sigma, y_max);
+
+    // for each timepoint n and each state k, find most likely previous state j
+    for (n in 2:N) {
+      for (k in 1:K) {
+        for (j in 1:K) {
+	  // calculate the log probability of path to k from j
+          real lp = best_lp[n-1, j] + log(theta[j, k]) +
+	    lognormal_mix_lpdf(y[n] | k, mu, sigma, y_max);
+	  
+          if (lp > best_lp[n, k]) {
+            back_ptr[n, k] = j;
+            best_lp[n, k] = lp;
+          }
+        }
+      }
+    }
+
+    // reconstruct most likely path
+    for (k in 1:K)
+      if (best_lp[N, k] == max(best_lp[N]))
+        z_rep[N] = k;
+    for (t in 1:(N - 1))
+      z_rep[N - t] = back_ptr[N - t + 1, z_rep[N - t + 1]];
+
+    return z_rep;
+  }
 }
 
 data {
@@ -91,18 +134,13 @@ model {
 }
 
 generated quantities {
+  // Viterbi algorithm
   array[N] int<lower=1, upper=K> z_rep;   // simulated latent variables
   vector<lower=0>[N] y_rep;               // simulated data points
-
-  // simulate starting state
-  z_rep[1] = categorical_rng(pi);
-  y_rep[1] = lognormal_mix_rng(z_rep[1], mu, sigma, y_max);
-
-  // simulate forward
-  for (n in 2:N) {
-    z_rep[n] = categorical_rng(theta[z_rep[n-1]]);
+  
+  z_rep = viterbi(y, theta, pi, mu, sigma, y_max);
+  for (n in 1:N)
     y_rep[n] = lognormal_mix_rng(z_rep[n], mu, sigma, y_max);
-  }
 }
 
 

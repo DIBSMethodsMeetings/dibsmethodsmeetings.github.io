@@ -1,3 +1,21 @@
+functions {
+  // get the log-likelihood of y given z, mu, sigma, and y_max
+  real lognormal_mix_lpdf(real y, int z, real mu, real sigma, real y_max) {
+    if (z == 1)
+      return lognormal_lpdf(y | mu, sigma);
+    else
+      return uniform_lpdf(y | 0, y_max);
+  }
+
+  // simulate y given z, mu, sigma, and y_max
+  real lognormal_mix_rng(int z, real mu, real sigma, real y_max) {
+    if (z == 1)
+      return lognormal_rng(mu, sigma);
+    else
+      return uniform_rng(0, y_max);
+  }
+}
+
 data {
   int<lower=0> N;             // number of data points
   vector<lower=0>[N] y;       // data points
@@ -47,18 +65,11 @@ generated quantities {
 
   // simulate starting state
   z_rep[1] = categorical_rng(pi);
-  if (z_rep[1] == 1)
-      y_rep[1] = lognormal_rng(mu, sigma);
-    else
-      y_rep[1] = uniform_rng(0, y_max);
+  y_rep[1] = lognormal_mix_rng(z_rep[1], mu, sigma, y_max);
 
   // simulate forward
   for (n in 2:N) {
     z_rep[n] = categorical_rng(theta[z_rep[n-1]]);
-    
-    if (z_rep[n] == 1)
-      y_rep[n] = lognormal_rng(mu, sigma);
-    else
-      y_rep[n] = uniform_rng(0, y_max);    
+    y_rep[n] = lognormal_mix_rng(z_rep[n], mu, sigma, y_max);
   }
 }

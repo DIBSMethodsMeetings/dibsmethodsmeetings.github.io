@@ -34,7 +34,11 @@ own research.
 
 Note: I'll be using the languages R and Stan to demonstrate HMMs, but
 there are many great packages for fitting them in other languages with
-other estimation techniques.
+other estimation techniques. To make this tutorial, I used the
+[Stan User's
+Guide](https://mc-stan.org/docs/2_29/stan-users-guide/hmms.html) and
+[this fantastic paper by Luis
+Damiano](https://github.com/luisdamiano/stancon18) as references.
 
 1. [Standard Models](#standard-models)
 2. [Mixture Models](#mixture-models)
@@ -146,9 +150,6 @@ Sadly, while our model (black lines) captures the mode pretty well, it
 seems to overestimate the variance, such that it predicts that really
 short and really long reaction times are more likely than they should
 be. 
-
-
-
 
 
 
@@ -429,7 +430,8 @@ prior over each row of `theta`, which says that each row of `theta`
 should be a simplex. To generate predictions from our model, we sample
 the first latent state using a categorical distribution over `pi`, and
 then sample subsequent states using a categorical distribution over
-`theta[z_rep[n-1]]`. 
+`theta[z_rep[n-1]]`. Note that I defined functions for our log
+likelihood and random number generation to make things cleaner.
 
 Since we aren't actually modeling `y` yet (there is no likelihood for
 `y`), this program just defines a prior distribution. Let's sample
@@ -632,7 +634,7 @@ algorithm to determine a latent state to simulate from, but that
 actually poses a problem. Remeber that the forward algorithm generates
 the joint probability $$p(z_t, y_{1:t})$$. In other words, it produces
 the joint probability of the data up to time $$t$$ and the latent
-state at time $$t$. But what we want is to get the most likely
+state at time $$t$$. But what we want is to get the most likely
 *sequence* of latent states given the data, $$p(z_{1:t} | y_{1:t})$$.
 To do that, we'll use the Viterbi algorithm.
 
@@ -646,7 +648,7 @@ gives us a probability over sequences of latent states given the
 data. To explain the Viterbi algorithm, let's look at the Stan code:
 
 ```{r viterbi_model, comment=NA}
-model.viterbi <- cmdstan_model('2022-02-21-viterbi.stan')
+model.viterbi <- cmdstan_model('2022-02-21-hmm2.stan')
 model.viterbi
 ```
 
@@ -719,6 +721,7 @@ times during those periods look similar to reaction times during
 attention, and since participants are more attentive than not, those
 reaction times are well-explained as if they were coming from an
 attentive state.
+
 
 
 # Conclusions
