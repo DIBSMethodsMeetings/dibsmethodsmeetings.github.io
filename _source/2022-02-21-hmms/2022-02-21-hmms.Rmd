@@ -1,0 +1,736 @@
+---
+title: "Hidden Markov Models"
+author: kevin
+categories: [ tutorial ]
+image: assets/images/2022-02-21-hmms/hmm.png
+featured: true
+output:
+  html_document: default
+  pdf_document: default
+  md_document:
+    variant: gfm
+    preserve_yaml: TRUE
+---
+
+<style>
+.half-img {
+	width: 50%;
+	display: block; 
+	margin: auto;
+}
+</style>
+
+Hidden Markov Models (HMMs) are statistical tools that are well-known
+for their ability to capture heterogeneous patterns in data over time,
+to reproduce text and gene sequences, and to identify interpretable
+factors underlying variation. However, since many introductory
+statistics courses never cover HMMs (and those that do usually fail to
+apply them to practical datasets of interest), many people have the
+impression that they are too complicated or burdensome to be applied
+in standard analyses in fields like psychology and neuroscience. In
+this tutorial, we're going to break down what HMMs are, why they are
+popular in computational fields, and how you can apply them in your
+own research.
+
+Note: I'll be using the languages R and Stan to demonstrate HMMs, but
+there are many great packages for fitting them in other languages with
+other estimation techniques.
+
+1. [Standard Models](#standard-models)
+2. [Mixture Models](#mixture-models)
+3. [Hidden Markov Models](#hidden-markov-models)
+4. [Simulating from HMMs](#simulating-from-hmms)
+5. [Supervised learning](#supervised-learning)
+6. [Unsupervised learning](#unsupervised-learning)
+   - [The forward algorithm](#the-forward-algorithm)
+   - [The Viterbi algorithm](#the-viterbi-algorithm)
+7. [Conclusions](#conclusions)
+
+```{r setup, include=FALSE, cache=FALSE}
+knitr::opts_knit$set(base.dir="../../", base.url="/")
+knitr::opts_chunk$set(fig.path="assets/images/2022-02-21-hmms/",
+                      fig.align='center', message=FALSE, warning=FALSE, echo=TRUE, results='hold')
+```
+
+# Standard Models
+
+To understand what HMMs are and how they differ from more well-known
+types of models, let's start with a dirt-simple model, and see if we
+can build up step-by-step until we get a HMM. Here we are going to
+focus on modeling reaction times from a single participant in a
+decision-making type of experment inspired by [a cool model by Martin
+Modrak](https://www.martinmodrak.cz/2021/04/01/using-brms-to-model-reaction-times-contaminated-with-errors/). The
+data we'll be using were simulated, but the same sorts of analyses
+will apply to pretty much any cognitive task where reaction times are
+measured.
+
+Let's begin by loading our data in and taking a look at what they look
+like:
+
+```{r load_data}
+library(cmdstanr)   # for stan
+library(tidyverse)  # for data wrangling
+library(tidybayes)  # for accessing model posteriors
+library(patchwork)  # for multi-plots
+options(mc.cores=parallel::detectCores())
+
+rts <- read_csv('2022-02-21-reaction-times.csv')
+
+ggplot(rts, aes(x=rt)) +
+    stat_slab() + xlab('Reaction Time') + ylab('Density') +
+    theme_classic()
+```
+
+Looking at the data, it appears that our reaction times were generally
+around 4-5 seconds, but range anywhere from 0 to 20 seconds. Since
+these reaction times are clearly skewed, we're going to model them
+using a lognormal distribution rather than a normal distribution:
+
+```{=html}
+$$log(rt_i) \sim \mathcal{N}(\mu, \sigma)$$
+```
+
+or simply
+
+```{=html}
+$$rt_i \sim lognormal(\mu, \sigma)$$
+```
+
+This formula says that the log-ed reaction times should be normally
+distributed around $$\mu$$ with standard deviation $$\sigma$$. More
+generally, standard models of data will look something like this:
+
+```{=html}
+$$y_i \sim \mathcal{D}(\theta)$$
+```
+
+where $$\mathcal{D}$$ is the data-generating distribution and
+$$\theta$$ are the parameters to distribution $$\mathcal{D}$$ (like
+the mean and standard deviation of a normal distribution). To fit the
+model, we can write it into a simple stan program:
+
+```{r lognormal_model, comment=NA}
+model.lognormal <- cmdstan_model('2022-02-21-lognormal.stan')
+model.lognormal
+```
+
+If this doesn't make any sense to you, I would recommend taking a look
+at my recent [introduction to
+Stan](https://dibsmethodsmeetings.github.io/stan-intro/), which
+explains the basics of the Stan probabilistic programming
+language. But generally this says the same thing as our formula above:
+we are estimating the parameters $$\mu$$ and $$\sigma$$ of the
+lognormal distribution to best fit to our data. Let's see how it works:
+
+```{r lognormal_fit}
+fit.lognormal <- model.lognormal$sample(data=list(N=nrow(rts), y=rts$rt))
+fit.lognormal$summary(c('mu', 'sigma'))
+```
+
+It looks like the model fit well enough, with $$\mu = 1.6$$ and
+$$\sigma = 0.64$$. Let's plot model predictions against our data to
+get a sense of how well it fits:
+
+```{r lognormal_ppc}
+fit.lognormal %>%
+    spread_draws(y_rep[.row], ndraws=50) %>%
+    ggplot(aes(x=y_rep)) +
+    stat_slab(aes(x=rt), data=rts) +
+    stat_slab(aes(group=.draw), color='black', fill=NA, alpha=0.25, slab_size=.5) +
+    coord_cartesian(xlim=c(0, 20)) +
+    xlab('Reaction Time') + ylab('Density') +
+    theme_classic()
+```
+
+Sadly, while our model (black lines) captures the mode pretty well, it
+seems to overestimate the variance, such that it predicts that really
+short and really long reaction times are more likely than they should
+be. 
+
+
+
+
+
+
+# Mixture Models
+
+To improve our model, we it is worth looking closely at our data in
+the plot above. Something stands out to me: whereas the most of the
+reaction times look like they would be well-captured by a lognormal
+model, they seem to be "contaminated" by a whole bunch of really long
+and really short reaction times. There are two main approaches to
+handle this kind of data. The most common approach would be to simply
+discard any reaction times that are deemed "too short" or "too long."
+While this is probably the most common way of dealing with it, it
+comes with some problems. First, we have to specify arbitrary
+thresholds a priori to throw away data, and our results could very
+well vary depending on the specific thresholds we choose. Second, it
+is reasonable to assume that we can actually learn something from the
+contaminated data. Both of these issues make the second approach,
+mixture models, much more favorable.
+
+In a mixture model, we augment our model by assuming that our data
+does not just come from one distribution $$\mathcal{D}(\theta)$$, but
+we acknowledge that it could come from one of $$D$$ distributions
+$$\mathcal{D}_d(\theta_{d})$$:
+
+```{=html}
+$$y_i \sim \mathcal{D}_{d[i]}(\theta_{d[i]})$$
+```
+
+In our particular case, we can think of the reaction times arising
+from two possible distributions. When people were attentive to our
+task, their reaction times should be lognormally-distributed, as
+before. But when they weren't paying attention, they were guessing,
+and we can assume that their reaction times here will be
+uniformly-distributed. In total, our model will look like this:
+
+```{=html}
+$$
+\begin{align*}
+	z_i &\sim Bernoulli(\theta) \\
+	y_i &\sim \begin{cases}
+		lognormal(\mu, \sigma) & z_i = 1 \\
+		uniform(0, y_max) & z_i = 2
+	\end{cases}
+\end{align*}
+$$
+```
+
+The $$z_i$$ terms indicate for trial $$i$$, whether the participant
+was paying attention or not. We call this a *latent* or *hidden*
+variable, because we don't have direct access to it: it is unobserved,
+and potentially unobservable (we can think of observing indicators of
+attentional state, but it is hard to say how we could measure it
+directly). Another way of representing the model is using a simple
+graph diagram:
+
+![alt text: a graph with nodes z_inattentive, z_attentive,
+y_inattentive, y_attentive, and with directed arrows from
+z_inattentive to y_inattentive and from z_attentive to
+z_inattentive](../assets/images/2022-02-21-hmms/mixture.png){: .half-img }
+
+Under this representation, it's clear that we're assuming two possible
+latent states: an inattentive and an attentive state. Depending on
+which state we're in, we're going to get a different distribution of
+reaction times (though the graph doesn't tell you exactly what those
+distributions are).
+
+Thankfully, it is easy enough to program this mixture model in Stan:
+
+```{r mixture_model, comment=NA}
+model.mix <- cmdstan_model('2022-02-21-mixture.stan')
+model.mix
+```
+
+Compared to before, we've added the data variable `y_max` which is
+simply the upper bound for our reaction times, and `theta` which is
+the probability of an observation coming from the lognormal
+distribution (as opposed to the uniform distribution). The function
+`log_mix` lets us define a mixture over the two distributions to
+calculate the log likelihood. Finally, to simulate reaction times, we
+simulate whether the observation came from the lognormal or not
+(`z_rep`), and then depending on that value, we sample a reaction
+time. Let's fit the model:
+
+```{r mixture_fit}
+fit.mix <- model.mix$sample(data=list(N=nrow(rts), y=rts$rt))
+fit.mix$summary(c('theta', 'mu', 'sigma'))
+```
+
+Everything is looking better! Our estimate for $$\theta$$ tells us
+	that about 100% - 71% = 29% of our reaction times were contaminated,
+which is definitely more than just a little bit. A promising result is
+that $$\sigma$$ seems to be smaller than before, which means that we
+might no longer be overestimating the variance. As before, we can plot
+simulated data from our model on top of the actual data to see how it
+looks:
+
+```{r mixture_ppc}
+fit.mix %>%
+    spread_draws(y_rep[.row], ndraws=50) %>%
+    ggplot(aes(x=y_rep)) +
+    stat_slab(aes(x=rt), data=rts) +
+    stat_slab(aes(group=.draw), color='black', fill=NA, alpha=0.25, slab_size=.5) +
+    coord_cartesian(xlim=c(0, 20)) +
+    xlab('Reaction Time') + ylab('Density') +
+    theme_classic()
+```
+
+Wow! Our model fit has certainly improved, and in fact, it is
+difficult to find any obvious problems with it. So what could possibly
+be wrong with it? A closer inspection at our model might suggest some
+possibilities:
+
+![alt text: a graph with nodes z_inattentive, z_attentive,
+y_inattentive, y_attentive, and with directed arrows from
+z_inattentive to y_inattentive and from z_attentive to
+z_inattentive](../assets/images/2022-02-21-hmms/mixture.png){: .half-img }
+
+In hindsight, it seems a little weird that we're estimating the latent
+state $$z$$ to be independent on every trial. That is, our model
+simply says that ~70% of the time people were paying attention, and
+~30% of the time they were guessing. But it would be odd if people
+suddenly bounced back and forth between an attentive and an
+inattentive state. In contrast, we should expect that the attentive
+trials should cluster in time, such that the participant went through
+extended periods of being attentive compared to not.
+
+Since these data were simulated, we actually have access to whether
+the participant was paying attention on a given trial (the column `z`
+in our dataframe). To get an idea of whether our model is capturing
+the attentiveness of our participant over time, we can compare the
+participant's actual timecourse of attention with our model
+predictions. Here, let's shade regions black during periods of
+inattention, leaving periods of attention white:
+
+```{r states}
+p.data <- rts %>% filter(trial <= 100) %>%
+    ggplot(aes(x=trial, y=1-z)) +
+    geom_rect(aes(xmin=trial, xmax=trial+1, ymin=0, ymax=1-z), fill='black') +
+    theme_classic()
+
+p.model <- fit.mix %>%
+    spread_draws(z_rep[trial], ndraws=10) %>%
+    filter(trial <= 100) %>%
+    ggplot(aes(x=trial, y=1-z_rep)) +
+    geom_rect(aes(group=.draw, xmin=trial, xmax=trial+1, ymin=0, ymax=1-z_rep), fill='black') +
+    facet_grid(.draw ~ .) +
+    theme_classic()
+
+(p.data / p.model) +
+    plot_layout(heights=c(1, 10)) &
+    xlab('Trial') &
+    theme(axis.title.y=element_blank(),
+          axis.ticks.y=element_blank(),
+          axis.text.y=element_blank(),
+          axis.line.y=element_blank(),
+          strip.background = element_blank(),
+          strip.text = element_blank())
+```
+
+This is just a short period of time and a few of our posterior
+samples, but it should be clear that our model is missing something
+critical about human cognition: periods of inattention aren't entirely
+random. To capture this behavior, we need HMMs.
+
+
+# Hidden Markov Models
+
+HMMs expand on the basic idea of mixture models by allowing the latent
+states to vary over time. That is, instead of modeling each trial
+independently, HMMs model the entire sequence of trials all at
+once. To make things clear, let's break down the name "Hidden Markov
+Model."
+
+First, what does it mean for an HMM to be "hidden?" Thankfully, this
+is actually the same as in our mixture model from before: "hidden"
+just refers to the fact that we're assuming that our observations
+depend on some _hidden_, _latent_, or _unobserved_ variable. In this
+case, our hidden variable is the participant's attentive state.
+
+Okay, then what does Markov refer to? A better question is "_who_ does
+Markov refer to?" with the answer being [mathematician Andrey
+Markov](https://en.wikipedia.org/wiki/Andrey_Markov), who discovered
+what are now known as [Markov
+chains](https://en.wikipedia.org/wiki/Markov_chain). Markov chains are
+described by a graph with nodes referring to states and edges
+referring to transitions (with some probability). The key property of
+a Markov chain is that we start in one state, and our movement to the
+next state depends only on which state we are in. Importantly, where
+we move does not depend on which states we were in in the past, it
+only depends on the transition probabilities from the state we are
+in. In a HMM, the hidden or latent states form such a Markov chain. To
+make this concrete, we can expand our reaction time model to allow for
+transitions between attentive and inattentive states:
+
+![alt text: a graph with nodes z_inattentive, z_attentive,
+y_inattentive, y_attentive, and with directed arrows from
+z_inattentive to y_inattentive, from z_attentive to z_inattentive, and
+edges between the z
+states](../assets/images/2022-02-21-hmms/hmm.png){: .half-img }
+
+Hopefully you've noticed that the only difference to our model is that
+now the $$z$$ states have edges between each other, as well as
+self-directed edges. You also probably noticed that the edges are
+labeled: instead of having a single mixture probability $$\theta$$ we
+now have two transition probabilities $$\theta_1$$ and $$\theta_2$$.
+These determine the likelihood that the participant will remain
+attentive if they were attentive on the previous trial
+($$\theta_1$$) and the likelihood that they will remain inattentive if
+they were previously inattentive ($$\theta_2$$). Since probabilities sum
+to one, the transition probabilities between attentive and inattentive
+states are just $$1 - \theta_1$$ and $$1 - \theta_2$$.
+
+In total, we now have four different transition probabilities, though
+each pair of probabilities is determined by just one unique
+parameter. A convenient way to represent these probabilities is using
+a matrix $$\theta$$, where each element $$\theta_{ij}$$ contains the
+transition probability from state $$i$$ to state $$j$$:
+
+```{=html}
+$$
+\theta = \begin{bmatrix}
+\theta_1 & 1-\theta_1 \\
+1-\theta_2 & \theta_2 
+\end{bmatrix}
+$$
+```
+
+Finally, the last thing we need is a probability distribution over the
+starting state, for which we'll use a vector $$\pi$$:
+
+```{=html}
+$$
+\pi = \begin{bmatrix}
+  \pi_1 & \pi_2
+\end{bmatrix}
+$$
+```
+
+In general $$\pi$$ could take any form, but it's often simplest to say
+that $$\pi$$ is just the proportion spent in each state overall,
+called the _stationary distribution_ of $$\theta$$. I won't go over
+the details here, but you can find the stationary distribution of
+$$\theta$$ by satisfying the linear equation $$\pi = \pi\theta$$.
+
+Given all of this information, another common way to think of HMMs is
+to "unroll" the graph above, using subscripts for time steps instead
+of state labels:
+
+![alt text: a graph with nodes z_0 through z_3, with edges connecting
+subsequent states. each z state has a corresponding dashed edge to a
+corresponding y
+state.](../assets/images/2022-02-21-hmms/hmm-unrolled.png)
+
+And that's that! Now we have a formal model to capture temporal
+dynamics of reaction time distributions as a function of attentional
+state. Implementing this model, however, turns out to be more
+difficult than the models before. So, we're going to go step by step,
+starting out with simulating sequences from the model using prior
+distributions.
+
+
+# Simulating from HMMs
+Let's start by programming in what we've just talked about to simulate
+from a prior distribution over reaction times from our HMM:
+
+```{r hmm_prior_model, comment=NA}
+model.hmm.prior <- cmdstan_model('2022-02-21-hmm-sim.stan')
+model.hmm.prior
+```
+
+The model here isn't really all that different from the mixture model
+earlier. As discussed above, `theta` is now a transition matrix
+instead of a single probability, and `pi` is the expected proportion
+of time spent in each state. We placed a
+[dirichlet](https://en.wikipedia.org/wiki/Dirichlet_distribution)
+prior over each row of `theta`, which says that each row of `theta`
+should be a simplex. To generate predictions from our model, we sample
+the first latent state using a categorical distribution over `pi`, and
+then sample subsequent states using a categorical distribution over
+`theta[z_rep[n-1]]`. 
+
+Since we aren't actually modeling `y` yet (there is no likelihood for
+`y`), this program just defines a prior distribution. Let's sample
+from this prior:
+
+```{r hmm_prior}
+fit.hmm.prior <- model.hmm.prior$sample(data=list(N=nrow(rts), y=rts$rt))
+fit.hmm.prior$summary(c('theta', 'pi', 'mu', 'sigma'))
+```
+
+As expected, all of the transition probabilities are close to .5. To
+get an idea of what the dynamics of the model look like, we can make a
+similar plot as before:
+
+```{r hmm_prior_states}
+p.model <- fit.hmm.prior %>%
+    spread_draws(z_rep[trial], ndraws=10) %>%
+    filter(trial <= 100) %>%
+    ggplot(aes(x=trial, y=1-z_rep)) +
+    geom_rect(aes(group=.draw, xmin=trial, xmax=trial+1, ymin=0, ymax=1-z_rep), fill='black') +
+    facet_grid(.draw ~ .) +
+    theme_classic()
+
+(p.data / p.model) +
+    plot_layout(heights=c(1, 10)) &
+    xlab('Trial') &
+    theme(axis.title.y=element_blank(),
+          axis.ticks.y=element_blank(),
+          axis.text.y=element_blank(),
+          axis.line.y=element_blank(),
+          strip.background = element_blank(),
+          strip.text = element_blank())
+```
+
+Clearly some of the prior samples look better than others, but overall
+we seem to have the potential to capture the behavior seen in our
+data. Next, we can try to fit the parameters of our model using data.
+
+# Supervised learning
+In the best case scenario, we can imagine that we collected data for
+both the observed variable $$y$$ and the (not-so-latent-anymore)
+variable $$z$$. This is called the _supervised_ learning problem for
+HMMs, because the observed $$z$$'s can inform our choice of
+parameters. In the supervised learning case, we can copy move our
+`z_rep` variable definition from the `generated quantities` to the
+`model` block:
+
+```{r hmm_sup_model, comment=NA}
+model.hmm.sup <- cmdstan_model('2022-02-21-hmm-sup.stan')
+model.hmm.sup
+```
+
+Notice that we no longer need to use `log_mix` as we did for our
+mixture model, because in the supervised case we know exactly which
+distribution `y[n]` should be coming from. I also simulated our
+`y_rep` using the actual `z`s instead of the simulated `z_rep`s for
+the same reason. Let's fit the model:
+
+```{r hmm_sup}
+fit.hmm.sup <- model.hmm.sup$sample(data=list(N=nrow(rts), y=rts$rt, z=rts$z))
+fit.hmm.sup$summary(c('theta', 'pi', 'mu', 'sigma'))
+```
+
+Comparing this to our mixture model above, we should immediately see
+similarities. First, our estimates of `mu` and `sigma` are essentially
+the same as before! Second, our estimate of `pi` corresponds very well
+with our mixing probability `theta` from the mixture model. These two
+things alone mean that our marginal distribution should be just as
+impressive as before. Let's check:
+
+```{r hmm_sup_ppc}
+fit.hmm.sup %>%
+    spread_draws(y_rep[.row], ndraws=50) %>%
+    ggplot(aes(x=y_rep)) +
+    stat_slab(aes(x=rt), data=rts) +
+    stat_slab(aes(group=.draw), color='black', fill=NA, alpha=0.25, slab_size=.5) +
+    coord_cartesian(xlim=c(0, 20)) +
+    xlab('Reaction Time') + ylab('Density') +
+    theme_classic()
+```
+
+Indeed, it looks great! Next, we can inspect `theta` to see our
+transition probabilities. Remember that the diagonal of `theta` tells
+us the probability of staying in a particular state: since these
+probabilities are both above 0.5, we can expect our model to produce
+trajectories that look much more like our data:
+
+```{r hmm_sup_states}
+p.model <- fit.hmm.sup %>%
+    spread_draws(z_rep[trial], ndraws=10) %>%
+    filter(trial <= 100) %>%
+    ggplot(aes(x=trial, y=1-z_rep)) +
+    geom_rect(aes(group=.draw, xmin=trial, xmax=trial+1, ymin=0, ymax=1-z_rep), fill='black') +
+    facet_grid(.draw ~ .) +
+    theme_classic()
+
+(p.data / p.model) +
+    plot_layout(heights=c(1, 10)) &
+    xlab('Trial') &
+    theme(axis.title.y=element_blank(),
+          axis.ticks.y=element_blank(),
+          axis.text.y=element_blank(),
+          axis.line.y=element_blank(),
+          strip.background = element_blank(),
+          strip.text = element_blank())
+```
+
+Indeed, this looks a lot like our data! As a final step, we can look
+at our simulated reaction times over time:
+
+```{r hmm_sup_ppc2}
+fit.hmm.sup %>%
+    spread_draws(y_rep[trial], ndraws=50) %>%
+    filter(trial <= 100) %>%
+    ggplot(aes(x=trial, y=y_rep)) +
+    geom_line(aes(group=.draw), alpha=.25, size=.5, color='red') +
+    geom_line(aes(y=rt), data=filter(rts, trial<=100), size=2) +
+    theme_classic() + ylab('Reaction Time')
+```
+
+Although there is definitely some uncertainty, our model seems to be
+capturing the data very well. Thankfully, if we have observed the
+latent states, estimating an HMM is pretty straightforward.
+
+# Unsupervised learning
+In the worst case (but probably most common) scenario, we don't have
+any knowledge about the latent states $$z$$. In these cases, we must
+estimate the probability of latent states given our data. This is
+called a _filtering_ problem in statistics, and it is customary to use
+what's called the [forward
+algorithm](https://en.wikipedia.org/wiki/Forward_algorithm) to solve
+it:
+
+
+## The forward algorithm
+```{=html}
+$$
+\begin{align*}
+	p(z_t, y_{1:t}) &= \sum_{z_{t-1}} p(z_t, z_{t-1}, y_{1:t}) \\
+	&= \sum_{z_{t-1}} p(y_t | z_t, z_{t-1}, y_{1:(t-1)}) p(z_t | z_{t-1}, y_{1:(t-1)}) p(z_{t-1}, y_{1:(t-1)}) \\
+	&= \sum_{z_{t-1}} p(y_t | z_t) p(z_t | z_{t-1}) p(z_{t-1}, y_{1:(t-1)}) \\
+	&= p(y_t | z_t) \sum_{z_{t-1}} p(z_t | z_{t-1}) p(z_{t-1}, y_{1:(t-1)})
+\end{align*}
+$$ 
+```
+
+As you can see, we can express the joint probability of $$z_t$$ and
+$$y_{1:t}$$ as a function of (i) the emission probability $$p(y_t |
+z_t)$$, (ii) the transition probability $$p(z_t | z_{t-1})$$, and
+(iii) the joint probability of $$z_{t-1}$$ and $$y_{1:(t-1)}$$, we can
+estimate these probabilities recursively by moving forward in time
+(hence, the forward algorithm). Given the joint probability of $$z_t$$
+and $$y_{1:t}$$, it is simple to marginalize over the possible
+$$z_t$$'s to get the likelihood of the data.
+
+We can code this directly into the `model` block of our Stan program
+as follows (code provided in the [Stan user
+guide](https://mc-stan.org/docs/2_29/stan-users-guide/hmms.html#semisupervised-estimation)):
+
+```{r hmm_model, comment=NA}
+model.hmm <- cmdstan_model('2022-02-21-hmm.stan')
+model.hmm
+```
+
+The only difference is that instead of evaluating the likelihood of
+`y` as a function of some observed `z`s, we're calculating the
+likelihood recursively using the forward algorithm. I won't go over
+the details of how exactly it works (it is literally using the formula
+above), but now we can fit the model:
+
+```{r hmm}
+fit.hmm <- model.hmm$sample(data=list(N=nrow(rts), y=rts$rt))
+fit.hmm$summary(c('theta', 'pi', 'mu', 'sigma'))
+```
+
+Woohoo! Our model estimates look exactly the same as before with the
+supervised algorithm, so it is safe to say that we've recovered the
+latent dynamics of our data even with no observations! I won't plot
+the posterior predictive checks of the marginal or latent state
+distributions, since they will look exactly the same. However, it is
+worth plotting our estimates of reaction time by trial:
+
+```{r hmm_ppc}
+fit.hmm %>%
+    spread_draws(y_rep[trial], ndraws=50) %>%
+    filter(trial <= 100) %>%
+    ggplot(aes(x=trial, y=y_rep)) +
+    geom_line(aes(group=.draw), alpha=.25, size=.5, color='red') +
+    geom_line(aes(y=rt), data=filter(rts, trial<=100), size=2) +
+    theme_classic() + ylab('Reaction Time')
+```
+
+That might appear odd, at first: why do our estimates look the same
+over time? After the supervised learning, we used the *actual* latent
+variables to make predictions of reaction times. But in unsupervised
+learning, we don't have access to the latent variables, and so the red
+lines are just simulated time-series over simulated latent states.
+You might think that we could use our estimates from the forward
+algorithm to determine a latent state to simulate from, but that
+actually poses a problem. Remeber that the forward algorithm generates
+the joint probability $$p(z_t, y_{1:t})$$. In other words, it produces
+the joint probability of the data up to time $$t$$ and the latent
+state at time $$t$. But what we want is to get the most likely
+*sequence* of latent states given the data, $$p(z_{1:t} | y_{1:t})$$.
+To do that, we'll use the Viterbi algorithm.
+
+
+## The Viterbi algorithm
+
+Whereas the forward algorithm gives us the joint probability of the
+data up to time $$t$$ and the latent state at time $$t$$, the [Viterbi
+algorithm](https://en.wikipedia.org/wiki/Viterbi_algorithm) instead
+gives us a probability over sequences of latent states given the
+data. To explain the Viterbi algorithm, let's look at the Stan code:
+
+```{r viterbi_model, comment=NA}
+model.viterbi <- cmdstan_model('2022-02-21-viterbi.stan')
+model.viterbi
+```
+
+In the Viterbi algorithm, we want to estimate the most likely sequence
+of latent states $$z_{1:N}$$ given all of the data $y_{1:N}$. So, our
+first task is to fill out two matrices. Each element of `best_lp[n,
+k]` stores the log probability of the best path $$z_{1:n}$$ where
+$$z_n = k$$. Similarly, each element of `back_ptr[n, k]` stores the
+preceding latent state $$z_{n-1}$$ so that once we've found the best
+path, we can reconstruct it. The first set of `for` loops simply fills
+out these matrices row by row, finding the best path up to timepoint
+$$n$$. Once we have that, we can use it to find the best path up to
+the next timepoint, since in a Markov chain we only need to know about
+the latent state one timepoint in the past. Once these matrices are
+filled out, we can reconstruct the most likely path starting with
+timepoint $N$ and working backwards using our `back_ptr`. Finally,
+once we have the sequence of latent states, we can simulate reaction
+times as before. Let's run the model again and see how it fares:
+
+```{r viterbi}
+fit.viterbi <- model.viterbi$sample(data=list(N=nrow(rts), y=rts$rt))
+fit.viterbi$summary(c('theta', 'pi', 'mu', 'sigma'))
+```
+
+Once again, the model fit well- this should be no surprise, since we
+haven't changed anything about the fitting process (we only changed
+the way in which we are simulating data). Let's now see our
+reconstructed latent states:
+
+```{r viterbi_states}
+p.model <- fit.viterbi %>%
+    spread_draws(z_rep[trial], ndraws=10) %>%
+    filter(trial <= 100) %>%
+    ggplot(aes(x=trial, y=1-z_rep)) +
+    geom_rect(aes(group=.draw, xmin=trial, xmax=trial+1, ymin=0, ymax=1-z_rep), fill='black') +
+    facet_grid(.draw ~ .) +
+    theme_classic()
+
+(p.data / p.model) +
+    plot_layout(heights=c(1, 10)) &
+    xlab('Trial') &
+    theme(axis.title.y=element_blank(),
+          axis.ticks.y=element_blank(),
+          axis.text.y=element_blank(),
+          axis.line.y=element_blank(),
+          strip.background = element_blank(),
+          strip.text = element_blank())
+```
+
+It certainly isn't perfect, but given that we haven't observed the
+latent states we're in the right ball park. Finally, let's look at the
+reconstructed reaction times:
+
+```{r viterbi_ppc2}
+fit.viterbi %>%
+    spread_draws(y_rep[trial], ndraws=50) %>%
+    filter(trial <= 100) %>%
+    ggplot(aes(x=trial, y=y_rep)) +
+    geom_line(aes(group=.draw), alpha=.25, size=.5, color='red') +
+    geom_line(aes(y=rt), data=filter(rts, trial<=100), size=2) +
+    theme_classic() + ylab('Reaction Time')
+```
+
+As you can see, these estimates are very comparable to the ones from
+the supervised learning case! So, even if we haven't perfectly
+recovered the sequence of latent states, we seem to be estimating the
+reaction times just fine. A good explanation for this is that whenever
+we are missing periods of inattention, it is because the reaction
+times during those periods look similar to reaction times during
+attention, and since participants are more attentive than not, those
+reaction times are well-explained as if they were coming from an
+attentive state.
+
+
+# Conclusions
+
+We've covered a lot in this tutorial: from building a simple reaction
+time model, enhancing it to model random responses during inattention,
+and using HMMs to model the dynamics of attention during psychological
+tasks, and fitting the HMM in a supervised and unsupervised
+manner. However, there's always much more that can be done. Similar to
+mixed-effects regression, hierarchical HMMs model participant-level
+(or item-level, etc) trends in latent dynamics and responses. It is
+also common to model effects on the transition matrices or mixture
+distributions as a function of covariates like age or gender. No
+matter what direction you're heading, hopefully this tutorial provided
+a good foundation to start.

@@ -1,0 +1,17 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{bayesnet}
+
+\begin{document}
+
+\begin{tikzpicture}[latent/.append style={minimum size=2cm}, obs/.append style={minimum size=2cm}]
+  \node[latent] (z0) {$z_{attentive}$};
+  \node[latent, right=of z0] (z1) {$z_{inattentive}$};
+  \node[obs, below=of z0] (y0) {$y_{attentive}$};
+  \node[obs, below=of z1] (y1) {$y_{inattentive}$};
+
+  \edge[dashed] {z0} {y0};
+  \edge[dashed] {z1} {y1};
+\end{tikzpicture}
+
+\end{document}

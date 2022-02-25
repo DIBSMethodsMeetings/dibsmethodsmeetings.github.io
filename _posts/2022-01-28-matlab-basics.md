@@ -3,7 +3,7 @@ title: "MATLAB basics"
 author: shenyang
 categories: [ tutorial ]
 image: assets/images/2022-01-28-matlab-basics_images/image_0.png
-featured: true
+featured: false
 hidden: false
 output:
   html_document: default
