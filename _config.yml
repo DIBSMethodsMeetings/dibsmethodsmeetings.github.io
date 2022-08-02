@@ -123,6 +123,7 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-archives
+  - jekyll-loading-lazy
 
 # Archives
 jekyll-archives:
