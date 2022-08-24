@@ -51,14 +51,14 @@ authors:
     twitter: https://twitter.com/1nathan_liang
     description: "Lab manager at Princeton University working with Diana Tamir. Previously, a research assistant studying moral psychology with Felipe De Brigard, Walter Sinnott-Armstrong, and Paul Seli at Duke University."
 
-  maria:
-    name: Maria
-    display_name: Maria Khoudary
-    avatar: assets/images/maria.jpeg
+  ari:
+    name: Ari
+    display_name: Ari Khoudary
+    avatar: assets/images/ari.jpeg
     gravatar:
-    email: maria.khoudary@duke.edu
-    web: https://mariakhoudary.com
-    twitter: https://twitter.com/maria_khoudary
+    email: ari.khoudary@uci.edu
+    web: https://arikhoudary.com
+    twitter: https://twitter.com/ari_khoudary
     description: "Graduate student at UC Irvine working with Dr. Megan Peters and Dr. Aaron Bornstein on memory, perception, and metacognition."
 
   miles:

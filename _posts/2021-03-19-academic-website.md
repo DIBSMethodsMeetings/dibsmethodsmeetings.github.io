@@ -1,6 +1,6 @@
 ---
 title: "How To Build a Free Academic Website"
-author: maria
+author: ari
 output:
   html_document: default
   md_document:
