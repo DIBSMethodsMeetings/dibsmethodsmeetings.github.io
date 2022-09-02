@@ -2,7 +2,7 @@
 layout: post
 title:  "Journal Club: Gomila (2020)"
 author: ari
-categories: [ journal club ]
+categories: [ journal club, statistics ]
 image: assets/images/2020-11-11-journal-club/paper_title.jpg
 featured: false
 hidden: false

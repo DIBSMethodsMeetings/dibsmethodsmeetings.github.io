@@ -1,7 +1,7 @@
 ---
 title: "MATLAB basics"
 author: shenyang
-categories: [ tutorial ]
+categories: [ programming ]
 image: assets/images/2022-01-28-matlab-basics_images/image_0.png
 featured: false
 hidden: false

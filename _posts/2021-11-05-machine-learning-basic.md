@@ -1,7 +1,7 @@
 ---
 title: "Machine Learning Basics"
 author: miles
-categories: [tutorial]
+categories: [programming, machine learning]
 image: assets/images/2021-11-05-machine-learning-basic/alan-math-the-hangover.png
 hidden: false
 ---

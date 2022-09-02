@@ -2,7 +2,7 @@
 title: "Data Wrangling with Python + Pandas"
 author: nathan
 image: https://pandas.pydata.org/static/img/pandas_secondary.svg
-categories: [ tutorial, programming ]
+categories: [ programming ]
 hidden: false
 featured: false
 ---
