@@ -2,7 +2,7 @@
 author: pranjal
 categories:
 - tutorial
-featured: true
+featured: false
 categories: [math, neuroscience]
 image: https://upload.wikimedia.org/wikipedia/commons/6/6a/Convolution_of_box_signal_with_itself2.gif
 title: Unconvoluting convolutions - an introduction and applications to neuroscience
