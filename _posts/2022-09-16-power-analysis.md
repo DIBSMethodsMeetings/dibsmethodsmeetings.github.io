@@ -1,7 +1,7 @@
 ---
 author: kevin
 categories:
-- tutorial
+- statistics
 featured: true
 image: assets/images/2022-09-16-power-analysis/p-values.gif
 output:
