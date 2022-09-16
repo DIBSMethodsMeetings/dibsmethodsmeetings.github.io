@@ -1,7 +1,7 @@
 ---
 title: "Data wrangling in the tidyverse"
 author: kevin
-categories: [ tutorial ]
+categories: [ programming ]
 image: https://www.tidyverse.org/images/hex-tidyverse.png
 featured: false
 output:

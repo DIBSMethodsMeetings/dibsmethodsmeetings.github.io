@@ -1,7 +1,7 @@
 ---
 title: "Multivariate Pattern Analysis"
 author: shenyang
-categories: [ tutorial ]
+categories: [ statistics, psychology, neuroscience ]
 image: https://neurosciencenews.com/files/2021/01/brain-hyperactivity-alzheimers-neurosicnes.png
 featured: false
 hidden: false

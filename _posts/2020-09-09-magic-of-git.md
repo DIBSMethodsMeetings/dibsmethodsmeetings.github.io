@@ -2,7 +2,7 @@
 layout: post
 title:  "The Magical Wonders of Git"
 author: kevin
-categories: [ tutorial, programming ]
+categories: [ programming ]
 image: assets/images/magic_git.png
 featured: false
 hidden: false

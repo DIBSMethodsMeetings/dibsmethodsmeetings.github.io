@@ -6,7 +6,7 @@ output:
   md_document:
     variant: gfm
     preserve_yaml: TRUE
-categories: [ tutorial ]
+categories: [ professional development ]
 image: assets/images/2021-03-19-academic-website/jekyll.png
 hidden: false
 ---

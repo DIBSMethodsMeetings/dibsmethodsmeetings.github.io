@@ -4,6 +4,7 @@ categories:
 - tutorial
 featured: false
 image: "https://mc-stan.org/images/stan_logo.png"
+categories: [programming]
 output:
   html_document: default
   md_document:

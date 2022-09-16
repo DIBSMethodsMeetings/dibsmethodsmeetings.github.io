@@ -2,7 +2,7 @@
 layout: post
 title:  "Bayesian Indices of Significance"
 author: kevin
-categories: [ bayes, journal club ]
+categories: [ statistics, journal club ]
 image: https://www.frontiersin.org/files/Articles/498833/fpsyg-10-02767-HTML/image_m/fpsyg-10-02767-g001.jpg
 ---
 <br>

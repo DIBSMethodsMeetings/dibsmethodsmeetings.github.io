@@ -1,7 +1,7 @@
 ---
 title: "A brief intro to the most useful kind of algebra (linear)"
 author: pranjal
-categories: [ tutorial ]
+categories: [ math ]
 image: https://upload.wikimedia.org/wikipedia/commons/e/ed/Residuals_for_Linear_Regression_Fit.png
 featured: false
 output:

@@ -4,6 +4,7 @@ categories:
 - tutorial
 featured: false
 hidden: false
+categories: [ statistics ]
 image: assets/images/2021-07-05-contrasts/RawData-1.png
 output:
   html_document: default
