@@ -187,7 +187,7 @@ R. The link linked in the first section has this code so if you want another exp
     library(brms)
     library(tidyverse)
 
-Data used, from the sdtalt package and Wright et al. (cite):
+Data used, from the sdtalt package and Wright 2011 [^0]:
 
 | subno | sayold | isold |
 |------:|-------:|------:|
@@ -197,7 +197,6 @@ Data used, from the sdtalt package and Wright et al. (cite):
 |    53 |      1 |     1 |
 |    53 |      1 |     0 |
 
-Wright Data
 
 We first need to find what kind of trial each trial was (Hit, FP, CR, or
 miss). We can do this doing the following:
@@ -558,3 +557,5 @@ frame this ENTIRELY differently, draw some graphs yourself. you are
 selling this to a cogneuro crowd, so you don’t actually NEED very much
 SDT. you just need to justify what d’, c are, then tell use why
 different versions of this matter.
+
+[^0]: <a href="https://CRAN.R-project.org/package=sdtalt." target="_blank">Wright, Daniel B. 2011. Sdtalt: Signal Detection Theory and Alternatives. https://CRAN.R-project.org/package=sdtalt.</a>
