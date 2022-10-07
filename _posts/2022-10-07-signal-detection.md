@@ -134,11 +134,11 @@ help us figure out what <span style="color: lime;">d’</span> and c are.
 We have our <span style="color: blue;">HR</span> and <span
 style="color: red;">FPR</span> indicated above, and since these come
 from standard normal distributions, we can use the cumulative density
-function (CDF) indicated by $\Phi$, to describe our HR and FPR. The CDF
-of a distribution, $\Phi(x)$, is the area under our distribution less
+function (CDF) indicated by \\( \Phi\\), to describe our HR and FPR. The CDF
+of a distribution, \\(\Phi(x)\\), is the area under our distribution less
 than or equal to x, or the probability that we see a value drawn from
 our distribution less than or equal to x. Since Gaussians are symmetric
-around their mean, we ALSO know that $P(x < z) = P(x > -z)$ (see figure below) 
+around their mean, we ALSO know that \\(P(x < z) = P(x > -z)\\) (see figure below) 
 
 ![phi(x)](../assets/images/2022-10-07-signal-detection/phi_x.png)
 
@@ -161,7 +161,7 @@ FPR = \Phi(-c)
 $$
 
 Since we did not shift our noise distribution at all, and again that
-distribution is symmetric. The inverse of this function, $\Phi^{-1}(x)$,
+distribution is symmetric. The inverse of this function, \\(\Phi^{-1}(x)\\),
 exists also and I’m not gonna draw it out or say anything more than that
 it exists so please just believe me. Given this, we know that
 
@@ -264,20 +264,20 @@ We can model probabilities using logistic regression models, in these
 models, we model our outcomes as binary (1 if participants say they’d
 seen a stimulus before, 0 otherwise). These assume that each trial is
 independently drawn from a Bernoulli distribution, with the probability
-of a trial being a 1 set to $p$. We can model $p$ as $\Phi(\eta)$ -
+of a trial being a 1 set to \\(p\\). We can model \\(p\\) as \\(\Phi(\eta)\\) -
 again, the probability that a standard normal distribution is less than
-$\eta$. We then get to choose how we model $\eta$, based on our data.
+\\(\eta\\). We then get to choose how we model \\(\eta\\), based on our data.
 Our life is made simpler if we choose a linear relationship between our
-data and $\eta$: $\eta = \beta_0 + \beta_1 * \text{stimulus seen}$. This
+data and \\(\eta\\): \\(\eta = \beta_0 + \beta_1 * \text{stimulus seen}\\). This
 parameterization gives us a good interpretation for these parameters.
 Let’s say the simulus is new, which means that stimulus_seen = 0. Our
-interpretation for $p$ here is our FPR: the probability of saying we’ve
-seen a stimulus, when we in fact have not. Then $\eta$ = $\beta_0$, and
-$FPR = \Phi(\beta_0)$. This looks familiar to what we had above, which
-what $FPR = \Phi(-c)$. When stimulus_seen = 1, our $p$ is the
+interpretation for \\(p\\) here is our FPR: the probability of saying we’ve
+seen a stimulus, when we in fact have not. Then \\(\eta\\) = \\(\beta_0\\), and
+\\(FPR = \Phi(\beta_0)\\). This looks familiar to what we had above, which
+what \\(FPR = \Phi(-c)\\). When stimulus_seen = 1, our \\(p\\) is the
 probability of getting a hit, or our HR. From above, we have
-$HR = \Phi(d' - c)$. This trial type gives $\eta = -c + \beta_1$, so
-$d' = \beta_1$! How nice. We can fit this on an individual subjects
+\\(HR = \Phi(d' - c)\\). This trial type gives \\(\eta = -c + \beta_1\\), so
+\\(d' = \beta_1\\)! How nice. We can fit this on an individual subjects
 level doing the following:
 
 ``` r
@@ -331,12 +331,12 @@ scatter_dprime_c
 
 ![](../assets/images/2022-10-07-signal-detection/estimates_glm.png)<!-- -->
 
-There are PROBABLY better ways to look at these, but this is what I have chosen! Here, b_isold is $\beta_1$, or d', while b_Intercept is -c.
+There are PROBABLY better ways to look at these, but this is what I have chosen! Here, b_isold is \\(\beta_1\\), or d', while b_Intercept is -c.
 
 ## Nonlinear Equal Variance Gaussian Model
 
 We can additionally make this model nonlinear to directly estimate c and
-d’. Specifically, instead of estimating $\nu$, we can write:
+d’. Specifically, instead of estimating \\(\eta\\), we can write:
 
 $$
 p = \Phi(d'*\text{seen before} - c) 
@@ -488,8 +488,8 @@ correlations. Standard deviations for each parameter tell us about
 typical variance in the population, and correlations tell us about the
 typical relationship between d’ and c. In order to fully specify this
 model, we need to estimate 5 parameters on the population level:
-$\mu_1$, $\mu_2$, $\mathbb{V}[\beta_0]$, $\mathbb{V}[\beta_1]$, and
-covar$(\beta_0,\beta_1)$.
+\\(\mu_1\\), \\(\mu_2\\), \\(\mathbb{V}[\beta_0]\\), \\(\mathbb{V}[\beta_1]\\), and
+covar\\((\beta_0,\beta_1)\\).
 
 We can again use brms to build these models. The formula looks a bit
 different, but the overall model is the same:
