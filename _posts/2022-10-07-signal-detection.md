@@ -1,5 +1,5 @@
 ---
-author: Miles
+author: miles
 categories:
 - statistics
 featured: true
