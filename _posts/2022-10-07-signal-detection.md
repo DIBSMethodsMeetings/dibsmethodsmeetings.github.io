@@ -3,7 +3,7 @@ author: Miles
 categories:
 - statistics
 featured: true
-image: ../assets/images/2022-10-07-signal-detection/detecting_signals.jpg
+image: assets/images/2022-10-07-signal-detection/detecting_signals.jpg
 output:
   md_document:
     preserve_yaml: true
@@ -81,7 +81,7 @@ detection criterion is. The way people typically think about this is in
 terms of two overlapping Gaussian distributions, like here:
 
 ![Overlapping Gaussians
-Example](../assets/images/2022-10-07-signal-detection/signal_detection.png)
+Example](assets/images/2022-10-07-signal-detection/signal_detection.png)
 
 The <span style="color: red;">red</span> Gaussian is our noise
 distribution - thought to be centered at zero intensity (has a mean of
@@ -114,7 +114,7 @@ style="color: lime;">d’</span>, we can overlay the signal and noise
 distributions, since their variances are assumed equal.
 
 ![Overlaid
-Gaussians](../assets/images/2022-10-07-signal-detection/overlaid_signal_noise.png)
+Gaussians](assets/images/2022-10-07-signal-detection/overlaid_signal_noise.png)
 
 We can then use some helpful properties of the Gaussian distribution to
 help us figure out what <span style="color: lime;">d’</span> and c are.
@@ -353,7 +353,7 @@ scatter_dprime_c <- mcmc_scatter(
 scatter_dprime_c
 ```
 
-![](../assets/images/2022-10-07-signal-detection/estimates_glm.png)<!-- -->
+![](assets/images/2022-10-07-signal-detection/estimates_glm.png)<!-- -->
 
 ## Nonlinear Equal Variance Gaussian Model
 
