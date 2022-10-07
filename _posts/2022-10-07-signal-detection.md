@@ -13,14 +13,6 @@ output:
 title: Signal Detection, Theory and Practice
 ---
 
-# CREDIT CREDIT CREDIT
-
-the examples and code from this tutorial come from [this
-tutorial](https://sometimesir.com/posts/2017-10-09-bayesian-estimation-of-signal-detection-theory-models/),
-which Kevin sent me, and the thoughts and words come from my brain and
-class notes. THE CODE IS NOT MINE! i am dusting off R for the first time
-in a literal year
-
 # Signal detection in math and psychology
 
 When we are thinking about signal detection, we typically are concerened
@@ -40,6 +32,26 @@ terminology originated in perception tasks, where many of these terms
 make a lot of sense too - in recognition/memory tasks, the signal and
 noise are more internal, whereas in perception tasks the signal and
 noise are mainly external.
+
+We're generally interested in a couple things: first, a participant's sensitivity to
+the signal (indicated by how often they correctly say that a signal is present).
+This is also a measure of how 'strong' their signal distribution is, or how 
+distinct it is from their noise distribution. In other words, how easy is it for 
+participants to tell that they've seen a stimulus before?
+
+We're also interested in a participant's bias, or propensity to say yes. This is 
+also known as the criterion (which will be marked as c). We can estimate both of these 
+properties by asking participants simple yes/no questions ("have you seen this stimulus 
+before?"), and then using R to analyze the data!
+
+
+## CREDIT CREDIT CREDIT
+
+the examples and code from this tutorial come from [this
+tutorial](https://sometimesir.com/posts/2017-10-09-bayesian-estimation-of-signal-detection-theory-models/),
+which Kevin sent me, and the thoughts and words come from my brain and
+class notes. THE CODE IS NOT MINE! i am dusting off R for the first time
+in a literal year
 
 ## Terms and notation
 
@@ -85,8 +97,7 @@ Example](../assets/images/2022-10-07-signal-detection/signal_detection.png)
 
 The <span style="color: red;">red</span> Gaussian is our noise
 distribution - thought to be centered at zero intensity (has a mean of
-zero), since that simplifies the math we need to do. Also, typically
-noise is thought of as having zero mean.
+zero).
 
 The <span style="color:blue;">blue</span> Gaussian is our signal
 distribution. It has some positive mean, indicated by <span
@@ -103,11 +114,13 @@ distribution above our criterion, equivalent to our FPR.
 Given this framework, we actually already have everything we need to
 start to estimate each participant’s sensitivity and bias. In the
 **Equal Variance Gaussian** model, our noise and signal distributions
-are assumed to be Gaussians with unit variance and different means.
+are assumed to be Gaussians with unit variance and different means. 
+This is the model we'll cover today! If you're interested in more complex
+things we can do that in the future.
 Under this framework, the noise distribution is a standard normal, and
 the <span style="color: lime;">d’</span> we estimate is the distance,
-measured in standard deviations, of our signal distribution from the
-noise distribution.
+measured in standard deviations, of the mean of our signal distribution from the
+mean of the noise distribution.
 
 If we shift the signal distribution over by <span
 style="color: lime;">d’</span>, we can overlay the signal and noise
@@ -125,8 +138,13 @@ function (CDF) indicated by $\Phi$, to describe our HR and FPR. The CDF
 of a distribution, $\Phi(x)$, is the area under our distribution less
 than or equal to x, or the probability that we see a value drawn from
 our distribution less than or equal to x. Since Gaussians are symmetric
-around their mean, we ALSO know that $P(x < z) = P(x > -z)$. We can use
-sneaky trick to say the following::
+around their mean, we ALSO know that $P(x < z) = P(x > -z)$ (see figure below) 
+
+![phi(x)](../assets/images/2022-10-07-signal-detection/phi_x.png)
+
+
+We can use this
+sneaky trick to say the following:
 
 $$
 HR = \Phi(d' - c)
@@ -159,55 +177,15 @@ d' = \Phi^{-1}(HR) -  \Phi^{-1}(FPR)
 $$
 
 Thanks for sitting through me through this math! Now we can do this in
-R. The link linked in \[credit-credit-credit\] has this code so we will
-go through it quickly! Libraries used:
+R. The link linked in the first section has this code so if you want another explanation go there!Libraries used:
 
-    ## This is bayesplot version 1.9.0
-
-    ## - Online documentation and vignettes at mc-stan.org/bayesplot
-
-    ## - bayesplot theme set to bayesplot::theme_default()
-
-    ##    * Does _not_ affect other ggplot2 plots
-
-    ##    * See ?bayesplot_theme_set for details on theme setting
-
-    ## Loading required package: lme4
-
-    ## Loading required package: Matrix
-
-    ## Loading required package: boot
-
-    ## Loading required package: Rcpp
-
-    ## Loading 'brms' package (version 2.18.0). Useful instructions
-    ## can be found by typing help('brms'). A more detailed introduction
-    ## to the package is available through vignette('brms_overview').
-
-    ## 
-    ## Attaching package: 'brms'
-
-    ## The following object is masked from 'package:lme4':
-    ## 
-    ##     ngrps
-
-    ## The following object is masked from 'package:stats':
-    ## 
-    ##     ar
-
-    ## -- Attaching packages --------------------------------------- tidyverse 1.3.2 --
-    ## v ggplot2 3.3.6      v purrr   0.3.4 
-    ## v tibble  3.1.8      v dplyr   1.0.10
-    ## v tidyr   1.2.1      v stringr 1.4.0 
-    ## v readr   2.1.3      v forcats 0.5.2 
-    ## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
-    ## x readr::col_factor() masks scales::col_factor()
-    ## x purrr::discard()    masks scales::discard()
-    ## x tidyr::expand()     masks Matrix::expand()
-    ## x dplyr::filter()     masks stats::filter()
-    ## x dplyr::lag()        masks stats::lag()
-    ## x tidyr::pack()       masks Matrix::pack()
-    ## x tidyr::unpack()     masks Matrix::unpack()
+    library(knitr)
+    library(scales)
+    library(bayesplot)
+    library(ggridges)
+    library(sdtalt)
+    library(brms)
+    library(tidyverse)
 
 Data used, from the sdtalt package and Wright et al. (cite):
 
@@ -246,8 +224,6 @@ sdt <- sdt %>%
     spread(type,count) #formats to one row per participant
 ```
 
-    ## `summarise()` has grouped output by 'subno'. You can override using the
-    ## `.groups` argument.
 
 R has a nice function to let us calculate $\Phi^{-1}(x)$, `qnorm()`.
 Using this to calculate d’, c:
@@ -292,7 +268,7 @@ of a trial being a 1 set to $p$. We can model $p$ as $\Phi(\eta)$ -
 again, the probability that a standard normal distribution is less than
 $\eta$. We then get to choose how we model $\eta$, based on our data.
 Our life is made simpler if we choose a linear relationship between our
-data and $\eta$: $\eta = \beta_0 + \beta_1 * \text{stimulus_seen}$. This
+data and $\eta$: $\eta = \beta_0 + \beta_1 * \text{stimulus seen}$. This
 parameterization gives us a good interpretation for these parameters.
 Let’s say the simulus is new, which means that stimulus_seen = 0. Our
 interpretation for $p$ here is our FPR: the probability of saying we’ve
@@ -314,7 +290,7 @@ evsdt_1 <- brm(
 )
 ```
 
-This framework uses BAYESIAN REGRESSION MODELING package brms! This is
+This framework uses the BAYESIAN REGRESSION MODELING package brms! This is
 wonderful since brms extends to complicated frameworks in the future. It
 saves the model in evsdt_1, and we can get a summary of what’s going on
 here with this:
@@ -354,6 +330,8 @@ scatter_dprime_c
 ```
 
 ![](../assets/images/2022-10-07-signal-detection/estimates_glm.png)<!-- -->
+
+There are PROBABLY better ways to look at these, but this is what I have chosen! Here, b_isold is $\beta_1$, or d', while b_Intercept is -c.
 
 ## Nonlinear Equal Variance Gaussian Model
 
@@ -414,9 +392,7 @@ nonlinear- we don’t need to introduce a link function.
 
 Then we can compare the first model and the second model!
 
-``` r
-summary(evsdt_1)
-```
+    evsdt_1:
 
     ##  Family: bernoulli 
     ##   Links: mu = probit 
@@ -434,9 +410,7 @@ summary(evsdt_1)
     ## and Tail_ESS are effective sample size measures, and Rhat is the potential
     ## scale reduction factor on split chains (at convergence, Rhat = 1).
 
-``` r
-summary(evsdt_2)
-```
+    evsdt_2:
 
     ##  Family: bernoulli 
     ##   Links: mu = identity 
@@ -476,8 +450,6 @@ sdt_sum <- select(sdt,subno,dprime,crit) %>%
   gather(parameter,value,-subno) %>%
   group_by(parameter) %>%
   summarise(n = n(),mu=mean(value),sd=sd(value),se=sd/sqrt(n))
-  
-kable(sdt_sum)
 ```
 
 | parameter |   n |        mu |        sd |        se |
@@ -539,9 +511,6 @@ variance and covariance of those parameters across participants.
 Again, the intercept is our -c, and the slope is d’. We can then compare
 these estimates to our manual estimates across our population!
 
-``` r
-summary(evsdt_glmm)
-```
 
     ##  Family: bernoulli 
     ##   Links: mu = probit 
@@ -570,9 +539,6 @@ summary(evsdt_glmm)
     ## and Tail_ESS are effective sample size measures, and Rhat is the potential
     ## scale reduction factor on split chains (at convergence, Rhat = 1).
 
-``` r
-kable(sdt_sum,label="manual d',c estimates")
-```
 
 | parameter |   n |        mu |        sd |        se |
 |:----------|----:|----------:|----------:|----------:|
