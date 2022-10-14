@@ -2,7 +2,7 @@
 author: kevin
 categories:
 - statistics
-featured: true
+featured: false
 image: assets/images/2022-09-16-power-analysis/p-values.gif
 output:
   html_document: default
