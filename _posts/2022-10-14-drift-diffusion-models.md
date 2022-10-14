@@ -3,7 +3,7 @@ author: raphael
 categories:
 - modeling
 featured: true
-image: assets/images/2022-10-14-drift-diffusion-models/drift-diffusion.jpeg
+image: assets/images/2022-10-14-drift-diffusion-models/drift-diffusion.jpg
 output:
   md_document:
     preserve_yaml: true
@@ -34,7 +34,7 @@ img{
 
 As scientists we collect all sorts of data. Decision data (which fruits to people prefer?), neural data (which neurons fire when looking at fruits?), reaction time data (how quickly do people identify fruit from non-fruits?), etc. Computational modeling in psychology is all about gaining insights about the brain and behavior from this data by designing mathematical formulations that produce *fake data* that looks similar to that produced by humans (or animals or whatever we are modeling). The closer and more reliably we can reproduce human-like data with our math equations, the better our model is, and the closer we get to maybe gaining some insights into the computations for the brain.
 
-As an example, early modelers of reward learning (think  Pavlov's dog) came up with a mathematical formulation called the `prediction error`, which was simply the difference between expected reward and the actual reward received from an action ($V_t - R_t$, where V is the expected reward on trial t). Later, it was shown that this hypothetical construct maps almost perfectly onto the firing rate of dopamine neurons in the midbrain. This gave massive support to the idea that prediction errors are a fundamental calculation in the brain during reward learning.
+As an example, early modelers of reward learning (think  Pavlov's dog) came up with a mathematical formulation called the `prediction error`, which was simply the difference between expected reward and the actual reward received from an action (`Vt - Rt`, where V is the expected reward on trial t). Later, it was shown that this hypothetical construct maps almost perfectly onto the firing rate of dopamine neurons in the midbrain. This gave massive support to the idea that prediction errors are a fundamental calculation in the brain during reward learning.
 
 Hopefully you see just how useful computational modeling can be. As I said, modeling is about writing math equations that produce fake data that looks as similar to real data as possible. Once we have developed really good models, we can next perform **model fitting** (also called **parameter estimation**) to find the particular model parameters that would make the real data the *most likely* if the model was the one producing it instead. You'll often hear the term **maximumum likelihood estimation** or MLE used by modelers. All that is a bit outside the scope of this post, but one cool thing this lets use do is compare conditions in experimental psychology. For example, the `learning rate` is another parameter in reward learning which describes how quickly people learn, and it has been shown that people's learning rate parameter estimates are higher in volatile compared to stable environments, which provides evidence that people pay attention to volatility and adapt their behavior accordingly. How might you answer this question: "does coffee help people learn faster?"? One cool way would be to fit models to a coffee condition and a no coffee condition, and show that learning rates are higher in the coffee condition. Neat!
 
@@ -51,7 +51,7 @@ If you've read the title of this blog you'll know the answer already: <span styl
 
 Imagine a visual dot motion task like the one displayed below. Participants are required to indicate *as quickly as possible* whether the dots are moving primarily towards the left or the right.
 
-<img src="/assets/images/2022-10-14-drift-diffusion-models/dotmotion.png"></img>
+<img src="/assets/images/2022-10-14-drift-diffusion-models/dotmotion.png">
 
 This is a famous example of a "choice reaction time" task. Not only can the response be correct or incorrect, there is also a speeded reaction time component to it. This experiment is used in all manner of psychological research, and thus it would be great if we could model the kinds of data we might expect from human (or animal) participants.
 
@@ -61,7 +61,7 @@ Something like this can be modeled using a sequential sampling model. Stay with 
 
 Let's imagine a stimulus that is perfectly 50/50, with half the dots moving left and half the dots moving right. We'll make the simple assumption that evidence for **left** nudges us in the positive direction and evidence for **right** nudges us in the negative direction. The evidence accumulation processes might look something like this:
 
-<img src="/assets/images/2022-10-14-drift-diffusion-models/randommotion.jpg"></img>
+<img src="/assets/images/2022-10-14-drift-diffusion-models/randommotion.jpg">
 
 We can immediately notice a few things from these trace plots. On some trials, the nudges are almost all in the same direction, and the participant reaches a threshold where they can say "I've seen enough" very quickly. This might happen if 9/10 of the first dots the participant looks at are all heading towards the right. They might feel pretty comfortable pretty quickly responding with "right" without looking at the rest of the stimulus, even if they are wrong!
 
@@ -73,7 +73,7 @@ Our second observation is that **each response seems equally likely to happen**,
 
 Next, lets imagine a stimulus whether 95% of the dots are all moving towards the left. The trajectories would look like this:
 
-<img src="/assets/images/2022-10-14-drift-diffusion-models/randommotion2.jpg"></img>
+<img src="/assets/images/2022-10-14-drift-diffusion-models/randommotion2.jpg">
 
 This would induce a *tendency* or a *drift* in the evidence trajectories upwards, since most of the evidence nudges us upwards. This tendency can also be called the **drift rate**, which in this case would be positive. We immediately see that there are no "right" responses. That is because so few dots are moving right that the probability of a person seeing 10 of those in a row is extremely unlikely. The other observation is that the reaction times are overall much faster. Since most of the dots agree, people will be able to come to a conclusion quickly.
 
@@ -128,7 +128,7 @@ And just like that, we have created a sequence of `nTrials` random walks! Runnin
 hist(reaction_times, breaks=50)
 ```
 
-<img src="/assets/images/2022-10-14-drift-diffusion-models/rthist.jpg" style="max-width:600px;"></img>
+<img src="/assets/images/2022-10-14-drift-diffusion-models/RThist.jpg" style="max-width:600px;">
 
 Very cool! But, of course, some of these reactions time are for different responses (left vs right). We can visualize say `5` trials worth of random walks with the following code. To briefly explain, we find the number of trials to plot (the min between nTrials and 5), then create an empty `plot` element with x-axis extending to fit the max of the reaction times we're plotting (`max(reaction_times[1:trialsToPlot]`) and the y-axis extending to include both cutoff points `ylim=c(-criterion-.5,criterion+.5)`. Finally we use `lines` to plot all `trialsToPlot`, cutting off at the `reaction_times` value (which is when the evidence exceeded the criterion). `abline` draws dashed horizontal lines to show our criteria.
 
@@ -143,7 +143,7 @@ for (trial in c(1:trialsToPlot)) {
 abline(h=c(criterion,-criterion),lty="dashed")
 ```
 
-<img src="/assets/images/2022-10-14-drift-diffusion-models/5_randomwalks.png" style="max-width:600px;"></img>
+<img src="/assets/images/2022-10-14-drift-diffusion-models/5_randomwalks.png" style="max-width:600px;">
 
 As we can now confirm, indeed some of the random walks ended up reaching the top threshold (and a "left" response was made), and some of them reached the bottom threshold (and a "right" response was made). We also have nice reaction times for how long that process took.
 
@@ -173,7 +173,7 @@ bot_prop <- length(bot_rt) / nTrials
 plot_hist(bot_rt, bot_prop, "Bottom")
 ```
 
-<img src="/assets/images/2022-10-14-drift-diffusion-models/splitRTHist1.png" style="max-width:600px;"></img>
+<img src="/assets/images/2022-10-14-drift-diffusion-models/SplitRTHist1.png" style="max-width:600px;">
 
 What can observe? We confirm that roughly 50% of responses tend towards to the top response, and 50% towards the bottom. The means of these distributions are also roughly the same.
 
@@ -233,7 +233,7 @@ sim <- run_simulation(10000, 0, 0.3, 3)
 plot_simulation(sim)
 ```
 
-<img src="/assets/images/2022-10-14-drift-diffusion-models/sim1results.png" style="max-width:600px;"></img>
+<img src="/assets/images/2022-10-14-drift-diffusion-models/sim1results.png" style="max-width:600px;">
 
 As before, we see that each threshold is reached roughly 50% of the time, with mean reaction times of about 113 "ms" (really, samples).
 
@@ -246,7 +246,7 @@ sim <- run_simulation(10000, 0.03, 0.3, 3)
 plot_simulation(sim)
 ```
 
-<img src="/assets/images/2022-10-14-drift-diffusion-models/sim2results.png" style="max-width:600px;"></img>
+<img src="/assets/images/2022-10-14-drift-diffusion-models/sim2results.png" style="max-width:600px;">
 
 Two things occur, first the top response is reached more frequently, and the reaction times got faster. This makes intuitive sense for the top response, although for the bottom response less so. Shouldn't it take *longer* to reach the bottom response if the tendency is upwards?
 
@@ -265,7 +265,7 @@ sim <- run_simulation(10000, 0.03, 0.5, 3)
 plot_simulation(sim)
 ```
 
-<img src="/assets/images/2022-10-14-drift-diffusion-models/sim3results.png" style="max-width:600px;"></img>
+<img src="/assets/images/2022-10-14-drift-diffusion-models/sim3results.png" style="max-width:600px;">
 
 What do we observe? Reaction times as a whole get much faster, and the proportions tend back towards 50% of each. This makes intuitive sense. If you imagine a random enough process (with a wide enough SD), you would be able to reach either boundary in one step, at which point you would equally likely to reach either boundary. This would drown out the slight tendency of the mean towards one or the other boundary.
 
@@ -278,7 +278,7 @@ sim <- run_simulation(10000, 0.01, 0.1, 3)
 plot_simulation(sim)
 ```
 
-<img src="/assets/images/2022-10-14-drift-diffusion-models/sim4results.png" style="max-width:600px;"></img>
+<img src="/assets/images/2022-10-14-drift-diffusion-models/sim4results.png" style="max-width:600px;">
 
 Not at all! Although yes the drift rate would make this closer to 50% if we hadn't touched the randomness parameter, with such a stable process we actually almost universally reach the top threshold even with the reduced drift rate! That is because we are taking much smaller steps on average, and are therefore much less likely to reach the bottom threshold. By the same token, since we are taking smaller steps, the overall reaction times are much much slower, hundreds of steps slower on average in fact!
 
@@ -293,7 +293,7 @@ sim <- run_simulation(10000, 0.03, 0.3, 5)
 plot_simulation(sim)
 ```
 
-<img src="/assets/images/2022-10-14-drift-diffusion-models/sim5results.png" style="max-width:600px;"></img>
+<img src="/assets/images/2022-10-14-drift-diffusion-models/sim5results.png" style="max-width:600px;">
 
 Whoa! We immediately see two huge effects. First, we are even MORE likely to reach the top responses, almost 97% likely. We are also much slower. This make sense, since somebody that needs more evidence before making a decision should generally take longer on average to reach a decision. But again, we confirm that there don't seem to be any systematic differences between reaction times between the top and bottom responses, even though one is much more likely.
 
@@ -306,7 +306,7 @@ sim <- run_simulation(10000, 0.03, 0.3, 1)
 plot_simulation(sim)
 ```
 
-<img src="/assets/images/2022-10-14-drift-diffusion-models/sim6results.png" style="max-width:600px;"></img>
+<img src="/assets/images/2022-10-14-drift-diffusion-models/sim6results.png" style="max-width:600px;">
 
 Ding ding ding! Exactly. With such a short evidence criterion, people can respond really quickly, but also tend to respond more randomly since the likelihood of them reaching the incorrect threshold increases.
 
@@ -342,7 +342,7 @@ sim <- run_simulation(nTrials=10000, drift=0, rw_sd=0.3, criterion=3, bias=1)
 plot_simulation(sim)
 ```
 
-<img src="/assets/images/2022-10-14-drift-diffusion-models/sim7results.png" style="max-width:600px;"></img>
+<img src="/assets/images/2022-10-14-drift-diffusion-models/sim7results.png" style="max-width:600px;">
 
 Even with a drift rate of `0`, we tend to produce the top response. This makes sense, since we started closer to this response. We can again visualize 5 random walks to see the starting point in action here. I'll quickly define a function to do this.
 
@@ -362,7 +362,7 @@ plot_random_walks <- function(nTrials, reaction_times, evidence, criterion, tria
 plot_random_walks(sim$nTrials, sim$RTs, sim$Evidence, 3, 5)
 ```
 
-<img src="/assets/images/2022-10-14-drift-diffusion-models/sim7_randomwalk.png" style="max-width:600px;"></img>
+<img src="/assets/images/2022-10-14-drift-diffusion-models/sim7_randomwalk.png" style="max-width:600px;">
 
 We can now clearly see how the random walks started closer to the threshold for the top response.
 
@@ -375,7 +375,7 @@ sim <- run_simulation(nTrials=10000, drift=0.01, rw_sd=0.3, criterion=3, bias=1)
 plot_simulation(sim)
 ```
 
-<img src="/assets/images/2022-10-14-drift-diffusion-models/sim8results.png" style="max-width:600px;"></img>
+<img src="/assets/images/2022-10-14-drift-diffusion-models/sim8results.png" style="max-width:600px;">
 
 With an increased drift rate that slightly tends upward, we greatly improve our accuracy, now tending towards the top response 80% of the time. But, we maintain the fact that errors are generally slower than non-errors.
 
@@ -411,7 +411,7 @@ sim <- run_simulation(nTrials=10000, drift=0.03, rw_sd=0.3, criterion=3, bias=0,
 plot_simulation(sim)
 ```
 
-<img src="/assets/images/2022-10-14-drift-diffusion-models/sim9results.png" style="max-width:600px;"></img>
+<img src="/assets/images/2022-10-14-drift-diffusion-models/sim9results.png" style="max-width:600px;">
 
 What do we notice? Although the overall proportions dont change, the mean reaction times are shifted by exactly 300 ms!
 
@@ -431,10 +431,12 @@ On the other side, one of the most widely used DDMs is the Wiener diffusion mode
 
 Below is Figure 2 of a DDM from Vinding et al., 2018 that I randomly found on the internet.
 
-<img src="/assets/images/2022-10-14-drift-diffusion-models/drift-diffusion.jpg"></img>
+<img src="/assets/images/2022-10-14-drift-diffusion-models/drift-diffusion.jpg">
 
 As we can see, we are now familiar with all of these parameters! They are often made a little harder to understand by giving them those little letter representations, but the logic is all the same.
 
 ---
 
 # Parameter Estimation of DDMs
+
+TBD!
