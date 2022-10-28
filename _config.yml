@@ -41,6 +41,16 @@ authors:
     twitter: https://twitter.com/kevingoneill
     description: "PhD candidate in cognitive neuroscience at Duke University working with Dr. Felipe De Brigard and Dr. John Pearson on causal reasoning."
 
+  gabriela:
+    name: Gabriela
+    display_name: Gabriela Fernandez Miranda
+    avatar: assets/images/gabriela.jpg
+    gravatar:
+    email: gabriela.fernandez@duke.edu
+    web: https://gabrielafernandezmiranda.github.io
+    twitter: https://twitter.com/GabrielaFM12
+    description: "Graduate student at Duke University working with Dr. Felipe De Brigard."
+
   nathan:
     name: Nathan
     display_name: Nathan Liang

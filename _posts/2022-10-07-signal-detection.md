@@ -2,7 +2,7 @@
 author: miles
 categories:
 - statistics
-featured: true
+featured: false
 image: assets/images/2022-10-07-signal-detection/detecting_signals.jpg
 output:
   md_document:
