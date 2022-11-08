@@ -107,9 +107,9 @@ authors:
     avatar: assets/images/shenyang.jpg
     gravatar:
     email: shenyang.huang@duke.edu
-    web:
+    web: https://huang-shenyang.github.io/
     twitter: https://twitter.com/SelfShenyang
-    description: "Graduate student in cognitive neuroscience at Duke University working with Dr. Roberto Cabeza and Dr. Felipe De Brigard."
+    description: "Graduate student in cognitive neuroscience at Duke University working with Dr. Roberto Cabeza, Dr. Simon Davis, and Dr. Felipe De Brigard."
 
 
 collections:
