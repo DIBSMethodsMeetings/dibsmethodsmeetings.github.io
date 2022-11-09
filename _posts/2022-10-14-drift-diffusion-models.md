@@ -2,7 +2,7 @@
 author: raphael
 categories:
 - modeling
-featured: true
+featured: false
 image: assets/images/2022-10-14-drift-diffusion-models/drift-diffusion.jpg
 output:
   md_document:
