@@ -106,7 +106,7 @@ Check out what other [packages](https://wiki.biac.duke.edu/biac:cluster:packages
 
 ## Example 1 - shell script {#eg1}
 
-Here we have a fairly simple shell script [example1.sh](_source/2022-11-11-biac-cluster/example1.sh) that demonstrates a few native functionalities.
+Here we have a fairly simple shell script [example1.sh](https://raw.githubusercontent.com/DIBSMethodsMeetings/dibsmethodsmeetings.github.io/master/_source/2022-11-11-biac-cluster/example1.sh) that demonstrates a few native functionalities.
 ```sh
 #!/bin/sh
 # conditional statement
@@ -157,7 +157,7 @@ sh example1.sh
 
 ## Example 2 - MATLAB {#eg2}
 
-In this example I'm going to show how one can call installed programs, using [MATLAB](https://dibsmethodsmeetings.github.io/matlab-basics/) (ha!) as an example. Here we have a simple MATLAB function [example2.m](_source/2022-11-11-biac-cluster/example2.m) that generates some random figures.
+In this example I'm going to show how one can call installed programs, using [MATLAB](https://dibsmethodsmeetings.github.io/matlab-basics/) (ha!) as an example. Here we have a simple MATLAB function [example2.m](https://raw.githubusercontent.com/DIBSMethodsMeetings/dibsmethodsmeetings.github.io/master/_source/2022-11-11-biac-cluster/example2.m) that generates some random figures.
 ```matlab
 function example2
 close all
@@ -182,7 +182,7 @@ matlab -nodesktop -r "example2"
 /usr/local/packages/MATLAB/R2021a/bin/matlab -nodesktop -r "example2"
 ```
 
-Alternatively, we can create a shell script [example2.sh](_source/2022-11-11-biac-cluster/example2.sh) that saves the above commands and then run that shell script. The extra step here may seem counterintuitive in this example, but you'll see how doing so can make things more convenient in more complex situations (like actual analyses).
+Alternatively, we can create a shell script [example2.sh](https://raw.githubusercontent.com/DIBSMethodsMeetings/dibsmethodsmeetings.github.io/master/_source/2022-11-11-biac-cluster/example2.sh) that saves the above commands and then run that shell script. The extra step here may seem counterintuitive in this example, but you'll see how doing so can make things more convenient in more complex situations (like actual analyses).
 
 <br>
 
@@ -191,7 +191,7 @@ Alternatively, we can create a shell script [example2.sh](_source/2022-11-11-bia
 
 The previous two examples demonstrates how one can use the cluster to perform basic tasks with basic shell commands and installed programs. In order to make better use of the cluster resource--the many processors, we need the command `qsub` to submit jobs to the cluster queue. Each job is essentially a set of operations defined in a (shell) script. Importantly, as mentioned before, each processor should operate on one independent job at a time--independent in the sense that the computation does not require any output from other jobs. Thus a common practice is to assign each participant as one job through shell scripting. 
 
-Here we have a slightly more complicated MATLAB function [example3.m](_source/2022-11-11-biac-cluster/example3.m) that takes two input parameters, subject number and session number, and saves the output or errors. 
+Here we have a slightly more complicated MATLAB function [example3.m](https://raw.githubusercontent.com/DIBSMethodsMeetings/dibsmethodsmeetings.github.io/master/_source/2022-11-11-biac-cluster/example3.m) that takes two input parameters, subject number and session number, and saves the output or errors. 
 ```matlab
 function example3(sub, sess)
 close all
@@ -231,7 +231,7 @@ matlab -nodesktop -nojvm -r "example3(11, 1)" # will produce an error
 Let's say we have 10 participants and each of them had 2 scanning sessions, running all those operations serially should take about `10*2*15 = 300` seconds, or 5 minutes. However, if we can take advantage of parallelism, the operation time can be greatly reduced.
 
 
-Here is the user script portion of the job script [example3.sh](_source/2022-11-11-biac-cluster/example3.sh). Note that a few variables (i.e., `SUB`, `SESS`, and `EXPERIMENT`) need to be passed to this script.
+Here is the user script portion of the job script [example3.sh](https://raw.githubusercontent.com/DIBSMethodsMeetings/dibsmethodsmeetings.github.io/master/_source/2022-11-11-biac-cluster/example3.sh). Note that a few variables (i.e., `SUB`, `SESS`, and `EXPERIMENT`) need to be passed to this script.
 ```sh
 cd ${EXPERIMENT}/Scripts/tutorial/
 echo "running sub-${SUB} sess-${SESS}"
@@ -239,7 +239,7 @@ matlab -nodesktop -nojvm -r "example3(${SUB}, ${SESS})"
 echo "completed sub-${SUB} sess-${SESS}"  
 ```
 
-With the job script, we can write another shell script [example3_qsub.sh](_source/2022-11-11-biac-cluster/example3_qsub.sh) for the actual submission of jobs--this is normally done with for loops over a number of cases (subjects and sessions) and submits those jobs to the cluster one-by-one using `qsub`. Note that the *job submission* process is serial, but the actual *jobs* are run in parallel.
+With the job script, we can write another shell script [example3_qsub.sh](https://raw.githubusercontent.com/DIBSMethodsMeetings/dibsmethodsmeetings.github.io/master/_source/2022-11-11-biac-cluster/example3_qsub.sh) for the actual submission of jobs--this is normally done with for loops over a number of cases (subjects and sessions) and submits those jobs to the cluster one-by-one using `qsub`. Note that the *job submission* process is serial, but the actual *jobs* are run in parallel.
 ```sh
 #!/bin/sh
 
