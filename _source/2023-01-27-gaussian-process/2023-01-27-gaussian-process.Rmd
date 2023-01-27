@@ -1,7 +1,7 @@
 ---
 title: "Understanding Gaussian processes"
 author: kevin
-categories: [ tutorial ]
+categories: [ statistics, math, modeling ]
 image: assets/images/2023-01-27-gaussian-process/corr_normal_500d_line_se-1.png
 featured: true
 output:
@@ -240,7 +240,6 @@ we had earlier. As we add more and more points, this will help to give
 us time series curves that are smooth rather than bumpy.
 
 
-## To infinity and beyond
 Now that we've used a multivariate normal distribution to model data
 at two time points, the extension to three or more time points is
 seamless! To model $T$ time points, we just need to add some mean to
@@ -464,19 +463,34 @@ particular, it's flexible enough that if one kernel isn't enough, you
 can combine kernels additively or multiplicitavely to get a massive
 range of functional behavior.
 
-
-## Wrapping up
+## To infinity and beyond
 
 By now, hopefully it is relatively clear what a Gaussian process is:
-it is a multivariate normal distribution, where each dimension
-corresponds to a different time point. By choosing a set of means and
-a covariance matrix, you choose a distribution of the kinds of lines
-that you can draw over time. While we haven't talked at all about how
-to actually fit a Gaussian process to some data, getting over this
-conceptual hurdle really is a feat in itself: so go take a break,
-treat yourself, you deserve it! As a final parting gift, here is a
-Shiny app I made that lets you visualize the correlogram, covariance
-matrix, and time series from a Gaussian process with the squared
-exponential kernel:
+it is a special kind of multivariate normal distribution, where each
+dimension corresponds to a different point in space or time. By
+choosing a set of means and a covariance matrix, you choose a
+distribution of the kinds of lines that you can draw over
+time. Technically speaking, a Gaussian process is the generalization
+of this distribution where the number of dimensions is **infinite**,
+resulting in a distribution of perfectly wiggly lines. But in
+practice, we can never actually work with this generalization, since
+computers only have a finite amount of memory, and we never really
+require that kind of precision anyway. So, it is perfectly OK for us
+to focus on cases where the number of dimensions is finite (small,
+even).
+
+While we haven't talked at all about how to actually fit a Gaussian
+process to some data, getting over this conceptual hurdle really is a
+feat in itself: so go take a break, treat yourself, you deserve it! As
+a final parting gift, here is a Shiny app I made that lets you
+visualize the correlogram, covariance matrix, and time series from a
+Gaussian process with the squared exponential kernel:
 
 <iframe src="https://kevingoneill.shinyapps.io/2023-01-27-gaussian-process/" style="width:100%;" height="1000" frameborder="0"></iframe>
+
+Finally, if you're craving more material on Gaussian processes, I
+can't recommend these two blogs enough:
+
+[A Visual Exploration of Gaussian Processes](https://distill.pub/2019/visual-exploration-gaussian-processes/)
+
+[Robust Gaussian Process Modeling](https://betanalpha.github.io/assets/case_studies/gaussian_processes.html)
