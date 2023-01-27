@@ -3,7 +3,7 @@ title: "Ordinal regression models to analyze Likert scale data"
 author: gabriela
 categories: [ tutorial ]
 image: assets/images/2022-10-28-ordinal/unnamed-chunk-10-1.png
-featured: true
+featured: false
 output:
   html_document: default
   pdf_document: default
