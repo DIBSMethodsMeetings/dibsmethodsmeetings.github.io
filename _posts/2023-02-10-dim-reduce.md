@@ -151,3 +151,13 @@ We can then plot all the same figures as above here, using the exact same code w
 <img src="/assets/images/2023-02-10-dim-reduce/icaspace.png" style="display: block; margin: auto;" />
 <img src="/assets/images/2023-02-10-dim-reduce/icacomponents.png" style="display: block; margin: auto;" />
 
+That's mainly what there is to ICA! There are some extensions, particularly [nonlinear ICA](https://www.cs.helsinki.fi/u/ahyvarin/papers/udl.shtml). ICA and all of its extensions have pretty much all been done by this one guy, Aapo Hyv&auml;rinen.
+
+The one last thing I want to mention here is that the _interpretation_ of ICA and PCA is fundamentally different. In PCA, the principal components are the _patterns present in your data_. As a result, we can look at how each of these patterns appears and disappears in your data across conditions, time, etc. The principal component IS your signal.
+
+In contrast, in ICA the components we saw previously are not the signal. They are how your signal is mixed up to create the data that you have. The signals that you are looking for are contained in the lower-dimensional versions that you extract. The mixing matrix (what we have visualized above), is somewhat less important in our analysis than the low-dimensional representation.
+
+# What else is our there?
+
+A lot! A whole lot! There are ways that we can specialize our analysis for cases like, if our data are [non-negative](https://en.wikipedia.org/wiki/Non-negative_matrix_factorization). If our data are EXTRA high dimensional, we can use autoencoders, variational autoencoders, or other [deep learning methods](https://dibsmethodsmeetings.github.io/nn-tutorial-dnm/). There are [random projections](https://en.wikipedia.org/wiki/Random_projection#:~:text=In%20mathematics%20and%20statistics%2C%20random,when%20compared%20to%20other%20methods.), which are a realllly cool and weird stats thing. There's [UMAP](https://umap-learn.readthedocs.io/en/latest/) and [T-SNE](https://en.wikipedia.org/wiki/T-distributed_stochastic_neighbor_embedding) (both of which should ONLY BE USED FOR VISUALIZATION), and the list goes on. You could spend your whole life inventing and learning about dimensionality reduction methods (and I probably will!!!!)! But PCA and ICA are good places to start, and are probably the two easiest to understand. Thanks for stopping by!
+
