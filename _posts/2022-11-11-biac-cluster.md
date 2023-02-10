@@ -2,7 +2,7 @@
 author: shenyang
 categories:
 - programming
-featured: true
+featured: false
 image: assets/images/2022-11-11-biac-cluster/hellskitchen.jpg
 output:
   html_document: default

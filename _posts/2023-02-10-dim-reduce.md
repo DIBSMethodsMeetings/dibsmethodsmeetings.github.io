@@ -29,7 +29,7 @@ over time. That may be a little abstract, so let's use an example: 3 ROI recordi
 
 Since the ROIs are correlated, the data are combinations of *patterns* of their activity instead of just combinationsof their activity. PCA tries to reveal this activity by turning the axes. Let's say we have some data, like these:
 
-<img src="/assets/images/2023-02-10-dim-reduce/data.png" style="display: block; margin: auto;" />
+<img src="/assets/images/2023-02-10-dim-reduce/data2.png" style="display: block; margin: auto;" />
 
 We *could* look at our data in our normal 2d axes, but that wouldn't represent the variance in our data very well. So what we can do instead is *rotate* the axes to find the directions that describe variance in our data best. As a result, we'd end up with something like this:
 
