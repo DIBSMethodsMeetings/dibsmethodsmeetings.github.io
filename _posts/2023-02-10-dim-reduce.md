@@ -25,9 +25,7 @@ That's the whole point of dimensionality reduction: finding a lower-dimensional 
 
 # PCA
 PCA is used all over neuroscience, and is more generally when you think your data are composed of a set of *patterns*
-over time. That may be a little abstract, so let's use an example: 3 ROI recording example here.
-
-Since the ROIs are correlated, the data are combinations of *patterns* of their activity instead of just combinationsof their activity. PCA tries to reveal this activity by turning the axes. Let's say we have some data, like these:
+over time. That may be a little abstract, so let's use an example: Let's say we have some data, like these:
 
 <img src="/assets/images/2023-02-10-dim-reduce/data2.png" style="display: block; margin: auto;" />
 
@@ -80,6 +78,7 @@ Kinda low quality, but definitely faces! We then need to take a couple pre-proce
     faces_centered -= faces_centered.mean(axis=1).reshape(n_samples, -1)
 
 Now that we have our data, how do we fit PCA?
+
     facePCA = PCA(
         n_components=6, svd_solver="randomized", whiten=True)
     facePCA.fit(faces_centered)
@@ -103,9 +102,13 @@ That ends up looking something like this, where each color is a different subjec
 <img src="/assets/images/2023-02-10-dim-reduce/projections.png" style="display: block; margin: auto;" />
 
 We get these projections with:
+
     facesLD = facePCA.transform(faces_centered)
+
 And we get reconstructions with:
+
     reconstructions = facePCA.inverse_transform(facesLD)
+
 
 Finally, we can look at what all these PCs look like in pixel space in a heatmap:
 <img src="/assets/images/2023-02-10-dim-reduce/allPCs.png" style="display: block; margin: auto;" />
@@ -124,9 +127,11 @@ Me neither, but apparently that very specific situation happened to someone, bec
 $$\begin{equation*}
     X = A Z + \epsilon
 \end{equation*}$$
+
 Where Z are our sources, X is our signal, A is our mixing matrix, and \\(\epsilon\\) is our noise. There are two ways you can think about solving this problem, and they end up being roughly the same! We can either
-A. minimize mutual information between independent components (fancy information theory way of saying making them independent), or 
-B. maximize non-Gaussianity of each component.
+
+- minimize mutual information between independent components (fancy information theory way of saying making them independent), or 
+- maximize non-Gaussianity of each component.
 
 That second one may sound a bit weird, but the it's based in the assumptions of our model. If our sources were Gaussian, we wouldn't be able to tell them apart from our noise! So we maximize how non-Gaussian a single source is, subtract that from the data, then do that again, until we end up with a purely Gaussian signal (just noise.)
 
