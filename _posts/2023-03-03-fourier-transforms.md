@@ -698,7 +698,7 @@ The inverse Fourier transforms signal from the frequency domain to the time doma
 
 Similar to the discrete Fourier transform, it is defined as
 
-$$ \color{cyan}{x_{n}} = \color{magenta}{\frac{1}{N} \sum_{n=0}^{N-1}} \color{purple}{X}_{\color{lime}{k}} \color{red}{e^{{i} \color{orange}{2 \pi} \color{lime}{k} \color{magenta}{\frac{n}{N}}}} $$
+$$\color{cyan}{x_{n}} = \color{magenta}{\frac{1}{N} \sum_{n=0}^{N-1}} \color{purple}{X}_{\color{lime}{k}} \color{red}{e^i} \color{orange}{2 \pi} \color{lime}{k} \color{magenta}{\frac{n}{N}}$$
 
 Notably, the Fourier transform and inverse Fourier transform are lossless, that is, no information is lost when transforming signal from the time to frequency domain and back!
 
