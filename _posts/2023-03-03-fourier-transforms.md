@@ -95,7 +95,7 @@ for \\(n = 0, 1, 2, \cdots .\\) which corresponds to the frequency \\(f_n = n/T\
 The only dependencies needed for the following code are the following:
 - [matplotlib](https://matplotlib.org/)
 - [numpy](https://numpy.org/)
-- [scipy](https://scipy.org/).
+- [scipy](https://scipy.org/)
 
 
 ```python
