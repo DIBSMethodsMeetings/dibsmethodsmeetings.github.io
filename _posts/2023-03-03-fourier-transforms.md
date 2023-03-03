@@ -1,17 +1,10 @@
----
-author: liz
-categories:
-- tutorial
-featured: false
-categories: [math, signal processing]
-image: https://tikz.net/files/fourier_series-011.png
-title: Decomposing Fourier transforms — an introduction to time-frequency decomposition
----
-
 # Decomposing Fourier transforms: an introduction to time-frequency decomposition
 
-<a href="https://www.wondersofphysics.com/2021/03/biography-of-joseph-fourier.html"><img style="float:left; padding-right:10px" width="35%" src="https://1.bp.blogspot.com/-5_b9oWEGyTE/YFdR7SVBFcI/AAAAAAAANfM/6oCrCSh73-EE30YQIPeyDLejsK93EBUdACNcBGAsYHQ/s16000/taylor%2Bswift%2Bfourier%2Bseries%2Bmaths%2Bphysics.jpg"/></a>
-The Fourier transform is one of many influential and revolutionary mathematics developed and discovered in the 19th century. In the 1800s, Jean-Baptiste Joseph Fourier claimed that perhaps any arbitrary function of a variable, whether continuous or discontinuous, can be expressed as a sum of sines and cosines. That is, perhaps an arbitrary time-dependent (or even space-dependent) signal $x(t)$ can be expressed as a superposition, i.e., linear combination, of sine and cosine functions. This expression of a function as a sum of infintely many sines and cosines is [the Fourier series](https://mathworld.wolfram.com/FourierSeries.html)
+<!-- <a href="https://www.wondersofphysics.com/2021/03/biography-of-joseph-fourier.html"><img style="float:left\; padding-right:10px" width="%50" src="https://1.bp.blogspot.com/-5_b9oWEGyTE/YFdR7SVBFcI/AAAAAAAANfM/6oCrCSh73-EE30YQIPeyDLejsK93EBUdACNcBGAsYHQ/s16000/taylor%2Bswift%2Bfourier%2Bseries%2Bmaths%2Bphysics.jpg"/></a> -->
+
+<a href="https://www.wondersofphysics.com/2021/03/biography-of-joseph-fourier.html"><img src="https://1.bp.blogspot.com/-5_b9oWEGyTE/YFdR7SVBFcI/AAAAAAAANfM/6oCrCSh73-EE30YQIPeyDLejsK93EBUdACNcBGAsYHQ/s16000/taylor%2Bswift%2Bfourier%2Bseries%2Bmaths%2Bphysics.jpg"/></a>
+
+The Fourier transform is one of many influential and revolutionary mathematics developed and discovered in the 19th century. In the 1800s, Jean-Baptiste Joseph Fourier claimed that perhaps any arbitrary function of a variable, whether continuous or discontinuous, can be expressed as a sum of sines and cosines. That is, perhaps an arbitrary time-dependent (or even space-dependent) signal \\(x (t)\\)$ can be expressed as a superposition, i.e., linear combination, of sine and cosine functions. This expression of a function as a sum of infintely many sines and cosines is [the Fourier series](https://mathworld.wolfram.com/FourierSeries.html)
 
 Today, the Fourier transform is one of the most important algorithms in engineering, mathematics, physics, statistics, signal processing, and image and video processing. It is particularly important and useful for analyzing electrophysiological data like EEG, iEEG or ECoG, LFP, and MEG recordings.
 
@@ -27,7 +20,7 @@ The main result of the Fourier transform are Fourier coefficients used to comput
 
 <!-- These recordings are simply signals that vary over time. The Fourier transform allows...transformation...of these signals from the time domain to the frequency domain, and back. -->
 
-## Time domain <-> frequency domain
+## Time domain \\(\leftrightarrow\\) frequency domain
 
 Consider an arbitrary function or signal varying over time.
 
@@ -39,7 +32,7 @@ Below shows the relationship between the time domain and the frequency domain of
 
 <a style="float:left; padding-right:10px" title="Lucas Vieira, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Fourier_transform_time_and_frequency_domains.gif"><img width="256" alt="Fourier transform time and frequency domains" src="https://upload.wikimedia.org/wikipedia/commons/5/50/Fourier_transform_time_and_frequency_domains.gif"></a>
 
-The Fourier transform takes an input function $\color{red}{f}$ in the "time domain" and converts it into a new function $\color{blue}{\hat{f}}$ in the "frequency domain".
+The Fourier transform takes an input function \\(\color{red}f\\) in the "time domain" and converts it into a new function \\(\color{blue}\hat{f}\\) in the "frequency domain".
 
 $$\color{blue}{a_n \text{cos} (nx) + b_n \text{sin}(nx)}$$
 
@@ -52,7 +45,8 @@ Shown to the left is a 6-component approximation of the square wave decomposed i
 ### A bit of math...the Fourier series and Euler's formula
 
 #### The Fourier Series
-If $\omega = 2 \pi / T = 2 \pi f$ is the angular frequency $\omega$ corresponding to the period $T$ and frequency $f = 1/T$, then the function $x(t)$ can be written as a convergent infinite sum of sine and cosine functions each of period $T$:
+If \\(\omega = 2 \pi / T = 2 \pi f\\) is the angular frequency \\(\omega\\) corresponding to the period \\(T\\) and frequency \\(f = 1/T\\), then the function \\(x(t)\\) can be written as a convergent infinite sum of sine and cosine functions each of period \\(T\\):
+
 $$ \begin{aligned}
 x(t) &= \frac{1}{2} a_0 + 
 \begin{align} &a_1 \text{cos}(\omega t) + a_2 \text{cos}(2 \omega t) + · · · \\
@@ -60,16 +54,17 @@ x(t) &= \frac{1}{2} a_0 +
 \end{align} \\
 &= a_0 + \sum_{n=1}^{\infty} (a_n \text{cos}(n \omega t) + b_n \text{sin}(n \omega t)
 \end{aligned} $$
-where $a_n$ and $b_n$ are the Fourier coefficients. Alternatively, the Fourier series can be written in terms of complex exponentials.
+
+where \\(a_n\\) and \\(b_n\\) are the Fourier coefficients. Alternatively, the Fourier series can be written in terms of complex exponentials.
 
 #### Euler's Formula
 Many mathematicians and scientists have expressed that Euler's formula and Euler's identity is the "most beautiful equation". It is defined as
 
-$$\exp^{ix} = \text{cos}(x) + i \text{sin}(x),$$
+$$\exp^{ix} = \text{cos}(x) + i \ \text{sin}(x),$$
 
-where $x$, or alternatively $\phi$, is a real number and $i = \sqrt{-1}$ is one of the two square roots of $-1$.
+where \\(x\\), or alternatively \\(\phi\\), is a real number and \\(i = \sqrt{-1}\\) is one of the two square roots of \\(-1\\).
 
-Below in the visualization, $\exp^{i \phi}$ is the unit circle in the complex plane for a real number $\phi$. Here $\phi$ is the angle between a line connecting the origin with a point on the unit circle makes and the positive real axis. The positive real axis is the $\text{cos} \phi$ axis. Correspondingly, the real Fourier coefficients are the coefficients of the cosine.
+Below in the visualization, \\(\exp^{i \phi}\\) is the unit circle in the complex plane for a real number \\(\phi\\). Here \\(\phi\\) is the angle between a line connecting the origin with a point on the unit circle makes and the positive real axis. The positive real axis is the \\(\text{cos} \phi\\) axis. Correspondingly, the real Fourier coefficients are the coefficients of the cosine.
 
 #### Visually...
 
@@ -83,7 +78,7 @@ $$
 x(t) = \sum_{-\infty}^{\infty} c_n \exp^{i n \omega t}
 $$
 
-where $c_n = a_n + i b_n$ are the complex-valued Fourier coefficients.
+where \\(c_n = a_n + i b_n\\) are the complex-valued Fourier coefficients.
 
 Now, the power spectrum $P_n$ is the magnitude squared of the complex Fourier coefficients such that
 
@@ -91,7 +86,7 @@ $$
 P_n = {\lvert c_{n} \rvert}^2 = c_n c_{n}^* = a_{n}^{2} + b_{n}^{2}
 $$
 
-for $n = 0, 1, 2, \cdots .$ which corresponds to the frequency $f_n = n/T$ or angular frequency $\omega n = 2 \pi \omega /T$. The power spectrum is plot as a function of frequency or angular frequency, plotting $P(f_n) = P_n$.
+for \\(n = 0, 1, 2, \cdots .\\) which corresponds to the frequency \\(f_n = n/T\\) or angular frequency \\(\omega n = 2 \pi \omega /T\\). The power spectrum is plot as a function of frequency or angular frequency, plotting \\(P(f_n) = P_n\\).
 
 ### A bit of plots
 
@@ -188,7 +183,7 @@ plt.ylabel("Amplitude (a.u.)") ;
 
 
     
-![png](../assets/images/2023-03-03-fourier-transforms/2023-03-03-fourier-transforms_13_0.png)
+![png](/Users/eaogorman/Files/Spring2023/dibsmethodsmeetings.github.io/_posts/2023-03-03-fourier-transforms_13_0.png)
     
 
 
@@ -240,7 +235,7 @@ subfig2.supylabel("Power (a.u.)") ;
     
 
 
-Here, two sines with different amplitudes and frequencies (from left to right: $1$ and $0.5$, and $3$ and $8$, respectively) are added together in the time domain. The relative "strength" of the frequencies present in the signal corresponding to sum of the two sines is resolved in the frequency domain.
+Here, two sines with different amplitudes and frequencies (from left to right: \\(1\\) and \\(0.5\\), and \\(3\\) and \\(8\\), respectively) are added together in the time domain. The relative "strength" of the frequencies present in the signal corresponding to sum of the two sines is resolved in the frequency domain.
 
 #### Putting it all together: from signal to its power and phase spectrum
 
@@ -317,9 +312,7 @@ plt.tight_layout()
 
 <!-- #### Manaul implementation of the Fourier transform = numpy implementation -->
 
-
-```python
-### Manual Fourier transform implementation = numpy implementation
+<!-- ### Manual Fourier transform implementation = numpy implementation
 # # Figure 11.7
 # fft_data = np.fft.fft(data)/N
 
@@ -345,8 +338,7 @@ plt.tight_layout()
 # ax[2].set(title='Data Reconstruction', ylabel='Amplitude (a.u.)', xlabel='Time (ms)')
 
 # plt.legend(["Manual Fourier transform","Numpy FFT"])
-# fig.tight_layout()
-```
+# fig.tight_layout() -->
 
 <!-- <br>
 <details>
@@ -379,14 +371,14 @@ It is defined as
 $$ \color{purple}{X}_{\color{lime}{k}} = \color{magenta}{\sum_{n=0}^{N-1}} \color{cyan}{x_{n}} \color{red}{e^{-{i} \color{orange}{2 \pi} \color{lime}{k} \color{magenta}{\frac{n}{N}}}} .$$
 
 Where,
-- $ \color{purple} X $ is <span style="color:purple">amplitude or energy</span>
-- $ \color{lime}{k} $ is <span style="color:lime">frequency</span>
-- $ \color{cyan}{x_{n}} $ is <span style="color:cyan">the signal</span>
-- $ \color{red}{e^i} $ comes from Euler's formula
+- \\(\color{purple} X\\) is <span style="color:purple">amplitude or energy</span>
+- \\(\color{lime}{k}\\) is <span style="color:lime">frequency</span>
+- \\(\color{cyan}{x_{n}}\\) is <span style="color:cyan">the signal</span>
+- \\(\color{red}{e^i}\\) comes from Euler's formula
     - One can think of this complex exponential as <span style="color:red">rotation</span> of a point along the unit circle starting from (0, 1).
-- $ \color{orange}{2 \pi} $ is the circumfrence of the unit circle 
+- \\(\color{orange}{2 \pi}\\) is the circumfrence of the unit circle 
     - One can think of this as rotating a point along <span style="color:orange">the full unit circle</span>.
-- $ \color{magenta}{\sum_{n=0}^{N-1}} $ and $ \color{magenta}{\frac{n}{N}} $ is <span style="color:magenta">the sum and average of all points</span> in the signal
+- \\(\color{magenta}{\sum_{n=0}^{N-1}}\\) and \\(\color{magenta}{\frac{n}{N}}\\) is <span style="color:magenta">the sum and average of all points</span> in the signal
 
 
 
@@ -411,11 +403,11 @@ The maximum sampling frequency $f_\max$ is called the Nyquist frequency given by
 $$f_\max = \frac{1}{2 \Delta t} = \frac{1}{2 f_s}. $$
 
 Frequencies above the Nyquist frequency do not disappear. They reappear as peaks in the power spectrum
-at lower frequencies in the range $0 < f < f_max = 1/(2 \Delta t)$.
+at lower frequencies in the range \\(0 < f < f_max = 1/(2 \Delta t)\\).
 
 <a style="float:left; padding-right:10px" title="Omnicron11, CC BY-SA 4.0 &lt;https://creativecommons.org/licenses/by-sa/4.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:FFT_aliasing_600.gif"><img width="512" alt="FFT aliasing 600" src="https://upload.wikimedia.org/wikipedia/commons/8/83/FFT_aliasing_600.gif"></a>
 
-The upper left animation depicts a sequence of sine. Each successive sine has a higher frequency than the previous. The "true" signals are also being sampled (<span style="color:blue">dots</span>) at a constant frequency $f_s$.
+The upper left animation depicts a sequence of sine. Each successive sine has a higher frequency than the previous. The "true" signals are also being sampled (<span style="color:blue">dots</span>) at a constant frequency \\(f_s\\).
 
 The upper left animation shows the continuous Fourier transform of the sine. The single non-zero component, the actual frequency, means there is no ambiguity.
 
@@ -458,7 +450,7 @@ for fi in range(len(frex)):
     stationary = stationary + np.tile(temp_sine_wave,(1,len(frex)))
     
     #optional change of amplitude over time
-    temp_sine_wave *=time+1
+    temp_sine_wave *= time+1
     
     #start and stop indices for insertion of sine wave
     start_idx = fi * len(time)
@@ -503,7 +495,7 @@ plt.tight_layout()
 
 
     
-![png](../assets/images/2023-03-03-fourier-transforms/2023-03-03-fourier-transforms_27_0.png)
+![png](/../assets/images/2023-03-03-fourier-transforms/2023-03-03-fourier-transforms_27_0.png)
     
 
 
@@ -515,7 +507,7 @@ Often one zero-pads to make the length of the signal (in terms of points) a powe
 
 ## The Continuous Fourier Transform
 
-The continuous Fourier transform takes an input function $\color{red}{f(x)}$ in the time domain and turns it into a new function, $\color{blue}{\hat{f}(\xi)}$ in the frequency domain.
+The continuous Fourier transform takes an input function \\(\color{red}{f(x)}\\) in the time domain and turns it into a new function, \\(\color{blue}{\hat{f}(\xi)}\\) in the frequency domain.
 
 <a style="float:left; padding-right:10px"  title="Lucas Vieira, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"><img width="256" alt="Continuous Fourier transform of rect and sinc functions" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"></a>
 
@@ -542,7 +534,7 @@ In the first part of the animation, the Fourier transform (as defined above) is 
     $$\text{sinc} \ x = \frac{\text{sin} \pi x}{\pi x}.
     $$
 </details>
-
+<br>
 In the second part, the transform is reapplied to <span style="color:blue">the normalized sinc function</span> to get back <span style="color:red">the rectangular function</span>.
 
 
@@ -679,62 +671,6 @@ _=plt.title("Power Spectral Density")
 _=plt.xlabel("Frequency (kHz)")
 _=plt.ylabel("Power (a.u.)")
 
-# #from ava repository
-# def get_spec(audio, p):
-#     """
-#     Get a spectrogram.
-
-#     Much simpler than ``ava.preprocessing.utils.get_spec``.
-
-#     Raises
-#     ------
-#     - ``AssertionError`` if ``len(audio) < p['nperseg']``.
-
-#     Parameters
-#     ----------
-#     audio : numpy array of floats
-#         Audio
-#     p : dict
-#         Spectrogram parameters. Should the following keys: `'fs'`, `'nperseg'`,
-#         `'noverlap'`, `'min_freq'`, `'max_freq'`, `'spec_min_val'`,
-#         `'spec_max_val'`
-
-#     Returns
-#     -------
-#     spec : numpy array of floats
-#         Spectrogram of shape [freq_bins x time_bins]
-#     dt : float
-#         Time step between time bins.
-#     f : numpy.ndarray
-#         Array of frequencies.
-#     """
-#     assert len(audio) >= p['nperseg'], \
-#             "len(audio): " + str(len(audio)) + ", nperseg: " + str(p['nperseg'])
-#     f, t, spec = stft(audio, fs=p['fs'], nperseg=p['nperseg'], \
-#             noverlap=p['noverlap'])
-#     i1 = np.searchsorted(f, p['min_freq'])
-#     i2 = np.searchsorted(f, p['max_freq'])
-#     f, spec = f[i1:i2], spec[i1:i2]
-#     spec = np.log(np.abs(spec) + EPSILON)
-#     spec -= p['spec_min_val']
-#     spec /= p['spec_max_val'] - p['spec_min_val']
-#     return spec, t, f
-
-# EPSILON = 1e-9
-# params = {
-#     'fs': 32000,
-#     'nperseg': 512, # FFT
-#     'noverlap': 256, # FFT
-#     'max_dur': 100000, # Big number
-#     'window_length': 0.12,
-#     'min_freq': 400,
-#     'max_freq': 10e3,
-#     'spec_min_val': 2.0,
-#     'spec_max_val': 6.5}
-
-# f, t, spec = stft(audio, fs=fs, nperseg=512, noverlap=256)
-
-# # spec, t, f = get_spec(audio, params)
 f, t, spec = stft(audio, fs=fs, nperseg=512, noverlap=256)
 ax = plt.subplot(1,3,3)
 im = plt.pcolormesh(t, f/1000, np.sqrt(np.abs(spec)))
@@ -762,7 +698,7 @@ The inverse Fourier transforms signal from the frequency domain to the time doma
 
 Similar to the discrete Fourier transform, it is defined as
 
-$$ \color{cyan}{x_{n}} = \color{magenta}{\frac{1}{N} \sum_{n=0}^{N-1}} \color{purple}{X}_{\color{lime}{k}} \color{red}{e^{i}} \color{orange}{2 \pi} \color{lime}{k} \color{magenta}{\frac{n}{N}} $$
+$$ \color{cyan}{x_{n}} = \color{magenta}{\frac{1}{N} \sum_{n=0}^{N-1}} \color{purple}{X}_{\color{lime}{k}} \color{red}{e^{{i} \color{orange}{2 \pi} \color{lime}{k} \color{magenta}{\frac{n}{N}}}} $$
 
 Notably, the Fourier transform and inverse Fourier transform are lossless, that is, no information is lost when transforming signal from the time to frequency domain and back!
 
@@ -792,3 +728,10 @@ plt.ylabel("Amplitude (a.u.)") ;
 
     
 ![png](../assets/images/2023-03-03-fourier-transforms/2023-03-03-fourier-transforms_38_0.png)
+    
+
+
+
+```python
+
+```
