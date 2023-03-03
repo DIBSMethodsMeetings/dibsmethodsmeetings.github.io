@@ -692,7 +692,7 @@ plt.tight_layout()
 
 
     
-![png](../assets/images/2023-03-03-fourier-transforms/2023-03-03-fourier-transforms_35_0.png)
+![png](../assets/images/2023-03-03-fourier-transforms/2023-03-03-fourier-transforms_35_1.png)
     
 
 
