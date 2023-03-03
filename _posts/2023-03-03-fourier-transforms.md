@@ -1,3 +1,12 @@
+---
+author: liz
+featured: false
+categories: [math, signal processing]
+image: https://tikz.net/files/fourier_series-011.png
+title: Decomposing Fourier transforms — an introduction to time-frequency decomposition
+---
+
+
 # Decomposing Fourier transforms: an introduction to time-frequency decomposition
 
 <!-- <a href="https://www.wondersofphysics.com/2021/03/biography-of-joseph-fourier.html"><img style="float:left\; padding-right:10px" width="%50" src="https://1.bp.blogspot.com/-5_b9oWEGyTE/YFdR7SVBFcI/AAAAAAAANfM/6oCrCSh73-EE30YQIPeyDLejsK93EBUdACNcBGAsYHQ/s16000/taylor%2Bswift%2Bfourier%2Bseries%2Bmaths%2Bphysics.jpg"/></a> -->
