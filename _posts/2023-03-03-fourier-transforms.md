@@ -43,7 +43,7 @@ Below shows the relationship between the time domain and the frequency domain of
 
 The Fourier transform takes an input function <span style="background-color: #000000">\\(\color{red}f\\)</span> in the "time domain" and converts it into a new function <span style="background-color: #000000">\\(\color{blue}\hat{f}\\)</span> in the "frequency domain".
 
-$$\require{color}\colorbox{blue}{a_n \text{cos} (nx) + b_n \text{sin}(nx)}$$
+$$\colorbox{SteelBlue}{$a_n \text{cos} (nx) + b_n \text{sin}(nx)$}$$
 
 In other words, the original function can be thought of as "amplitude given time", and the Fourier transform of the function is "amplitude given frequency".
 
@@ -422,7 +422,7 @@ at lower frequencies in the range \\(0 < f < f_{\max} = 1/(2 \Delta t)\\).
 
 ([GIF](https://upload.wikimedia.org/wikipedia/commons/8/83/FFT_aliasing_600.gif) by [Omnicron11](https://commons.wikimedia.org/wiki/User:Omnicron11), 7 April 2021. [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page))
 
-The upper left animation depicts sines. Each successive sine has a higher frequency than the previous. (<span style="color:SteelBlue; background-color: #000000">"True" signals</span>) are being sampled (<span style="color:SteelBlue; background-color: #000000">dots</span>) at a constant frequency \\(f_s\\).
+The upper left animation depicts sines. Each successive sine has a higher frequency than the previous. <span style="color:SteelBlue; background-color: #000000">"True" signals</span> are being sampled (<span style="color:SteelBlue; background-color: #000000">dots</span>) at a constant frequency \\(f_s\\).
 
 The upper right animation shows the continuous Fourier transform of the sine. The single non-zero component, the actual frequency, means there is no ambiguity.
 
@@ -522,11 +522,9 @@ Often one zero-pads to make the length of the signal (in terms of points) a powe
 
 The continuous Fourier transform takes a continuous input function <span style="background-color: #000000">\\(\color{red}{f(x)}\\)</span> in the time domain and turns it into a new function <span style="background-color: #000000">\\(\color{blue}{f(x)}\\)</span> in the frequency domain.
 
-<span style="background-color: #000000">\\(\color{red}f\\)</span>
-
 <a style="float:left; padding-right:10px"  title="Lucas Vieira, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"><img width="256" alt="Continuous Fourier transform of rect and sinc functions" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"></a>
 
-In the first part of the animation, the Fourier transform (as defined above) is applied to [<span style="color:red; background-color: #000000">the rectangular function, rect</span>)](https://en.wikipedia.org/wiki/Rectangular_function), returning [<span style="color:blue; backgroud-color:#000000>the normalized sinc function, sinc</span>](https://en.wikipedia.org/wiki/Sinc_function).
+In the first part of the animation, the Fourier transform (as defined above) is applied to [<span style="color:red; background-color: #000000">the rectangular function, rect</span>](https://en.wikipedia.org/wiki/Rectangular_function), returning [<span style="color:blue; background-color: #000000>the normalized sinc function, sinc</span>](https://en.wikipedia.org/wiki/Sinc_function).
 <br>
 <details>
     <summary>
@@ -535,13 +533,13 @@ In the first part of the animation, the Fourier transform (as defined above) is 
     </summary>
     <span style="color:red; background-color: #000000">The rect function</span> is defined as 
     $$\text{rect} \ x = \Pi(x) =
-    \[ \left\{
+    \left\{
     \begin{array}{ll}
     0, & \text{if} \lvert x \rvert > \frac{1}{2} \\
     \frac{1}{2}, & \text{if} \lvert x \rvert = \frac{1}{2} \\
     1, & \text{if} \lvert x \rvert < \frac{1}{2}.\\
     \end{array}
-    \right. \]
+    \right.
     $$
 <br>
     <span style="color:blue; background-color: #000000">The sinc function</span> is defined as 
@@ -563,7 +561,7 @@ Overlaid on the <span style="color:red; background-color: #000000">time domain c
 
 The approximation is calculated by adding all the components, integrating along the entire surface, with the appropriate amplitude correction due to the specific Fourier transform and ranges used:
 
-$$\require{color}\colorbox{blue}{\hat{f} \xi = {\int_{-\infty}^{\infty} f(x) \ {e^{ -{2 \pi} i x \xi}} \ dx}}$$
+$$\colorbox{blue}{$\hat{f} \xi = {\int_{-\infty}^{\infty} f(x) \ {e^{ -{2 \pi} i x \xi}} \ dx}$}$$
 
 ## The Short-time Fourier Transform (STFT)
 
