@@ -39,15 +39,15 @@ The frequency domain is sine functions for each frequency. The data in this doma
 
 Below shows the relationship between the time domain and the frequency domain of a function based on its Fourier transform.
 
-<a style="float:left\; padding-right:10px" title="Lucas Vieira, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Fourier_transform_time_and_frequency_domains.gif"><img width="256" alt="Fourier transform time and frequency domains" src="https://upload.wikimedia.org/wikipedia/commons/5/50/Fourier_transform_time_and_frequency_domains.gif"></a>
+<a title="Lucas Vieira, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Fourier_transform_time_and_frequency_domains.gif"><img width="256" alt="Fourier transform time and frequency domains" src="https://upload.wikimedia.org/wikipedia/commons/5/50/Fourier_transform_time_and_frequency_domains.gif"></a>
 
 The Fourier transform takes an input function <span style="background-color: #000000">\\(\color{red}f\\)</span> in the "time domain" and converts it into a new function <span style="background-color: #000000">\\(\color{blue}\hat{f}\\)</span> in the "frequency domain".
 
-$$<span style="background-color: #000000">\color{blue}{a_n \text{cos} (nx) + b_n \text{sin}(nx)}</span>$$
+$$\require{color}\colorbox{black}\color{blue}{a_n \text{cos} (nx) + b_n \text{sin}(nx)}$$
 
 In other words, the original function can be thought of as "amplitude given time", and the Fourier transform of the function is "amplitude given frequency".
 
-Shown to the left is a 6-component approximation of the square wave decomposed into 6 sine waves. These component frequencies show as sharp peaks in the <span style="color:blue; background-color: #000000">frequency domain of the function</span>.
+This animation shows a 6-component approximation of the square wave decomposed into 6 sine waves. These component frequencies show as sharp peaks in the <span style="color:blue; background-color: #000000">frequency domain of the function</span>.
 
 ([GIF](https://commons.wikimedia.org/wiki/File:Fourier_transform_time_and_frequency_domains.gif#file) by [Lucas Vieira](https://commons.wikimedia.org/wiki/user:LucasVB), 23 February 2013. Public Domain, via [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page))
 
@@ -379,7 +379,7 @@ The Discrete Fourier Transform is applied to signal of finite duration discretiz
 
 It is defined as
 
-$$ \color{purple}{X}_{\color{lime}{k}} = \color{magenta}{\sum_{n=0}^{N-1}} \color{cyan}{x_{n}} \color{red}{e^{-{i} \color{orange}{2 \pi} \color{lime}{k} \color{magenta}{\frac{n}{N}}}} .$$
+$$ \color{purple}{X}_{\color{lime}{k}} = \color{magenta}{\sum_{n=0}^{N-1}} \color{cyan}{x_{n}} \color{red}{e^{-{i} \color{orange}{2 \pi} \color{lime}{k} \color{magenta}{\frac{n}{N}}}} \color{black} .$$
 
 Where,
 - \\(\color{purple} X\\) is <span style="color:purple">amplitude or energy</span>
@@ -389,7 +389,7 @@ Where,
     - One can think of this complex exponential as <span style="color:red">rotation</span> of a point along the unit circle starting from (0, 1).
 - \\(\color{orange}{2 \pi}\\) is the circumfrence of the unit circle 
     - One can think of this as rotating a point along <span style="color:orange">the full unit circle</span>.
-- \\(\color{magenta}{\sum_{n=0}^{N-1}}\\) and \\(\color{magenta}{\frac{n}{N}}\\) is <span style="color:magenta">the sum and average of all points</span> in the signal
+- \\(\color{magenta}{\[ \sum_{n=0}^{N-1}} \}\\) and \\(\color{magenta}{\frac{n}{N}}\\) is <span style="color:magenta">the sum and average of all points</span> in the signal
 
 
 
@@ -561,7 +561,7 @@ Overlaid on the <span style="color:red; background-color=$00000">time domain cur
 
 The approximation is calculated by adding all the components, integrating along the entire surface, with the appropriate amplitude correction due to the specific Fourier transform and ranges used:
 
-$$<span style="background-color=#00000">\color{blue}{\hat{f} \xi = {\int_{-\infty}^{\infty} f(x) \ {e^{ -{2 \pi} i x \xi}} \ dx}}</span>$$
+$$\require{color}\colorbox{black}\color{blue}{\hat{f} \xi = {\int_{-\infty}^{\infty} f(x) \ {e^{ -{2 \pi} i x \xi}} \ dx}}$$
 
 ## The Short-time Fourier Transform (STFT)
 
