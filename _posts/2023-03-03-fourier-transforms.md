@@ -6,9 +6,6 @@ image: https://tikz.net/files/fourier_series-011.png
 title: Decomposing Fourier transforms — an introduction to time-frequency decomposition
 ---
 
-
-# Decomposing Fourier transforms: an introduction to time-frequency decomposition
-
 <!-- <a href="https://www.wondersofphysics.com/2021/03/biography-of-joseph-fourier.html"><img style="float:left\; padding-right:10px" width="%50" src="https://1.bp.blogspot.com/-5_b9oWEGyTE/YFdR7SVBFcI/AAAAAAAANfM/6oCrCSh73-EE30YQIPeyDLejsK93EBUdACNcBGAsYHQ/s16000/taylor%2Bswift%2Bfourier%2Bseries%2Bmaths%2Bphysics.jpg"/></a> -->
 
 <a href="https://www.wondersofphysics.com/2021/03/biography-of-joseph-fourier.html"><img src="https://1.bp.blogspot.com/-5_b9oWEGyTE/YFdR7SVBFcI/AAAAAAAANfM/6oCrCSh73-EE30YQIPeyDLejsK93EBUdACNcBGAsYHQ/s16000/taylor%2Bswift%2Bfourier%2Bseries%2Bmaths%2Bphysics.jpg"/></a>
@@ -39,15 +36,15 @@ The frequency domain is sine functions for each frequency. The data in this doma
 
 Below shows the relationship between the time domain and the frequency domain of a function based on its Fourier transform.
 
-<a style="float:left\; padding-right:10px" width="%50" title="Lucas Vieira, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Fourier_transform_time_and_frequency_domains.gif"><img width="256" alt="Fourier transform time and frequency domains" src="https://upload.wikimedia.org/wikipedia/commons/5/50/Fourier_transform_time_and_frequency_domains.gif"></a>
+<a style="float:left\; padding-right:10px" title="Lucas Vieira, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Fourier_transform_time_and_frequency_domains.gif"><img width="256" alt="Fourier transform time and frequency domains" src="https://upload.wikimedia.org/wikipedia/commons/5/50/Fourier_transform_time_and_frequency_domains.gif"></a>
 
-The Fourier transform takes an input function \\(\color{red}f\\) in the "time domain" and converts it into a new function \\(\color{blue}\hat{f}\\) in the "frequency domain".
+The Fourier transform takes an input function <span style="background-color: #000000">\\(\color{red}f\\)</span> in the "time domain" and converts it into a new function <span style="background-color: #000000">\\(\color{blue}\hat{f}\\)</span> in the "frequency domain".
 
-$$\color{blue}{a_n \text{cos} (nx) + b_n \text{sin}(nx)}$$
+<span style="background-color: #000000">$$\color{blue}{a_n \text{cos} (nx) + b_n \text{sin}(nx)}$$</span>
 
 In other words, the original function can be thought of as "amplitude given time", and the Fourier transform of the function is "amplitude given frequency".
 
-Shown to the left is a 6-component approximation of the square wave decomposed into 6 sine waves. These component frequencies show as sharp peaks in the <span style="color:blue">frequency domain of the function</span>.
+Shown to the left is a 6-component approximation of the square wave decomposed into 6 sine waves. These component frequencies show as sharp peaks in the <span style="color:blue; background-color: #000000">frequency domain of the function</span>.
 
 ([GIF](https://commons.wikimedia.org/wiki/File:Fourier_transform_time_and_frequency_domains.gif#file) by [Lucas Vieira](https://commons.wikimedia.org/wiki/user:LucasVB), 23 February 2013. Public Domain, via [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page))
 
@@ -81,7 +78,7 @@ Below in the visualization, \\(\exp^{i \phi}\\) is the unit circle in the comple
 
 ([Image](https://commons.wikimedia.org/wiki/File:Fourier_transform_time_and_frequency_domains.gif#file) by [Gunther](https://commons.wikimedia.org/wiki/User:Gunther~commonswiki), 29 May 2006. [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page))
 
-Skipping some math...the signal of interest can be expressed as the following:
+Skipping some math...a continuous signal of interest can be expressed as the following:
 
 $$
 x(t) = \sum_{-\infty}^{\infty} c_n \exp^{i n \omega t}
@@ -95,13 +92,13 @@ $$
 P_n = {\lvert c_{n} \rvert}^2 = c_n c_{n}^* = a_{n}^{2} + b_{n}^{2}
 $$
 
-for \\(n = 0, 1, 2, \cdots .\\) which corresponds to the frequency \\(f_n = n/T\\) or angular frequency \\(\omega n = 2 \pi \omega /T\\). The power spectrum is plot as a function of frequency or angular frequency, plotting \\(P(f_n) = P_n\\).
+for \\(n = 0, 1, 2, \cdots .\\) which corresponds to the frequency \\(f_n = n/T\\) or angular frequency \\(\omega n = 2 \pi \omega /T\\). The power spectrum is plotted as a function of frequency or angular frequency, plotting \\(P(f_n) = P_n\\).
 
 ### A bit of plots
 
 <b>All code below is written in python and adapted from [Lyndon Duong's](https://github.com/lyndond) GitHub repository: [Python implementations of code in Analyzing Neural Time Series by Dr. Mike X. Cohen](https://github.com/lyndond/Analyzing_Neural_Time_Series) and follows [Mike X. Cohen's](https://mikexcohen.com/) book, [Analyzing Neural Time Series Data: Theory and Practice](https://github.com/mikexcohen/AnalyzingNeuralTimeSeries) (2014, MIT Press). These tutorials (originally written in MATLAB) are further explained and found in Dr. Mike X. Cohen's [data analysis lecturelets](https://mikexcohen.com/lectures.html) and on his [YouTube channel](https://www.youtube.com/channel/UCUR_LsXk7IYyueSnXcNextQ).<b>
 
-The only dependencies needed for the following code are the following:
+The only dependencies needed for the following code are:
 - [matplotlib](https://matplotlib.org/)
 - [numpy](https://numpy.org/)
 - [scipy](https://scipy.org/)
@@ -369,6 +366,8 @@ plt.tight_layout()
     https://www.techopedia.com/definition/7292/fourier-transform
 </details> -->
 
+<b>Note:<b> the phase spectrum is derived from the coefficient of the sine, i.e., the argument of the complex number.
+
 ## The Discrete Fourier Transform (DFT)
 
 (The following is adapted from blog posts written by [Stuart Riffle](https://www.i-programmer.info/programming/theory/3758-understanding-the-fourier-transform.html) and [David Smith](https://www.r-bloggers.com/2014/01/the-fourier-transform-explained-in-one-sentence/).)
@@ -407,24 +406,24 @@ One must consider sampling frequency (often constrained by hardware and software
 
 Aliasing is frequency ambiguity  in a power spectrum as a result of discretely sampling a continuous waveform.
 
-The maximum sampling frequency \\(f_\max\\) is called the Nyquist frequency given by
+The maximum sampling frequency \\(f_{\max}\\) is called the Nyquist frequency given by
 
-$$f_\max = \frac{1}{2 \Delta t} = \frac{1}{2 f_s}. $$
+$$f_{\max} = \frac{1}{2 \Delta t} = \frac{1}{2 f_s}. $$
 
 Frequencies above the Nyquist frequency do not disappear. They reappear as peaks in the power spectrum
-at lower frequencies in the range \\(0 < f < f_max = 1/(2 \Delta t)\\).
+at lower frequencies in the range \\(0 < f < f_{\max} = 1/(2 \Delta t)\\).
 
-<a style="float:left; padding-right:10px" title="Omnicron11, CC BY-SA 4.0 &lt;https://creativecommons.org/licenses/by-sa/4.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:FFT_aliasing_600.gif"><img alt="FFT aliasing 600" src="https://upload.wikimedia.org/wikipedia/commons/8/83/FFT_aliasing_600.gif"></a>
+<a title="Omnicron11, CC BY-SA 4.0 &lt;https://creativecommons.org/licenses/by-sa/4.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:FFT_aliasing_600.gif"><img alt="FFT aliasing 600" src="https://upload.wikimedia.org/wikipedia/commons/8/83/FFT_aliasing_600.gif"></a>
 
-The upper left animation depicts sines. Each successive sine has a higher frequency than the previous. "True" signals are being sampled (<span style="color:blue">dots</span>) at a constant frequency \\(f_s\\).
+([GIF](https://upload.wikimedia.org/wikipedia/commons/8/83/FFT_aliasing_600.gif) by [Omnicron11](https://commons.wikimedia.org/wiki/User:Omnicron11), 7 April 2021. [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page))
+
+The upper left animation depicts sines. Each successive sine has a higher frequency than the previous. (<span style="color:SteelBlue; background=$00000">"True" signals</span>) are being sampled (<span style="color:SteelBlue; background=$00000">dots</span>) at a constant frequency \\(f_s\\).
 
 The upper right animation shows the continuous Fourier transform of the sine. The single non-zero component, the actual frequency, means there is no ambiguity.
 
 The lower right animation shows the discrete Fourier transform of just the available samples. The presence of two components means the samples can fit at least two different sines, one of which is the true frequency (the upper right animation).
 
 The lower left animation uses the same <span style="color:orange">samples</span> and default reconstruction algorithm to produce lower-frequency sines.
-
-([GIF](https://upload.wikimedia.org/wikipedia/commons/8/83/FFT_aliasing_600.gif) by [Omnicron11](https://commons.wikimedia.org/wiki/User:Omnicron11), 7 April 2021. [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page))
 
 ### Stationarity
 
@@ -516,18 +515,18 @@ Often one zero-pads to make the length of the signal (in terms of points) a powe
 
 ## The Continuous Fourier Transform
 
-The continuous Fourier transform takes an input function \\(\color{red}{f(x)}\\) in the time domain and turns it into a new function, \\(\color{blue}{\hat{f}(\xi)}\\) in the frequency domain.
+The continuous Fourier transform takes a continuous input function <span style="color:red; background=$00000">\\(\color{red}{f(x)}\\</span>) in the time domain and turns it into a new function <span style="color:blue; background=$00000">\\(\color{blue}{f(x)}\\</span>) in the frequency domain.
 
 <a style="float:left; padding-right:10px"  title="Lucas Vieira, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"><img width="256" alt="Continuous Fourier transform of rect and sinc functions" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"></a>
 
-In the first part of the animation, the Fourier transform (as defined above) is applied to [<span style="color:red">the rectangular function, rect</span>](https://en.wikipedia.org/wiki/Rectangular_function), returning [<span style="color:blue">the normalized sinc function, sinc</span>](https://en.wikipedia.org/wiki/Sinc_function).
+In the first part of the animation, the Fourier transform (as defined above) is applied to [<span style="color:red; background=$00000">the rectangular function, rect</span>)](https://en.wikipedia.org/wiki/Rectangular_function), returning [<span style="color:blue; backgroud=#00000>the normalized sinc function, sinc</span>](https://en.wikipedia.org/wiki/Sinc_function).
 <br>
 <details>
     <summary>
-        <b>Note: Mathematical Definitions of <span style="color:red">rect</span> and <span style="color:blue">sinc</span>:
+        <b>Note: Mathematical Definitions of <span style="color:red; background=$00000">rect</span> and <span style="color:blue; background=$00000">sinc</span>:
         </b>
     </summary>
-    <span style="color:red">The rect function</span> is defined as 
+    <span style="color:red; background=$00000">The rect function</span> is defined as 
     $$\text{rect} \ x = \Pi(x) =
     \left{
     \begin{array}{ll}
@@ -538,12 +537,12 @@ In the first part of the animation, the Fourier transform (as defined above) is 
     \right.
     $$
 <br>
-    <span style="color:blue">The sinc function</span> is defined as 
+    <span style="color:blue; background=$00000">The sinc function</span> is defined as 
     $$\text{sinc} \ x = \frac{\text{sin} \pi x}{\pi x}.
     $$
 </details>
 <br>
-In the second part, the transform is reapplied to <span style="color:blue">the normalized sinc function</span> to get back <span style="color:red">the rectangular function</span>.
+In the second part, the transform is reapplied to <span style="color:blue">the normalized sinc function</span> to get back <span style="color:red; background=$00000">the rectangular function</span>.
 
 It takes four iterations of the Fourier transform to get back to the original function.
 
@@ -553,11 +552,11 @@ This was done for simplicity, as to not have very tall and very wide intermediat
 
 In this example, no imaginary, i.e., sine components, are displayed. Only the real, i.e., cosine components, are displayed.
 
-Overlaid on the <span style="color:red">time domain curve</span>, is a changing <span style="color:yellow">curve</span>. This is the approximation using <span style="color:blue">the components extracted from the frequency domain</span> "found" so far, i.e., <span style="color:blue">the cosines</span> sweeping the surface. 
+Overlaid on the <span style="color:red; background=$00000">time domain curve</span>, is a changing <span style="color:yellow; background=$00000">curve</span>. This is the approximation using <span style="color:blue">the components extracted from the frequency domain</span> "found" so far, i.e., <span style="color:blue; background=$00000">the cosines</span> sweeping the surface. 
 
 The approximation is calculated by adding all the components, integrating along the entire surface, with the appropriate amplitude correction due to the specific Fourier transform and ranges used:
 
-$$\color{blue}{\hat{f} \xi = {\int_{-\infty}^{\infty} f(x) \ {e^{ -{2 \pi} i x \xi}} \ dx}}$$
+<span style="background=#00000">$$\color{blue}{\hat{f} \xi = {\int_{-\infty}^{\infty} f(x) \ {e^{ -{2 \pi} i x \xi}} \ dx}}$$</span>
 
 ## The Short-time Fourier Transform (STFT)
 
