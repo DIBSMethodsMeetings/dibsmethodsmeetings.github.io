@@ -3,7 +3,7 @@ title: "Understanding Gaussian processes"
 author: kevin
 categories: [ statistics, math, modeling ]
 image: assets/images/2023-01-27-gaussian-process/corr_normal_500d_line_se-1.png
-featured: true
+featured: false
 output:
   html_document: default
   pdf_document: default
