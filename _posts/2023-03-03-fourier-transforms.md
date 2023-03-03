@@ -43,7 +43,7 @@ Below shows the relationship between the time domain and the frequency domain of
 
 The Fourier transform takes an input function <span style="background-color: #000000">\\(\color{red}f\\)</span> in the "time domain" and converts it into a new function <span style="background-color: #000000">\\(\color{blue}\hat{f}\\)</span> in the "frequency domain".
 
-$$\require{color}\colorbox{black}{\color{blue}{a_n \text{cos} (nx) + b_n \text{sin}(nx)}}$$
+$$\colorbox{black}{\color{blue}{a_n \text{cos} (nx) + b_n \text{sin}(nx)}}$$
 
 In other words, the original function can be thought of as "amplitude given time", and the Fourier transform of the function is "amplitude given frequency".
 
