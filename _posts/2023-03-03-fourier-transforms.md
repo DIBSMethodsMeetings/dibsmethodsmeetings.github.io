@@ -398,18 +398,18 @@ One must consider sampling frequency (often constrained by hardware and software
 
 Aliasing is frequency ambiguity  in a power spectrum as a result of discretely sampling a continuous waveform.
 
-The maximum sampling frequency $f_\max$ is called the Nyquist frequency given by
+The maximum sampling frequency \\(f_\max\\) is called the Nyquist frequency given by
 
 $$f_\max = \frac{1}{2 \Delta t} = \frac{1}{2 f_s}. $$
 
 Frequencies above the Nyquist frequency do not disappear. They reappear as peaks in the power spectrum
 at lower frequencies in the range \\(0 < f < f_max = 1/(2 \Delta t)\\).
 
-<a style="float:left; padding-right:10px" title="Omnicron11, CC BY-SA 4.0 &lt;https://creativecommons.org/licenses/by-sa/4.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:FFT_aliasing_600.gif"><img width="512" alt="FFT aliasing 600" src="https://upload.wikimedia.org/wikipedia/commons/8/83/FFT_aliasing_600.gif"></a>
+<a style="float:left; padding-right:10px" title="Omnicron11, CC BY-SA 4.0 &lt;https://creativecommons.org/licenses/by-sa/4.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:FFT_aliasing_600.gif"><img width=50% alt="FFT aliasing 600" src="https://upload.wikimedia.org/wikipedia/commons/8/83/FFT_aliasing_600.gif"></a>
 
-The upper left animation depicts a sequence of sine. Each successive sine has a higher frequency than the previous. The "true" signals are also being sampled (<span style="color:blue">dots</span>) at a constant frequency \\(f_s\\).
+The upper left animation depicts sines. Each successive sine has a higher frequency than the previous. "True" signals are being sampled (<span style="color:blue">dots</span>) at a constant frequency \\(f_s\\).
 
-The upper left animation shows the continuous Fourier transform of the sine. The single non-zero component, the actual frequency, means there is no ambiguity.
+The upper right animation shows the continuous Fourier transform of the sine. The single non-zero component, the actual frequency, means there is no ambiguity.
 
 The lower right animation shows the discrete Fourier transform of just the available samples. The presence of two components means the samples can fit at least two different sines, one of which is the true frequency (the upper right animation).
 
@@ -421,7 +421,7 @@ The lower left animation uses the same <span style="color:orange">samples</span>
 
 A <span style="color:olive">stationary signal</span> is a signal that has constant statistical properties, e.g., mean, variance, etc., over time.
 
-Neural data is most definitely not stationary!
+<b>Neural data is most definitely not stationary!<b>
 
 The power spectrum of a <span style="color:magenta">non-stationary signal</span> is less "sharp": it is more difficult to resolve what frequencies are present with what power at what time.
 
@@ -512,7 +512,6 @@ The continuous Fourier transform takes an input function \\(\color{red}{f(x)}\\)
 <a style="float:left; padding-right:10px"  title="Lucas Vieira, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"><img width="256" alt="Continuous Fourier transform of rect and sinc functions" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"></a>
 
 In the first part of the animation, the Fourier transform (as defined above) is applied to [<span style="color:red">the rectangular function, rect</span>](https://en.wikipedia.org/wiki/Rectangular_function), returning [<span style="color:blue">the normalized sinc function, sinc</span>](https://en.wikipedia.org/wiki/Sinc_function).
-
 <br>
 <details>
     <summary>
@@ -521,11 +520,11 @@ In the first part of the animation, the Fourier transform (as defined above) is 
     </summary>
     <span style="color:red">The rect function</span> is defined as 
     $$\text{rect} \ x = \Pi(x) =
-    \left\{
+    \left{
     \begin{array}{ll}
-    0, & if \lvert x \rvert > \frac{1}{2} \\
-    \frac{1}{2}, & if \lvert x \rvert = \frac{1}{2} \\
-    1, & if \lvert x \rvert < \frac{1}{2}.\\
+    0, & \text{if} \lvert x \rvert > \frac{1}{2} \\
+    \frac{1}{2}, & \text{if} \lvert x \rvert = \frac{1}{2} \\
+    1, & \text{if} \lvert x \rvert < \frac{1}{2}.\\
     \end{array}
     \right.
     $$
@@ -536,9 +535,6 @@ In the first part of the animation, the Fourier transform (as defined above) is 
 </details>
 <br>
 In the second part, the transform is reapplied to <span style="color:blue">the normalized sinc function</span> to get back <span style="color:red">the rectangular function</span>.
-
-
-([GIF](https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif#file) by [Lucas Vieira](https://commons.wikimedia.org/wiki/user:LucasVB), 3 March 2013. Public Domain, via [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page))
 
 It takes four iterations of the Fourier transform to get back to the original function.
 
