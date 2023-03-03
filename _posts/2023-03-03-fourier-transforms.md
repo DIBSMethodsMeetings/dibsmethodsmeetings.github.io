@@ -39,11 +39,11 @@ The frequency domain is sine functions for each frequency. The data in this doma
 
 Below shows the relationship between the time domain and the frequency domain of a function based on its Fourier transform.
 
-<a title="Lucas Vieira, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Fourier_transform_time_and_frequency_domains.gif"><img width="256" alt="Fourier transform time and frequency domains" src="https://upload.wikimedia.org/wikipedia/commons/5/50/Fourier_transform_time_and_frequency_domains.gif"></a>
+<a title="Lucas Vieira, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Fourier_transform_time_and_frequency_domains.gif"><img alt="Fourier transform time and frequency domains" src="https://upload.wikimedia.org/wikipedia/commons/5/50/Fourier_transform_time_and_frequency_domains.gif"></a>
 
 The Fourier transform takes an input function <span style="background-color: #000000">\\(\color{red}f\\)</span> in the "time domain" and converts it into a new function <span style="background-color: #000000">\\(\color{blue}\hat{f}\\)</span> in the "frequency domain".
 
-$$\require{color}\colorbox{black}\color{blue}{a_n \text{cos} (nx) + b_n \text{sin}(nx)}$$
+$$\require{color}\colorbox{black}{\color{blue}{a_n \text{cos} (nx) + b_n \text{sin}(nx)}}$$
 
 In other words, the original function can be thought of as "amplitude given time", and the Fourier transform of the function is "amplitude given frequency".
 
@@ -385,11 +385,11 @@ Where,
 - \\(\color{purple} X\\) is <span style="color:purple">amplitude or energy</span>
 - \\(\color{lime}{k}\\) is <span style="color:lime">frequency</span>
 - \\(\color{cyan}{x_{n}}\\) is <span style="color:cyan">the signal</span>
-- \\(\color{red}{e^i}\\) comes from Euler's formula
-    - One can think of this complex exponential as <span style="color:red">rotation</span> of a point along the unit circle starting from (0, 1).
+- \\(\color{red}{e^-i}\\) comes from Euler's formula
+    - One can think of this complex exponential as <span style="color:red">rotation</span> of a point along the unit circle starting from (0, 1)...backwards, hence, the negative.
 - \\(\color{orange}{2 \pi}\\) is the circumfrence of the unit circle 
     - One can think of this as rotating a point along <span style="color:orange">the full unit circle</span>.
-- \\(\color{magenta}{\[ \sum_{n=0}^{N-1}} \}\\) and \\(\color{magenta}{\frac{n}{N}}\\) is <span style="color:magenta">the sum and average of all points</span> in the signal
+- \\(\color{magenta}{\[ \sum_{n=0}^{N-1} \]\\) and \\(\color{magenta}{\frac{n}{N}}\\) is <span style="color:magenta">the sum and average of all points</span> in the signal
 
 
 
@@ -397,7 +397,7 @@ Where,
 >
 >> "To find <span style="color:purple">the energy at</span> <span style="color:lime">a particular frequency</span>, <span style="color:red">spin</span> <span style="color:cyan">the signal</span> <span style="color:orange">around a circle</span> <span style="color:lime">at that frequency</span>, and <span style="color:magenta">average a bunch of points along that path</span>."
 
-<span style="color:cyan">The signal \\(x_{n}\\)</span> is convolved (shout out to [Pranjal Gupta](https://dibsmethodsmeetings.github.io/people/pranjal), check out his [post on convolutions](https://dibsmethodsmeetings.github.io/intro_convolutions)) with a complex exponential \\(\color{red}{e^{-{i} \color{orange}{2 \pi} \color{lime}{k}\\) for <span style="color:lime">multiple frequencies \\(k\\)</span> over <span style="color:magenta">multiple time points \\(n\\)</span>. In other words, the DFT algorithm is to compute a dot products of the signal and complex exponentials.
+<span style="color:cyan">The signal \\(x_{n}\\)</span> is convolved (shout out to [Pranjal Gupta](https://dibsmethodsmeetings.github.io/people/pranjal), check out his [post on convolutions](https://dibsmethodsmeetings.github.io/intro_convolutions)) with a complex exponential \\(\color{red}{e^{-i}} \color{orange}{2 \pi} \color{lime}{k}\\) for <span style="color:lime">multiple frequencies \\(k\\)</span> over <span style="color:magenta">multiple time points \\(n\\)</span>. In other words, the DFT algorithm is to compute a dot products of the signal and complex exponentials.
 
 This is most efficiently computed using <b>Fast Fourier Transform (FFT) algorithms<b>.
 
@@ -422,7 +422,7 @@ at lower frequencies in the range \\(0 < f < f_{\max} = 1/(2 \Delta t)\\).
 
 ([GIF](https://upload.wikimedia.org/wikipedia/commons/8/83/FFT_aliasing_600.gif) by [Omnicron11](https://commons.wikimedia.org/wiki/User:Omnicron11), 7 April 2021. [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page))
 
-The upper left animation depicts sines. Each successive sine has a higher frequency than the previous. (<span style="color:SteelBlue; background-color=$00000">"True" signals</span>) are being sampled (<span style="color:SteelBlue; background-color=$00000">dots</span>) at a constant frequency \\(f_s\\).
+The upper left animation depicts sines. Each successive sine has a higher frequency than the previous. (<span style="color:SteelBlue; background-color: #00000">"True" signals</span>) are being sampled (<span style="color:SteelBlue; background-color: #00000">dots</span>) at a constant frequency \\(f_s\\).
 
 The upper right animation shows the continuous Fourier transform of the sine. The single non-zero component, the actual frequency, means there is no ambiguity.
 
@@ -520,18 +520,18 @@ Often one zero-pads to make the length of the signal (in terms of points) a powe
 
 ## The Continuous Fourier Transform
 
-The continuous Fourier transform takes a continuous input function <span style="color:red; background-color=$00000">\\(\color{red}{f(x)}\\</span>) in the time domain and turns it into a new function <span style="color:blue; background-color=$00000">\\(\color{blue}{f(x)}\\</span>) in the frequency domain.
+The continuous Fourier transform takes a continuous input function <span style="background-color: #00000">\\(\color{red}{f(x)}\\</span>) in the time domain and turns it into a new function <span style="background-color: #00000">\\(\color{blue}{f(x)}\\</span>) in the frequency domain.
 
 <a style="float:left; padding-right:10px"  title="Lucas Vieira, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"><img width="256" alt="Continuous Fourier transform of rect and sinc functions" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"></a>
 
-In the first part of the animation, the Fourier transform (as defined above) is applied to [<span style="color:red; background-color=$00000">the rectangular function, rect</span>)](https://en.wikipedia.org/wiki/Rectangular_function), returning [<span style="color:blue; backgroud-color=#00000>the normalized sinc function, sinc</span>](https://en.wikipedia.org/wiki/Sinc_function).
+In the first part of the animation, the Fourier transform (as defined above) is applied to [<span style="color:red; background-color: #00000">the rectangular function, rect</span>)](https://en.wikipedia.org/wiki/Rectangular_function), returning [<span style="color:blue; backgroud-color=#00000>the normalized sinc function, sinc</span>](https://en.wikipedia.org/wiki/Sinc_function).
 <br>
 <details>
     <summary>
-        <b>Note: Mathematical Definitions of <span style="color:red; background-color=$00000">rect</span> and <span style="color:blue; background-color=$00000">sinc</span>:
+        <b>Note: Mathematical Definitions of <span style="color:red; background-color: #00000">rect</span> and <span style="color:blue; background-color: #00000">sinc</span>:
         </b>
     </summary>
-    <span style="color:red; background-color=$00000">The rect function</span> is defined as 
+    <span style="color:red; background-color: #00000">The rect function</span> is defined as 
     $$\text{rect} \ x = \Pi(x) =
     \left{
     \begin{array}{ll}
@@ -542,12 +542,12 @@ In the first part of the animation, the Fourier transform (as defined above) is 
     \right}.
     $$
 <br>
-    <span style="color:blue; background-color=$00000">The sinc function</span> is defined as 
+    <span style="color:blue; background-color: #00000">The sinc function</span> is defined as 
     $$\text{sinc} \ x = \frac{\text{sin} \pi x}{\pi x}.
     $$
 </details>
 <br>
-In the second part, the transform is reapplied to <span style="color:blue; background-color=#00000">the normalized sinc function</span> to get back <span style="color:red; background-color=$00000">the rectangular function</span>.
+In the second part, the transform is reapplied to <span style="color:blue; background-color: #00000">the normalized sinc function</span> to get back <span style="color:red; background-color: #00000">the rectangular function</span>.
 
 It takes four iterations of the Fourier transform to get back to the original function.
 
@@ -557,11 +557,11 @@ This was done for simplicity, as to not have very tall and very wide intermediat
 
 In this example, no imaginary, i.e., sine components, are displayed. Only the real, i.e., cosine components, are displayed.
 
-Overlaid on the <span style="color:red; background-color=$00000">time domain curve</span>, is a changing <span style="color:yellow; background-color=$00000">curve</span>. This is the approximation using <span style="color:blue; background-color=#00000">the components extracted from the frequency domain</span> "found" so far, i.e., <span style="color:blue; background-color=$00000">the cosines</span> sweeping the surface. 
+Overlaid on the <span style="color:red; background-color: #00000">time domain curve</span>, is a changing <span style="color:yellow; background-color: #00000">curve</span>. This is the approximation using <span style="color:blue; background-color: #00000">the components extracted from the frequency domain</span> "found" so far, i.e., <span style="color:blue; background-color: #00000">the cosines</span> sweeping the surface. 
 
 The approximation is calculated by adding all the components, integrating along the entire surface, with the appropriate amplitude correction due to the specific Fourier transform and ranges used:
 
-$$\require{color}\colorbox{black}\color{blue}{\hat{f} \xi = {\int_{-\infty}^{\infty} f(x) \ {e^{ -{2 \pi} i x \xi}} \ dx}}$$
+$$\require{color}\colorbox{black}{\color{blue}{\hat{f} \xi = {\int_{-\infty}^{\infty} f(x) \ {e^{ -{2 \pi} i x \xi}} \ dx}}}$$
 
 ## The Short-time Fourier Transform (STFT)
 
