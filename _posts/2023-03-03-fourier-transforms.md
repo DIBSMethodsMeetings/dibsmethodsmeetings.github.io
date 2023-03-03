@@ -394,6 +394,8 @@ Where,
 >
 >> "To find <span style="color:purple">the energy at</span> <span style="color:lime">a particular frequency</span>, <span style="color:red">spin</span> <span style="color:cyan">the signal</span> <span style="color:orange">around a circle</span> <span style="color:lime">at that frequency</span>, and <span style="color:magenta">average a bunch of points along that path</span>."
 
+<span style="color:cyan">The signal \\(x_{n}\\)</span> is convolved (shout out to [Pranjal Gupta](https://dibsmethodsmeetings.github.io/people/pranjal), check out his [post on convolutions](https://dibsmethodsmeetings.github.io/intro_convolutions)) with a complex exponential \\(\color{red}{e^{-{i} \color{orange}{2 \pi} \color{lime}{k}\\) for <span style="color:lime">multiple frequencies \\(k\\)</span> over <span style="color:magenta">multiple time points \\(n\\)</span>. In other words, the DFT algorithm is to compute a dot products of the signal and complex exponentials.
+
 This is most efficiently computed using <b>Fast Fourier Transform (FFT) algorithms<b>.
 
 ## Important Considerations and Issues
