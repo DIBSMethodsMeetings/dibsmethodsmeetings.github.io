@@ -111,6 +111,15 @@ authors:
     twitter: https://twitter.com/SelfShenyang
     description: "Graduate student in cognitive neuroscience at Duke University working with Dr. Roberto Cabeza, Dr. Simon Davis, and Dr. Felipe De Brigard."
 
+  liz:
+    name: Liz
+    display_name: Liz O'Gorman
+    avatar: assets/images/liz.png
+    gravatar:
+    email: elizabeth.ogorman@duke.edu
+    web: https://eaogorman.github.io/
+    twitter: https://twitter.com/eaogorman
+    description: "Phd Candidate (Neurobiology) + MS Student (ECE) at Duke University working with Dr. John Pearson on real-time adaptive experimental methods + deep learning."
 
 collections:
   personal_page:
