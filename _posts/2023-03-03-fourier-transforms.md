@@ -80,7 +80,7 @@ $$
 
 where \\(c_n = a_n + i b_n\\) are the complex-valued Fourier coefficients.
 
-Now, the power spectrum $P_n$ is the magnitude squared of the complex Fourier coefficients such that
+Now, the power spectrum \\(P_n\\) is the magnitude squared of the complex Fourier coefficients such that
 
 $$
 P_n = {\lvert c_{n} \rvert}^2 = c_n c_{n}^* = a_{n}^{2} + b_{n}^{2}
