@@ -534,7 +534,7 @@ In the first part of the animation, the Fourier transform (as defined above) is 
     0, & \text{if} \lvert x \rvert > \frac{1}{2} \\
     \frac{1}{2}, & \text{if} \lvert x \rvert = \frac{1}{2} \\
     1, & \text{if} \lvert x \rvert < \frac{1}{2}.\\
-    \end{array}
+    \end{array}}
     \right.
     $$
 <br>
