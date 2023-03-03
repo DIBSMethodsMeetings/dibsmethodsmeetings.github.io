@@ -183,7 +183,7 @@ plt.ylabel("Amplitude (a.u.)") ;
 
 
     
-![png](/Users/eaogorman/Files/Spring2023/dibsmethodsmeetings.github.io/_posts/2023-03-03-fourier-transforms_13_0.png)
+![png](./assets/images/2023-03-03-fourier-transforms/2023-03-03-fourier-transforms_13_0.png)
     
 
 
