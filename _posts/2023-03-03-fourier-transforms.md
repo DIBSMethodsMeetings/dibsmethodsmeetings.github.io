@@ -734,10 +734,10 @@ plt.ylabel("Amplitude (a.u.)") ;
 
     
 ![png](../assets/images/2023-03-03-fourier-transforms/2023-03-03-fourier-transforms_38_0.png)
-    
 
 
+##### Additional Readings:
+- [Fourier Transforms](https://mathworld.wolfram.com/topics/FourierTransforms.html) found on [Wolfram MathWorld](https://mathworld.wolfram.com/)
+- [Chapter 3 of Order Within Chaos by Berge et al., 1986](../_source/2023-03-03-fourier-transforms/the-fourier-transform-Chapter-3-Order-Within-Chaos-by-Berge-etal.pdf)
 
-```python
-
-```
+...among lots of other readings...physical and digital, old and new!
