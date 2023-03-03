@@ -30,7 +30,7 @@ The frequency domain is sine functions for each frequency. The data in this doma
 
 Below shows the relationship between the time domain and the frequency domain of a function based on its Fourier transform.
 
-<a style="float:left; padding-right:10px" title="Lucas Vieira, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Fourier_transform_time_and_frequency_domains.gif"><img width="256" alt="Fourier transform time and frequency domains" src="https://upload.wikimedia.org/wikipedia/commons/5/50/Fourier_transform_time_and_frequency_domains.gif"></a>
+<a style="float:left\; padding-right:10px" width="%50" title="Lucas Vieira, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Fourier_transform_time_and_frequency_domains.gif"><img width="256" alt="Fourier transform time and frequency domains" src="https://upload.wikimedia.org/wikipedia/commons/5/50/Fourier_transform_time_and_frequency_domains.gif"></a>
 
 The Fourier transform takes an input function \\(\color{red}f\\) in the "time domain" and converts it into a new function \\(\color{blue}\hat{f}\\) in the "frequency domain".
 
@@ -405,7 +405,7 @@ $$f_\max = \frac{1}{2 \Delta t} = \frac{1}{2 f_s}. $$
 Frequencies above the Nyquist frequency do not disappear. They reappear as peaks in the power spectrum
 at lower frequencies in the range \\(0 < f < f_max = 1/(2 \Delta t)\\).
 
-<a style="float:left; padding-right:10px" title="Omnicron11, CC BY-SA 4.0 &lt;https://creativecommons.org/licenses/by-sa/4.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:FFT_aliasing_600.gif"><img width=50% alt="FFT aliasing 600" src="https://upload.wikimedia.org/wikipedia/commons/8/83/FFT_aliasing_600.gif"></a>
+<a style="float:left; padding-right:10px" title="Omnicron11, CC BY-SA 4.0 &lt;https://creativecommons.org/licenses/by-sa/4.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:FFT_aliasing_600.gif"><img alt="FFT aliasing 600" src="https://upload.wikimedia.org/wikipedia/commons/8/83/FFT_aliasing_600.gif"></a>
 
 The upper left animation depicts sines. Each successive sine has a higher frequency than the previous. "True" signals are being sampled (<span style="color:blue">dots</span>) at a constant frequency \\(f_s\\).
 
