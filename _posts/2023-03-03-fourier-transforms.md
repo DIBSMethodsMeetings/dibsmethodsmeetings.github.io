@@ -399,7 +399,7 @@ Where,
 
 ### The algorithm
 
-<span style="color:cyan">The signal \\(x_{n}\\)</span> is convolved (shout out to [Pranjal Gupta](https://dibsmethodsmeetings.github.io/people/pranjal), check out his [post on convolutions](https://dibsmethodsmeetings.github.io/intro_convolutions)) with a complex exponential \\(\color{red}{e^{-i}} \color{orange}{2 \pi} \color{lime}{k}\\) for <span style="color:lime">multiple frequencies \\(k\\)</span> over <span style="color:magenta">multiple time points \\(n\\)</span>. In other words, the DFT algorithm is to compute a dot products of the signal and complex exponentials.
+<span style="color:cyan">The signal \\(x_{n}\\)</span> is convolved (shout out to [Pranjal Gupta](https://dibsmethodsmeetings.github.io/people/pranjal), check out his [post on convolutions](https://dibsmethodsmeetings.github.io/intro_convolutions)) with a complex exponential \\(\color{red}{e^{-i}} \color{orange}{2 \pi} \color{lime}{k}\\) for <span style="color:lime">multiple frequencies \\(k\\)</span> over <span style="color:magenta">multiple time points \\(n\\)</span>. In other words, the DFT algorithm is to compute dot products of the signal and complex exponentials.
 
 This is most efficiently computed using <b>Fast Fourier Transform (FFT) algorithms<b>.
 
