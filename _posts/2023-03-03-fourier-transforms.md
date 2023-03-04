@@ -522,7 +522,7 @@ Often one zero-pads to make the length of the signal (in terms of points) a powe
 
 ## The Continuous Fourier Transform
 
-The continuous Fourier transform takes a continuous input function \\(\color{red}{f(x)}\\) in the time domain and turns it into a new function <span style="background-color: #FFFFFF">\\(\color{blue}{f(\hat{\xi})}\\)</span> in the frequency domain.
+The continuous Fourier transform takes a continuous input function \\(\color{red}{f(x)}\\) in the time domain and turns it into a new function <span style="background-color: #FFFFFF">\\(\color{blue}{\hat{f}(\xi)}\\)</span> in the frequency domain.
 
 <a style="float:left; padding-right:10px"  title="Lucas Vieira, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"><img width="256" alt="Continuous Fourier transform of rect and sinc functions" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"></a>
 
