@@ -559,7 +559,7 @@ This was done for simplicity, as to not have very tall and very wide intermediat
 
 In this example, no imaginary, i.e., sine components, are displayed. Only the real, i.e., cosine components, are displayed.
 
-Overlaid on the <span style="color:red">time domain curve</span>, is a changing <span style="color:yellow; background-color: #FFFFFF">curve</span>. This is the approximation using <span style="color:blue; background-color: #FFFFFF">the components extracted from the frequency domain</span> "found" so far, i.e., <span style="color:blue; background-color: #FFFFFF">the cosines</span> sweeping the surface. 
+Overlaid on the <span style="color:red">time domain curve</span>, is a changing <span style="color:yellow">curve</span>. This is the approximation using <span style="color:blue; background-color: #FFFFFF">the components extracted from the frequency domain</span> "found" so far, i.e., <span style="color:blue; background-color: #FFFFFF">the cosines</span> sweeping the surface. 
 
 The approximation is calculated by adding all the components, integrating along the entire surface, with the appropriate amplitude correction due to the specific Fourier transform and ranges used:
 
