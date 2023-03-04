@@ -41,13 +41,13 @@ Below shows the relationship between the time domain and the frequency domain of
 
 <a title="Lucas Vieira, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Fourier_transform_time_and_frequency_domains.gif"><img alt="Fourier transform time and frequency domains" src="https://upload.wikimedia.org/wikipedia/commons/5/50/Fourier_transform_time_and_frequency_domains.gif" style="display: block; margin: 0 auto"></a>
 
-The Fourier transform takes an input function <span style="background-color: #FFFFFF">\\(\color{red}f\\)</span> in the "time domain" and converts it into a new function <span style="background-color: #FFFFFF">\\(\color{blue}\hat{f}\\)</span> in the "frequency domain".
+The Fourier transform takes an input function \\(\color{red}f\\) in the "time domain" and converts it into a new function <span style="background-color: #FFFFFF">\\(\color{blue}\hat{f}\\)</span> in the "frequency domain".
 
 $$\colorbox{white}{$\color{blue}{a_n \text{cos} (nx) + b_n \text{sin}(nx)}$}$$
 
 In other words, the original function can be thought of as "amplitude given time", and the Fourier transform of the function is "amplitude given frequency".
 
-This animation shows a 6-component approximation of the square wave decomposed into 6 sine waves. These component frequencies show as sharp peaks in the <span style="color:blue; background-color: #000000">frequency domain of the function</span>.
+This animation shows a 6-component approximation of the square wave decomposed into 6 sine waves. These component frequencies show as sharp peaks in the <span style="color:blue; background-color: #FFFFFF">frequency domain of the function</span>.
 
 ([GIF](https://commons.wikimedia.org/wiki/File:Fourier_transform_time_and_frequency_domains.gif#file) by [Lucas Vieira](https://commons.wikimedia.org/wiki/user:LucasVB), 23 February 2013. Public Domain, via [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page))
 
@@ -77,7 +77,7 @@ Below in the visualization, \\(\exp^{i \phi}\\) is the unit circle in the comple
 
 #### Visually...
 
-<a title="Original:  GuntherDerivative work:  Wereon, CC BY-SA 3.0 &lt;http://creativecommons.org/licenses/by-sa/3.0/&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Euler%27s_formula.svg"><img width="512" alt="Euler&#039;s formula" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Euler%27s_formula.svg/512px-Euler%27s_formula.svg.png"></a>
+<a title="Original:  GuntherDerivative work:  Wereon, CC BY-SA 3.0 &lt;http://creativecommons.org/licenses/by-sa/3.0/&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Euler%27s_formula.svg"><img width="512" alt="Euler&#039;s formula" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Euler%27s_formula.svg/512px-Euler%27s_formula.svg.png" style="display: block; margin: 0 auto"></a>
 
 ([Image](https://commons.wikimedia.org/wiki/File:Fourier_transform_time_and_frequency_domains.gif#file) by [Gunther](https://commons.wikimedia.org/wiki/User:Gunther~commonswiki), 29 May 2006. [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page))
 
@@ -389,7 +389,7 @@ Where,
     - One can think of this complex exponential as <span style="color:red">rotation</span> of a point along the unit circle starting from (0, 1)...backwards, hence, the negative.
 - \\(\color{orange}{2 \pi}\\) is the circumfrence of the unit circle 
     - One can think of this as rotating a point along <span style="color:orange">the full unit circle</span>.
-- \\(\color{magenta}{\[ \sum_{n=0}^{N-1} \]}\\) and \\(\color{magenta}{\frac{n}{N}}\\) is <span style="color:magenta">the sum and average of all points</span> in the signal
+- \\(\color{magenta}{\sum\limits_{n=0}^{N-1}}\\) and \\(\color{magenta}{\frac{n}{N}}\\) is <span style="color:magenta">the sum and average of all points</span> in the signal
 
 
 
@@ -424,7 +424,7 @@ at lower frequencies in the range \\(0 < f < f_{\max} = 1/(2 \Delta t)\\).
 
 ([GIF](https://upload.wikimedia.org/wikipedia/commons/8/83/FFT_aliasing_600.gif) by [Omnicron11](https://commons.wikimedia.org/wiki/User:Omnicron11), 7 April 2021. [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page))
 
-The upper left animation depicts sines. Each successive sine has a higher frequency than the previous. <span style="color:SteelBlue; background-color: #FFFFFF">"True" signals</span> are being sampled (<span style="color:SteelBlue; background-color: #FFFFFF">dots</span>) at a constant frequency \\(f_s\\).
+The upper left animation depicts sines. Each successive sine has a higher frequency than the previous. <span style="color:NavyBlue; background-color: #FFFFFF">"True" signals</span> are being sampled (<span style="color:NavyBlue; background-color: #FFFFFF">dots</span>) at a constant frequency \\\color{black}{(f_s}\\).
 
 The upper right animation shows the continuous Fourier transform of the sine. The single non-zero component, the actual frequency, means there is no ambiguity.
 
@@ -522,18 +522,18 @@ Often one zero-pads to make the length of the signal (in terms of points) a powe
 
 ## The Continuous Fourier Transform
 
-The continuous Fourier transform takes a continuous input function <span style="background-color: #000000">\\(\color{red}{f(x)}\\)</span> in the time domain and turns it into a new function <span style="background-color: #000000">\\(\color{blue}{f(x)}\\)</span> in the frequency domain.
+The continuous Fourier transform takes a continuous input function \\(\color{red}{f(x)}\\) in the time domain and turns it into a new function <span style="background-color: #FFFFFF">\\(\color{blue}{f(x)}\\)</span> in the frequency domain.
 
 <a style="float:left; padding-right:10px"  title="Lucas Vieira, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"><img width="256" alt="Continuous Fourier transform of rect and sinc functions" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"></a>
 
-In the first part of the animation, the Fourier transform (as defined above) is applied to [<span style="color:red; background-color: #FFFFFF">the rectangular function, rect</span>](https://en.wikipedia.org/wiki/Rectangular_function), returning [<span style="color:blue; background-color: #FFFFFF>the normalized sinc function, sinc</span>](https://en.wikipedia.org/wiki/Sinc_function).
+In the first part of the animation, the Fourier transform (as defined above) is applied to [<span style="color:red">the rectangular function, rect</span>](https://en.wikipedia.org/wiki/Rectangular_function), returning [<span style="color:blue; background-color: #FFFFFF">the normalized sinc function, sinc</span>](https://en.wikipedia.org/wiki/Sinc_function).
 <br>
 <details>
     <summary>
-        <b>Note: Mathematical Definitions of <span style="color:red; background-color: #FFFFFF">rect</span> and <span style="color:blue; background-color: #FFFFFF">sinc</span>:
+        <b>Note: Mathematical Definitions of <span style="color:red">rect</span> and <span style="color:blue; background-color: #FFFFFF">sinc</span>:
         </b>
     </summary>
-    <span style="color:red; background-color: #FFFFFF">The rect function</span> is defined as 
+    <span style="color:red">The rect function</span> is defined as 
     $$\text{rect} \ x = \Pi(x) =
     \left\{
     \begin{array}{ll}
@@ -549,7 +549,7 @@ In the first part of the animation, the Fourier transform (as defined above) is 
     $$
 </details>
 <br>
-In the second part, the transform is reapplied to <span style="color:blue; background-color: #FFFFFF">the normalized sinc function</span> to get back <span style="color:red; background-color: #FFFFFF">the rectangular function</span>.
+In the second part, the transform is reapplied to <span style="color:blue; background-color: #FFFFFF">the normalized sinc function</span> to get back <span style="color:red">the rectangular function</span>.
 
 It takes four iterations of the Fourier transform to get back to the original function.
 
@@ -559,7 +559,7 @@ This was done for simplicity, as to not have very tall and very wide intermediat
 
 In this example, no imaginary, i.e., sine components, are displayed. Only the real, i.e., cosine components, are displayed.
 
-Overlaid on the <span style="color:red; background-color: #FFFFFF">time domain curve</span>, is a changing <span style="color:yellow; background-color: #FFFFFF">curve</span>. This is the approximation using <span style="color:blue; background-color: #FFFFFF">the components extracted from the frequency domain</span> "found" so far, i.e., <span style="color:blue; background-color: #FFFFFF">the cosines</span> sweeping the surface. 
+Overlaid on the <span style="color:red">time domain curve</span>, is a changing <span style="color:yellow; background-color: #FFFFFF">curve</span>. This is the approximation using <span style="color:blue; background-color: #FFFFFF">the components extracted from the frequency domain</span> "found" so far, i.e., <span style="color:blue; background-color: #FFFFFF">the cosines</span> sweeping the surface. 
 
 The approximation is calculated by adding all the components, integrating along the entire surface, with the appropriate amplitude correction due to the specific Fourier transform and ranges used:
 
