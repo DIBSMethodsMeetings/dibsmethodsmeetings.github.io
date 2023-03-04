@@ -522,7 +522,7 @@ Often one zero-pads to make the length of the signal (in terms of points) a powe
 
 ## The Continuous Fourier Transform
 
-The continuous Fourier transform takes a continuous input function \\(\color{red}{f(x)}\\) in the time domain and turns it into a new function <span style="background-color: #FFFFFF">\\(\color{blue}{f(x)}\\)</span> in the frequency domain.
+The continuous Fourier transform takes a continuous input function \\(\color{red}{f(x)}\\) in the time domain and turns it into a new function <span style="background-color: #FFFFFF">\\(\color{blue}{f(\hat{\xi})}\\)</span> in the frequency domain.
 
 <a style="float:left; padding-right:10px"  title="Lucas Vieira, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"><img width="256" alt="Continuous Fourier transform of rect and sinc functions" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"></a>
 
@@ -563,7 +563,7 @@ Overlaid on the <span style="color:red">time domain curve</span>, is a changing 
 
 The approximation is calculated by adding all the components, integrating along the entire surface, with the appropriate amplitude correction due to the specific Fourier transform and ranges used:
 
-$$\colorbox{white}{$\color{blue}{\hat{f} \xi = {\int_{-\infty}^{\infty} f(x) \ {e^{ -{2 \pi} i x \xi}} \ dx}}$}$$
+$$\colorbox{white}{$\color{blue}{\hat{f} (\xi) = {\int_{-\infty}^{\infty} f(x) \ {e^{ -{2 \pi} i x \xi}} \ dx}}$}$$
 
 ## The Short-time Fourier Transform (STFT)
 
@@ -713,7 +713,7 @@ $$\color{cyan}{x_{n}} = \color{magenta}{\frac{1}{N} \sum_{n=0}^{N-1}} \color{pur
 
 Notably, the Fourier transform and inverse Fourier transform are lossless, that is, no information is lost when transforming signal from the time to frequency domain and back!
 
-Here, \\(\color{red}{i}\\) in the complex exponential \\(\color{red}{e^i}\\) is <b>positive<b>, as opposed to <b>negative<b> as seen in the definition of the discrete Fourier transform.
+Here, \\(\color{red}{i}\\) in the complex exponential \\(\color{red}{e^i}\\) is <b>positive<b>, as opposed to <b>negative<b>, as seen in the definition of the discrete Fourier transform.
 
 ```python
 # Figure 11.6
