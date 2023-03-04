@@ -424,7 +424,7 @@ at lower frequencies in the range \\(0 < f < f_{\max} = 1/(2 \Delta t)\\).
 
 ([GIF](https://upload.wikimedia.org/wikipedia/commons/8/83/FFT_aliasing_600.gif) by [Omnicron11](https://commons.wikimedia.org/wiki/User:Omnicron11), 7 April 2021. [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page))
 
-The upper left animation depicts sines. Each successive sine has a higher frequency than the previous. <span style="color:NavyBlue; background-color: #FFFFFF">"True" signals</span> are being sampled (<span style="color:NavyBlue; background-color: #FFFFFF">dots</span>) at a constant frequency \\\color{black}{(f_s}\\).
+The upper left animation depicts sines. Each successive sine has a higher frequency than the previous. <span style="color:blue; background-color: #FFFFFF">"True" signals</span> are being sampled (<span style="color:blue; background-color: #FFFFFF">dots</span>) at a constant frequency \\\color{black}{f_s}\\).
 
 The upper right animation shows the continuous Fourier transform of the sine. The single non-zero component, the actual frequency, means there is no ambiguity.
 
@@ -713,6 +713,7 @@ $$\color{cyan}{x_{n}} = \color{magenta}{\frac{1}{N} \sum_{n=0}^{N-1}} \color{pur
 
 Notably, the Fourier transform and inverse Fourier transform are lossless, that is, no information is lost when transforming signal from the time to frequency domain and back!
 
+Here, \\(\color{red}{i}\\) in the complex exponential \\(\color{red}{e^i}\\) is <b>positive<b>, as opposed to <b>negative<b> as seen in the definition of the discrete Fourier transform.
 
 ```python
 # Figure 11.6
