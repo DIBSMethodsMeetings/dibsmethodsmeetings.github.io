@@ -544,7 +544,7 @@ In the first part of the animation, the Fourier transform (as defined above) is 
     \right.
     $$
 <br>
-    <span style="color:blue; background-color: #FFFFFF">The sinc function</span> is defined as 
+    <span style="color:blue; background-color: #FFFFFF">The normalized sinc function</span> is defined as 
     $$\text{sinc} \ x = \frac{\text{sin} \pi x}{\pi x}.
     $$
 </details>
