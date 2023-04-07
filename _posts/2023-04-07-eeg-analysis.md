@@ -3,7 +3,7 @@ author: audrey
 featured: true
 categories: [signal processing]
 image: assets/images/2023-04-07-eeg-analysis/Gas-Pipeline_Bigstock-scaled.jpeg
-title: Quick and Easy EEG Preprocessing in MATLAB
+title: Quick and Easy EEG Preprocessing in EEGLAB/ERPLAB
 ---
 
 
