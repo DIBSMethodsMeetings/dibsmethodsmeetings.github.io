@@ -107,14 +107,14 @@ Tip: It is helpful to save a new data file each time you do something to your da
 
 Now that we have given eeglab some basic information about the dataset (channel locations and reference voltage), let’s plot the data to see what we have!
 
-### **Plot channel locations**
+### Plot channel locations
 
 1. In the EEGLAB graphic user interface (GUI). Go to file > load existing dataset. Select “1_P3_shifted_ds_reref_ucbip.set”
 2. In EEGLAB GUI, Go to Plot > Channel locations > By name. You should see a simple scalp map with 28 of the 33 electrode locations plotted. (The locations for the reference electrodes and EOG electrodes are not shown)
 
 ![EEG channel locations](/assets/images/2023-04-07-eeg-analysis/channel_locations.png)
 
-### ****************************************************Plot channel data (scroll)****************************************************
+### Plot channel data (scroll)
 
 1. Go to Plot > Channel data (scroll)
 2. In pop-up window select Display > remove DC offset
@@ -146,17 +146,17 @@ EEG  = pop_basicfilter( EEG,  1:33 , 'Boundary', 'boundary', 'Cutoff',  0.1, 'De
 
 How did your filter affect it?
 
-********************Pre-Filter********************
+**Pre-Filter**
 
 ![Untitled](/assets/images/2023-04-07-eeg-analysis/data_2.png)
 
-********************************After 0.1 Hz high-pass filter********************************
+**After 0.1 Hz high-pass filter**
 
 ![There is not much difference after applying a conservative 0.1 Hz high-pass filter. This is not necessarily a bad thing because aggressive filters can distort the shape and temporal structure of EEG data, sometimes creating large ERP differences that aren’t really there (see this [blog post](https://sapienlabs.org/lab-talk/pitfalls-of-filtering-the-eeg-signal/#:~:text=Numerous%20studies%20demonstrate%20that%20filtering,data%20(1%2D4).) for compelling examples). ](/assets/images/2023-04-07-eeg-analysis/data_3.png)
 
 There is not much difference after applying a conservative 0.1 Hz high-pass filter. This is not necessarily a bad thing because aggressive filters can distort the shape and temporal structure of EEG data, sometimes creating large ERP differences that aren’t really there (see this [blog post](https://sapienlabs.org/lab-talk/pitfalls-of-filtering-the-eeg-signal/#:~:text=Numerous%20studies%20demonstrate%20that%20filtering,data%20(1%2D4).) for compelling examples). 
 
-******************Applying 30 Hz low-pass filter for fun******************
+**Applying 30 Hz low-pass filter for fun**
 
 ```matlab
 %low-pass filter
@@ -172,7 +172,7 @@ Low pass filters can be less problematic. A 30 Hz low-pass can sometimes be acce
 
 ICA is an optional, but commonly used, step for identifying and removing well-characterized artifacts, such as blinks, eye movements, and heartbeats. It’s useful because, in theory, you can clean your data without having to delete chunks of it.
 
-You can think of ICA as magic (i.e., math) which separates out a set of activity patterns, in this case defined by scalp distributions, that are maximally *statistically* ***********************independent or stable across time***********************. These activity patterns (components) sum up to account for the EEG recording at any specific time point.
+You can think of ICA as magic (i.e., math) which separates out a set of activity patterns, in this case defined by scalp distributions, that are maximally *statistically independent or stable across time*. These activity patterns (components) sum up to account for the EEG recording at any specific time point.
 
 ```matlab
 %Compute ICA weights with runICA 
@@ -380,9 +380,9 @@ See ERP-CORE script for reference:
 
 # Outro
 
-There are many **********ways to preprocess EEG data - EEGLAB/ERPLAB is a nice starting point for beginners because there is a GUI as well as scripting options. It makes visualizing steps and skipping back and forth in the processing stream easy, which is useful for workshops/classes.
+There are *many* ways to preprocess EEG data - EEGLAB/ERPLAB is a nice starting point for beginners and workshops/classes because it is easy to visualize steps and skip back and forth in the processing stream.
 
-Fieldtrip is another MATLAB package (see book by Mike X Cohen). It uses slightly more complicated data structures, but I think it is much more effective for statistics and plotting (and certainly for time-frequency analyses). 
+Fieldtrip is another MATLAB package (see Mike X Cohen book below). It uses slightly more complicated data structures, but I think it is much more effective for statistics and plotting (and certainly for time-frequency analyses). 
 
 No matter what you go with, it is important to decide on an analysis pipeline before looking at (or even collecting) your data to avoid ‘creating’ effects through tweaking analysis parameters.
 
