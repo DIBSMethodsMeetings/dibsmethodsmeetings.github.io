@@ -738,6 +738,8 @@ h6 {
 
 img {
     max-width: 100%;
+    display: block;
+    margin: auto;
 }
 
 .bottompagination span.navigation {

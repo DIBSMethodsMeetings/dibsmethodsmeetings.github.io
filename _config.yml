@@ -31,6 +31,16 @@ authors:
     twitter: https://twitter.com/annedraelos
     description: "Postdoc in biostats & neuroscience with Dr. John Pearson at Duke University working on real-time adaptive experimental methods."
 
+  audrey:
+    name: Audrey
+    display_name: Audrey Siqi-Liu
+    avatar: assets/images/audrey.png
+    gravatar:
+    email: audrey.liu@duke.edu
+    web: 
+    twitter: 
+    description: "Post-defense PhD student in cognitive neuroscience at Duke University co-advised by Tobias Egner and Marty Woldorff, studying adaptive cognitive flexibility."
+
   kevin:
     name: Kevin
     display_name: Kevin O'Neill

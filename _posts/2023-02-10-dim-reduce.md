@@ -3,7 +3,7 @@ title: "Introductions to dimensionality reduction"
 author: miles
 categories: [ math, modeling ]
 image: assets/images/2023-02-10-dim-reduce/bull.jpg
-featured: true
+featured: false
 output:
   html_document: default
   pdf_document: default
