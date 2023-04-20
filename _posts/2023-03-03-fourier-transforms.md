@@ -1,6 +1,6 @@
 ---
 author: liz
-featured: true
+featured: false
 categories: [math, signal processing]
 image: https://tikz.net/files/fourier_series-011.png
 title: Decomposing Fourier transforms — an introduction to time-frequency decomposition
@@ -57,7 +57,7 @@ This animation shows a 6-component approximation of the square wave decomposed i
 If \\(\omega = 2 \pi / T = 2 \pi f\\) is the angular frequency \\(\omega\\) corresponding to the period \\(T\\) and frequency \\(f = 1/T\\), then the function \\(x(t)\\) can be written as a convergent infinite sum of sine and cosine functions each of period \\(T\\):
 
 $$ \begin{aligned}
-x(t) &= \frac{1}{2} a_0 + 
+x(t) &= \frac{1}{2} a_0 +
 \begin{align} &a_1 \text{cos}(\omega t) + a_2 \text{cos}(2 \omega t) + · · · \\
 &+ b_1 \text{sin}(\omega t) + b_2 \text{sin}(2 \omega t) + · · · \\
 \end{align} \\
@@ -164,7 +164,7 @@ for fi in range(len(frex)):
     elif fi == len(frex)-1:
         ax = plt.gca()
         ax.set_xlabel("Time")
-            
+
 #plot the sum of all sum waves
 plt.subplot(1,2,2)
 plt.plot(np.sum(sine_waves,axis=0), color='r')
@@ -174,9 +174,9 @@ _=plt.xlabel("Time")
 ```
 
 
-    
+
 ![png](../assets/images/2023-03-03-fourier-transforms/2023-03-03-fourier-transforms_12_0.png)
-    
+
 
 
 
@@ -191,9 +191,9 @@ plt.ylabel("Amplitude (a.u.)") ;
 ```
 
 
-    
+
 ![png](../assets/images/2023-03-03-fourier-transforms/2023-03-03-fourier-transforms_13_0.png)
-    
+
 
 
 #### Adding two signals preserves information of both signals
@@ -221,7 +221,7 @@ for i in range(3):
     ax1[i].plot(time, s_list[i], color='r')
     ax1[i].axis([0, 1, -1.6, 1.6])
     ax1[i].set_yticks(np.arange(-1.5, 2, .5))
-    
+
     #numpy implementation of the fft
     f = np.fft.fft(s_list[i])/float(len(time))
     hz = np.linspace(0, srate/2., int(np.floor(len(time)/2.)+1)) # we only have resolution up to SR/2 (Nyquist theorem)
@@ -239,9 +239,9 @@ subfig2.supylabel("Power (a.u.)") ;
 ```
 
 
-    
+
 ![png](../assets/images/2023-03-03-fourier-transforms/2023-03-03-fourier-transforms_15_0.png)
-    
+
 
 
 Here, two sines with different amplitudes and frequencies (from left to right: \\(1\\) and \\(0.5\\), and \\(3\\) and \\(8\\), respectively) are added together in the time domain. The relative "strength" of the frequencies present in the signal corresponding to sum of the two sines is resolved in the frequency domain.
@@ -267,7 +267,7 @@ fourier = np.zeros(N)*1j #create complex matrix
 for fi in range(N):
     sine_wave = np.exp(-1j *2 *np.pi*fi*time)
     fourier[fi] = np.sum(sine_wave*og_data)
-    
+
 fourier_og = fourier/float(N)
 
 fig = plt.figure(figsize=(8,8))
@@ -314,9 +314,9 @@ plt.tight_layout()
 
 
 
-    
+
 ![png](../assets/images/2023-03-03-fourier-transforms/2023-03-03-fourier-transforms_18_1.png)
-    
+
 
 
 <!-- #### Manaul implementation of the Fourier transform = numpy implementation -->
@@ -357,11 +357,11 @@ plt.tight_layout()
     </summary>
 <br>
     - It is a linear transform: If $g(t)$ and $h(t)$ are two Fourier transforms given by $G(f)$ and $H(f)$ respectively, then the linear combination of the Fourier transforms can be easily calculated.
-        
+
     - Time shift property: The Fourier transform of $g(t–a)$ for a real number $a$ that shifts the original function has the same amount of shift in the magnitude of the spectrum.
 
     - Modulation property: A function is modulated by another function when it is multiplied in time.
-        
+
     - Parseval’s theorem: Fourier transform is unitary, i.e., the sum of square of a function $g(t)$ equals the sum of the square of its Fourier transform, $G(f)$.
 
     - Duality: If g(t) has the Fourier transform G(f), then the Fourier transform of G(t) is g(-f).
@@ -387,7 +387,7 @@ Where,
 - \\(\color{cyan}{x_{n}}\\) is <span style="color:cyan">the signal</span>
 - \\(\color{red}{e^-i}\\) comes from Euler's formula
     - One can think of this complex exponential as <span style="color:red">rotation</span> of a point along the unit circle starting from (0, 1)...backwards, hence, the negative.
-- \\(\color{orange}{2 \pi}\\) is the circumfrence of the unit circle 
+- \\(\color{orange}{2 \pi}\\) is the circumfrence of the unit circle
     - One can think of this as rotating a point along <span style="color:orange">the full unit circle</span>.
 - \\(\color{magenta}{\sum\limits_{n=0}^{N-1}}\\) and \\(\color{magenta}{\frac{n}{N}}\\) is <span style="color:magenta">the sum and average of all points</span> in the signal
 
@@ -460,21 +460,21 @@ nonstationary = np.zeros(len(time)*len(frex))
 for fi in range(len(frex)):
     #compute sine wave
     temp_sine_wave = amplit[fi] * np.sin(2*np.pi*frex[fi]*time+phases[fi])
-    
+
     #enter into stationary time series
     stationary = stationary + np.tile(temp_sine_wave,(1,len(frex)))
-    
+
     #optional change of amplitude over time
     temp_sine_wave *= time+1
-    
+
     #start and stop indices for insertion of sine wave
     start_idx = fi * len(time)
     stop_idx = fi *len(time) + len(time)
-    
+
     #enter into non-stationary time series
     nonstationary[start_idx:stop_idx] = temp_sine_wave
 
-    
+
 plt.figure()
 plt.subplot(221)
 plt.plot(stationary[0], color='olive')
@@ -509,9 +509,9 @@ plt.tight_layout()
 ```
 
 
-    
+
 ![png](/../assets/images/2023-03-03-fourier-transforms/2023-03-03-fourier-transforms_27_0.png)
-    
+
 
 
 ### Zero-padding
@@ -533,7 +533,7 @@ In the first part of the animation, the Fourier transform (as defined above) is 
         <b>Note: Mathematical Definitions of <span style="color:red">rect</span> and <span style="color:blue; background-color: #FFFFFF">sinc</span>:
         </b>
     </summary>
-    <span style="color:red">The rect function</span> is defined as 
+    <span style="color:red">The rect function</span> is defined as
     $$\text{rect} \ x = \Pi(x) =
     \left\{
     \begin{array}{ll}
@@ -544,7 +544,7 @@ In the first part of the animation, the Fourier transform (as defined above) is 
     \right.
     $$
 <br>
-    <span style="color:blue; background-color: #FFFFFF">The normalized sinc function</span> is defined as 
+    <span style="color:blue; background-color: #FFFFFF">The normalized sinc function</span> is defined as
     $$\text{sinc} \ x = \frac{\text{sin} \pi x}{\pi x}.
     $$
 </details>
@@ -554,12 +554,12 @@ In the second part, the transform is reapplied to <span style="color:blue; backg
 It takes four iterations of the Fourier transform to get back to the original function.
 
 <!-- However, in this particular example, and with this particular definition of the Fourier transform, <span style="color:red">the rectangular function</span> and <span style="color:blue">the normalized sinc function</span> are exact inverses of each other. Using other definitions would require four applications. A distorted <span style="color:red">rect</span> and <span style="color:blue">sinc</span> function would result in the intermediate steps. -->
-<!-- 
+<!--
 This was done for simplicity, as to not have very tall and very wide intermediate functions, or the need for a very long animation, as per the animator's description. -->
 
 In this example, no imaginary, i.e., sine components, are displayed. Only the real, i.e., cosine components, are displayed.
 
-Overlaid on the <span style="color:red">time domain curve</span>, is a changing <span style="color:yellow">curve</span>. This is the approximation using <span style="color:blue; background-color: #FFFFFF">the components extracted from the frequency domain</span> "found" so far, i.e., <span style="color:blue; background-color: #FFFFFF">the cosines</span> sweeping the surface. 
+Overlaid on the <span style="color:red">time domain curve</span>, is a changing <span style="color:yellow">curve</span>. This is the approximation using <span style="color:blue; background-color: #FFFFFF">the components extracted from the frequency domain</span> "found" so far, i.e., <span style="color:blue; background-color: #FFFFFF">the cosines</span> sweeping the surface.
 
 The approximation is calculated by adding all the components, integrating along the entire surface, with the appropriate amplitude correction due to the specific Fourier transform and ranges used:
 
@@ -569,7 +569,7 @@ $$\colorbox{white}{$\color{blue}{\hat{f} (\xi) = {\int_{-\infty}^{\infty} f(x) \
 
 The short-time Fourier transform is the Fourier transform computed over short time windows.
 
-In short: 
+In short:
 1. The time series is broken up in to multiple segments. Each segment is **nperseg** samples long.
 2. The segments overlap by **noverlap** samples. This is the number of points to overlap between segments. The **time resolution is then nperseg - noverlap**, i.e, the time distance between neighboring segments. It's often called the "hop size".
 3. Segments are multiplied with **window**. Window and segment must have the same length.
@@ -640,9 +640,9 @@ plt.tight_layout()
 ```
 
 
-    
+
 ![png](../assets/images/2023-03-03-fourier-transforms/2023-03-03-fourier-transforms_33_0.png)
-    
+
 
 
 ## Sample Audio Data
@@ -698,9 +698,9 @@ plt.tight_layout()
 ```
 
 
-    
+
 ![png](../assets/images/2023-03-03-fourier-transforms/2023-03-03-fourier-transforms_35_1.png)
-    
+
 
 
 ## The Inverse Fourier Transform (IFT)
@@ -724,11 +724,11 @@ reconstructed_data = np.zeros(N)
 for fi in range(N):
     #scale sine wave by fourier coefficient
     sine_wave = fourier_og[fi] * np.exp(1j *2 * np.pi * fi * time)
-    
-    
+
+
     #sum the sine waves together, and take only the real part
     reconstructed_data += np.real(sine_wave)
-    
+
 plt.figure()
 plt.plot(og_data,'ko',linewidth=4)
 plt.plot(reconstructed_data,'r-*')
@@ -738,7 +738,7 @@ plt.ylabel("Amplitude (a.u.)") ;
 ```
 
 
-    
+
 ![png](../assets/images/2023-03-03-fourier-transforms/2023-03-03-fourier-transforms_38_0.png)
 
 
