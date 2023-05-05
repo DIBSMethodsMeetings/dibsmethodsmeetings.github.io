@@ -1,6 +1,6 @@
 ---
 author: audrey
-featured: true
+featured: false
 categories: [signal processing]
 image: assets/images/2023-04-07-eeg-analysis/Gas-Pipeline_Bigstock-scaled.jpeg
 title: Quick and Easy EEG Preprocessing in EEGLAB/ERPLAB

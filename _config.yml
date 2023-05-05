@@ -121,6 +121,16 @@ authors:
     twitter: https://twitter.com/SelfShenyang
     description: "Graduate student in cognitive neuroscience at Duke University working with Dr. Roberto Cabeza, Dr. Simon Davis, and Dr. Felipe De Brigard."
 
+  trevor:
+    name: Trevor
+    display_name: Trevor Alston
+    avatar: assets/images/trevor.jpg
+    gravatar:
+    email: trevor.alston@duke.edu
+    web:
+    twitter:
+    description: "Graduate student in neurobiology at Duke University working with Dr. John Pearson on dimensionality reduction."
+
   liz:
     name: Liz
     display_name: Liz O'Gorman
