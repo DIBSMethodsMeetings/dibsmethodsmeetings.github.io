@@ -31,6 +31,16 @@ authors:
     twitter: https://twitter.com/annedraelos
     description: "Postdoc in biostats & neuroscience with Dr. John Pearson at Duke University working on real-time adaptive experimental methods."
 
+  ari:
+    name: Ari
+    display_name: Ari Khoudary
+    avatar: assets/images/ari.jpeg
+    gravatar:
+    email: ari.khoudary@uci.edu
+    web: https://arikhoudary.com
+    twitter: https://twitter.com/ari_khoudary
+    description: "Graduate student at UC Irvine working with Dr. Megan Peters and Dr. Aaron Bornstein on memory, perception, and metacognition."
+
   audrey:
     name: Audrey
     display_name: Audrey Siqi-Liu
@@ -41,15 +51,15 @@ authors:
     twitter: 
     description: "Post-defense PhD student in cognitive neuroscience at Duke University co-advised by Tobias Egner and Marty Woldorff, studying adaptive cognitive flexibility."
 
-  kevin:
-    name: Kevin
-    display_name: Kevin O'Neill
-    avatar: assets/images/kevin.jpg
+  daniela:
+    name: Daniela
+    display_name: Daniela DeAlbuquerque
+    avatar: assets/images/Daniela.jpg
     gravatar:
-    email: kevin.oneill@duke.edu
-    web: https://kevingoneill.github.io
-    twitter: https://twitter.com/kevingoneill
-    description: "PhD candidate in cognitive neuroscience at Duke University working with Dr. Felipe De Brigard and Dr. John Pearson on causal reasoning."
+    email: dfd4@duke.edu
+    web: 
+    twitter: 
+    description: "MD-PhD student in Electrical and Computer Engineering working with Dr. John Pearson on statistical methods for neuroscience."
 
   gabriela:
     name: Gabriela
@@ -61,25 +71,25 @@ authors:
     twitter: https://twitter.com/GabrielaFM12
     description: "Graduate student at Duke University working with Dr. Felipe De Brigard."
 
-  nathan:
-    name: Nathan
-    display_name: Nathan Liang
-    avatar: assets/images/nathan.jpg
+  kevin:
+    name: Kevin
+    display_name: Kevin O'Neill
+    avatar: assets/images/kevin.jpg
     gravatar:
-    email: nathan.liang@duke.edu
-    web: https://1nathanliang.github.io
-    twitter: https://twitter.com/1nathan_liang
-    description: "Field experiment coordinator at Boston College working with Dr. Liane Young and Dr. Gregg R. Sparkman on applied moral psychology."
+    email: kevin.oneill@duke.edu
+    web: https://kevingoneill.github.io
+    twitter: https://twitter.com/kevingoneill
+    description: "PhD candidate in cognitive neuroscience at Duke University working with Dr. Felipe De Brigard and Dr. John Pearson on causal reasoning."
 
-  ari:
-    name: Ari
-    display_name: Ari Khoudary
-    avatar: assets/images/ari.jpeg
+  liz:
+    name: Liz
+    display_name: Liz O'Gorman
+    avatar: assets/images/liz.png
     gravatar:
-    email: ari.khoudary@uci.edu
-    web: https://arikhoudary.com
-    twitter: https://twitter.com/ari_khoudary
-    description: "Graduate student at UC Irvine working with Dr. Megan Peters and Dr. Aaron Bornstein on memory, perception, and metacognition."
+    email: elizabeth.ogorman@duke.edu
+    web: https://eaogorman.github.io/
+    twitter: https://twitter.com/eaogorman
+    description: "Phd Candidate (Neurobiology) + MS Student (ECE) at Duke University working with Dr. John Pearson on real-time adaptive experimental methods + deep learning."
 
   miles:
     name: Miles
@@ -90,6 +100,16 @@ authors:
     web:
     twitter:
     description: "Graduate student in the cognitive neuroscience admitting program at Duke University working with Dr. John Pearson on variational inference."
+
+  nathan:
+    name: Nathan
+    display_name: Nathan Liang
+    avatar: assets/images/nathan.jpg
+    gravatar:
+    email: nathan.liang@duke.edu
+    web: https://1nathanliang.github.io
+    twitter: https://twitter.com/1nathan_liang
+    description: "Field experiment coordinator at Boston College working with Dr. Liane Young and Dr. Gregg R. Sparkman on applied moral psychology."
 
   pranjal:
     name: Pranjal
@@ -131,15 +151,6 @@ authors:
     twitter:
     description: "Graduate student in neurobiology at Duke University working with Dr. John Pearson on dimensionality reduction."
 
-  liz:
-    name: Liz
-    display_name: Liz O'Gorman
-    avatar: assets/images/liz.png
-    gravatar:
-    email: elizabeth.ogorman@duke.edu
-    web: https://eaogorman.github.io/
-    twitter: https://twitter.com/eaogorman
-    description: "Phd Candidate (Neurobiology) + MS Student (ECE) at Duke University working with Dr. John Pearson on real-time adaptive experimental methods + deep learning."
 
 collections:
   personal_page:
