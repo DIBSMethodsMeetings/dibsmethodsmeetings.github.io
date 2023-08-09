@@ -6,6 +6,19 @@ image: https://www.latex-project.org/img/latex-project-logo.svg
 featured: false
 ---
 
+<style>
+.padded-table {
+  margin: 0 auto;
+}
+
+.padded-table th, .padded-table td {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+
+</style>
+
 # **Introduction**
 
 ## **A Brief History of Typesetting**
@@ -64,13 +77,13 @@ The invention of intuitive word processing systems enabled desktop publishing fo
 </p><br>
 
 
-## **What is $\LaTeX$?**
+## **What is $$\LaTeX$$?**
 <div align="center">
 <img src="https://highxtar.com/wp-content/uploads/2022/03/highxtar-kim-kardashian-es-pro-latex-10-702x1024.jpg" width="250px"><br>
 <font size=2>Mind the case-sensitive spelling (and pronunciation).</font>
 </div>
 
-$\LaTeX$ is an open-source typesetting **software** for styling plain-text with markup conventions. It's a direct alternative to "what you see is what you get" (literally: "WYSIWYG") document preparation software—which is usually proprietary like MS Word, although not *always* (e.g., Google Docs). In other words, it's a programmatic way to format a document (articles and presentations).
+$$\LaTeX$$ is an open-source typesetting **software** for styling plain-text with markup conventions. It's a direct alternative to "what you see is what you get" (literally: "WYSIWYG") document preparation software—which is usually proprietary like MS Word, although not *always* (e.g., Google Docs). In other words, it's a programmatic way to format a document (articles and presentations).
 
 It's most commonly either pronounced "LAH-teck" (/ˈlɑːtɛx/) or the equally acceptable "LAY-teck" (/ˈleɪtɛk/)—the latter being my preferred choice for clarity's sake, although *technically* it should be the first. I've also heard of "luh-TECK", but that might be a one-off...
 
@@ -85,7 +98,7 @@ I understand that this supposed "definition" might be quite confusing at first b
 
 Just as a website contains plain text—just the actual characters you see on the screen—that has been styled with CSS and JavaScript, LaTeX involves styling plain text with commands known technically as *macros* (more on this later).
 
-## **Why (Not) Use $\LaTeX$?**
+## **Why (Not) Use $$\LaTeX$$?**
 
 The million dollar question. There's generally a clear answer for when you could (and, as TeX users will argue, therefore, <em>should</em>) or shouldn't use LaTeX, but there's also some limited grey area in between where it'll be up to your discretion whether to opt for a WYSIWYG editor instead.<br><br>
 
@@ -133,7 +146,7 @@ The million dollar question. There's generally a clear answer for when you could
 LaTeX is almost certainly harder to learn from the get-go than portrayed here, but the trend is arguably quite accurate.
 </div>
 
-## **Why is LaTeX stylized as $\LaTeX$?**
+## **Why is LaTeX stylized as $$\LaTeX$$?**
 
 > "[...] it's important to notice another thing about TeX's name: The E is out of kilter. This displaced E is a reminder that TeX is about typesetting, and it distinguishes TeX from other system names. In fact, TEX (pronounced tecks) is the admirable Text EXecutive processor developed by Honeywell Information Systems. Since these two system names are pronounced quite differently, they should also be spelled differently. The correct way to refer to TeX in a computer file, or when using some other medium that doesn't allow lowering of the E, is to type TeX. Then there will be no confusion with similar names, and people will be primed to pronounce everything properly."
 
@@ -143,7 +156,7 @@ LaTeX is almost certainly harder to learn from the get-go than portrayed here, b
 
 The font, by the way, is called "Computer Modern" and was designed by Donald Knuth himself. If you see any documents formatted online with this earmark typography, you'll know it was formatted in LaTeX!
 
-## **$\TeX$ vs. $\LaTeX$**
+## **$$\TeX$$ vs. $$\LaTeX$$**
 
 The distinction between TeX and LaTeX is of the utmost confusion to a lot of people—for good reason! As long as you understand *what* TeX is, you'll almost certainly never have to deal with it. LaTeX was designed specifically to harness TeX functionality in a more user-friendly way. In other words, TeX controls underlying layout, LaTeX determines content preparation.
 
@@ -222,14 +235,17 @@ While DVI to PDF has functional limitations, there are also merits to keeping ea
 
 LaTeX is compiled using an **engine**. The act of compilation is called a **format** (e.g., XeTeX). There are various flavors of TeX each with their own benefits/downsides, but in terms of functionality ordered from least to most powerful, it would be: `TeX`, `pdfTeX`, `XeTeX`, and then `LuaTeX`.
 
-Engine (Binary Executable) | Description | Advantages/Disadvantages
----: | :--- | :---
-`TeX` | Knuth's original TeX | Most basic engine, you're probably never going to use it
-`e-TeX` | Added several primitives to TeX | Functionality has been incorporated into newer engines anyway, so need to use it
-`pdfTeX` | eTeX plus pdf-relevant primitives | Default engine of contemporary TeX systems
-`XeTeX` | eTeX plus some pdfTeX primitives and supports Unicode | Best option for formatting custom fonts
-`LuaTeX` | XeTeX plus embedded Lua scripting functionality | Useful if you're going to script in Lua
-`(u)pTeX` | pTeX is for vertically written Japanese, upTeX is a further extension that supports Unicode | Unless, of course, you're writing in Japanese, you're not going to use this
+{:.padded-table}
+| Engine (Binary Executable) | Description | Advantages/Disadvantages |
+| ---: | :--- | :--- |
+| `TeX` | Knuth's original TeX | Most basic engine, you're probably never going to use it |
+| `e-TeX` | Added several primitives to TeX | Functionality has been incorporated into newer engines anyway, so need to use it |
+| `pdfTeX` | eTeX plus pdf-relevant primitives | Default engine of contemporary TeX systems |
+| `XeTeX` | eTeX plus some pdfTeX primitives and supports Unicode | Best option for formatting custom fonts |
+| `LuaTeX` | XeTeX plus embedded Lua scripting functionality | Useful if you're going to script in Lua |
+| `(u)pTeX` | pTeX is for vertically written Japanese, upTeX is a further extension that supports Unicode | Unless, of course, you're writing in Japanese, you're not going to use this |
+
+<br>
 
 # Quick Math
 
@@ -263,12 +279,15 @@ Equation Math Environment
 
 ## **Operators and Relational Symbols**
 
+{:.padded-table}
 | Control Sequence | Output | Control Sequence | Output |
 | --- | --- | --- | --- |
 | `\times` | $$\times$$ | `\geq` | $$\geq$$ |
 | `\cdot` | $$\cdot$$ | `\leq` | $$\leq$$ |
 | `\div` | $$\div$$ |  `\neq` | $$\leq$$ |
 | `\pm`	| $$\pm$$ | `\approx` |	$$\approx$$ |
+
+<br>
 
 "+", "-", and "/" symbols are not explicitly defined because they can be typed via a standard keyboard without `Alt` + `####` (the four-digit Unicode specifiction) in Windows and `option` for Mac. That being said, you could technically just use those symbols directly.
 
@@ -287,6 +306,8 @@ Grouping as a general concept is enabled through braces. If you wanted to apply 
 * e.g., `x^{x+1}` renders as $$x^{x+1}$$ vs. `x^x+1` renders as $$x^x+1$$
 
 ## **Greek Alphabet**
+
+{:.padded-table}
 | Control Sequence | Output |
 | --- | --- |
 | `\alpha` `A` | $$\alpha$$ $$A$$	|
@@ -313,6 +334,8 @@ Grouping as a general concept is enabled through braces. If you wanted to apply 
 | `\chi` `X`| $$\chi$$ $$X$$ |
 | `\phi` `\Psi`| $$\psi$$ $$\Psi$$ |
 | `\omega` `\Omega`| $$\omega$$ $$\Omega$$ |
+
+<br>
 
 Note the case-sensitive control sequences. Additionally, not all letter-case combinations are implemented as control sequences (e.g., capital A). This is an exhaustive list, although not all websites or online resources will provide it.
 
