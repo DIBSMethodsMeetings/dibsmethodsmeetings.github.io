@@ -3,14 +3,8 @@ title: "Typesetting with LaTeX"
 author: nathan
 categories: [ programming ]
 image: https://www.latex-project.org/img/latex-project-logo.svg
-featured: true
+featured: false
 ---
-
-<div align="center">
-<img src="https://www.latex-project.org/img/latex-project-logo.svg" width=500px><br/>
-<font size='6'>
-<strong>Typesetting with $$\LaTeX$$</strong></font></div>
-<div align="center"><font size='4'>Author: Nathan Liang</font></div>
 
 # **Introduction**
 
@@ -72,7 +66,7 @@ The invention of intuitive word processing systems enabled desktop publishing fo
 
 ## **What is $\LaTeX$?**
 <div align="center">
-<img src="https://highxtar.com/wp-content/uploads/2022/03/highxtar-kim-kardashian-es-pro-latex-10-702x1024.jpg" width="250px"></br>
+<img src="https://highxtar.com/wp-content/uploads/2022/03/highxtar-kim-kardashian-es-pro-latex-10-702x1024.jpg" width="250px"><br>
 <font size=2>Mind the case-sensitive spelling (and pronunciation).</font>
 </div>
 
@@ -81,7 +75,7 @@ $\LaTeX$ is an open-source typesetting **software** for styling plain-text with 
 It's most commonly either pronounced "LAH-teck" (/ˈlɑːtɛx/) or the equally acceptable "LAY-teck" (/ˈleɪtɛk/)—the latter being my preferred choice for clarity's sake, although *technically* it should be the first. I've also heard of "luh-TECK", but that might be a one-off...
 
 <div align="center">
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/ViewsIceberg.svg/1920px-ViewsIceberg.svg.png" width="500px"></br>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/ViewsIceberg.svg/1920px-ViewsIceberg.svg.png" width="500px"><br>
 <font size=2>A model of content authoring. We love our Freudian icebergs.</font>
 </div>
 
