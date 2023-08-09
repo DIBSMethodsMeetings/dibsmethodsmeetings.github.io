@@ -19,7 +19,7 @@ authors:
     email: allie.sinclair@duke.edu
     web: https://alyssasinclair.com
     twitter: https://twitter.com/sinclair_allie
-    description: "PhD candidate in cognitive neuroscience at Duke University co-advised by Dr. Alison Adcock and Dr. Gregory Samanez-Larkin studying how people learn from error."
+    description: "PhD Candidate in Cognitive Neuroscience at Duke University working with Dr. Alison Adcock and Dr. Gregory Samanez-Larkin studying how people learn from error."
 
   anne:
     name: Anne
@@ -29,7 +29,7 @@ authors:
     email: amw73@duke.edu
     web: https://draelos.github.io
     twitter: https://twitter.com/annedraelos
-    description: "Postdoc in biostats & neuroscience with Dr. John Pearson at Duke University working on real-time adaptive experimental methods."
+    description: "Postdoc in Biostats & Neuroscience at Duke University working with Dr. John Pearson on real-time adaptive experimental methods."
 
   ari:
     name: Ari
@@ -39,7 +39,7 @@ authors:
     email: ari.khoudary@uci.edu
     web: https://arikhoudary.com
     twitter: https://twitter.com/ari_khoudary
-    description: "Graduate student at UC Irvine working with Dr. Megan Peters and Dr. Aaron Bornstein on memory, perception, and metacognition."
+    description: "PhD Student in Cognitive Science at UC Irvine working with Dr. Megan Peters and Dr. Aaron Bornstein on memory, perception, and metacognition."
 
   audrey:
     name: Audrey
@@ -49,7 +49,7 @@ authors:
     email: audrey.liu@duke.edu
     web: 
     twitter: 
-    description: "Post-defense PhD student in cognitive neuroscience at Duke University co-advised by Tobias Egner and Marty Woldorff, studying adaptive cognitive flexibility."
+    description: "Post-defense PhD in Cognitive Neuroscience at Duke University working with Tobias Egner and Marty Woldorff studying adaptive cognitive flexibility."
 
   daniela:
     name: Daniela
@@ -59,7 +59,7 @@ authors:
     email: dfd4@duke.edu
     web: 
     twitter: 
-    description: "MD-PhD student in Electrical and Computer Engineering working with Dr. John Pearson on statistical methods for neuroscience."
+    description: "MD-PhD Student in Electrical and Computer Engineering at Duke University working with Dr. John Pearson on statistical methods for neuroscience."
 
   gabriela:
     name: Gabriela
@@ -69,7 +69,7 @@ authors:
     email: gabriela.fernandez@duke.edu
     web: https://gabrielafernandezmiranda.github.io
     twitter: https://twitter.com/GabrielaFM12
-    description: "Graduate student at Duke University working with Dr. Felipe De Brigard."
+    description: "PhD Student at Duke University working with Dr. Felipe De Brigard."
 
   kevin:
     name: Kevin
@@ -79,7 +79,7 @@ authors:
     email: kevin.oneill@duke.edu
     web: https://kevingoneill.github.io
     twitter: https://twitter.com/kevingoneill
-    description: "PhD candidate in cognitive neuroscience at Duke University working with Dr. Felipe De Brigard and Dr. John Pearson on causal reasoning."
+    description: "PhD Candidate in Cognitive Neuroscience at Duke University working with Dr. Felipe De Brigard and Dr. John Pearson on causal reasoning."
 
   liz:
     name: Liz
@@ -89,7 +89,7 @@ authors:
     email: elizabeth.ogorman@duke.edu
     web: https://eaogorman.github.io/
     twitter: https://twitter.com/eaogorman
-    description: "Phd Candidate (Neurobiology) + MS Student (ECE) at Duke University working with Dr. John Pearson on real-time adaptive experimental methods + deep learning."
+    description: "PhD Candidate in Neurobiology and MS Student in ECE at Duke University working with Dr. John Pearson on real-time adaptive experimental methods and deep learning."
 
   miles:
     name: Miles
@@ -99,17 +99,17 @@ authors:
     email: miles.martinez@duke.edu
     web:
     twitter:
-    description: "Graduate student in the cognitive neuroscience admitting program at Duke University working with Dr. John Pearson on variational inference."
+    description: "PhD Student in Cognitive Neuroscience at Duke University working with Dr. John Pearson on variational inference."
 
   nathan:
     name: Nathan
     display_name: Nathan Liang
     avatar: assets/images/nathan.jpg
     gravatar:
-    email: nathan.liang@duke.edu
+    email: nl453@cornell.edu
     web: https://1nathanliang.github.io
     twitter: https://twitter.com/1nathan_liang
-    description: "Field experiment coordinator at Boston College working with Dr. Liane Young and Dr. Gregg R. Sparkman on applied moral psychology."
+    description: "PhD Student in Social & Personality Psychology at Cornell University working with Dr. Laura Niemi on social learning and moral reasoning."
 
   pranjal:
     name: Pranjal
@@ -119,7 +119,7 @@ authors:
     email: pranjal.gupta@duke.edu
     web:
     twitter:
-    description: "Graduate student in cognitive neuroscience at Duke University working with Dr. John Pearson on online dimensionality reduction."
+    description: "PhD Student in Cognitive Neuroscience at Duke University working with Dr. John Pearson on online dimensionality reduction."
 
   raphael:
     name: Raphael
@@ -129,7 +129,7 @@ authors:
     email: raphael.geddert@duke.edu
     web:
     twitter: https://twitter.com/raphaelgeddert
-    description: "Graduate student in cognitive neuroscience at Duke University working with Dr. Tobias Egner on cognitive control."
+    description: "PhD Candidate in Cognitive Neuroscience at Duke University working with Dr. Tobias Egner on cognitive control."
 
   shenyang:
     name: Shenyang
@@ -139,7 +139,7 @@ authors:
     email: shenyang.huang@duke.edu
     web: https://huang-shenyang.github.io/
     twitter: https://twitter.com/SelfShenyang
-    description: "Graduate student in cognitive neuroscience at Duke University working with Dr. Roberto Cabeza, Dr. Simon Davis, and Dr. Felipe De Brigard."
+    description: "PhD Student in Cognitive Neuroscience at Duke University working with Dr. Roberto Cabeza, Dr. Simon Davis, and Dr. Felipe De Brigard."
 
   trevor:
     name: Trevor
@@ -149,7 +149,7 @@ authors:
     email: trevor.alston@duke.edu
     web:
     twitter:
-    description: "Graduate student in neurobiology at Duke University working with Dr. John Pearson on dimensionality reduction."
+    description: "PhD Student in Neurobiology at Duke University working with Dr. John Pearson on dimensionality reduction."
 
 
 collections:
