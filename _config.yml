@@ -173,7 +173,6 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-archives
-  - jekyll-loading-lazy
 
 # Archives
 jekyll-archives:
@@ -205,6 +204,6 @@ adsense-data-ad-slot:
 # Lazy Images ("enabled" or "disabled")
 lazyimages: "disabled"
 
-exclude: [changelog.md, LICENSE.txt, README.md, Gemfile, Gemfile.lock, cache]
+exclude: [changelog.md, LICENSE.txt, README.md, Gemfile, Gemfile.lock, cache, _source, render]
 
 theme: jekyll-theme-minimal

@@ -55,9 +55,9 @@ post_class: post-template
             {% if page.image %}
 	    
             {% if site.lazyimages == "enabled" %}
-            <img class="featured-image img-fluid lazyimg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACCAQAAAA3fa6RAAAADklEQVR42mNkAANGCAUAACMAA2w/AMgAAAAASUVORK5CYII=" data-src="{% if page.image contains "://" %}{{ page.image }}{% else %}{{ site.baseurl }}/{{ page.image }}{% endif %}" alt="{{ page.title }}">
+            <img class="featured-image img-fluid lazyimg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACCAQAAAA3fa6RAAAADklEQVR42mNkAANGCAUAACMAA2w/AMgAAAAASUVORK5CYII=" data-src="{% if page.image contains "://" %}{{ page.image }}{% else %}{{ site.baseurl }}/{{ page.image }}{% endif %}" alt="{{ page.title }}" loading="lazy">
             {% else %}
-            <img class="featured-image img-fluid" src="{% if page.image contains "://" %}{{ page.image }}{% else %}{{ site.baseurl }}/{{ page.image }}{% endif %}" alt="{{ page.title }}">
+            <img class="featured-image img-fluid" src="{% if page.image contains "://" %}{{ page.image }}{% else %}{{ site.baseurl }}/{{ page.image }}{% endif %}" alt="{{ page.title }}" loading="lazy">
             {% endif %}
 	    
             {% endif %}
@@ -76,7 +76,18 @@ post_class: post-template
                     </div>
                 {% endif %}
                 <!-- End Toc -->
-                {{content}}
+                {% assign excerpt = content | split: '<img' %}
+		{% for e in excerpt %}
+		  {% if forloop.first == true %}
+		    {{ e }}
+		  {% else %}
+		    {% assign tmp = e | split: '/>' %}
+		    {% assign params = tmp | first %}
+		    {% assign rest = tmp | shift | first %}
+		  {% endif %}
+
+		  <img {{params}} loading="lazy"/>{{rest}}
+		{% endfor %}
             </div>
 
             <!-- Rating -->

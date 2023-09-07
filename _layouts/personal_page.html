@@ -12,9 +12,9 @@ layout: default
       
       <div style="maxthumb">
 	{% if author.avatar %}
-	<img class="author-img" src="{{site.baseurl}}/{{author.avatar}}" alt="{{author.display_name}}">
+	<img class="author-img" src="{{site.baseurl}}/{{author.avatar}}" alt="{{author.display_name}}" loading="lazy">
 	{% else %}
-	<img class="author-img" src="https://www.gravatar.com/avatar/{{ author.gravatar }}?s=250&d=mm&r=x" alt="{{ author.display_name }}">
+	<img class="author-img" src="https://www.gravatar.com/avatar/{{ author.gravatar }}?s=250&d=mm&r=x" alt="{{ author.display_name }}" loading="lazy">
 	{% endif %}
       </div>
       
@@ -34,17 +34,17 @@ layout: default
 	
 	{% if author.web %}
 	<a class="btn" href="{{author.web}}"><img class='author-thumb' style="display: block; margin: auto; border-radius: 0;"
-						  src="{{site.baseurl}}/assets/images/globe.png"></a>
+						  src="{{site.baseurl}}/assets/images/globe.png" loading="lazy"></a>
 	{% endif %}
 	
 	{% if author.twitter %}
 	<a class="btn" href="{{author.twitter}}"><img class='author-thumb' style="display: block; margin: auto; border-radius: 0;"
-						      src="{{site.baseurl}}/assets/images/twitter.png"></a>
+						      src="{{site.baseurl}}/assets/images/twitter.png" loading="lazy"></a>
 	{% endif %}
 	
 	{% if author.email %}
 	<a class="btn" href="mailto:{{author.email}}"><img class='author-thumb' style="display: block; margin: auto; border-radius: 0;"
-							 src="{{site.baseurl}}/assets/images/email.png"></a>
+							 src="{{site.baseurl}}/assets/images/email.png" loading="lazy"></a>
 	{% endif %}
 	
 	<div class="clearfix"></div>
