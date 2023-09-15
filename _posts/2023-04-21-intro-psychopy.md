@@ -1,6 +1,6 @@
 ---
 author: raphael
-featured: true
+featured: false
 categories: [ programming ]
 image: assets/images/2023-04-21-intro-psychopy/psychopyLogo.png
 title: Introduction to behavioral Experiments in PsychoPy
