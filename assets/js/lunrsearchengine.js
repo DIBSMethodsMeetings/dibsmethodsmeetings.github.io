@@ -3,24 +3,42 @@ layout: null
 sitemap: false
 ---
 
-{% assign counter = 0 %}
-var documents = [{% for page in site.posts %}{
-    "id": {{ counter }},
-    "url": "{{ site.url }}{{site.baseurl}}{{ page.url }}",
-    "title": "{{ page.title }}",
-    "body": "{{ page.author }} - {{ page.date | date: "%Y/%m/%d" }} - {{ page.content | markdownify | replace: '.', '. ' | replace: '</h2>', ': ' | replace: '</h3>', ': ' | replace: '</h4>', ': ' | replace: '</p>', ' ' | strip_html | strip_newlines | replace: '  ', ' ' | replace: '"', ' ' | replace: '\', '' }}"{% assign counter = counter | plus: 1 %}
+// cache index to prevent lunr from bogging down load times
+var idx = null;
+function createIndex() {
+    if (idx == null) {
+	idx = lunr(function () {
+            this.ref('id');
+            this.field('title');
+            this.field('body');
+	    
+            getDocuments().forEach(function (doc) {
+		this.add(doc);
+            }, this);
+	});
+    }
+}
+
+// cache documents to prevent lunr from bogging down load times
+var documents = null;
+function getDocuments() {
+    if (documents == null) {
+	console.log('Generating index...');
+	{% assign counter = 0 %}
+	documents = [{% for page in site.posts %}{
+	    "id": {{ counter }},
+	    "url": "{{ site.url }}{{site.baseurl}}{{ page.url }}",
+	    "title": "{{ page.title }}",
+	    "body": "{{ page.author }} - {{ page.date | date: "%Y/%m/%d" }} - {{ page.content | markdownify | replace: '.', '. ' | replace: '</h2>', ': ' | replace: '</h3>', ': ' | replace: '</h4>', ': ' | replace: '</p>', ' ' | strip_html | strip_newlines | replace: '  ', ' ' | replace: '"', ' ' | replace: '\', '' }}"{% assign counter = counter | plus: 1 %}
     }{% if forloop.last %}{% else %}, {% endif %}{% endfor %}];
+    }
 
-var idx = lunr(function () {
-    this.ref('id')
-    this.field('title')
-    this.field('body')
+    console.log('Returning cached documents');
+    return documents;
+}
 
-    documents.forEach(function (doc) {
-        this.add(doc)
-    }, this)
-});
 function lunr_search(term) {
+    createIndex();
     document.getElementById('lunrsearchresults').innerHTML = '<ul></ul>';
     if(term) {
         document.getElementById('lunrsearchresults').innerHTML = "<p>Search results for '" + term + "'</p>" + document.getElementById('lunrsearchresults').innerHTML;
@@ -45,6 +63,7 @@ function lunr_search(term) {
 }
 
 function lunr_search(term) {
+    createIndex();
     $('#lunrsearchresults').show( 400 );
     $( "body" ).addClass( "modal-open" );
     
