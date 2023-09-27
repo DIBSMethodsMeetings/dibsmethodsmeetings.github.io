@@ -1,0 +1,14 @@
+\documentclass[border={0pt}, tikz]{standalone}
+\usepackage{amsmath}
+\usetikzlibrary{bayesnet}
+
+\begin{document}
+\begin{tikzpicture}
+  \node[obs, yshift=1cm] (y) {y};
+
+  \node[latent, left=of y] (sigma) {$\sigma$};
+  \node[latent, above=of y] (alpha) {$\alpha$};
+  
+  \edge {alpha, sigma} {y};
+\end{tikzpicture}
+\end{document}
