@@ -156,16 +156,16 @@ d1
     ## # A tibble: 2,500 × 3
     ##    participant trial       y
     ##    <fct>       <fct>   <dbl>
-    ##  1 1           1     -0.173 
-    ##  2 1           2     -0.288 
-    ##  3 1           3     -0.105 
-    ##  4 1           4     -0.301 
+    ##  1 1           1     -0.173
+    ##  2 1           2     -0.288
+    ##  3 1           3     -0.105
+    ##  4 1           4     -0.301
     ##  5 1           5     -0.0475
     ##  6 1           6     -0.0817
     ##  7 1           7     -0.0798
-    ##  8 1           8      0.275 
-    ##  9 1           9      0.190 
-    ## 10 1           10     0.224 
+    ##  8 1           8      0.275
+    ##  9 1           9      0.190
+    ## 10 1           10     0.224
     ## # ℹ 2,490 more rows
 
 Here we’re using the `expand_grid` function to generate every possible
@@ -213,14 +213,14 @@ d2
     ##    <fct>       <fct>  <dbl>
     ##  1 1           1     -0.928
     ##  2 1           2     -0.977
-    ##  3 1           3     -1.03 
-    ##  4 1           4     -1.29 
+    ##  3 1           3     -1.03
+    ##  4 1           4     -1.29
     ##  5 1           5     -0.844
     ##  6 1           6     -0.730
-    ##  7 1           7     -1.15 
+    ##  7 1           7     -1.15
     ##  8 1           8     -0.791
     ##  9 1           9     -0.998
-    ## 10 1           10    -1.01 
+    ## 10 1           10    -1.01
     ## # ℹ 2,490 more rows
 
 To make sure this looks right, we can plot the data as before:
@@ -317,20 +317,20 @@ m1.complete <- lm(y ~ 1, data=d1)
 summary(m1.complete)
 ```
 
-    ## 
+    ##
     ## Call:
     ## lm(formula = y ~ 1, data = d1)
-    ## 
+    ##
     ## Residuals:
-    ##      Min       1Q   Median       3Q      Max 
-    ## -0.82256 -0.13351  0.00126  0.13386  0.58121 
-    ## 
+    ##      Min       1Q   Median       3Q      Max
+    ## -0.82256 -0.13351  0.00126  0.13386  0.58121
+    ##
     ## Coefficients:
-    ##              Estimate Std. Error t value Pr(>|t|)  
+    ##              Estimate Std. Error t value Pr(>|t|)
     ## (Intercept) -0.008256   0.003910  -2.112   0.0348 *
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-    ## 
+    ##
     ## Residual standard error: 0.1955 on 2499 degrees of freedom
 
 This summary gives us two important pieces of information. First, under
@@ -387,18 +387,18 @@ m2.complete <- lm(y ~ 1, data=d2)
 summary(m2.complete)
 ```
 
-    ## 
+    ##
     ## Call:
     ## lm(formula = y ~ 1, data = d2)
-    ## 
+    ##
     ## Residuals:
-    ##      Min       1Q   Median       3Q      Max 
-    ## -1.62799 -0.62519 -0.00818  0.61986  1.54859 
-    ## 
+    ##      Min       1Q   Median       3Q      Max
+    ## -1.62799 -0.62519 -0.00818  0.61986  1.54859
+    ##
     ## Coefficients:
     ##             Estimate Std. Error t value Pr(>|t|)
     ## (Intercept) 0.009834   0.014674    0.67    0.503
-    ## 
+    ##
     ## Residual standard error: 0.7337 on 2499 degrees of freedom
 
 Overall, the model fit looks very similar! There is one interesting
@@ -444,20 +444,20 @@ m3.complete <- lm(y ~ 1, data=d3)
 summary(m3.complete)
 ```
 
-    ## 
+    ##
     ## Call:
     ## lm(formula = y ~ 1, data = d3)
-    ## 
+    ##
     ## Residuals:
-    ##      Min       1Q   Median       3Q      Max 
-    ## -1.08196 -0.50005 -0.33158 -0.08697  2.18594 
-    ## 
+    ##      Min       1Q   Median       3Q      Max
+    ## -1.08196 -0.50005 -0.33158 -0.08697  2.18594
+    ##
     ## Coefficients:
-    ##             Estimate Std. Error t value Pr(>|t|)    
+    ##             Estimate Std. Error t value Pr(>|t|)
     ## (Intercept)  0.39689    0.01651   24.03   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-    ## 
+    ##
     ## Residual standard error: 0.8257 on 2499 degrees of freedom
 
 Well, that’s not good. Not only is the residual standard deviation still
@@ -540,26 +540,26 @@ m1.no <- lm(y ~ 0 + participant, data=d1)
 summary(m1.no)
 ```
 
-    ## 
+    ##
     ## Call:
     ## lm(formula = y ~ 0 + participant, data = d1)
-    ## 
+    ##
     ## Residuals:
-    ##      Min       1Q   Median       3Q      Max 
-    ## -0.81198 -0.13546  0.00079  0.13285  0.57696 
-    ## 
+    ##      Min       1Q   Median       3Q      Max
+    ## -0.81198 -0.13546  0.00079  0.13285  0.57696
+    ##
     ## Coefficients:
-    ##               Estimate Std. Error t value Pr(>|t|)   
-    ## participant1 -0.018839   0.008728  -2.158   0.0310 * 
-    ## participant2 -0.006732   0.008728  -0.771   0.4406   
-    ## participant3 -0.007990   0.008728  -0.915   0.3600   
-    ## participant4  0.016055   0.008728   1.840   0.0660 . 
+    ##               Estimate Std. Error t value Pr(>|t|)
+    ## participant1 -0.018839   0.008728  -2.158   0.0310 *
+    ## participant2 -0.006732   0.008728  -0.771   0.4406
+    ## participant3 -0.007990   0.008728  -0.915   0.3600
+    ## participant4  0.016055   0.008728   1.840   0.0660 .
     ## participant5 -0.023773   0.008728  -2.724   0.0065 **
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-    ## 
+    ##
     ## Residual standard error: 0.1952 on 2495 degrees of freedom
-    ## Multiple R-squared:  0.006726,   Adjusted R-squared:  0.004735 
+    ## Multiple R-squared:  0.006726,   Adjusted R-squared:  0.004735
     ## F-statistic: 3.379 on 5 and 2495 DF,  p-value: 0.004798
 
 The summary looks a bit more complicated (one coefficient per
@@ -599,26 +599,26 @@ m2.no <- lm(y ~ 0 + participant, data=d2)
 summary(m2.no)
 ```
 
-    ## 
+    ##
     ## Call:
     ## lm(formula = y ~ 0 + participant, data = d2)
-    ## 
+    ##
     ## Residuals:
-    ##      Min       1Q   Median       3Q      Max 
-    ## -0.69596 -0.12869 -0.00246  0.13656  0.60929 
-    ## 
+    ##      Min       1Q   Median       3Q      Max
+    ## -0.69596 -0.12869 -0.00246  0.13656  0.60929
+    ##
     ## Coefficients:
-    ##               Estimate Std. Error  t value Pr(>|t|)    
+    ##               Estimate Std. Error  t value Pr(>|t|)
     ## participant1 -0.983044   0.008862 -110.931   <2e-16 ***
     ## participant2 -0.497634   0.008862  -56.155   <2e-16 ***
-    ## participant3  0.006842   0.008862    0.772     0.44    
+    ## participant3  0.006842   0.008862    0.772     0.44
     ## participant4  0.515181   0.008862   58.135   <2e-16 ***
     ## participant5  1.007827   0.008862  113.727   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-    ## 
+    ##
     ## Residual standard error: 0.1982 on 2495 degrees of freedom
-    ## Multiple R-squared:  0.9272, Adjusted R-squared:  0.927 
+    ## Multiple R-squared:  0.9272, Adjusted R-squared:  0.927
     ## F-statistic:  6355 on 5 and 2495 DF,  p-value: < 2.2e-16
 
 Gee, I’m seeing stars! All of the participants with means away from zero
@@ -655,26 +655,26 @@ m3.no <- lm(y ~ 0 + participant, data=d3)
 summary(m3.no)
 ```
 
-    ## 
+    ##
     ## Call:
     ## lm(formula = y ~ 0 + participant, data = d3)
-    ## 
+    ##
     ## Residuals:
-    ##      Min       1Q   Median       3Q      Max 
-    ## -0.72958 -0.13704  0.00044  0.13353  0.64443 
-    ## 
+    ##      Min       1Q   Median       3Q      Max
+    ## -0.72958 -0.13704  0.00044  0.13353  0.64443
+    ##
     ## Coefficients:
-    ##               Estimate Std. Error t value Pr(>|t|)    
-    ## participant1 -0.005807   0.008988  -0.646    0.518    
-    ## participant2 -0.007476   0.008988  -0.832    0.406    
-    ## participant3 -0.006271   0.008988  -0.698    0.485    
-    ## participant4  0.005687   0.008988   0.633    0.527    
+    ##               Estimate Std. Error t value Pr(>|t|)
+    ## participant1 -0.005807   0.008988  -0.646    0.518
+    ## participant2 -0.007476   0.008988  -0.832    0.406
+    ## participant3 -0.006271   0.008988  -0.698    0.485
+    ## participant4  0.005687   0.008988   0.633    0.527
     ## participant5  1.998293   0.008988 222.318   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-    ## 
+    ##
     ## Residual standard error: 0.201 on 2495 degrees of freedom
-    ## Multiple R-squared:  0.9519, Adjusted R-squared:  0.9519 
+    ## Multiple R-squared:  0.9519, Adjusted R-squared:  0.9519
     ## F-statistic:  9885 on 5 and 2495 DF,  p-value: < 2.2e-16
 
 Everything is still looking good! All participants are estimated to be
@@ -734,8 +734,8 @@ emmeans(m3.no, ~ 1)
 
     ##  1       emmean      SE   df lower.CL upper.CL
     ##  overall  0.397 0.00402 2495    0.389    0.405
-    ## 
-    ## Results are averaged over the levels of: participant 
+    ##
+    ## Results are averaged over the levels of: participant
     ## Confidence level used: 0.95
 
 ## The goldilocks zone (partial pooling)
@@ -756,7 +756,7 @@ Formally speaking, we now have this model:
 
 $$\begin{align*}
 y_n &\sim \mathcal{N}(\alpha_{p[n]}, \sigma) \\
-\alpha_{p} &\sim \mathcal{N}(\mu_\alpha, \sigma_\alpha) 
+\alpha_{p} &\sim \mathcal{N}(\mu_\alpha, \sigma_\alpha)
 \end{align*}$$
 
 ![](/assets/images/2023-09-29-multilevel-models/partial-pooling.png){: width="50%" }
@@ -847,19 +847,19 @@ summary(m1.partial)
     ## Linear mixed model fit by REML ['lmerMod']
     ## Formula: y ~ 1 + (1 | participant)
     ##    Data: d1
-    ## 
+    ##
     ## REML criterion at convergence: -1062.1
-    ## 
-    ## Scaled residuals: 
-    ##     Min      1Q  Median      3Q     Max 
-    ## -4.1779 -0.6894  0.0016  0.6806  2.9567 
-    ## 
+    ##
+    ## Scaled residuals:
+    ##     Min      1Q  Median      3Q     Max
+    ## -4.1779 -0.6894  0.0016  0.6806  2.9567
+    ##
     ## Random effects:
     ##  Groups      Name        Variance  Std.Dev.
-    ##  participant (Intercept) 0.0001604 0.01266 
-    ##  Residual                0.0380894 0.19517 
+    ##  participant (Intercept) 0.0001604 0.01266
+    ##  Residual                0.0380894 0.19517
     ## Number of obs: 2500, groups:  participant, 5
-    ## 
+    ##
     ## Fixed effects:
     ##              Estimate Std. Error t value
     ## (Intercept) -0.008256   0.006878    -1.2
@@ -910,19 +910,19 @@ summary(m2.partial)
     ## Linear mixed model fit by REML ['lmerMod']
     ## Formula: y ~ 1 + (1 | participant)
     ##    Data: d2
-    ## 
+    ##
     ## REML criterion at convergence: -954.7
-    ## 
-    ## Scaled residuals: 
-    ##     Min      1Q  Median      3Q     Max 
-    ## -3.5125 -0.6492 -0.0121  0.6888  3.0751 
-    ## 
+    ##
+    ## Scaled residuals:
+    ##     Min      1Q  Median      3Q     Max
+    ## -3.5125 -0.6492 -0.0121  0.6888  3.0751
+    ##
     ## Random effects:
     ##  Groups      Name        Variance Std.Dev.
-    ##  participant (Intercept) 0.62360  0.7897  
-    ##  Residual                0.03927  0.1982  
+    ##  participant (Intercept) 0.62360  0.7897
+    ##  Residual                0.03927  0.1982
     ## Number of obs: 2500, groups:  participant, 5
-    ## 
+    ##
     ## Fixed effects:
     ##             Estimate Std. Error t value
     ## (Intercept) 0.009834   0.353179   0.028
@@ -990,19 +990,19 @@ summary(m3.partial)
     ## Linear mixed model fit by REML ['lmerMod']
     ## Formula: y ~ 1 + (1 | participant)
     ##    Data: d3
-    ## 
+    ##
     ## REML criterion at convergence: -882.9
-    ## 
-    ## Scaled residuals: 
-    ##     Min      1Q  Median      3Q     Max 
-    ## -3.6292 -0.6820  0.0021  0.6641  3.2061 
-    ## 
+    ##
+    ## Scaled residuals:
+    ##     Min      1Q  Median      3Q     Max
+    ## -3.6292 -0.6820  0.0021  0.6641  3.2061
+    ##
     ## Random effects:
     ##  Groups      Name        Variance Std.Dev.
-    ##  participant (Intercept) 0.8014   0.8952  
-    ##  Residual                0.0404   0.2010  
+    ##  participant (Intercept) 0.8014   0.8952
+    ##  Residual                0.0404   0.2010
     ## Number of obs: 2500, groups:  participant, 5
-    ## 
+    ##
     ## Fixed effects:
     ##             Estimate Std. Error t value
     ## (Intercept)   0.3969     0.4004   0.991
@@ -1056,19 +1056,19 @@ summary(m4)
     ## Linear mixed model fit by REML ['lmerMod']
     ## Formula: y ~ 1 + (1 | participant)
     ##    Data: d4
-    ## 
+    ##
     ## REML criterion at convergence: 10.5
-    ## 
-    ## Scaled residuals: 
-    ##      Min       1Q   Median       3Q      Max 
-    ## -1.45172 -0.34703 -0.03004  0.31032  1.38088 
-    ## 
+    ##
+    ## Scaled residuals:
+    ##      Min       1Q   Median       3Q      Max
+    ## -1.45172 -0.34703 -0.03004  0.31032  1.38088
+    ##
     ## Random effects:
     ##  Groups      Name        Variance Std.Dev.
-    ##  participant (Intercept) 0.79605  0.8922  
-    ##  Residual                0.02129  0.1459  
+    ##  participant (Intercept) 0.79605  0.8922
+    ##  Residual                0.02129  0.1459
     ## Number of obs: 10, groups:  participant, 5
-    ## 
+    ##
     ## Fixed effects:
     ##             Estimate Std. Error t value
     ## (Intercept)   0.3840     0.4017   0.956
@@ -1112,9 +1112,9 @@ d4 %>% group_by(participant) %>%
     ## # A tibble: 5 × 3
     ##   participant        y    y_hat
     ##   <fct>          <dbl>    <dbl>
-    ## 1 1            0.0880   0.0919 
-    ## 2 2           -0.191   -0.184  
-    ## 3 3            0.0518   0.0562 
+    ## 1 1            0.0880   0.0919
+    ## 2 2           -0.191   -0.184
+    ## 3 3            0.0518   0.0562
     ## 4 4           -0.00768 -0.00251
     ## 5 5            1.98     1.96
 
@@ -1223,7 +1223,7 @@ d5 <- expand_grid(participant=as.factor(1:N_participants),
     ## simulate ratings based on participant-level effects
     ungroup() %>%
     mutate(y=rnorm(n(), mean=alpha_p + beta_p*(condition=='treatment'), sd=SIGMA))
-    
+
 ## analyze data
 m5 <- lmer(y ~ condition + (condition | participant), d5)
 summary(m5)
@@ -1232,25 +1232,25 @@ summary(m5)
     ## Linear mixed model fit by REML ['lmerMod']
     ## Formula: y ~ condition + (condition | participant)
     ##    Data: d5
-    ## 
+    ##
     ## REML criterion at convergence: -96.1
-    ## 
-    ## Scaled residuals: 
-    ##     Min      1Q  Median      3Q     Max 
-    ## -2.9935 -0.6684 -0.0136  0.6326  3.2471 
-    ## 
+    ##
+    ## Scaled residuals:
+    ##     Min      1Q  Median      3Q     Max
+    ## -2.9935 -0.6684 -0.0136  0.6326  3.2471
+    ##
     ## Random effects:
     ##  Groups      Name               Variance Std.Dev. Corr
-    ##  participant (Intercept)        0.06394  0.2529       
+    ##  participant (Intercept)        0.06394  0.2529
     ##              conditiontreatment 0.17160  0.4142   0.74
-    ##  Residual                       0.04116  0.2029       
+    ##  Residual                       0.04116  0.2029
     ## Number of obs: 2000, groups:  participant, 100
-    ## 
+    ##
     ## Fixed effects:
     ##                    Estimate Std. Error t value
     ## (Intercept)        -0.02033    0.02609  -0.779
     ## conditiontreatment  0.92014    0.04241  21.698
-    ## 
+    ##
     ## Correlation of Fixed Effects:
     ##             (Intr)
     ## cndtntrtmnt 0.664
@@ -1308,20 +1308,20 @@ summary(m6)
     ## Linear mixed model fit by REML ['lmerMod']
     ## Formula: y ~ 1 + (1 | participant) + (1 | stimulus)
     ##    Data: d6
-    ## 
+    ##
     ## REML criterion at convergence: -8446.4
-    ## 
-    ## Scaled residuals: 
-    ##     Min      1Q  Median      3Q     Max 
-    ## -5.0902 -0.6724 -0.0083  0.6676  3.6152 
-    ## 
+    ##
+    ## Scaled residuals:
+    ##     Min      1Q  Median      3Q     Max
+    ## -5.0902 -0.6724 -0.0083  0.6676  3.6152
+    ##
     ## Random effects:
     ##  Groups      Name        Variance Std.Dev.
-    ##  participant (Intercept) 0.05539  0.2354  
-    ##  stimulus    (Intercept) 0.78635  0.8868  
-    ##  Residual                0.04006  0.2002  
+    ##  participant (Intercept) 0.05539  0.2354
+    ##  stimulus    (Intercept) 0.78635  0.8868
+    ##  Residual                0.04006  0.2002
     ## Number of obs: 25000, groups:  participant, 100; stimulus, 50
-    ## 
+    ##
     ## Fixed effects:
     ##             Estimate Std. Error t value
     ## (Intercept)  -0.1621     0.1276   -1.27

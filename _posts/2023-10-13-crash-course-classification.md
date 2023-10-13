@@ -17,20 +17,26 @@ What if instead we want to predict whether someone or something belongs to certa
 
 ## Table of Contents
 
-- What if Classification?
-- How do we measure model performance?
-- Three common classification algorithms:
-    - Logistic Regression
-    - Support Vector Machines
-    - Random Forest Classifiers
+- [What if Classification?](#linear-regression-form)
+- [Our Data Set](#our-data-set)
+- [Logistic Regression](#logistic-regression)
+- [Evaluating Model performance](#evaluating-model-performance)
+- [Alternative Models](#alternative-models)
+  - [Support Vector Machines](#svms)
+  - [Random Forest Classifiers](#random-forests)
+- [Conclusion](#conclusion)
 
 ## What is classification?
+
+<a id='what-is-classification'></a>
 
 Classification models predict which of several classes an exemplar of data has. The most common form of classification is binary classification, where we predict a YES or a NO. For example, is this email spam or not? Is this image of a dog or not? etc. To do this, classification models learn the relationship between a set of independent variables (commonly called features) and the class identity of those data points, and learn to predict which class is most likely given those features. In this way, classification is really just an extension of linear regression, which also learns to predict something based on some independent variables.
 
 Today, we will be learning about how to fo exactly this, to make predictions about the class membership of cases based on their features. We will start with binary classification, and then also see multiclass classification. We will see examples of logistic regression, support vector machine, and random forest algorithms, and at the end, provide additional resources if you want to learn about a whole set of other algorithms commonly used in data science.
 
 ## Our Data Set
+
+<a id='our-data-set'></a>
 
 We will be using one of the simplest and most commonly used data sets in data science, the sklearn iris data set. This data set contains 150 examples (total) of flwoers that are either of the species setosa, versicolor, or virginica. Each of exemplar in our data set has a sepal length, sepal width, petal length, and petal width measurement provided. It is our job to determine whether we can classify each example into its flower type based on these features
 
@@ -198,6 +204,8 @@ This sort of works, but the interpretation doesn't make any sense! If sepal leng
 
 ## Logistic Regression
 
+<a id='logistic-regression'></a>
+
 As you probably expect, of course there is! The insight is to model the y not as a continuous output between negative infinity and positive infinity, but as a **probability** bound between 0 and 1. We can do this using a sigmoid function, which is the *linking* function that a logistic regression uses. This function takes as input some y, say sepal length = 5 or sepal length = 10, and converts it into a single value between 0 and 1, which we can interpret as the probability that the examplar belongs to one class or another. Yep, that's right! A logistic regression is a jsut a linear regression within a sigmoid function, which bounds y to be between 0 and 1, producing the classic s shape.
 
 ```python
@@ -244,6 +252,8 @@ y_test
 array([1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0])
 
 ## Evaluating Model Performance
+
+<a id='evaluating-model-performance'></a>
 
 Ok, we've fit a logistic regression to some training data, and we've made some predictions about some held out data our model hasn't seen before. What is the best way to measure model performance? Let's start by looking at our overall confusion matrix, which shows us how we are classifying true and false cases.
 
@@ -752,7 +762,11 @@ As you can see, logistic regression is a powerful tool even when we deal with ma
 
 ## Alternative Models
 
+<a id='alternative-models'></a>
+
 ### Support Vector Machine (SVM)
+
+<a id='svms'></a>
 
 It really doesn't make much sense to think of the versicolor class as a negative case and the virginica data set as a positive case, which is really what the binomial logistic regression was doing. Let's look at the plot of iris data set again.
 
@@ -860,6 +874,8 @@ plt.show()
 
 ### Random Forest
 
+<a id='random-forests'></a>
+
 A third common classification algorithm you'll regularly encounter in industry is a random forest classifier. Forest classifiers are a more advanced form of a very old school classification algorithm known as a decision tree. A decision tree looks something like this:
 
 A random forest just makes many many of these decision trees, each only using a subset of the data. The various random forests predictions are then combined (each gets a "vote") to make some final prediction. Lets try using a random forest classifier on our three class iris set.
@@ -885,3 +901,11 @@ _ = plot_tree(rf.estimators_[3], feature_names=iris_df.columns, filled=True)
 ```
 
 ![png](../assets/images/2023-10-13-crash-course-classification/output_71_0.png)
+
+## Conclusion
+
+<a id='conclusion'></a>
+
+So far we have covered logistic regression, support vector machines, and random forest classifiers. Of course, there are a million other algorithms, including naive bayes, neural networks, and other supervised learning classifiers, or a whole set of unsupervised learning classifiers like k-means classifiers. Becoming a data scientist means being familiar with many of these different classifiers, their strengths and limitations, and when you need to implement them, how to quickly learn to implement them.
+
+And with that, we have finished a crash course on classification! We have learned to think like a data scientist, building usable models that need to be evaluated based on their performance on unseen data, which is not something psychologists usually do. We also realized we need to consider which particular metrics are most important for us. We might want a model that has a high recall, or a high precision, or some other value. The important thing to realize is that we can't have it all, and we need to carefully consider our priorities. Finally, we saw that different models exist that can all be used for classification. Some are more interpretable than others, but others might have more power or flexibility. Which to use again depends on ones priorities.
