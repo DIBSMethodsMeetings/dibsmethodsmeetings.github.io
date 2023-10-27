@@ -3,7 +3,7 @@ title: "Multilevel models: what, why, and how"
 author: kevin
 categories: [ tutorial ]
 image: assets/images/2023-09-29-multilevel-models/partial-pooling.png
-featured: true
+featured: False
 hidden: false
 output:
   md_document:

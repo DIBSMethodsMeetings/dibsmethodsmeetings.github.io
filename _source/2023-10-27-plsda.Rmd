@@ -1,0 +1,562 @@
+---
+title: "An introduction to partial least squares discriminant analysis (PLSDA)"
+author: ding
+categories: [ tutorial ]
+image: assets/images/2023-10-27-plsda/plot_1st_pca_comp-1.png
+featured: true
+hidden: false
+output:
+  md_document:
+    variant: gfm
+    preserve_yaml: TRUE
+date: "2023-10-27"
+---
+
+```{r setup, echo=FALSE,include=FALSE,cache=FALSE}
+knitr::opts_knit$set(base.dir="../", base.url="/")
+knitr::opts_chunk$set(fig.path="assets/images/2023-10-27-plsda/",
+                      cache.path = 'cache/',
+                      message=FALSE, warning=FALSE,
+                      cache=FALSE, echo=TRUE)
+```
+
+
+```{r Install_required_pckages, warning=TRUE, include=FALSE}
+# if (!require("BiocManager", quietly = TRUE))
+#      install.packages("BiocManager")
+# 
+# BiocManager::install("mixOmics")
+# 
+# install.packages('ggplot2')
+# install.packages('scales')
+# 
+# install.packages("styler")
+
+
+library(MASS)
+library(ggplot2)
+library(scales)
+library(mixOmics)
+library(readr)
+
+```
+
+
+# The curse (or challenges) of dimensionality (p>>n)
+
+In this current era of big data, high-dimensional data are everywhere. High-dimensional data can be hard to deal with for some or all of the following reasons. 
+
+ 1. Hard to visualize
+ 
+ 2. Samples are **sparsely** populated in high dimensional spaces
+ 
+ 3. Samples are also roughly **equidistant** from each other in high dimensional spaces 
+ 
+ 4. Irrelevant features (feature selection)
+ 
+ 5. Require intense computational resources
+ 
+ 6. ...
+
+
+Let's simulate some data to illustrate the 2nd and 3rd points. 
+
+```{r simulate_data_cal_dist}
+# set.seed(1234)
+# 
+# # dimension vector
+# num_dim <- c(1, 10, 50, 100, 250, 500, 1000, 2500, 5000, 10000)
+# # number of dimensions
+# n <- length(num_dim)
+# 
+# # initialize the pair-wise distance vector
+# pair_dist_mean <- array(0, c(n, 1))
+# pair_dist_range <- array(0, c(n, 1))
+# 
+# 
+# # create a for loop to sample 100 data points from a n-dimensional (n=1 to 100) standard multivariate normal distribution
+# # and calculate the mean and range of pairwise distance and plot them against the (log) number of dimensions
+# tic <- Sys.time()
+# 
+# for (i in 1:n) {
+#   mu <- numeric(num_dim[i])
+# 
+#   sigma <- diag(num_dim[i])
+# 
+#   data <- mvrnorm(n = 100, mu, sigma)
+# 
+#   pair_dist_v <- dist(data)
+# 
+#   pair_dist_mean[i, 1] <- mean(pair_dist_v)
+# 
+#   pair_dist_range[i, 1] <- (max(pair_dist_v) - min(pair_dist_v)) / max(pair_dist_v)
+# }
+# 
+# simdata <- data.frame(num_dim, pair_dist_mean, pair_dist_range)
+# 
+# colnames(simdata) <- c("num_dim", "pairwise_dist_mean", "pairwise_dist_range")
+# 
+# simdata$name <- rep("simulation", n)
+
+# toc <- Sys.time()
+
+# duration <- toc - tic
+
+# duration
+
+# to save some runtime, I will just load the dataset that has been saved
+load("./sim_real_data.RData")
+
+```
+
+
+If we plot the average pairwise Euclidean distance as a function of the log of the number of dimensions, we see that the average pairwise distance increases exponentially as a function of log of number of dimensions. 
+
+
+```{r plot_average_dist_sim, echo=FALSE, warning=TRUE}
+# average pairwise (Euclidean) distance
+p1_sim <- ggplot(simdata, aes(x = num_dim, y = pairwise_dist_mean)) +
+  geom_point() +
+  geom_line() +
+  theme_bw()
+p1_sim <- p1_sim + ggtitle("Average pairwise distance vs log(dimension): simulated data")
+p1_sim <- p1_sim + xlab("log(p)") + ylab("Average pairwise Distance")
+p1_sim + scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x), labels = trans_format("log10", math_format(10^.x)))
+
+```
+
+
+Now what do we mean by "samples are roughly equal distant from each other in high dimensional spaces? Let’s plot pairwise Euclidean distance as a function of log of the number of dimensions 
+
+```{r plot_range_dist_sim, echo=FALSE, warning=TRUE}
+### Data points are roughly equidistant from each other.
+# range of pairwise distance
+p2 <- ggplot(simdata, aes(x = num_dim, y = pairwise_dist_range)) +
+  geom_point() +
+  geom_line() +
+  theme_bw()
+p2 <- p2 + ggtitle("Range of pairwise distance vs log(dimension): simulated data")
+p2 <- p2 + xlab("log(p)") + ylab("Range of pairwise distance (scaled)")
+
+p2 + scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x), labels = trans_format("log10", math_format(10^.x)))
+
+```
+
+Do we observe these phenomena in real data sets? Or are they just the characteristics of the simulation data from this contrived example? 
+
+```{r load_realdata_cal_dist}
+
+# read in the real data frame
+
+# plsda_tutorial_data <- read_csv("plsda_tutorial_data.csv",
+#     col_names = FALSE)
+# 
+# plsda_tutorial_data <- as.data.frame(plsda_tutorial_data)
+# 
+# plsda_feature <- subset(plsda_tutorial_data[2:101, 1:10003], select = -c(1, 10002, 10003))
+
+
+# set.seed(1234)
+# 
+# # dimension vector
+# num_dim <- c(1, 10, 50, 100, 250, 500, 1000, 2500, 5000, 10000)
+# # number of dimensions
+# n <- length(num_dim)
+# 
+# # initialize the pair-wise distance vector
+# pair_dist_mean_real <- array(0, c(n, 1))
+# pair_dist_range_real <- array(0, c(n, 1))
+# 
+# 
+# for (i in 1:n) {
+#   rand_feature <- sample(10000, num_dim[i])
+# 
+#   feature_subset <- subset(plsda_feature, select = c(rand_feature))
+# 
+#   feature_subset_matrix <- data.matrix(feature_subset, rownames.force = NA)
+# 
+#   feature_subset_matrix <- scale(feature_subset_matrix, center = TRUE, scale = TRUE)
+# 
+#   # pair_dist_v<-dist(feature_subset)
+# 
+# 
+#   pair_dist_v <- dist(feature_subset_matrix)
+# 
+#   pair_dist_mean_real[i, 1] <- mean(pair_dist_v)
+# 
+#   pair_dist_range_real[i, 1] <- (max(pair_dist_v) - min(pair_dist_v)) / max(pair_dist_v)
+# }
+# 
+# realdata <- data.frame(num_dim, pair_dist_mean_real, pair_dist_range_real)
+# 
+# 
+# colnames(realdata) <- c("num_dim", "pairwise_dist_mean", "pairwise_dist_range")
+# 
+# realdata$name <- rep("real_data", n)
+# 
+# 
+# sim_real_data <- rbind(simdata, realdata)
+
+```
+
+We see the same pattern when we plot the average pairwise distance as a function of log (p)
+
+```{r plot_pairwise_dist_sim_real, echo=FALSE}
+# plotting simulation and real data in one graph
+
+# average pairwise (Euclidean) distance
+p1 <- ggplot(sim_real_data, aes(x = num_dim, y = pairwise_dist_mean, color = name)) +
+  geom_point() +
+  geom_line() +
+  theme_bw()
+p1 <- p1 + ggtitle("Average pairwise distance vs log(dimension): simulation vs real data")
+p1 + xlab("log(p)") + ylab("Average Euclidean Distance") +
+  scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x), labels = trans_format("log10", math_format(10^.x)))
+
+```
+
+Adn the range of pairwise distance as a function of log (p)
+
+```{r plot_range_sim_real, echo=FALSE}
+# plotting simulation and real data in one graph
+
+# average pairwise (Euclidean) distance
+p1 <- ggplot(sim_real_data, aes(x = num_dim, y = pairwise_dist_range, color = name)) +
+  geom_point() +
+  geom_line() +
+  theme_bw()
+p1 <- p1 + ggtitle("Range of pairwise distance vs log(dimension): simulation vs real data")
+p1 + xlab("log(p)") + ylab("Average Euclidean Distance") +
+  scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x), labels = trans_format("log10", math_format(10^.x)))
+```
+
+
+Why might this be a challenge for us? Here I want to offer some intuition about why sparse and equal distant samples might be hard to deal with using the following example. Suppose we have two 2D Gaussian distributions that are distributed like the 1st and 2nd distributions depicted in the figure below. Which distribution, in your opinion, is harder to estimate?
+
+
+```{r two_2d_gaussians, echo=FALSE, message=FALSE}
+set.seed(10)
+sample_size <- 150
+
+# 1st distribution
+mu1 <- c(0, 0)
+sigma1 <- rbind(c(8, -3), c(-3, 15))
+dist1_data <- mvrnorm(n = sample_size, mu1, sigma1)
+dist1_data <- as.data.frame(dist1_data)
+dist1_data$Dist <- rep("1st_distribution", sample_size)
+
+# 2nd distribution
+mu2 <- c(0, 0)
+sigma2 <- rbind(c(1.5, -1), c(-1, 1.5))
+dist2_data <- mvrnorm(n = sample_size, mu2, sigma2)
+dist2_data <- as.data.frame(dist2_data)
+dist2_data$Dist <- rep("2nd_distribution", sample_size)
+
+# combined distribution
+dist_one_two <- rbind(dist1_data, dist2_data)
+p4 <- ggplot(dist_one_two, aes(x = V1, y = V2, color = Dist)) +
+  geom_point()
+# p4<-p4+geom_smooth(method = lm,se=FALSE)
+p4 <- p4 + ggtitle("Two 2D Normal Distributions")
+p4 + xlab("x1") + ylab("x2")
+```
+
+```{r 2d_Gaussians_cal_plot_dist, echo=FALSE}
+n_sample <- c(50, 100, 250, 500, 1000, 2500, 5000, 10000)
+
+n <- length(n_sample)
+
+# initialize the pair-wise distance vector
+pair_dist1_mean <- array(0, c(n, 1))
+# pair_dist_range<-array(0,c(n,1))
+pair_dist2_mean <- array(0, c(n, 1))
+
+for (i in 1:n) {
+  data1 <- mvrnorm(n = n_sample[i], mu1, sigma1)
+  pair_dist1_v <- dist(data1)
+  pair_dist1_mean[i, 1] <- mean(pair_dist1_v)
+
+  # pair_dist_range[i,1]<-(max(pair_dist_v)-min(pair_dist_v))/max(pair_dist_v)
+  data2 <- mvrnorm(n = n_sample[i], mu2, sigma2)
+  pair_dist2_v <- dist(data2)
+  pair_dist2_mean[i, 1] <- mean(pair_dist2_v)
+}
+
+
+
+
+mean_vector_1 <- data.frame(pair_dist1_mean, n_sample)
+mean_vector_1$Dist <- rep("1st_distribution", n)
+colnames(mean_vector_1) <- c("pair_wise_distance", "num_sample", "Dist")
+
+mean_vector_2 <- data.frame(pair_dist2_mean, n_sample)
+mean_vector_2$Dist <- rep("2nd_distribution", n)
+colnames(mean_vector_2) <- c("pair_wise_distance", "num_sample", "Dist")
+
+
+# combine the mean vectors
+mean_vectors <- rbind(mean_vector_1, mean_vector_2)
+
+# average pairwise (Euclidean) distance
+p1 <- ggplot(mean_vectors, aes(x = num_sample, y = pair_wise_distance, color = Dist)) +
+  geom_point() +
+  geom_line()
+p1 <- p1 + ggtitle("Average pairwise (Euclidean) distance vs log(number of samples)")
+p1 <- p1 + xlab("log(n)") + ylab("Average Euclidean Distance")
+p1 + scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x), labels = trans_format("log10", math_format(10^.x)))
+
+```
+
+# Principal component analysis (pca)
+
+## Assumptions in PCA 
+
+  - Linearity 
+  - Larger variance equals more important "structure" in the dataset 
+  - Components are orthogonal to each other
+
+## Algorithms 
+  - Eigendecoposition of the covariance matrix (X'X)
+  - SVD of the dataset itself svd(X)
+  - NIPALS algorithm
+
+## An example
+Let's go back to the 2nd distribution from the example above. 
+
+```{r plot_dist2, echo=FALSE, message=FALSE}
+set.seed(10)
+mu <- numeric(2)
+sigma <- rbind(c(2, -1.2), c(-1.2, 2))
+fig1_data <- mvrnorm(n = 200, mu, sigma)
+fig1_data <- as.data.frame(fig1_data)
+
+
+p1 <- ggplot(fig1_data, aes(x = V1, y = V2)) +
+  geom_point(shape = 1, size = 2) +coord_equal(ratio = 1)+
+  theme_bw() +
+  xlim(c(-6, 6)) +
+  ylim(c(-6,6))
+
+
+# p1<-p1+geom_smooth(method = lm,se=FALSE)
+
+p1 + xlab("X1") + ylab("X2")
+
+cor(fig1_data$V1,fig1_data$V2)
+
+
+```
+
+
+Let's use PCA to do dimensionality reduction 
+```{r fit_pca_to_dist2, echo=TRUE}
+dist2_pca_results <- pca(fig1_data, ncomp = 2, center = TRUE, scale = FALSE, max.iter = 500, tol = 1e-09, multilevel = NULL)
+
+# plot variance example by each component
+# plot(dist2_pca_results)
+
+dist2_pca_results
+```
+
+Plot the eigenvector of the 1st PCA component
+
+```{r plot_1st_pca_comp}
+x2 <- dist2_pca_results$loadings$X[1, 1]
+
+y2 <- dist2_pca_results$loadings$X[2, 1]
+
+p1 + geom_segment(aes(x = 0, y = 0, xend = x2 * 3, yend = y2 * 3), arrow = arrow(length = unit(0.2, "cm")), color = "purple", lwd = 1) + ggtitle("PCA 1st component")
+```
+
+Add the eigenvector of the 2nd component 
+
+```{r add_2nd_pca_comp}
+x2_2 <- dist2_pca_results$loadings$X[1, 2]
+
+y2_2 <- dist2_pca_results$loadings$X[2, 2]
+
+p1 + geom_segment(aes(x = 0, y = 0, xend = x2*3 , yend = y2*3 ), arrow = arrow(length = unit(0.2, "cm")), color = "purple", lwd = 1) + ggtitle("PCA 1st component")+
+geom_segment(aes(x = 0, y = 0, xend = x2_2*2 , yend = y2_2*2 ), arrow = arrow(length = unit(0.2, "cm")), color = "purple", lwd = 1) + ggtitle("PCA 1st component")
+
+dist2_pca_results$loadings
+
+cor(dist2_pca_results$variates$X)
+
+```
+
+
+
+
+# Partial least sqaures discriminant analysis (plsda) as supervised pca
+
+Let's split the sample into two groups; 
+
+```{r split_plot_data}
+fig1_lm <- lm(V2 ~ V1, fig1_data)
+
+intercept <- fig1_lm$coefficients[1]
+
+slope <- fig1_lm$coefficients[2]
+
+ylabel <- rep("label", 200)
+
+X_1 <- fig1_data$V1
+X_2 <- fig1_data$V2
+
+
+above_or_below <- function(x, y) {
+  y - slope * x - intercept
+}
+
+# logic is simple but not pretty; maybe more efficient way to do this;
+for (i in 1:200) {
+  if (above_or_below(X_1[i], X_2[i]) >= 0) {
+    ylabel[i] <- "above"
+  } else {
+    ylabel[i] <- "below"
+  }
+}
+
+
+fig1_data$ylabel <- ylabel
+
+
+
+p1 <- ggplot(fig1_data, aes(x = V1, y = V2, color = ylabel))+
+  geom_point(shape = 1, size = 2) +coord_equal(ratio = 1)+
+  theme_bw() +
+  xlim(c(-6, 6)) +
+  ylim(c(-6, 6))
+p1 <- p1 + ggtitle("A 2d Gaussian split into two groups ")
+p1 <- p1 + xlab("X1") + ylab("X2")
+p1
+
+
+```
+
+
+
+Fit a PLSDA model to data and plot the 1st PLSDA component
+
+# fit plsda
+
+```{r fit_plsda}
+
+X<-cbind(fig1_data$V1,fig1_data$V2)
+
+ylabel<-fig1_data$ylabel
+
+plsda_results <- plsda(X, ylabel, ncomp = 2, max.iter = 500)
+
+x2_plsda <- plsda_results$loadings$X[1, 1]
+y2_plsda <- plsda_results$loadings$X[2, 1]
+
+plsda_results$prop_expl_var
+
+plsda_results$loadings.star
+
+#plotIndiv(plsda_results, style ="ggplot2" , ind.names = FALSE,ellipse = TRUE,legend = TRUE)
+
+```
+
+
+
+```{r pca_plsda_1stcomp}
+fig1_data$ylabel <- ylabel
+
+x2_plsda <- plsda_results$loadings$X[1, 1]
+y2_plsda <- plsda_results$loadings$X[2, 1]
+
+component_colors<-cbind("1st comp (pca)"="purple","1st comp (plsda)"="green","above"="red","below"="cadetblue3 ")
+
+p1 <- ggplot(fig1_data, aes(x = V1, y = V2,color=ylabel)) +
+  geom_point(shape = 1, size = 2,show.legend = FALSE) +coord_equal(ratio = 1)+
+  theme_bw() +
+  xlim(c(-6, 6)) +
+  ylim(c(-6, 6))
+p1 <- p1 + ggtitle("PCA vs PLSDA 1st component")
+
+p1 + geom_segment(aes(x = 0, y = 0, xend = x2_plsda * 3, yend = y2_plsda *3, color="1st comp (plsda)"),
+  arrow = arrow(length = unit(0.2, "cm")), lwd = 1
+) +
+  geom_segment(aes(x = 0, y = 0, xend = x2 * 3, yend = y2 * 3,color="1st comp (pca)"), arrow = arrow(length = unit(0.2, "cm")), lwd = 1)+labs(x="X1",Y="X2",color="Legend")+scale_color_manual(values = component_colors)
+
+# cor(plsda_results$variates$X)
+
+
+```
+Let's play with something high-dimensional 
+
+```{r 1000D_gaussian, echo=FALSE, message=FALSE}
+set.seed(10)
+
+n=1000
+
+mu <- numeric(n)
+
+rand_matrix<-matrix(rnorm(1000*200),nrow = 200)
+
+sigma<-cor(rand_matrix)
+
+#sigma<-diag(n)
+
+fig2_data <- mvrnorm(n = 200, mu, sigma)
+
+fig2_data <- as.data.frame(fig2_data)
+
+row_above<-rbinom(200,1,prob = 0.5)
+
+ylabel <- rep("label", 200)
+
+for (i in 1:200) {
+  if (row_above[i]) {
+    ylabel[i] <- "group_one"
+  } else {
+    ylabel[i] <- "group_two"
+  }
+}
+
+fig2_data$label<-ylabel
+
+p1 <- ggplot(fig2_data, aes(x = V1, y = V2,color=label)) +
+  geom_point(shape = 1, size = 2) +
+  theme_bw() +
+  xlim(c(-5, 5)) +
+  ylim(c(-5, 5))
+
+
+# p1<-p1+geom_smooth(method = lm,se=FALSE)
+
+p1 + xlab("X1") + ylab("X2")
+
+
+```
+
+```{r plsda_on_1000d_gaussian}
+
+X<-subset(fig2_data,select = -c(10001))
+
+X<-data.matrix(X)
+
+ylabel<-fig2_data$label
+
+plsda_results_fig2 <- plsda(X, ylabel, ncomp = 10, max.iter = 500)
+
+plsda_results_fig2
+
+plotIndiv(plsda_results_fig2, style ="ggplot2" , ind.names = FALSE,ellipse = TRUE,legend = TRUE)
+
+# first_two_components<-cbind(plsda_results_fig2$variates$X[,1], plsda_results_fig2$variates$X[,2])
+# 
+# first_two_components<-as.data.frame(first_two_components)
+# 
+# first_two_components$label<-plsda_results_fig2$Y
+# 
+# p1 <- ggplot(first_two_components, aes(x=V1, y =V2 ,color=label)) +
+#   geom_point(shape = 1, size = 2) 
+# p1+theme_bw() + xlab("1st PLSDA Comp") + ylab("2nd PLSDA Comp")+ggtitle("PLSDA 1st and 2nd compnonets")
+# 
+
+```
+
+
