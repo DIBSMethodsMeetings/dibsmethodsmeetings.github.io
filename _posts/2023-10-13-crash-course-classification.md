@@ -3,7 +3,7 @@ title: "Crash Course on Classification in Data Science"
 author: raphael
 categories: [ tutorial ]
 image: assets/images/2023-10-13-crash-course-classification/classification_regression.jpg
-featured: true
+featured: false
 hidden: false
 output:
   md_document:
