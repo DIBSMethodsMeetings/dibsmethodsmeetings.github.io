@@ -404,7 +404,7 @@ plt.close()
 ```
 
 
-![](../assets/images/2024-2-2-RL2/Qvals.png)
+![](../assets/images/2024-2-2-RL2/QVals.png)
 
 
 Great! So it seems like both of these models get close to the right Q
