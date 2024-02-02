@@ -263,7 +263,7 @@ class epsilonGreedyModel(BanditModel):
     def pickAction(self):
 
         sample = np.random.uniform(0,1)
-        if sample < epsilon:
+        if sample < self.epsilon:
             action = np.random.choice(len(self.Qs),1,p=np.ones((len(self.Qs),))/len(self.Qs))[0]
         else:
             action = np.argmax(self.Qs)
@@ -279,7 +279,7 @@ class softmaxModel(BanditModel):
 
     def pickAction(self):
 
-        softmaxProbs = np.exp(beta * self.Qs)/np.sum(np.exp(beta * self.Qs))
+        softmaxProbs = np.exp(self.beta * self.Qs)/np.sum(np.exp(self.beta * self.Qs))
 
         action = np.random.choice(len(self.Qs),1,p=softmaxProbs)[0]
 
