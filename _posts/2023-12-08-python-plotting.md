@@ -3,7 +3,7 @@ title: "Plotting in Python"
 author: miles
 categories: [ tutorial ]
 image: assets/images/2023-12-08-python-plotting/7d2e773610ab7b959c746de26498570a5233074a.png
-featured: true
+featured: false
 hidden: false
 output:
   md_document:
