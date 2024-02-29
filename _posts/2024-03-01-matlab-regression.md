@@ -89,6 +89,7 @@ Hopefully this is just enough to convince you of the usefulness of MATLAB!
 
 If you haven't installed MATLAB or want to familiarize yourself with the GUI, please refer to [my earlier post on MATLAB basics](https://dibsmethodsmeetings.github.io/matlab-basics/). Alternatively, you can try out the online version here without the hassle of installation: [https://matlab.mathworks.com/.](https://matlab.mathworks.com)
 
+Also feel free to download [this MATLAB livescript](https://raw.githubusercontent.com/DIBSMethodsMeetings/dibsmethodsmeetings.github.io/master/_source/2024-03-01-matlab-regression/2024-03-01-matlab-regression.mlx) to follow along.
 
 <a id='basics'></a>
 ## 3. Data types
@@ -395,7 +396,8 @@ After reviewing all these data types, we should be ready to fit some regression 
 
 Through the official [Statistics and Machine Learning Toolbox](https://www.mathworks.com/products/statistics.html), we have access to several built-in MATLAB functions for regression. 
 
-First, let's load some example data. We are going to use an [open dataset on Kaggle on life expectancy](https://www.kaggle.com/datasets/kumarajarshi/life-expectancy-who). The original data came from the World Health Organization (WHO), who has been keeping track of the life expectancy and many other health factors of all countries. The final dataset consists of 20 predictor variables and 2938 rows, containing information for 193 countries between 2000 and 2015.
+First, let's load some example data. We are going to use an [open dataset on Kaggle on life expectancy](https://www.kaggle.com/datasets/kumarajarshi/life-expectancy-who). The original data came from the World Health Organization (WHO), who has been keeping track of the life expectancy and many other health factors of all countries. The final dataset consists of 20 predictor variables and 2938 rows, containing information for 193 countries between 2000 and 2015. [Download this dataset here](https://raw.githubusercontent.com/DIBSMethodsMeetings/dibsmethodsmeetings.github.io/master/_source/2024-03-01-matlab-regression/2024-03-01-matlab-regression-Life-Expectancy.csv). 
+
 
 
 ```matlab
@@ -493,8 +495,8 @@ We're going to use the [`fitlm`](https://www.mathworks.com/help/stats/linear-reg
 ```matlab
 data_2014.Status = categorical(data_2014.Status, ["Developing" "Developed"]); %%% note the order
 data_2014.LE = data_2014.("Life expectancy");
-data_2014.TE = data_2014.("Total expenditure");
-m1 = fitlm(data_2014, "LE ~ TE * Status");
+data_2014.HE = data_2014.("Total expenditure");
+m1 = fitlm(data_2014, "LE ~ HE * Status");
 % anova(m1, "component", 3) %%% Type III anova
 m1 %%% regression coefficients and stats
 ```
@@ -503,7 +505,7 @@ m1 %%% regression coefficients and stats
 ```text
 m1 = 
 Linear regression model:
-    LE ~ 1 + Status*TE
+    LE ~ 1 + Status*HE
 
 Estimated Coefficients:
                            Estimate      SE        tStat       pValue  
@@ -511,8 +513,8 @@ Estimated Coefficients:
 
     (Intercept)              65.288     1.5208      42.93    1.6594e-95
     Status_Developed         15.824     3.6356     4.3525    2.2717e-05
-    TE                      0.73836    0.24142     3.0584     0.0025709
-    Status_Developed:TE    -0.73511    0.45121    -1.6292       0.10505
+    HE                      0.73836    0.24142     3.0584     0.0025709
+    Status_Developed:HE    -0.73511    0.45121    -1.6292       0.10505
 
 Number of observations: 181, Error degrees of freedom: 177
 Root Mean Squared Error: 7.15
@@ -521,15 +523,15 @@ F-statistic vs. constant model: 26.1, p-value = 5.11e-14
 ```
 
 
-Note that it's critically important to know how to correctly interpret these results, e.g., what is the "Intercept" and whether "TE" is a simple effect or a main effect. See more in [Kevin's post on *Interpreting Regression Coefficients*](https://dibsmethodsmeetings.github.io/contrasts/). Briefly, the order of the categorical variable AND whether the continuous variable is mean-centered matters. Let's see:
+Note that it's critically important to know how to correctly interpret these results, e.g., what is the "Intercept" and whether "HE" is a simple effect or a main effect. See more in [Kevin's post on *Interpreting Regression Coefficients*](https://dibsmethodsmeetings.github.io/contrasts/). Briefly, the order of the categorical variable AND whether the continuous variable is mean-centered matter. Let's see:
 
 
 
 ```matlab
 data_2014.Status_rev = categorical(data_2014.Status, ["Developed" "Developing"]);
-data_2014.TE_mc = data_2014.TE - mean(data_2014.TE, "omitmissing");
-m2 = fitlm(data_2014, "LE ~ TE_mc * Status");
-m3 = fitlm(data_2014, "LE ~ TE_mc * Status_rev");
+data_2014.HE_mc = data_2014.HE - mean(data_2014.HE, "omitmissing");
+m2 = fitlm(data_2014, "LE ~ HE_mc * Status");
+m3 = fitlm(data_2014, "LE ~ HE_mc * Status_rev");
 ```
 
 ```matlab
@@ -541,7 +543,7 @@ m1.Coefficients
 |:--:|:--:|:--:|:--:|:--:|
 |1 (Intercept)|65.2878|1.5208|42.9296|0|
 |2 Status_Developed|15.8237|3.6356|4.3525|0|
-|3 TE|0.7384|0.2414|3.0584|0.0026|
+|3 HE|0.7384|0.2414|3.0584|0.0026|
 |4 Status_Developed:T...|-0.7351|0.4512|-1.6292|0.1050|
 
 
@@ -554,7 +556,7 @@ m2.Coefficients
 |:--:|:--:|:--:|:--:|:--:|
 |1 (Intercept)|69.8664|0.5929|117.8317|0|
 |2 Status_Developed|11.2652|1.5557|7.2414|0|
-|3 TE_mc|0.7384|0.2414|3.0584|0.0026|
+|3 HE_mc|0.7384|0.2414|3.0584|0.0026|
 |4 Status_Developed:T...|-0.7351|0.4512|-1.6292|0.1050|
 
 
@@ -567,11 +569,11 @@ m3.Coefficients
 |:--:|:--:|:--:|:--:|:--:|
 |1 (Intercept)|81.1316|1.4382|56.4102|0|
 |2 Status_rev_Develop...|-11.2652|1.5557|-7.2414|0|
-|3 TE_mc|0.0032|0.3812|0.0085|0.9932|
+|3 HE_mc|0.0032|0.3812|0.0085|0.9932|
 |4 Status_rev_Develop...|0.7351|0.4512|1.6292|0.1050|
 
 
-Let's quickly plot the effects of TE (with 95% confidence intervals) on LE, separately for developed and developing countries. This is essentially doing `plot(ggemmeans(m, ~ TE + Status))` in R.
+Let's quickly plot the effects of HE (with 95% confidence intervals) on LE, separately for developed and developing countries. This is essentially doing `plot(ggemmeans(m, ~ HE + Status))` in R.
 
 
 ```matlab
@@ -581,14 +583,16 @@ plotSlice(m2); %%% alternative syntax: `m2.plotSlice;`
 ![](../assets/images/2024-03-01-matlab-regression/slice.png)
 
 
-However, If we need to fit a large number of models and don't really need detailed statistics from each model, we can use the [`regress`](https://www.mathworks.com/help/stats/regress.html) function to trade comprehensiveness for speed. 
+All that looks great! We can now rather confidently report the statistics and make inferences regarding the relationship between life expectancy and health expenditure for developed and developing countries. 
+
+However, that was just one regression model. What if we need to fit a much larger number of models, for each of which we don't really need detailed statistics? We can use the [`regress`](https://www.mathworks.com/help/stats/regress.html) function to trade comprehensiveness for speed. 
 
 
 ```matlab
-% define outcome variable
+% define outcome variable -- a numeric column vector
 y = data_2014.LE;
-% define predictor variables
-X = nan(length(y), 4); %%% initialize 3 columns
+% define predictor variables -- a numeric array
+X = nan(length(y), 4); %%% initialize 4 columns as we have four terms
 X(:, 1) = 1; %%% constant term is NOT automatically put into the model!
 X(:, 2) = double(data_2014.Status=="Developing"); %%% manually code the categorical variable
 X(:, 3) = data_2014.("Total expenditure") - mean(data_2014.("Total expenditure"), "omitmissing");
@@ -596,8 +600,6 @@ X(:, 4) = X(:, 2) .* X(:, 3); %%% interaction term
 [b, bint, r, rint, stats] = regress(y, X);
 b
 ```
-
-
 ```text
 b = 4x1    
    81.1316
@@ -605,6 +607,8 @@ b = 4x1
     0.0032
     0.7351
 ```
+
+Although the `regress` function does have a `stats` output, it is actually the statistics regarding the model as a whole (e.g., R-squared and such) rather than individual fixed effects terms. Nevertheless, let's compare the regression coefficients `b` from `regress` to what we obtained from `fitlm`.
 
 
 ```matlab
@@ -616,23 +620,20 @@ m3.Coefficients
 |:--:|:--:|:--:|:--:|:--:|
 |1 (Intercept)|81.1316|1.4382|56.4102|0|
 |2 Status_rev_Develop...|-11.2652|1.5557|-7.2414|0|
-|3 TE_mc|0.0032|0.3812|0.0085|0.9932|
+|3 HE_mc|0.0032|0.3812|0.0085|0.9932|
 |4 Status_rev_Develop...|0.7351|0.4512|1.6292|0.1050|
 
 
 ```matlab
 all(m3.Coefficients.Estimate == b)
 ```
-
-
 ```text
 ans = 
    1
 ```
 
 
-Ta-da! As we can see the regression coefficients we obtained using `regress` are exactly the same as what we had from `fitlm` earlier, though we no longer have the nice-looking table filled with stats. However, the (very crude) test below shows that `regress` is indeed a lot faster than `fitlm`.
-
+Ta-da! All of the regression coefficients (estimates) are indeed the same! And while we did lose the nice-looking tables filled with statistics, a (very crude) test below shows that `regress` indeed runs a lot faster than `fitlm`.
 
 ```matlab
 tic
@@ -651,17 +652,18 @@ toc
 ```text
 Elapsed time is 0.201044 seconds.
 ```
-
 ```matlab
 tic
 for i=1:500
-    m = fitlm(data_2014, "LE ~ TE_mc * Status_rev");
+    m = fitlm(data_2014, "LE ~ HE_mc * Status_rev");
 end
 toc
 ```
 ```text
 Elapsed time is 5.250400 seconds.
 ```
+
+
 
 <a id='conclusion'></a>
 ## 5. Conclusion
