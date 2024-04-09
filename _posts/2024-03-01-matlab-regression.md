@@ -3,7 +3,7 @@ title: "MATLAB basics and regression"
 author: shenyang
 categories: [ tutorial ]
 image: assets/images/2024-03-01-matlab-regression/matlab.png
-featured: true
+featured: false
 hidden: false
 date: "2024-3-1"
 
