@@ -1,6 +1,6 @@
 ---
 author: liz
-featured: false
+featured: true
 categories: [math, signal processing]
 image: https://tikz.net/files/fourier_series-011.png
 title: Decomposing Fourier transforms — an introduction to time-frequency decomposition
