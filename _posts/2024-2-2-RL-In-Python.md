@@ -3,7 +3,7 @@ title: "Reinforcement Learning in Python"
 author: miles
 categories: [ tutorial ]
 image: assets/images/2024-2-2-RL2/monke.png
-featured: true
+featured: false
 hidden: false
 output:
   md_document:
