@@ -10,6 +10,6 @@ permalink: /about
 
 <h4>Want to become a member?</h4>
 
-<p>Contact Kevin O'Neill at <a href = "mailto: kevin.oneill@duke.edu">kevin.oneill@duke.edu</a>!</p>
+<p>Contact Deborah Cesarini at <a href = "mailto: deborah.cesarini@duke.edu">deborah.cesarini@duke.edu</a>!</p>
 
 </div>
