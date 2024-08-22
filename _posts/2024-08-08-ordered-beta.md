@@ -31,8 +31,8 @@ scale for a *visual analog scale* (VAS):
 
 The VAS achieves the same fundamental purpose as the ordinal scale, but
 it allows respondents to click anywhere on the scale. Presumably, the
-idea is that this allows participants to make as finer-grade
-distinctions to better express their underlying psychological state.
+idea is that this allows participants to make finer-grade distinctions
+to better express their underlying psychological state.
 
 As it turns out, VASs *do* typically have better measurement properties
 than ordinal scales. However, they also tend to generate data that can
@@ -40,8 +40,8 @@ be problematic to analyze with conventional statistical tools. In this
 post, we’ll discuss what is so difficult about VAS data, and then we’ll
 build up step-by-step to a fancy new method of analyzing this kind of
 data that solves all of our problems. This post assumes some familiarity
-with `R` and introductory statistics, so if necessary now is a good time
-to brush up on the basics. In contrast, if you just want the solution,
+with `R` and introductory statistics, so now is a good time to brush up
+on the basics, if necessary. In contrast, if you just want the solution,
 this post is based on the fantastic paper [Ordered Beta Regression: A
 Parsimonious, Well-Fitting Model for Continuous Data with Lower and
 Upper Bounds by Robert Kubinec](https://doi.org/10.1017/pan.2022.20).
@@ -124,7 +124,7 @@ exactly the scale bounds (i.e., the “not at all” or “totally”
 responses”). Finally, it cannot account for the skew in the data, which
 is typical in the presence of ceiling effects.
 
-All of these things might sounds like overly-specific complaints. After
+All of these things might sound like overly-specific complaints. After
 all, the normal distribution correctly estimates the mean and variance
 of the data, which is usually enough for most purposes. But these
 problems manifest when performing statistical inference: **even if your
@@ -219,8 +219,8 @@ $$\theta$$ and $$\gamma$$.
 <img src="/assets/images/2024-08-08-ordered-beta/zoib-1.png" style="display: block; margin: auto;" />
 
 Comparing across rows confirms that $$\theta$$ directly controls the
-overall proportion of responses at the endpoints and comparing across
-columns confirms that $$\gamma$$ controls the proportion of `1`’s out of
+overall proportion of responses at the endpoints. Comparing across
+columns confirms that $$\gamma$$ controls the proportion of `1`s out of
 the responses at the endpoints.
 
 ## Mo parameters mo problems
@@ -241,7 +241,7 @@ complexity of the ZOIB distribution can present two major hurdles to its
 use in practice. The first problem is that we’ve gone from a
 distribution with two parameters (the normal distribution’s mean and
 standard deviation) to a distribution with four parameters (the ZOIB’s
-mean, precision, inflation probability and conditional inflation
+mean, precision, inflation probability, and conditional inflation
 probability). With more parameters comes more responsibility: you will
 need a *lot* more data to fit a ZOIB distribution than a normal
 distribution. This only gets worse when we think about adding predictors
@@ -508,7 +508,7 @@ package, which provides a familiar `lmer`-like API by wrapping the
 `brms` Bayesian regression package, which is itself a wrapper for the
 [Stan probabilistic programming language](https://mc-stan.org).
 
-As an aside, this methods perform approximate Bayesian inference
+As an aside, this methods performs approximate Bayesian inference
 (although it is likely possible in principle to fit an ordered Beta
 regression under a frequentist paradigm). If this is new to you, I would
 recommend [brushing up on the
@@ -596,7 +596,7 @@ are predicting `cause` using `condition` as a predictor. The argument
 In the summary above, `Regression Coefficients` refers to our parameters
 predicting $$\mu$$ on the logit scale: `Intercept` is the estimate of
 $$\textrm{logit}(\mu)$$ for the normal condition, and
-`conditionAbnormal` is the relative increase in $$\textrm{logit}(mu)$$
+`conditionAbnormal` is the relative increase in $$\textrm{logit}(\mu)$$
 for the abnormal condition. Since `Intercept` is above `0`, we can infer
 that mean causal judgments for the normal condition are above the
 midpoint of `0.5`. And since `conditionAbnormal` is above `0`, we can
@@ -710,7 +710,7 @@ ggplot(draws.pred) +
 
 In this plot, the raw data are shown in gray and the model-simulated
 judgments are shown in black. Clearly the model is not perfect (e.g.,
-the model overestimates the number of `1`’s in the normal condition and
+the model overestimates the number of `1`s in the normal condition and
 underestimates the number of middling judgments in both conditions), but
 it does capture most of the important features of the data!
 

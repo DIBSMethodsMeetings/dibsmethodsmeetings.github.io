@@ -6,3 +6,5 @@ _site
 Gemfile.lock
 cache
 *.rds
+**/*.Rhistory
+**/*_cache
