@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$#" -ne 1 ]; then
-    echo echo -e "usage: render <file>.Rmd\n"
+    echo -e "usage: render <file>.Rmd\n"
     exit
 fi
 

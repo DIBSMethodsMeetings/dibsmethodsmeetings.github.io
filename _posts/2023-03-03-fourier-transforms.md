@@ -9,7 +9,6 @@ title: Decomposing Fourier transforms — an introduction to time-frequency deco
 ## The beauty of the Fourier series and Fourier transform
 
 
-<!-- <a href="https://www.wondersofphysics.com/2021/03/biography-of-joseph-fourier.html"><img style="float:left\; padding-right:10px" width="%50" src="https://1.bp.blogspot.com/-5_b9oWEGyTE/YFdR7SVBFcI/AAAAAAAANfM/6oCrCSh73-EE30YQIPeyDLejsK93EBUdACNcBGAsYHQ/s16000/taylor%2Bswift%2Bfourier%2Bseries%2Bmaths%2Bphysics.jpg"/></a> -->
 
 <a href="https://www.wondersofphysics.com/2021/03/biography-of-joseph-fourier.html"><img src="https://1.bp.blogspot.com/-5_b9oWEGyTE/YFdR7SVBFcI/AAAAAAAANfM/6oCrCSh73-EE30YQIPeyDLejsK93EBUdACNcBGAsYHQ/s16000/taylor%2Bswift%2Bfourier%2Bseries%2Bmaths%2Bphysics.jpg"/></a>
 
@@ -27,7 +26,6 @@ The Fourier transform is valuable for two reasons:
 
 The main result of the Fourier transform are Fourier coefficients used to compute a spectrum of power at various frequencies present in the signal: the power spectrum measures how strong is the contribution of frequencies present in the signal.
 
-<!-- These recordings are simply signals that vary over time. The Fourier transform allows...transformation...of these signals from the time domain to the frequency domain, and back. -->
 
 ## Time domain \\(\leftrightarrow\\) frequency domain
 
@@ -319,55 +317,6 @@ plt.tight_layout()
 
 
 
-<!-- #### Manaul implementation of the Fourier transform = numpy implementation -->
-
-<!-- ### Manual Fourier transform implementation = numpy implementation
-# # Figure 11.7
-# fft_data = np.fft.fft(data)/N
-
-# fig, ax = plt.subplots(3, 1, figsize=(8,5))
-
-# ax[0].plot(frequencies, np.absolute(fourier_og[:N//2+1])**2,'ko',markersize=8, linewidth=5)
-# ax[0].plot(frequencies, np.absolute(fft_data[:N//2+1])**2,'r*-',markersize=1)
-# ax[0].set(title='Power Spectrum', xlabel="Frequency (Hz)", ylabel="Power (a.u.)")
-
-# #wrap the computed phase angles because +pi = -pi
-# phase_manual = (np.angle(fourier[:N//2+1])  + np.pi) % (2 * np.pi ) - np.pi
-# phase_fft = (np.angle(fft_data[:N//2+1])  + np.pi) % (2 * np.pi ) - np.pi
-
-# ax[1].plot(frequencies, phase_manual, 'ko', markersize=8, linewidth=5)
-# ax[1].plot(frequencies, phase_fft, 'r*-', markersize=1)
-# ax[1].set(title='Phase Spectrum', xlabel='Frequency (Hz)', ylabel='Phase Angle')
-
-# #below line is a little verbose, but it is just real(ifft(fft(data)))
-# ifftData = np.real(np.fft.ifft(np.fft.fft(data)))
-
-# ax[2].plot(reconstructed_data, 'ko', markersize=8, linewidth=5)
-# ax[2].plot(ifftData,'r*-',markersize=1)
-# ax[2].set(title='Data Reconstruction', ylabel='Amplitude (a.u.)', xlabel='Time (ms)')
-
-# plt.legend(["Manual Fourier transform","Numpy FFT"])
-# fig.tight_layout() -->
-
-<!-- <br>
-<details>
-    <summary>
-        <b>Properties of the Fourier transform:
-        </b>
-    </summary>
-<br>
-    - It is a linear transform: If $g(t)$ and $h(t)$ are two Fourier transforms given by $G(f)$ and $H(f)$ respectively, then the linear combination of the Fourier transforms can be easily calculated.
-
-    - Time shift property: The Fourier transform of $g(t–a)$ for a real number $a$ that shifts the original function has the same amount of shift in the magnitude of the spectrum.
-
-    - Modulation property: A function is modulated by another function when it is multiplied in time.
-
-    - Parseval’s theorem: Fourier transform is unitary, i.e., the sum of square of a function $g(t)$ equals the sum of the square of its Fourier transform, $G(f)$.
-
-    - Duality: If g(t) has the Fourier transform G(f), then the Fourier transform of G(t) is g(-f).
-
-    https://www.techopedia.com/definition/7292/fourier-transform
-</details> -->
 
 <b>Note:<b> the phase spectrum is derived from the coefficient of the sine, i.e., the argument of the complex number.
 
@@ -553,9 +502,6 @@ In the second part, the transform is reapplied to <span style="color:blue; backg
 
 It takes four iterations of the Fourier transform to get back to the original function.
 
-<!-- However, in this particular example, and with this particular definition of the Fourier transform, <span style="color:red">the rectangular function</span> and <span style="color:blue">the normalized sinc function</span> are exact inverses of each other. Using other definitions would require four applications. A distorted <span style="color:red">rect</span> and <span style="color:blue">sinc</span> function would result in the intermediate steps. -->
-<!--
-This was done for simplicity, as to not have very tall and very wide intermediate functions, or the need for a very long animation, as per the animator's description. -->
 
 In this example, no imaginary, i.e., sine components, are displayed. Only the real, i.e., cosine components, are displayed.
 
@@ -578,8 +524,6 @@ In short:
 Overlap (or hop size) and FFT length allows changing the time and frequency resolution independently from each other and from the segment size.
 
 The "standard" way of doing this is to use an FFT length that's equal to the segment length and an overlap of 50%.
-
-<!-- https://youtu.be/8nZrgJjl3wc?t=91 -->
 
 [![IMAGE_ALT](https://i0.wp.com/www.biophysicslab.com/wp-content/uploads/2020/06/short-timeFFT.jpg)](https://youtu.be/8nZrgJjl3wc?t=92)
 
