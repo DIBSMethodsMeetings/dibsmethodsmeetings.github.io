@@ -1,4 +1,15 @@
-
+---
+title: "Intro to Reference Managers"
+author: kaylee
+categories: [ tutorial ]
+image: assets/images/2024-10-11-reference-managers"/zotero_logo
+featured: false
+hidden: false
+output:
+  md_document:
+    variant: gfm
+    preserve_yaml: TRUE
+---
 
 # Intro to Reference Managers
 Ok, so you’re a student who’s trying to sort through the pile of research papers in preparation for starting a new project, writing your MAP, or adding on to your dissertation.
