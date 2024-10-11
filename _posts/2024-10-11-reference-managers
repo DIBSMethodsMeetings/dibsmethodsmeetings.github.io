@@ -1,4 +1,16 @@
-#### **Intro to Reference Managers**
+---
+title: "Intro to Reference Managers"
+author: kaylee
+categories: [ tutorial ]
+image: 
+featured: false
+output:
+  html_document: default
+  pdf_document: default
+  md_document:
+    variant: gfm
+    preserve_yaml: TRUE
+---
 
 Ok, so you’re a student who’s trying to sort through the pile of research papers in preparation for starting a new project, writing your MAP, or adding on to your dissertation.
 
