@@ -3,7 +3,7 @@
 # Intro to Reference Managers
 Ok, so you’re a student who’s trying to sort through the pile of research papers in preparation for starting a new project, writing your MAP, or adding on to your dissertation.
 
-How do you even begin to navigate the confusing landscape that is academic journals? How do you keep track of the papers you’ve read, the papers you’d like to read, the papers that are related to specific topics, etc.? That’s where reference managers come in! There are lots of tutorials online for the different reference managers, but how do you know which manager to use? Here, I’ll be going into detail for three of the most popular managers: Zotero, Mendeley, and Google Notebook to hopefully give you a better idea of which one will be best suited to your needs. None of the reviews here will be super comprehensive, but it should hopefully point you in the right direction for which one you’d like to learn more about/play around with. 
+How do you even begin to navigate the confusing landscape that is academic journals? How do you keep track of the papers you’ve read, the papers you’d like to read, the papers that are related to specific topics, etc.? That’s where reference managers come in! There are lots of tutorials online for the different reference managers, but how do you know which manager to use? Here, I’ll be going into detail for four of the most popular managers: Zotero, Mendeley, EndNote, and Google Notebook to hopefully give you a better idea of which one will be best suited to your needs. None of the reviews here will be super comprehensive, but it should hopefully point you in the right direction for which one you’d like to learn more about/play around with. 
 
 
 ## **Zotero**
@@ -109,7 +109,7 @@ That’s right! You can ask the notebook to create a ***podcast*** from a journa
 
 ## **Consensus?**
 
-![Untitled](/assets/images/2024-10-11-reference-managers"/consensus_table.png)
+![Untitled](/assets/images/2024-10-11-reference-managers"/consensus_table1.png)
 
 Ultimately, if this post has made you curious about one of the other reference managers, you should know that it is *relatively* easy to switch from one to another if you primarily take notes instead of using the annotations features. For all three programs, you can easily export your libraries from one to another. However, if there were citations you had to manually update, you will need to double check that they imported correctly. You should also be warned that if you go to switch from Mendeley to another reference manager, you will lose any annotations or highlights you made to the pdfs directly. While that may be daunting, it will only get worse the longer you wait to make the switch. :)
 
