@@ -59,7 +59,7 @@ Mendeley is probably the second most popular reference manager, but be warned, a
 
 **Navigating the environment:**
 
-![Untitled](/assets/images/2024-10-11-reference-managers"/zotero_reading_list.jpg)
+![Untitled](/assets/images/2024-10-11-reference-managers"/mendeley_layout.jpg)
 
 
 Like with Zotero, you can use Mendeley to store references in one place, directly export citations, automate bibliographies and citations, keep notes attached to your sources, and attach different types of files to each source. It also has plugins for web integration, but in general it has a smaller selection to work with. You can also use a similar "Group" feature to create shared folders with collaborators, but the free version is limited to 1 private group (but has unlimited public groups). In a public group, anyone can see it and add references to it, and you are unable to share file notes/annotations across groups. Whereas in a private group, only invited members can see the references, and notes/annotations can be seen by all group members.
