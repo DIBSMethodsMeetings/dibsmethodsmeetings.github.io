@@ -59,18 +59,20 @@ Mendeley is probably the second most popular reference manager, but be warned, a
 
 **Navigating the environment:**
 
-![Untitled](/assets/images/2024-10-11-reference-managers"/mendeley_layout.jpg)
+![Untitled](/assets/images/2024-10-11-reference-managers"/mendeley_layout.png)
 
 
 Like with Zotero, you can use Mendeley to store references in one place, directly export citations, automate bibliographies and citations, keep notes attached to your sources, and attach different types of files to each source. It also has plugins for web integration, but in general it has a smaller selection to work with. However, it doesn't have Google Docs integration. You can also use a similar "Group" feature to create shared folders with collaborators, but the free version is limited to 1 private group (but has unlimited public groups). In a public group, anyone can see it and add references to it, and you are unable to share file notes/annotations across groups. Whereas in a private group, only invited members can see the references, and notes/annotations can be seen by all group members.
 
 ## **EndNote**
-EndNote is the reference manager that wins the award for longest to hang around, with the first version coming out almost 20 years before Zotero or Mendeley. It is the reference manager I am least familiar with. EndNote performs many of the same basic functions as Zotero and Mendeley, but with a few slight differences: 
+EndNote is the reference manager that wins the award for longest to hang around, with the first version coming out almost 20 years before Zotero or Mendeley. It is the reference manager I am least familiar with. EndNote performs many of the same basic functions as Zotero and Mendeley, but I personally found it to be a bit clunkier and less intuitive. Though, I will say that EndNote seems to be great for people who are likely to have a higher number of sources. Their storage is capped at 50,000 files. 
 
-- EndNote is made for people who are likely to have a higher number of sources. They have a built-in feature that directly allows you to search the *content* of PDFs. 
+**Navigating the environment:**
+
+![Untitled](/assets/images/2024-10-11-reference-managers"/endnote_layout.jpg)
 
 
-Like Zotero, EndNote should be automatically integrated with Word and also has a plugin for Google Docs that can be found [here](https://workspace.google.com/marketplace/app/endnote_21_cite_while_you_write/948545547135). 
+Like Zotero, EndNote should be automatically integrated with Word (known as Cite While you Write) and this plugin is also available for Google Docs, which can be found [here](https://workspace.google.com/marketplace/app/endnote_21_cite_while_you_write/948545547135). It is not integrated with LaTeX/Overleaf.
 
 However, EndNote has a free version (EndNote Basic) and a paid version (EndNote Online). Most universities will grant access to EndNote Online for free, but if you aren't currently affiliated with a university, you will have to pay if you don't want to deal with limited storage space or being unable to mark up PDFs within the program.
 
@@ -107,15 +109,8 @@ That’s right! You can ask the notebook to create a ***podcast*** from a journa
 
 ## **Consensus?**
 
-|                                     |         Storage         |          Versatility         |         Versatility         |
-|: ------------------------- | :--------------------: | :------------------------: |:------------------------: |
-| Zotero                        |  unlimited local   | this text is left-alig  | this text is left-alig  |
-| Mendeley                  |  this text is cent  | this text is left-alig  | this text is left-alig  |
-| NotebookLM             |  this text is cent  | this text is left-alig  | this text is left-alig  |
+![Untitled](/assets/images/2024-10-11-reference-managers"/consensus_table.jpg)
 
+Ultimately, if this post has made you curious about one of the other reference managers, you should know that it is *relatively* easy to switch from one to another if you primarily take notes instead of using the annotations features. For all three programs, you can easily export your libraries from one to another. However, you should be warned that if you go to switch from Mendeley to another reference manager, you will lose any annotations or highlights you made to the pdfs directly. While that may be daunting, it will only get worse the longer you wait to make the switch. :)
 
-Storage 300 MB for online storage (unlimited for local) on Zotero, 50 sources/200 MB for each notebook, 2 GB for web storage (mendeley), 50,000 records for EndNote
-
-Zotero integration with word and docs, mendeley only word, endnote word and docs, NotebookLM N/A
-
-Ultimately, if this post has made you curious about one of the other reference managers, you should know that it is *relatively* easy to switch from one to another without losing all of your sources and notes. For all three programs, you can easily export your libraries from one to another. However, you should be warned that if you are in the middle of papers when you switch, you will be unable to switch the formatting from one reference manager (Mendeley) to another (EndNote). Similarly, if you have to go back to edit an older paper for any reason, you will once again have to use the original reference manager employed during the time of writing. With that being said, I hope this post has given you the "lay of the land" and that at the very least, if you were already committed to a particular reference manager, that you at least learned something new about it today! 
+With that being said, I hope this post has given you the "lay of the land" and that at the very least, if you were already committed to a particular reference manager, that you at least learned something new about it today! 
