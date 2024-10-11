@@ -23,7 +23,7 @@ Zotero has lots of plugins to explore to help streamline your reference process,
 -	**Word:**
     - There is a plugin for Zotero that allows you to quickly and easily cite any paper within your Zotero library (with the citation style of your choice) in Microsoft Word. When you download Zotero, the plug in *should* be automatically included, but if for some reason it's not, you can also install it [here](). Something that’s very nice about this integration is that when you use the “add a bibliography” feature, it automatically updates whenever you add new in-text citations. 
 
-![Untitled](/assets/images/2024-10-11-reference-managers"/zotero_word_plugin.jpg)
+![Untitled](/assets/images/2024-10-11-reference-managers"/zotero_word_plugin.png)
 
 
 -	**Google Docs:**
@@ -69,10 +69,10 @@ EndNote is the reference manager that wins the award for longest to hang around,
 
 **Navigating the environment:**
 
-![Untitled](/assets/images/2024-10-11-reference-managers"/endnote_layout.jpg)
+![Untitled](/assets/images/2024-10-11-reference-managers"/endnote_layout.png)
 
 
-Like Zotero, EndNote should be automatically integrated with Word (known as Cite While you Write) and this plugin is also available for Google Docs, which can be found [here](https://workspace.google.com/marketplace/app/endnote_21_cite_while_you_write/948545547135). It is not integrated with LaTeX/Overleaf.
+Like Zotero, EndNote should be automatically integrated with Word (known as Cite While you Write) and this plugin is also available for Google Docs, which can be found [here](https://workspace.google.com/marketplace/app/endnote_21_cite_while_you_write/948545547135). You can also have shared libraries or groups. The shared libraries can have up to 1,000 members, which is just for sharing sources, and the shared groups are analagous to the private group (Mendeley) and private library (Zotero).
 
 However, EndNote has a free version (EndNote Basic) and a paid version (EndNote Online). Most universities will grant access to EndNote Online for free, but if you aren't currently affiliated with a university, you will have to pay if you don't want to deal with limited storage space or being unable to mark up PDFs within the program.
 
@@ -109,8 +109,8 @@ That’s right! You can ask the notebook to create a ***podcast*** from a journa
 
 ## **Consensus?**
 
-![Untitled](/assets/images/2024-10-11-reference-managers"/consensus_table.jpg)
+![Untitled](/assets/images/2024-10-11-reference-managers"/consensus_table.png)
 
-Ultimately, if this post has made you curious about one of the other reference managers, you should know that it is *relatively* easy to switch from one to another if you primarily take notes instead of using the annotations features. For all three programs, you can easily export your libraries from one to another. However, you should be warned that if you go to switch from Mendeley to another reference manager, you will lose any annotations or highlights you made to the pdfs directly. While that may be daunting, it will only get worse the longer you wait to make the switch. :)
+Ultimately, if this post has made you curious about one of the other reference managers, you should know that it is *relatively* easy to switch from one to another if you primarily take notes instead of using the annotations features. For all three programs, you can easily export your libraries from one to another. However, if there were citations you had to manually update, you will need to double check that they imported correctly. You should also be warned that if you go to switch from Mendeley to another reference manager, you will lose any annotations or highlights you made to the pdfs directly. While that may be daunting, it will only get worse the longer you wait to make the switch. :)
 
 With that being said, I hope this post has given you the "lay of the land" and that at the very least, if you were already committed to a particular reference manager, that you at least learned something new about it today! 
