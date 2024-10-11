@@ -9,7 +9,7 @@ How do you even begin to navigate the confusing landscape that is academic journ
 ## **Zotero**
 
 ### **The basics / navigating the environment:**
-		 
+![Untitled](/assets/images/2024-10-11-reference-managers"/zotero_general_layout.jpeg)	 
 			
 On the lefthand side, you’ll see your library, which contains your “collections”, which is just a bunch of different folders you create to help you organize your papers into themes. The middle pane is just going to be the contents within each folder. The righthand pane has some fun stuff: you can add notes (I like to summarize the papers or why I decided to save them here). You can also add tags, which you can use to search for later. For instance, if I’m interested in looking for papers relating to a specific part of fMRI (e.g., connectivity studies), I can add the tag. A helpful one I do is to tag review papers as “review”.  You can also attach papers that are related to each other using the related feature. 
 
