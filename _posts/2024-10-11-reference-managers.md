@@ -42,7 +42,7 @@ Zotero has lots of plugins to explore to help streamline your reference process,
     - When you open the PDF, and highlight the text within Zotero, you can click right click on the file to select “add note from annotations” and it will export anything you highlighted to a separate note file, with the page number for each excerpt.
 		
 **-  Using the "Groups" feature:**
-    - You can create private libraries in Zotero, which is very helpful if you’re working in a group on a specific paper. It makes it very easy for everyone to share important articles related to the paper and suggest other ones to read. The one downside is that it can be tricky to keep using the auto-update feature for bibliographies in your papers in Word or Docs if one member of the group doesn’t use Zotero.
+    - You can create private libraries in Zotero, which is very helpful if you’re working in a group on a specific paper. It makes it very easy for everyone to share important articles related to the paper and suggest other ones to read. There also isn't a limit to the number of private groups you can create. The one downside is that it can be tricky to keep using the auto-update feature for bibliographies in your papers in Word or Docs if one member of the group doesn’t use Zotero.
 
 **- RFT feature**
     - Format the bibliography from citations alone:
@@ -55,19 +55,24 @@ Zotero has lots of plugins to explore to help streamline your reference process,
 
 
 ## **Mendeley**
-Mendeley is probably the second most popular reference manager, but be warned, a lot of people have switched to Zotero in recent years. In 2013, Elsevier purchased it, and in 2022, they moved from "Mendeley Desktop" to "Mendeley Reference Manager". Basically, they opted to eliminate the local storage option and opt for a cloud / web-based version instead. You get 2 GB of storage with the free version. However, the web-based version doesn't have many of the well-loved features from the original desktop version, making it a tad less user-friendly. For instance, you can't export your annotated PDFs anymore in Mendeley Reference Manager.
+Mendeley is probably the second most popular reference manager, but be warned, a lot of people have switched to Zotero in recent years. In 2013, Elsevier purchased it, and in 2022, they moved from "Mendeley Desktop" to "Mendeley Reference Manager". Basically, they opted to eliminate the local storage option and opt for a cloud / web-based version instead. You get 2 GB of storage with the free version. However, the web-based version doesn't have some of the well-loved features from the original desktop version, making it a tad less user-friendly. For instance, you can't export your annotated PDFs anymore in Mendeley Reference Manager.
 
 **Navigating the environment:**
 
 ![Untitled](/assets/images/2024-10-11-reference-managers"/mendeley_layout.jpg)
 
 
-Like with Zotero, you can use Mendeley to store references in one place, directly export citations, automate bibliographies and citations, keep notes attached to your sources, and attach different types of files to each source. It also has plugins for web integration, but in general it has a smaller selection to work with. You can also use a similar "Group" feature to create shared folders with collaborators, but the free version is limited to 1 private group (but has unlimited public groups). In a public group, anyone can see it and add references to it, and you are unable to share file notes/annotations across groups. Whereas in a private group, only invited members can see the references, and notes/annotations can be seen by all group members.
+Like with Zotero, you can use Mendeley to store references in one place, directly export citations, automate bibliographies and citations, keep notes attached to your sources, and attach different types of files to each source. It also has plugins for web integration, but in general it has a smaller selection to work with. However, it doesn't have Google Docs integration. You can also use a similar "Group" feature to create shared folders with collaborators, but the free version is limited to 1 private group (but has unlimited public groups). In a public group, anyone can see it and add references to it, and you are unable to share file notes/annotations across groups. Whereas in a private group, only invited members can see the references, and notes/annotations can be seen by all group members.
 
 ## **EndNote**
 EndNote is the reference manager that wins the award for longest to hang around, with the first version coming out almost 20 years before Zotero or Mendeley. It is the reference manager I am least familiar with. EndNote performs many of the same basic functions as Zotero and Mendeley, but with a few slight differences: 
 
-- EndNote is entirely web-based. There is no application you are able to download to your computer. 
+- EndNote is made for people who are likely to have a higher number of sources. They have a built-in feature that directly allows you to search the *content* of PDFs. 
+
+
+Like Zotero, EndNote should be automatically integrated with Word and also has a plugin for Google Docs that can be found [here](https://workspace.google.com/marketplace/app/endnote_21_cite_while_you_write/948545547135). 
+
+However, EndNote has a free version (EndNote Basic) and a paid version (EndNote Online). Most universities will grant access to EndNote Online for free, but if you aren't currently affiliated with a university, you will have to pay if you don't want to deal with limited storage space or being unable to mark up PDFs within the program.
 
 ## **Google NotebookLM**
 
@@ -102,7 +107,6 @@ That’s right! You can ask the notebook to create a ***podcast*** from a journa
 
 ## **Consensus?**
 
-```
 |                                     |         Storage         |          Versatility         |         Versatility         |
 |: ------------------------- | :--------------------: | :------------------------: |:------------------------: |
 | Zotero                        |  unlimited local   | this text is left-alig  | this text is left-alig  |
@@ -110,4 +114,8 @@ That’s right! You can ask the notebook to create a ***podcast*** from a journa
 | NotebookLM             |  this text is cent  | this text is left-alig  | this text is left-alig  |
 
 
-Storage 300 MB for online storage (unlimited for local) on Zotero, 50 sources/200 MB for each notebook, 2 GB for web storage (u
+Storage 300 MB for online storage (unlimited for local) on Zotero, 50 sources/200 MB for each notebook, 2 GB for web storage (mendeley), 50,000 records for EndNote
+
+Zotero integration with word and docs, mendeley only word, endnote word and docs, NotebookLM N/A
+
+Ultimately, if this post has made you curious about one of the other reference managers, you should know that it is *relatively* easy to switch from one to another without losing all of your sources and notes. For all three programs, you can easily export your libraries from one to another. However, you should be warned that if you are in the middle of papers when you switch, you will be unable to switch the formatting from one reference manager (Mendeley) to another (EndNote). Similarly, if you have to go back to edit an older paper for any reason, you will once again have to use the original reference manager employed during the time of writing. With that being said, I hope this post has given you the "lay of the land" and that at the very least, if you were already committed to a particular reference manager, that you at least learned something new about it today! 
