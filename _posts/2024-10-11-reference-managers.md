@@ -2,10 +2,12 @@
 title: "Intro to Reference Managers"
 author: kaylee
 categories: [ tutorial ]
-image: assets/images/2024-10-11-reference-managers"/zotero_logo
+image: assets/images/2024-10-11-reference-managers"/zotero_logo.jpg
 featured: false
 hidden: false
 output:
+  html_document: default
+  pdf_document: default
   md_document:
     variant: gfm
     preserve_yaml: TRUE
