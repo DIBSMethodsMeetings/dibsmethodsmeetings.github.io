@@ -1,8 +1,8 @@
 ---
-title: Intro to Reference Managers
+title: "Intro to Reference Managers"
 author: kaylee
 categories: [ tutorial ]
-image: assets/images/2024-10-11-reference-managers"/zotero_logo.jpg
+image: assets/images/2024-10-11-reference-managers"/zotero_reading_list.jpg
 featured: false
 hidden: false
 output:
