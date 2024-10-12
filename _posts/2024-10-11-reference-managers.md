@@ -2,7 +2,7 @@
 title: "Intro to Reference Managers"
 author: kaylee
 categories: [ tutorial ]
-image: assets/images/2024-10-11-reference-managers"/zotero_reading_list.jpg
+image: assets/images/2024-10-11-reference-managers"/zotero_logo.jpg
 featured: false
 hidden: false
 output:
@@ -126,4 +126,4 @@ That’s right! You can ask the notebook to create a ***podcast*** from a journa
 
 Ultimately, if this post has made you curious about one of the other reference managers, you should know that it is *relatively* easy to switch from one to another if you primarily take notes instead of using the annotations features. For all three programs, you can easily export your libraries from one to another. However, if there were citations you had to manually update, you will need to double check that they imported correctly. You should also be warned that if you go to switch from Mendeley to another reference manager, you will lose any annotations or highlights you made to the pdfs directly. While that may be daunting, it will only get worse the longer you wait to make the switch. :)
 
-With that being said, I hope this post has given you the "lay of the land" and that at the very least, if you were already committed to a particular reference manager, that you at least learned something new about it today! 
+With that being said, I hope this post has given you the "lay of the land" and that at the very least, if you were already committed to a particular reference manager, that you learned something new about it today! 
