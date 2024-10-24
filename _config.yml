@@ -81,6 +81,16 @@ authors:
     twitter: https://twitter.com/GabrielaFM12
     description: "PhD Student at Duke University working with Dr. Felipe De Brigard."
 
+  kaylee:
+    name: Kaylee
+    display_name: Kaylee Miceli
+    avatar: assets/images/kaylee.jpg
+    gravatar:
+    email: kaylee.miceli@duke.edu
+    web: 
+    twitter: https://x.com/miceli_k
+    description: "Lab Manager and Research Associate at Duke University working with Dr. Felipe De Brigard on episodic memory and forgiveness."
+
   kevin:
     name: Kevin
     display_name: Kevin O'Neill
@@ -89,7 +99,7 @@ authors:
     email: kevin.oneill@duke.edu
     web: https://kevingoneill.github.io
     twitter: https://twitter.com/kevingoneill
-    description: "PhD Candidate in Cognitive Neuroscience at Duke University working with Dr. Felipe De Brigard and Dr. John Pearson on causal reasoning."
+    description: "Postdoc at University College London working on metacognition and causal reasoning. Former PhD student at Duke University with Dr. Felipe De Brigard and Dr. John Pearson. Founder of DIBS Methods Meetings."
 
   liz:
     name: Liz
