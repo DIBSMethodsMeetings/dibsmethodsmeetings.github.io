@@ -2,7 +2,11 @@
 title: "Intro to Reference Managers"
 author: kaylee
 categories: [ tutorial ]
+<<<<<<< HEAD
 image: assets/images/2024-10-11-reference-managers/zotero_logo.jpg
+=======
+image: assets/images/2024-10-11-reference-managers"/zotero_logo.jpg
+>>>>>>> 1049563c19fd38b3574d80869ae8692c4408c322
 featured: false
 hidden: false
 output:
@@ -13,6 +17,10 @@ output:
     preserve_yaml: TRUE
 ---
 
+<<<<<<< HEAD
+=======
+# Intro to Reference Managers
+>>>>>>> 1049563c19fd38b3574d80869ae8692c4408c322
 Ok, so you’re a student who’s trying to sort through the pile of research papers in preparation for starting a new project, writing your MAP, or adding on to your dissertation.
 
 How do you even begin to navigate the confusing landscape that is academic journals? How do you keep track of the papers you’ve read, the papers you’d like to read, the papers that are related to specific topics, etc.? That’s where reference managers come in! There are lots of tutorials online for the different reference managers, but how do you know which manager to use? Here, I’ll be going into detail for four of the most popular managers: Zotero, Mendeley, EndNote, and Google Notebook to hopefully give you a better idea of which one will be best suited to your needs. None of the reviews here will be super comprehensive, but it should hopefully point you in the right direction for which one you’d like to learn more about/play around with. 
