@@ -40,6 +40,7 @@ Today, we will be learning about how to fo exactly this, to make predictions abo
 
 We will be using one of the simplest and most commonly used data sets in data science, the sklearn iris data set. This data set contains 150 examples (total) of flwoers that are either of the species setosa, versicolor, or virginica. Each of exemplar in our data set has a sepal length, sepal width, petal length, and petal width measurement provided. It is our job to determine whether we can classify each example into its flower type based on these features
 
+<!-- ![png](../assets/images/2023-10-13-crash-course-classification/iris_flowers.png) -->
 
 ```python
 import pandas as pd
@@ -207,6 +208,8 @@ This sort of works, but the interpretation doesn't make any sense! If sepal leng
 <a id='logistic-regression'></a>
 
 As you probably expect, of course there is! The insight is to model the y not as a continuous output between negative infinity and positive infinity, but as a **probability** bound between 0 and 1. We can do this using a sigmoid function, which is the *linking* function that a logistic regression uses. This function takes as input some y, say sepal length = 5 or sepal length = 10, and converts it into a single value between 0 and 1, which we can interpret as the probability that the examplar belongs to one class or another. Yep, that's right! A logistic regression is a jsut a linear regression within a sigmoid function, which bounds y to be between 0 and 1, producing the classic s shape.
+
+See [this excellent series of StatQuest videos for more details on Logistic Regression](https://www.youtube.com/watch?v=yIYKR4sgzI8&list=PLblh5JKOoLUKxzEP5HA2d-Li7IJkHfXSe&index=1)!
 
 ```python
 sns.regplot(x="sepal length (cm)", y="target", data=iris_df, ci=None, logistic=True);
@@ -860,6 +863,37 @@ Accuracy: 0.9666666666666667
 Below we visualize how this SVM would classify each case, depending on the particular combination of sepal length and petal length.
 
 ```python
+def make_meshgrid(x, y, h=0.02):
+    """Create a mesh of points to plot in
+    Args:
+      x: data to base x-axis meshgrid on
+      y: data to base y-axis meshgrid on
+      h: stepsize for meshgrid, optional
+    Returns:
+      xx, yy : ndarray
+    """
+    x_min, x_max = x.min() - 1, x.max() + 1
+    y_min, y_max = y.min() - 1, y.max() + 1
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
+                         np.arange(y_min, y_max, h))
+    return xx, yy
+
+def plot_contours(ax, clf, xx, yy, **params):
+    """Plot the decision boundaries for a classifier.
+    Args:
+      ax: matplotlib axes object
+      clf: a classifier
+      xx: meshgrid ndarray
+      yy: meshgrid ndarray
+      params: dictionary of params to pass to contourf, optional
+    Returns:
+      None
+    """
+    Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
+    Z = Z.reshape(xx.shape)
+    out = ax.contourf(xx, yy, Z, **params)
+    return out
+
 fig, ax = plt.subplots(figsize=(8, 6))
 X0, X1 = X_train[:, 0], X_train[:, 1]
 xx, yy = make_meshgrid(X0, X1)
