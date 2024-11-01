@@ -779,6 +779,8 @@ sns.FacetGrid(iris_df, hue ="target", height = 6).map(plt.scatter,
 
 What a support vector machine attempts to do is to **draw a line** between the two classes (at least in the case of binary classification). This "decision boundary" determine whether we fit a class to one category or the other. Lets try it! We'll start by defining the data and fitting the svm model on our training data, then making predictions.
 
+**If you'd like to learn more about SVMs, see [Daniela's excellent workshop on SVMs](_posts/2023-03-10-SVMs.md)!**
+
 ```python
 from sklearn import svm
 
