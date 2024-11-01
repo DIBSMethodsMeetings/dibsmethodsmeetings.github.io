@@ -40,7 +40,7 @@ Today, we will be learning about how to fo exactly this, to make predictions abo
 
 We will be using one of the simplest and most commonly used data sets in data science, the sklearn iris data set. This data set contains 150 examples (total) of flwoers that are either of the species setosa, versicolor, or virginica. Each of exemplar in our data set has a sepal length, sepal width, petal length, and petal width measurement provided. It is our job to determine whether we can classify each example into its flower type based on these features
 
-<!-- ![png](../assets/images/2023-10-13-crash-course-classification/iris_flowers.png) -->
+![png](../assets/images/2023-10-13-crash-course-classification/iris_flowers.png)
 
 ```python
 import pandas as pd
