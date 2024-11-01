@@ -322,7 +322,7 @@ Another prioritization would be to instead say "I want my handful of m&ms to be 
 
 Prioritizing precision is useful when the cost of a false positive is very high. For example, we likely don't want to start unnecessary chemotherapy on someone by misclassifying their lung mri scan as indicating lung cancer.
 
-**If you'd like to learn more about precision and recall, see Mile's excellent workshop on signal detection theory!**
+**If you'd like to learn more about precision and recall, see [Mile's excellent workshop on signal detection theory](https://dibsmethodsmeetings.github.io/signal-detection/)!**
 
 ```python
 from sklearn.metrics import precision_score
