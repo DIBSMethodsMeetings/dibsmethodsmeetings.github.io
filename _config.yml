@@ -167,9 +167,9 @@ authors:
     avatar: assets/images/trevor.jpg
     gravatar:
     email: trevor.alston@duke.edu
-    web:
-    twitter:
-    description: "PhD Student in Neurobiology at Duke University working with Dr. John Pearson on dimensionality reduction."
+    web: https://trevorules.github.io/
+    twitter: https://bsky.app/profile/trevoralston.bsky.social
+    description: "PhD Student in Neurobiology at Duke University working with Dr. John Pearson on Developing real time algorithms for Neural Analysis."
 
 
 collections:
