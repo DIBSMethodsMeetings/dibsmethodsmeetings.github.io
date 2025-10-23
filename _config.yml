@@ -16,20 +16,20 @@ authors:
     display_name: Allie Sinclair
     avatar: assets/images/Sinclair.jpeg
     gravatar:
-    email: allie.sinclair@duke.edu
+    email: asinclair@rice.edu
     web: https://alyssasinclair.com
     twitter: https://twitter.com/sinclair_allie
-    description: "PhD Candidate in Cognitive Neuroscience at Duke University working with Dr. Alison Adcock and Dr. Gregory Samanez-Larkin studying how people learn from error."
+    description: "Assistant Professor at Rice University studying how people update their memories, beliefs, and behaviors. Former PhD Candidate in Cognitive Neuroscience at Duke University working with Dr. Alison Adcock and Dr. Gregory Samanez-Larkin studying how people learn from error."
 
   anne:
     name: Anne
     display_name: Anne Draelos
     avatar: assets/images/anne.jpg
     gravatar:
-    email: amw73@duke.edu
+    email: adraelos@umich.edu
     web: https://draelos.github.io
     twitter: https://twitter.com/annedraelos
-    description: "Postdoc in Biostats & Neuroscience at Duke University working with Dr. John Pearson on real-time adaptive experimental methods."
+    description: "Assistant Professor at the University of Michigan applying machine learning and statistical techniques to facilitate real-time analysis of neural and behavioral data. Former postdoc at Duke University working with Dr. John Pearson developing a real-time neural analysis platform."
 
   ari:
     name: Ari
@@ -39,17 +39,37 @@ authors:
     email: ari.khoudary@uci.edu
     web: https://arikhoudary.com
     twitter: https://twitter.com/ari_khoudary
-    description: "PhD Student in Cognitive Science at UC Irvine working with Dr. Megan Peters and Dr. Aaron Bornstein on memory, perception, and metacognition."
+    description: "PhD student in Cognitive Science at UC Irvine working with Drs. Megan Peters and Aaron Bornstein to study how humans use past experiences to behave more adaptively in the present."
 
   audrey:
     name: Audrey
     display_name: Audrey Siqi-Liu
     avatar: assets/images/audrey.png
     gravatar:
-    email: audrey.liu@duke.edu
+    email: audrey.liu@gwu.edu
+    web: https://sites.google.com/view/audreysiqiliu
+    twitter: 
+    description: "Postdoc at George Washington University working with Drs. Stephen Mitroff and Dwight Kravits on questions about visual cognition. Former PhD student at Duke University working with Drs. Tobias Egner and Marty Woldorff to study adaptive cognitive flexibility."
+
+  breanna:
+    name: Breanna
+    display_name: Breanna Nguyen
+    avatar: assets/images/breanna.png
+    gravatar:
+    email: breanna.nguyen@duke.edu
+    web: https://breannaknguyen.github.io/
+    twitter: 
+    description: "Post-baccalaureate researcher at Duke University working with Dr. Walter Sinnott-Armstrong on computational cognition, the natural environment and mental health, experimental philosophy, and modeling moral decisions."
+
+  clara:
+    name: Clara
+    display_name: Clara Sandu
+    avatar: assets/images/clara.png
+    gravatar:
+    email: clara.sandu@duke.edu
     web: 
     twitter: 
-    description: "Post-defense PhD in Cognitive Neuroscience at Duke University working with Tobias Egner and Marty Woldorff studying adaptive cognitive flexibility."
+    description: "Lab manager at Duke University working with Dr. Scott Huettel on the cognitive underpinnings of complex social behavior and decision-making, including processes such as empathy/theory of mind, sensory perception, attention, memory, and imagination."
 
   daniela:
     name: Daniela
@@ -59,17 +79,27 @@ authors:
     email: dfd4@duke.edu
     web: 
     twitter: 
-    description: "MD-PhD Student in Electrical and Computer Engineering at Duke University working with Dr. John Pearson on statistical methods for neuroscience."
+    description: "MD-PhD Student in Electrical and Computer Engineering at Duke University working with Dr. John Pearson to apply modern machine learning and data science techniques to develop new methods for brain imaging analysis."
+
+  deborah:
+    name: Deborah
+    display_name: Deborah Cesarini
+    avatar: assets/images/deborah.jpg
+    gravatar:
+    email: deborah.cesarini@duke.edu
+    web:
+    twitter:
+    description: "Coordinator of DIBS Methods Meetings. PhD student at Duke University working with Drs. Walter Sinnott-Armstrong and Scott Huettel on how real and fictional narratives influence people's moral cognition, with a focus on developing interventions to enhance moral decision-making."
 
   ding:
     name: Ding
     display_name: Yaohui Ding
-    avatar: 
-    email: yd169@duke.edu
+    avatar: assets/images/ding.png
     gravatar:
+    email: yd169@duke.edu
     web:
     twitter:
-    description:
+    description: "Postdoctoral associate at Duke University working with Dr. Kevin LaBar on neural computational modeling of affect and emotion, brain connectivity, and psychophysiology."
 
   gabriela:
     name: Gabriela
@@ -79,7 +109,57 @@ authors:
     email: gabriela.fernandez@duke.edu
     web: https://gabrielafernandezmiranda.github.io
     twitter: https://twitter.com/GabrielaFM12
-    description: "PhD Student at Duke University working with Dr. Felipe De Brigard."
+    description: "PhD Student at Duke University working with Dr. Felipe De Brigard to understand the effect that forgiveness has on traumatic memories in the context of war."
+
+  helen:
+    name: Helen
+    display_name: Helen Vonderhaar
+    avatar: assets/images/helen.jpg
+    gravatar:
+    email: helen.vonderhaar@duke.edu
+    web:
+    twitter:
+    description: "Lab manager and research associate at Duke University working with Dr. Rick Hoyle in the Center for the Study of Addictive Risk and Resilience."
+
+  ilayda:
+    name: Ilayda
+    display_name: Ilayda Orhan
+    avatar: assets/images/ilayda.jpg
+    gravatar:
+    email: ilayda.orhan@duke.edu
+    web:
+    twitter:
+    description: "PhD student at Duke University working with Dr. Maureen Craig on how people conceptualize different social inequalities and what leads them to act in ways that either mitigate, maintain or exacerbate these inequalities."
+
+  jade:
+    name: Jade
+    display_name: Jade Terry
+    avatar: assets/images/jade.png
+    gravatar:
+    email: jade.terry@duke.edu
+    web:
+    twitter:
+    description: "PhD student at Duke University working with Drs. Scott Huettel and Greg Samanez-Larkin on the influence of social inequalities and social status in decision making."
+
+  jim:
+    name: Jim
+    display_name: Jim Zhang
+    avatar: assets/images/jim.jpg
+    gravatar:
+    email: jim.zhang@duke.edu
+    web:
+    twitter:
+    description: "PhD student at Duke University working with Dr. Tobias Egner on how subjective experiences arise from neural activity, the application of stimulation (TMS) to improve semantic memory in MCI adults, and the influence of episodic memory on cognitive control levels."
+
+  jaime:
+    name: Jaime
+    display_name: Jaime Rios
+    avatar: assets/images/jaime.png
+    gravatar:
+    email: jaime.rios@duke.edu
+    web:
+    twitter:
+    description: "PhD student at Duke University working with Dr. Tobias Egner on \"Sequential Control\" or the dynamic trial to trial changes that take place throughout control-based behavior"
 
   kaylee:
     name: Kaylee
@@ -89,7 +169,17 @@ authors:
     email: kaylee.miceli@duke.edu
     web: 
     twitter: https://x.com/miceli_k
-    description: "Lab Manager and Research Associate at Duke University working with Dr. Felipe De Brigard on episodic memory and self-forgiveness."
+    description: "PhD student at Duke University working with Drs. Cristina Salvador and Felipe De Brigard on how memory and self differ across cultures with varying levels of interdependence."
+
+  ken:
+    name: Ken
+    display_name: Ken Roberts
+    avatar: assets/images/ken.jpg
+    gravatar:
+    email: ken.roberts@duke.edu
+    web:
+    twitter:
+    description: "Lab manager at Duke University working with Dr. Marty Woldorff to apply emerging methodological techniques to investigate the neural basis of cognitive processes."
 
   kevin:
     name: Kevin
@@ -99,7 +189,7 @@ authors:
     email: kevin.oneill@duke.edu
     web: https://kevingoneill.github.io
     twitter: https://twitter.com/kevingoneill
-    description: "Postdoc at University College London working on metacognition and causal reasoning. Former PhD student at Duke University with Dr. Felipe De Brigard and Dr. John Pearson. Founder of DIBS Methods Meetings."
+    description: "Postdoc at University College London working on metacognition and causal reasoning. Former PhD student at Duke University with Drs. Felipe De Brigard and John Pearson. Founder of DIBS Methods Meetings."
 
   liz:
     name: Liz
@@ -109,7 +199,17 @@ authors:
     email: elizabeth.ogorman@duke.edu
     web: https://eaogorman.github.io/
     twitter: https://twitter.com/eaogorman
-    description: "PhD Candidate in Neurobiology and MS Student in ECE at Duke University working with Dr. John Pearson on real-time adaptive experimental methods and deep learning."
+    description: "Former PhD student at Duke University working with Dr. John Pearson on real-time adaptive experimental methods and deep learning."
+
+  lucas:
+    name: Lucas
+    display_name: Lucas Bellaiche
+    avatar: assets/images/lucas.jpg
+    gravatar:
+    email: lucas.bellaiche@duke.edu
+    web: https://sites.google.com/view/lucasbellaiche
+    twitter:
+    description: "PhD student at Duke University working with Dr. Kevin LaBar on interdisciplinary research avenues at the intersection of creativity and emotion."
 
   miles:
     name: Miles
@@ -119,7 +219,7 @@ authors:
     email: miles.martinez@duke.edu
     web:
     twitter:
-    description: "PhD Student in Cognitive Neuroscience at Duke University working with Dr. John Pearson on variational inference."
+    description: "PhD Student at Duke University working with Dr. John Pearson to develop and apply computational methods to understand the neural bases of natural learning."
 
   nathan:
     name: Nathan
@@ -139,7 +239,7 @@ authors:
     email: pranjal.gupta@duke.edu
     web:
     twitter:
-    description: "PhD Student in Cognitive Neuroscience at Duke University working with Dr. John Pearson on online dimensionality reduction."
+    description: "Data scientist. Former PhD Student at Duke University working with Dr. John Pearson on online dimensionality reduction."
 
   raphael:
     name: Raphael
@@ -149,7 +249,7 @@ authors:
     email: raphael.geddert@duke.edu
     web:
     twitter: https://twitter.com/raphaelgeddert
-    description: "PhD Candidate in Cognitive Neuroscience at Duke University working with Dr. Tobias Egner on cognitive control."
+    description: "Senior Associate Data Scientist at Gilead Sciences. Former PhD student at Duke University working with Dr. Tobias Egner on cognitive control."
 
   shenyang:
     name: Shenyang
@@ -159,7 +259,7 @@ authors:
     email: shenyang.huang@duke.edu
     web: https://huang-shenyang.github.io/
     twitter: https://twitter.com/SelfShenyang
-    description: "PhD Student in Cognitive Neuroscience at Duke University working with Dr. Roberto Cabeza, Dr. Simon Davis, and Dr. Felipe De Brigard."
+    description: "Applied Scientist at Microsoft AI working on improving people’s search experiences with Bing. Former PhD student at Duke University working with Drs. Roberto Cabeza, Simon Davis, and Felipe De Brigard on the behavioral and neural attributes of human memory."
 
   trevor:
     name: Trevor
@@ -167,10 +267,19 @@ authors:
     avatar: assets/images/trevor.jpg
     gravatar:
     email: trevor.alston@duke.edu
-    web: https://trevorules.github.io/
-    twitter: https://bsky.app/profile/trevoralston.bsky.social
-    description: "PhD Student in Neurobiology at Duke University working with Dr. John Pearson on Developing real time algorithms for Neural Analysis."
+    web:
+    twitter:
+    description: "PhD Student at Duke University working with Dr. John Pearson to build a real-time tool for detecting latent patterns for oscillatory neural data."
 
+  xinhao:
+    name: Xinaho
+    display_name: Xinhao Wang
+    avatar: assets/images/xinaho.jpeg
+    gravatar:
+    email: xinaho.wang@duke.edu
+    web:
+    twitter:
+    description: "PhD student at Duke University working with Dr. Roberto Cabeza on verbal insights using functional magnetic resonance imaging data, hoping to investigate the role of hippocampus and its associated network in it"
 
 collections:
   personal_page:
