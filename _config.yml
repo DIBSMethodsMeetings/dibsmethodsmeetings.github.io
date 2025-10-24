@@ -19,7 +19,7 @@ authors:
     email: asinclair@rice.edu
     web: https://alyssasinclair.com
     twitter: https://twitter.com/sinclair_allie
-    description: "Assistant Professor at Rice University studying how people update their memories, beliefs, and behaviors. Former PhD Candidate in Cognitive Neuroscience at Duke University working with Dr. Alison Adcock and Dr. Gregory Samanez-Larkin studying how people learn from error."
+    description: "Assistant Professor at Rice University studying how people update their memories, beliefs, and behaviors. Former PhD student in Cognitive Neuroscience at Duke University working with Dr. Alison Adcock and Dr. Gregory Samanez-Larkin studying how people learn from error."
 
   anne:
     name: Anne
@@ -109,7 +109,7 @@ authors:
     email: gabriela.fernandez@duke.edu
     web: https://gabrielafernandezmiranda.github.io
     twitter: https://twitter.com/GabrielaFM12
-    description: "PhD Student at Duke University working with Dr. Felipe De Brigard to understand the effect that forgiveness has on traumatic memories in the context of war."
+    description: "PhD student at Duke University working with Dr. Felipe De Brigard to understand the effect that forgiveness has on traumatic memories in the context of war."
 
   helen:
     name: Helen
@@ -219,7 +219,7 @@ authors:
     email: miles.martinez@duke.edu
     web:
     twitter:
-    description: "PhD Student at Duke University working with Dr. John Pearson to develop and apply computational methods to understand the neural bases of natural learning."
+    description: "PhD student at Duke University working with Dr. John Pearson to develop and apply computational methods to understand the neural bases of natural learning."
 
   nathan:
     name: Nathan
@@ -229,7 +229,7 @@ authors:
     email: nl453@cornell.edu
     web: https://1nathanliang.github.io
     twitter: https://twitter.com/1nathan_liang
-    description: "PhD Student in Social & Personality Psychology at Cornell University working with Dr. Laura Niemi on social learning and moral reasoning."
+    description: "PhD student in Social & Personality Psychology at Cornell University working with Dr. Laura Niemi on social learning and moral reasoning."
 
   pranjal:
     name: Pranjal
@@ -239,7 +239,7 @@ authors:
     email: pranjal.gupta@duke.edu
     web:
     twitter:
-    description: "Data scientist. Former PhD Student at Duke University working with Dr. John Pearson on online dimensionality reduction."
+    description: "Data scientist. Former PhD student at Duke University working with Dr. John Pearson on online dimensionality reduction."
 
   raphael:
     name: Raphael
@@ -269,7 +269,7 @@ authors:
     email: trevor.alston@duke.edu
     web:
     twitter:
-    description: "PhD Student at Duke University working with Dr. John Pearson to build a real-time tool for detecting latent patterns for oscillatory neural data."
+    description: "PhD student at Duke University working with Dr. John Pearson to build a real-time tool for detecting latent patterns for oscillatory neural data."
 
   xinhao:
     name: Xinhao
