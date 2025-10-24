@@ -4,57 +4,180 @@ title: People
 permalink: /people
 ---
 
+<!-- Authors added in order: DIBS Methods Coordinator first, then from most to least posts (including none, since some people presented PPTs) in alphabetical order -->
+
 <section class="recent-posts">
-  {% assign authors = site.posts | group_by: 'author' | sort: "size" | reverse %}
+	{% assign authors = site.authors | sort %}
 
-  <div class="row listrecent">
-    {% for a in authors %}
-    {% assign name = a.name | capitalize %}
-    {% assign author = site.authors | where: "name", name | first %}
-    <div class="col-lg-4 col-md-6 mb-30px card-group">
-      <div class="card h-100">
-	
-	<div style="maxthumb">
-	  {% if author.avatar %}
-	  <a href="{{site.baseurl}}/people/{{a.name}}"><img class="author-img" src="{{site.baseurl}}/{{author.avatar}}" alt="{{author.display_name}}"></a>
-	  {% else %}
-	  <a href="{{site.baseurl}}/people/{{a.name}}"><img class="author-img" src="https://www.gravatar.com/avatar/{{ author.gravatar }}?s=250&d=mm&r=x" alt="{{ author.display_name }}"></a>
-	  {% endif %}
-	</div>
-	
-	<div class="card-body">
-	  <h2 class="card-title">	    
-	    {% if author.web %}
-	    <a class="text-light" href="{{site.baseurl}}/people/{{a.name}}"> {{ author.display_name }} </a>
-	    {% else %}
-	    {{ author.display_name }}
-	    {% endif %}
-	  </h2>
+	<div class="row listrecent">
 	  
-	  <h4 class="card-text"> {{ author.description }} </h4>
-	</div>
-	
-	<div class="card-footer" style="height: 80px; display: block;">
+	  {% comment %} First, display deborah {% endcomment %}
+	  {% for id in authors %}
+		{% assign key = id[0] %}
+		{% if key == "deborah" %}
+		  {% assign author = id[1] %}
+		  <div class="col-lg-4 col-md-6 mb-30px card-group">
+			<div class="card h-100">
 	  
-	  {% if author.web %}
-	  <a class="btn" href="{{author.web}}"><img class='author-thumb' style="display: block; margin: auto; border-radius: 0;"
-						    src="{{site.baseurl}}/assets/images/globe.png"></a>
-	  {% endif %}
+			  <div style="maxthumb">
+				{% if author.avatar %}
+				  <a href="{{site.baseurl}}/people/{{key}}">
+					<img class="author-img" src="{{site.baseurl}}/{{author.avatar}}" alt="{{author.display_name}}">
+				  </a>
+				{% else %}
+				  <a href="{{site.baseurl}}/people/{{key}}">
+					<img class="author-img" src="https://www.gravatar.com/avatar/{{ author.gravatar }}?s=250&d=mm&r=x" alt="{{ author.display_name }}">
+				  </a>
+				{% endif %}
+			  </div>
 	  
-	  {% if author.twitter %}
-	  <a class="btn" href="{{author.twitter}}"><img class='author-thumb' style="display: block; margin: auto; border-radius: 0;"
-							src="{{site.baseurl}}/assets/images/twitter.png"></a>
-	  {% endif %}
+			  <div class="card-body">
+				<h2 class="card-title">
+				  <a class="text-light" href="{{site.baseurl}}/people/{{key}}">{{ author.display_name }}</a>
+				</h2>
+				<h4 class="card-text">{{ author.description }}</h4>
+			  </div>
+	  
+			  <div class="card-footer" style="height: 80px; display: block;">
+				{% if author.web %}
+				  <a class="btn" href="{{author.web}}">
+					<img class='author-thumb' src="{{site.baseurl}}/assets/images/globe.png">
+				  </a>
+				{% endif %}
+				{% if author.twitter %}
+				  <a class="btn" href="{{author.twitter}}">
+					<img class='author-thumb' src="{{site.baseurl}}/assets/images/twitter.png">
+				  </a>
+				{% endif %}
+				{% if author.email %}
+				  <a class="btn" href="mailto:{{author.email}}">
+					<img class='author-thumb' src="{{site.baseurl}}/assets/images/email.png">
+				  </a>
+				{% endif %}
+			  </div>
+	  
+			</div>
+		  </div>
+		{% endif %}
+	  {% endfor %}
 
-	  {% if author.email %}
-	  <a class="btn" href="mailto:{{author.email}}"><img class='author-thumb' style="display: block; margin: auto; border-radius: 0;"
-							     src="{{site.baseurl}}/assets/images/email.png"></a>
-	  {% endif %}
+	  {% comment %} Build array of authors with their post counts {% endcomment %}
+	  {% assign authors_with_posts = "" | split: "" %}
+	  {% assign authors_without_posts = "" | split: "" %}
 	  
-	  <div class="clearfix"></div>
+	  {% for id in authors %}
+		{% assign key = id[0] %}
+		{% if key != "deborah" %}
+		  {% assign author_posts = site.posts | where: "author", key %}
+		  {% if author_posts.size > 0 %}
+			{% assign authors_with_posts = authors_with_posts | push: id %}
+		  {% else %}
+			{% assign authors_without_posts = authors_without_posts | push: id %}
+		  {% endif %}
+		{% endif %}
+	  {% endfor %}
+
+	  {% comment %} Display authors with posts, sorted by post count (descending), then alphabetically {% endcomment %}
+	  {% for post_count in (1..100) reversed %}
+		{% for id in authors_with_posts %}
+		  {% assign key = id[0] %}
+		  {% assign author = id[1] %}
+		  {% assign author_posts = site.posts | where: "author", key %}
+		  
+		  {% if author_posts.size == post_count %}
+			<div class="col-lg-4 col-md-6 mb-30px card-group">
+			  <div class="card h-100">
+		
+				<div style="maxthumb">
+				  {% if author.avatar %}
+					<a href="{{site.baseurl}}/people/{{key}}">
+					  <img class="author-img" src="{{site.baseurl}}/{{author.avatar}}" alt="{{author.display_name}}">
+					</a>
+				  {% else %}
+					<a href="{{site.baseurl}}/people/{{key}}">
+					  <img class="author-img" src="https://www.gravatar.com/avatar/{{ author.gravatar }}?s=250&d=mm&r=x" alt="{{ author.display_name }}">
+					</a>
+				  {% endif %}
+				</div>
+		
+				<div class="card-body">
+				  <h2 class="card-title">
+					<a class="text-light" href="{{site.baseurl}}/people/{{key}}">{{ author.display_name }}</a>
+				  </h2>
+				  <h4 class="card-text">{{ author.description }}</h4>
+				</div>
+		
+				<div class="card-footer" style="height: 80px; display: block;">
+				  {% if author.web %}
+					<a class="btn" href="{{author.web}}">
+					  <img class='author-thumb' src="{{site.baseurl}}/assets/images/globe.png">
+					</a>
+				  {% endif %}
+				  {% if author.twitter %}
+					<a class="btn" href="{{author.twitter}}">
+					  <img class='author-thumb' src="{{site.baseurl}}/assets/images/twitter.png">
+					</a>
+				  {% endif %}
+				  {% if author.email %}
+					<a class="btn" href="mailto:{{author.email}}">
+					  <img class='author-thumb' src="{{site.baseurl}}/assets/images/email.png">
+					</a>
+				  {% endif %}
+				</div>
+		
+			  </div>
+			</div>
+		  {% endif %}
+		{% endfor %}
+	  {% endfor %}
+
+	  {% comment %} Display authors without posts, alphabetically {% endcomment %}
+	  {% for id in authors_without_posts %}
+		{% assign key = id[0] %}
+		{% assign author = id[1] %}
+		<div class="col-lg-4 col-md-6 mb-30px card-group">
+		  <div class="card h-100">
+	
+			<div style="maxthumb">
+			  {% if author.avatar %}
+				<a href="{{site.baseurl}}/people/{{key}}">
+				  <img class="author-img" src="{{site.baseurl}}/{{author.avatar}}" alt="{{author.display_name}}">
+				</a>
+			  {% else %}
+				<a href="{{site.baseurl}}/people/{{key}}">
+				  <img class="author-img" src="https://www.gravatar.com/avatar/{{ author.gravatar }}?s=250&d=mm&r=x" alt="{{ author.display_name }}">
+				</a>
+			  {% endif %}
+			</div>
+	
+			<div class="card-body">
+			  <h2 class="card-title">
+				<a class="text-light" href="{{site.baseurl}}/people/{{key}}">{{ author.display_name }}</a>
+			  </h2>
+			  <h4 class="card-text">{{ author.description }}</h4>
+			</div>
+	
+			<div class="card-footer" style="height: 80px; display: block;">
+			  {% if author.web %}
+				<a class="btn" href="{{author.web}}">
+				  <img class='author-thumb' src="{{site.baseurl}}/assets/images/globe.png">
+				</a>
+			  {% endif %}
+			  {% if author.twitter %}
+				<a class="btn" href="{{author.twitter}}">
+				  <img class='author-thumb' src="{{site.baseurl}}/assets/images/twitter.png">
+				</a>
+			  {% endif %}
+			  {% if author.email %}
+				<a class="btn" href="mailto:{{author.email}}">
+				  <img class='author-thumb' src="{{site.baseurl}}/assets/images/email.png">
+				</a>
+			  {% endif %}
+			</div>
+	
+		  </div>
+		</div>
+	  {% endfor %}
+	  
 	</div>
-      </div>
-    </div>
-    {% endfor %}
-  </div>
 </section>

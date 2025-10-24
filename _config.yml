@@ -54,7 +54,7 @@ authors:
   breanna:
     name: Breanna
     display_name: Breanna Nguyen
-    avatar: assets/images/breanna.png
+    avatar: assets/images/breanna.jpg
     gravatar:
     email: breanna.nguyen@duke.edu
     web: https://breannaknguyen.github.io/
@@ -69,7 +69,7 @@ authors:
     email: clara.sandu@duke.edu
     web: 
     twitter: 
-    description: "Lab manager at Duke University working with Dr. Scott Huettel on the cognitive underpinnings of complex social behavior and decision-making, including processes such as empathy/theory of mind, sensory perception, attention, memory, and imagination."
+    description: "Lab manager and research associate at Duke University working with Dr. Scott Huettel on the cognitive underpinnings of complex social behavior and decision-making, including processes such as empathy/theory of mind, sensory perception, attention, memory, and imagination."
 
   daniela:
     name: Daniela
@@ -188,7 +188,7 @@ authors:
     gravatar:
     email: kevin.oneill@duke.edu
     web: https://kevingoneill.github.io
-    twitter: https://twitter.com/kevingoneill
+    twitter:
     description: "Postdoc at University College London working on metacognition and causal reasoning. Former PhD student at Duke University with Drs. Felipe De Brigard and John Pearson. Founder of DIBS Methods Meetings."
 
   liz:
@@ -272,14 +272,14 @@ authors:
     description: "PhD Student at Duke University working with Dr. John Pearson to build a real-time tool for detecting latent patterns for oscillatory neural data."
 
   xinhao:
-    name: Xinaho
+    name: Xinhao
     display_name: Xinhao Wang
-    avatar: assets/images/xinaho.jpeg
+    avatar: assets/images/xinhao.jpeg
     gravatar:
-    email: xinaho.wang@duke.edu
+    email: xinhao.wang@duke.edu
     web:
     twitter:
-    description: "PhD student at Duke University working with Dr. Roberto Cabeza on verbal insights using functional magnetic resonance imaging data, hoping to investigate the role of hippocampus and its associated network in it"
+    description: "PhD student at Duke University working with Dr. Roberto Cabeza on verbal insights using functional magnetic resonance imaging data, hoping to investigate the role of hippocampus and its associated networks."
 
 collections:
   personal_page:
