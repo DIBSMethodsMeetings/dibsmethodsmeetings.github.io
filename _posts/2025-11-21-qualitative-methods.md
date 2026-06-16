@@ -1,7 +1,7 @@
 ---
 title: "Qualitative Data Methodology, Coding, and Statistical Analyses"
 author: lucas
-categories: [ psychology, tutorial ]
+categories: [ psychology, tutorial, modeling, statistics ]
 image: assets/images/2025-11-21-qualitative-methods/FAST.png
 featured: false
 hidden: false
