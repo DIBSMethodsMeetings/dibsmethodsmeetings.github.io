@@ -5,5 +5,7 @@
         "titleBar.activeForeground": "#F8FCFB"
     },
     "git.showPushSuccessNotification": true,
-    "git.alwaysShowStagedChangesResourceGroup": false
+    "git.alwaysShowStagedChangesResourceGroup": false,
+    "editor.rename.enablePreview": false,
+    "workbench.editor.enablePreview": false
 }
