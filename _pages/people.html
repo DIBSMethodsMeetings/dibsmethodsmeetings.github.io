@@ -14,7 +14,7 @@ permalink: /people
 	  {% comment %} First, display deborah {% endcomment %}
 	  {% for id in authors %}
 		{% assign key = id[0] %}
-		{% if key == "deborah" %}
+		{% if key == "deborah" or key == "jaime" or key == "kaylee" %}
 		  {% assign author = id[1] %}
 		  <div class="col-lg-4 col-md-6 mb-30px card-group">
 			<div class="card h-100">
@@ -67,7 +67,7 @@ permalink: /people
 	  
 	  {% for id in authors %}
 		{% assign key = id[0] %}
-		{% if key != "deborah" %}
+		{% if key != "deborah" and key != "jaime" and key != "kaylee" %}
 		  {% assign author_posts = site.posts | where: "author", key %}
 		  {% if author_posts.size > 0 %}
 			{% assign authors_with_posts = authors_with_posts | push: id %}
