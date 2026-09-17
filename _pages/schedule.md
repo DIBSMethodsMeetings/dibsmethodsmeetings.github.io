@@ -19,11 +19,6 @@ permalink: /schedule
     box-shadow: 0 6px 18px rgba(25, 67, 126, 0.25);
 }
 
-.schedule-when .emoji {
-    font-size: 2.6rem;
-    line-height: 1;
-}
-
 .schedule-when h3 {
     font-family: Righteous, sans-serif;
     color: rgb(249, 218, 116);
@@ -150,10 +145,9 @@ permalink: /schedule
 
 <div class="col-md-10 pr-5">
 
-<p>Swing by and grab a coffee &mdash; here's when and where we're meeting, plus what's on deck. 🧠✨</p>
+<p>Swing by and grab a coffee &mdash; here's when and where we're meeting, plus what's on deck.</p>
 
 <div class="schedule-when">
-    <div class="emoji">📍</div>
     <div>
         <h3>Every other Friday, 3:30&ndash;4:30 pm</h3>
         <p>LSRC, Room B240 &mdash; and on Zoom for anyone joining remotely!</p>
@@ -206,7 +200,7 @@ permalink: /schedule
 
   <div class="schedule-item is-off">
     <span class="schedule-date">11/27</span> &mdash;
-    <span class="schedule-topic">No Meeting &mdash; Happy Thanksgiving! 🦃</span>
+    <span class="schedule-topic">No Meeting &mdash; Happy Thanksgiving!</span>
   </div>
 
   <div class="schedule-item">
@@ -217,7 +211,7 @@ permalink: /schedule
 </div>
 
 <div class="schedule-note">
-💡 Want to lead a workshop or fill an open slot? Reach out to Deborah Cesarini at <a href="mailto:deborah.cesarini@duke.edu">deborah.cesarini@duke.edu</a>.
+Want to lead a workshop or fill an open slot? Reach out to Deborah Cesarini at <a href="mailto:deborah.cesarini@duke.edu">deborah.cesarini@duke.edu</a>.
 </div>
 
 </div>

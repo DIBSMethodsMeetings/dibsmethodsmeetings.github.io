@@ -11,6 +11,16 @@ future: true
 
 # Authors
 authors:
+  alissa:
+    name: Alissa
+    display_name: Alissa Rivero
+    avatar: assets/images/alissa.jpg
+    gravatar:
+    email: alissa.rivero@duke.edu
+    web: https://alissarivero.github.io/
+    twitter:
+    description: "PhD student at Duke University working with Dr. Dorsa Amir to understand how we can best structure childhood to cultivate children’s motivation, creativity, and exploration."
+
   allie:
     name: Allie
     display_name: Allie Sinclair
