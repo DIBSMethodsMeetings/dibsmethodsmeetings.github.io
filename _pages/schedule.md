@@ -150,7 +150,7 @@ permalink: /schedule
 <div class="schedule-when">
     <div>
         <h3>Every other Friday, 3:30&ndash;4:30 pm</h3>
-        <p>LSRC, Room B240 &mdash; and on Zoom for anyone joining remotely!</p>
+        <p>LSRC, Room B240 &mdash; and on <a href="https://duke.zoom.us/j/94724926300?pwd=qmgSM08obZAYoZXBJu7Ta7USER9HPf.1" style="color: #fff; text-decoration: underline;">Zoom</a> for anyone joining remotely!</p>
     </div>
 </div>
 
@@ -211,7 +211,7 @@ permalink: /schedule
 </div>
 
 <div class="schedule-note">
-Want to lead a workshop or fill an open slot? Reach out to Deborah Cesarini at <a href="mailto:deborah.cesarini@duke.edu">deborah.cesarini@duke.edu</a>.
+Want to give a talk, or have a general inquiry? Reach out to <a href="mailto:deborah.cesarini@duke.edu">Deborah Cesarini</a> or <a href="mailto:jaime.rios@duke.edu">Jaime Rios</a>.
 </div>
 
 </div>
