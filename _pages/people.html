@@ -49,6 +49,11 @@ permalink: /people
 					<img class='author-thumb' src="{{site.baseurl}}/assets/images/twitter.png">
 				  </a>
 				{% endif %}
+				{% if author.bluesky %}
+				  <a class="btn" href="{{author.bluesky}}">
+					<img class='author-thumb' src="{{site.baseurl}}/assets/images/bluesky.svg">
+				  </a>
+				{% endif %}
 				{% if author.email %}
 				  <a class="btn" href="mailto:{{author.email}}">
 					<img class='author-thumb' src="{{site.baseurl}}/assets/images/email.png">
@@ -118,6 +123,11 @@ permalink: /people
 					  <img class='author-thumb' src="{{site.baseurl}}/assets/images/twitter.png">
 					</a>
 				  {% endif %}
+				  {% if author.bluesky %}
+				    <a class="btn" href="{{author.bluesky}}">
+				  	<img class='author-thumb' src="{{site.baseurl}}/assets/images/bluesky.svg">
+				    </a>
+				  {% endif %}
 				  {% if author.email %}
 					<a class="btn" href="mailto:{{author.email}}">
 					  <img class='author-thumb' src="{{site.baseurl}}/assets/images/email.png">
@@ -167,6 +177,11 @@ permalink: /people
 				<a class="btn" href="{{author.twitter}}">
 				  <img class='author-thumb' src="{{site.baseurl}}/assets/images/twitter.png">
 				</a>
+			  {% endif %}
+			  {% if author.bluesky %}
+			    <a class="btn" href="{{author.bluesky}}">
+			  	<img class='author-thumb' src="{{site.baseurl}}/assets/images/bluesky.svg">
+			    </a>
 			  {% endif %}
 			  {% if author.email %}
 				<a class="btn" href="mailto:{{author.email}}">

@@ -22,20 +22,21 @@ Before creating your own personal website, I find it very helpful to get inspira
 
 ### Pros and Cons of Different Platforms
 
-Building your own website can seem intimidating at first. However, you do not need a custom domain, a design degree, or a weekend lost to create your own website. There are many different, easy to use platforms, like Wix. Many universities also offer their own, in-house website-building platform (Duke's is [sites.duke.edu](https://sites.duke.edu)). GitHub also allows you to host a personal website for free.
+Building your own website can seem intimidating at first. However, you do not need a custom domain, a design degree, or a weekend lost to create your own website. There are many different, easy-to-use platforms, like Wix. Many universities also offer their own, in-house website-building platform (Duke's is [sites.duke.edu](https://sites.duke.edu)). GitHub also allows you to host a personal website for free.
 
 <img src="../assets/images/2026-09-16-personal-website/pros-cons.png" alt="Pros and cons of Wix, Duke Sites, and GitHub Pages">
 
 Dorsa built her website on Wix, Mike built his on [sites.duke.edu](https://sites.duke.edu), and Adani and Alissa built theirs on GitHub.
 
-### Tips for website building
+### Tips for Website Building
 
 When building your own website, here are some helpful tips to keep in mind:
 
 1. Most people will go to your website to look for 3 things: your email, your CV, or your publications. Make them easy to find!
 2. Build a website sustainably: the fewer things you need to keep up to date, the better. Also, get the homepage up and running before trying to add more.
 3. Add something memorable (like the drawing component on Adani's website or the butterflies on Alissa's). More people bring up the butterflies on my website than any of the content.
-4. Most importantly, any website is better than no website! Your website does not need to be perfect, it just needs to be searchable.
+4. Make sure your website works well on mobile devices.
+5. Most importantly, any website is better than no website! Your website does not need to be perfect, it just needs to be searchable.
 
 ## Building a GitHub Website
 
@@ -53,83 +54,51 @@ By the end you should have:
 
 - A **live site** at `https://YOUR-USERNAME.github.io`
 
-I put together a small starter pack so you are not staring at a blank `index.html`:
+I put together a template to make it easier to set your website up. You can find it here:
 
 [github.com/alissarivero/personal-website-template](https://github.com/alissarivero/personal-website-template)
 
-You will clone this repository, making sure to name your repo **exactly** `YOUR-USERNAME.github.io`. This is important because this will be the URL for your website (and it is hard to change later).
+You will click 'use this template', making sure to name your repo **exactly** `YOUR-USERNAME.github.io`. This is important because this will be the URL for your website (and it is extremely hard to change later). It will not work if you name it `AnythingElse.github.io`. Also, make sure your repository is public.
 
-Here are the step-by-step instructions for cloning a repository: On GitHub, open the starter, click **Use this template** (or **Fork**), and set the new repo name to your username plus `.github.io`. Public. Then clone *your* copy and open the folder in Cursor — the folder, not a single file.
+## Vibe Coding
 
-There are five different themes available. You can click through and find the one you like best here: [alissarivero.github.io/personal-website-template](https://alissarivero.github.io/personal-website-template/)
+Next, you will open the Cursor app. Make sure your Cursor is linked to your GitHub account. You will then click 'clone repository'.
 
-- **Editorial** — warm, magazine-ish, a solid default
-- **Midnight** — dark, compact, if you are computational (or want people to think you are)
-- **Scholar** — very academic
-- **Studio** — big type, color blocks
-- **Letter** — one column, reads like a note, basic and clean
+I typically clone repositories to my desktop or downloads folder.
 
-The homepage starts as Editorial.
+From here on, you will type commands into Cursor (in conversational language) to customize your website. I prefer to work in the IDE window (top right, the VS Code interface), but you may find it easier to work in the Agents window (more like talking to ChatGPT) if you have never coded before.
 
-### Local preview
+Your first step is to pick a website theme!
 
-If you ever want to preview what your website will look like, you can do so through a local preview, from a terminal in that folder:
+There are 15 different themes available. You can click through and find the one you like best here: [alissarivero.github.io/personal-website-template/gallery](https://alissarivero.github.io/personal-website-template/gallery/)
 
-```bash
-python3 -m http.server 8080
-```
+Once you find a theme you like, tell Cursor to "use the ___ theme".
 
-Open [http://localhost:8080](http://localhost:8080). That is your homepage. The gallery of looks lives at [http://localhost:8080/gallery/](http://localhost:8080/gallery/).
+Next, tell Cursor to temporarily hide pages other than the homepage. I find that most people who start personal websites never publish them, because they feel it is not ready to publicly share. If you start with one publicly available page, it is much easier to add ones later on.
 
-To put a different look on the homepage:
+Next, ask Cursor to preview your website. This will show you what you need to change, and you can continually preview as you make changes to see the updates.
 
-```bash
-./use-template.sh midnight
-```
+Command Cursor to make changes until you are satisfied with your website!
+Cursor will default to agent mode, which is generally great. You can click the 'agent' button to see the other modes --- I most frequently use 'ask' to ask questions about the code or 'planner' when I want to make several large changes.
 
-Swap `midnight` for `editorial`, `scholar`, `studio`, or `letter`. Then refresh localhost. If your computer complains about permissions, run `chmod +x use-template.sh` once and try again.
+If you need to upload photos or PDFs, the Cursor agent chatbox includes an attachment button. You can also directly drag files into the folder version of your repository (likely in your desktop, downloads, or wherever you cloned your repository to).
 
-Any time you want to make a change to something in GitHub, you will want to "commit and push" your changes. Cursor is very good at doing this, and you will want to do this often as you work (GitHub essentially tracks your changes).
+Once you feel good about your homepage, command Cursor to "make the website publicly accessible."
 
-### Make it yours
+Anytime you make substantial changes to code (when you are using GitHub), you will want to tell Cursor to "commit and push". This is incredibly important because this is what will send the changes from your laptop to your actual website. This also makes it very easy to work from multiple computers, or to go back to previous versions of your code.
 
-Your public URL lives in one file, `site-config.js`:
+Now (you may need to wait 1-2 minutes), you should have a working website! Go to your browser and search `YOUR-USERNAME.github.io` to see it in action.
 
-```js
-siteUrl: "https://YOUR-USERNAME.github.io",
-template: "editorial"
-```
+If it is not appearing, tell Cursor and troubleshoot together.
 
-Put your real username in. Set `template` to whichever look you just installed. Save.
+### Indexing
 
-Then actually make it yours: open the **root** `index.html` (not a file buried under `templates/` unless you are only peeking). Search the project for `TODO` and `Your Name`. Name, about, three pieces of work, email / GitHub / LinkedIn. Change the initials in `assets/images/favicon.svg` while you are at it. Refresh localhost after each burst of editing so you can see that it is, in fact, editing your website.
-
-When it looks like you, commit by telling Cursor's agent to "commit and push" or do so manually from Cursor’s Source Control panel (or `git add` / `git commit` / `git push`). On the GitHub repo: **Settings → Pages → Deploy from a branch → `main` / `/ (root)`**. Wait a minute. Then open:
-
-`https://YOUR-USERNAME.github.io`
-
-The first publish 404s often. Wait another minute. Hard-refresh. It is usually just GitHub Pages stretching.
-
-If you want the click-by-click version with the “I have never cloned a repo in Cursor” screenshots-in-prose, that lives in [WALKTHROUGH.md](https://github.com/alissarivero/personal-website-template/blob/main/WALKTHROUGH.md) in the starter.
-
-### Nifty tricks / things that will get you
-
-- **You cloned my repo, not yours.** If the URL still says `alissarivero/personal-website-template`, you are editing the original. Make a template copy under your account and open that.
-
-- **The repo is still named `personal-website-template`.** Rename it on GitHub to `YOUR-USERNAME.github.io`. That name is the whole URL trick.
-
-- **GitHub says the name is taken.** You already have a user site. Do not make a second one. Put these files in the existing `YOUR-USERNAME.github.io` repo (or replace what is there if that site is abandoned).
-
-- **You edited a file under `templates/` and the homepage did not change.** The live page is the root `index.html`. Run `./use-template.sh NAME` to copy a look onto the homepage, *then* edit that root file.
-
-- **Pages is on and you still see a 404.** Confirm the source is `main` and `/ (root)`, wait two minutes, hard-refresh. GitHub is slow the first time, then fine.
-
-- **You want a custom domain later.** Fine. Do it later. Get `yourusername.github.io` working first so you have something to point a domain *at*.
+Just because your website is searchable by URL, it does not mean that it is indexable (i.e. findable via search engines like Google). To make it so, ask Cursor. I recommend doing this as soon as possible, because it takes a few days to weeks to appear.
 
 ### Takeaways
 
-It is relatively easy to restyle later. It is much harder to keep promising yourself you will “make a site over winter break.” Put a real URL on the internet this week, then make it nicer when a paper actually gets accepted.
+Making a website is far easier now than ever before (thanks to AI)! You can have a working website in less than an hour.
 
-AI is your friend, and building a website on GitHub is easier than ever because of it.
+It is relatively easy to restyle later. It is much harder to keep promising yourself you will "make a site over winter break." Put a real URL on the internet this week, then make it nicer when a paper actually gets accepted.
 
-Questions, corrections, or want help/advice? Feel free to reach out at <a href="mailto:alissa.rivero@duke.edu">alissa.rivero@duke.edu</a>.
+Questions, corrections, or want help/advice? Feel free to reach out at [alissa.rivero@duke.edu](mailto:alissa.rivero@duke.edu).
