@@ -171,7 +171,7 @@ permalink: /schedule
   </div>
 
   <div class="schedule-item">
-    <span class="schedule-date">10/2</span> &mdash;
+    <span class="schedule-date">10/9</span> &mdash;
     <span class="schedule-topic">Structural Topic Modeling</span>
     <span class="schedule-presenter">(Deborah Cesarini)</span>
   </div>
