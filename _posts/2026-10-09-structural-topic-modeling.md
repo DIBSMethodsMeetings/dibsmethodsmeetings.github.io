@@ -244,7 +244,7 @@ plot(reviews_k_search)
 
 Here what I got after running this test:
 
-<img src="../assets/images/2026-10-09-structural-topic-modeling/searchk_diagnostics.png" alt="Diagnostics from searchK function" width="66%">
+<img src="../assets/images/2026-10-09-structural-topic-modeling/searchk_diagnostics.png" alt="Diagnostics from searchK function" width="100%">
 
 - **Held-out likelihood**: `searchK` hides some words from a sample of documents, fits on the rest, then checks whether it can predict the hidden words using only what’s left. A model with an actual learned real structure should generalize to unseen words; a model that’s just fitting noise won’t. *Higher is better* since it suggests your model generalizes better.
 - **Residuals**: if the model is too simple, leftover variation in word counts will be larger than it expects (overdispersion). *Lower is better.* A high value suggests you need more topics since there may be some underlying structure left to explore.
@@ -270,7 +270,7 @@ ggplot(res, aes(x = semcoh, y = exclus, label = K)) +
 
 Here are the results from this:
 
-<img src="../assets/images/2026-10-09-structural-topic-modeling/searchk_excl_semcoh.png" alt="More diagnostics from searchK function" width="66%">
+<img src="../assets/images/2026-10-09-structural-topic-modeling/searchk_excl_semcoh.png" alt="More diagnostics from searchK function" width="100%">
 
 * **Semantic coherence**: Explained above.
 * **Exclusivity**: asks whether a topic's top words are *unique* to it rather than shared across many topics. *Higher is better*, and it matters because semantic coherence alone can be somewhat misleading. For instance, the most common words in this corpus before preprocessing ("game," "play," "fun") would be perfectly coherent since they're everywhere, but useless, since they don't distinguish anything.
@@ -379,7 +379,7 @@ ggplot(topic_words, aes(label = word, size = prob, color = game)) +
 
 Alas, word clouds! :)
 
-<img src="../assets/images/2026-10-09-structural-topic-modeling/word_clouds_topic.png" alt="Word clouds per topic, colored by game" width="66%">
+<img src="../assets/images/2026-10-09-structural-topic-modeling/word_clouds_topic.png" alt="Word clouds per topic, colored by game" width="100%">
 
 ## Reading representative reviews for each topic
 
@@ -473,7 +473,7 @@ lollipop_plot <- ggplot(topic_summary, aes(x = mean_prop, y = topic, color = nam
 ```
 Here's what this looks like:
 
-<img src="../assets/images/2026-10-09-structural-topic-modeling/lollipop_plot.png" alt="More diagnostics from searchK function" width="66%">
+<img src="../assets/images/2026-10-09-structural-topic-modeling/lollipop_plot.png" alt="More diagnostics from searchK function" width="100%">
 
 Together with the statistical results, these can reveal some fun differences. For instance, Topic 9 is almost entirely owned by *Mysterium* (coefficient 0.317, the largest single effect in the whole model!), Topic 10 is almost entirely about *Ca$h 'n Guns*, and Topic 14 is largely owned by *Eldritch Horror*.
 
