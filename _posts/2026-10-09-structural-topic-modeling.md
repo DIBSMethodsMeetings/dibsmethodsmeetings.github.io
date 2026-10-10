@@ -52,7 +52,7 @@ Also, importantly for this day and age, a part of preprocessing includes asking,
 
 **Catch #2: The model requires you to input how many topics there are.** Considering you didn't have time to read thousands of reviews, how should you know!? If you pick 3, you might get mush, that is, a bunch of themes merged (e.g., "topic 2: gangsters, psychics, eldritch mysteries"). Pick 50 topics and topic 39 is a very specific observation about how one specific character in *Eldritch Horror* kindaaaa resembles *Street Fighter*'s Chun Li and maybe that's problematic, but maybe not...? What this means is that somewhere between 3 and 50 there must be a Goldilocks number, but you're gonna have to figure that out.
 
-**Catch #3: The model doesn't name its topics.** Yep, this is not going to end with beautifully named topics like "Cool mechanics" and "Cosmic dread, but with dice!" Instea, STM will hand you a list of words per topic and wish you the best of luck figuring it out. ;) Is "rules, confusing, rulebook, explain, learn" about *a badly written rulebook* or about *a game that's actually just hard to teach*? The model can tell you what's in a topic; it can't tell you what it means.
+**Catch #3: The model doesn't name its topics.** Yep, this is not going to end with beautifully named topics like "Cool mechanics" and "Cosmic dread, but with dice!" Instead, STM will hand you a list of words per topic and wish you the best of luck figuring it out. ;) Is "rules, confusing, rulebook, explain, learn" about *a badly written rulebook* or about *a game that's actually just hard to teach*? The model can tell you what's in a topic; it can't tell you what it means.
 
 # Are these even humans?
 
@@ -187,7 +187,7 @@ Ps, unfortunately, if a name double as ordinary English words (e.g., "May," "Gra
 
 ### Processing and fitting
 
-The `stm` package itself can preprocess the reviews by lower casing them; removing stopwords, punctuation, 1- or 2-letter words, amd non-alphanumerical characters; and stemming, which can combine similar terms by maintains only the stem of each.
+The `stm` package itself can preprocess the reviews by lower casing them; removing stopwords, punctuation, 1- or 2-letter words, and non-alphanumerical characters; and stemming, which can combine similar terms by maintains only the stem of each.
 
 ```r
 library(stm)
